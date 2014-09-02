@@ -1,6 +1,6 @@
 <?php 
 
-//remplacer les il (sauf il y), lui et elle par P1 et P2, noter les cas ininterprétables (doublons)
+//remplacer les il (sauf il y), lui et elle par P1 et P2, noter les cas ininterprÃ©tables (doublons)
 
 $ininterpretable=false;
 $formulation_douteuse=array();
@@ -9,10 +9,10 @@ $recup_chiffre="#([0-9]{1,2})#";
 $da=preg_match_all($recup_chiffre,$text,$tab_NB);
 
 if ($da==0) {
-	if (preg_match('#= ([0-9]{1,2})\s?bil#',$text_initial,$get)){ 		//type var est défini au début du script integre...
+	if (preg_match('#= ([0-9]{1,2})\s?bil#',$text_initial,$get)){ 		//type var est dÃ©fini au dÃ©but du script integre...
 		$text=preg_replace('#bil#',$get[1].' billes', $text);
 		$tab_NB=array($get[1]);
-		$options_speciales[4]="billes accolées au nombre";
+		$options_speciales[4]="billes accolÃ©es au nombre";
 	
 	}else {
 $tab_NB=$tab_NB[0]; }
@@ -27,11 +27,11 @@ $nombre_de_NAMES=array_sum($tab_NAMES);
 $nombre_de_NAMES;
 $nombre_de_VERBES=array_sum($tab_VERBES);
 
-echo"<u>";echo "Interprétation : ";echo"</u>";
+echo"<u>";echo "InterprÃ©tation : ";echo"</u>";
 
-//on met en place des variables pour contenir les informations trouvées.
+//on met en place des variables pour contenir les informations trouvÃ©es.
 
-$expressions_spéciales="";
+$expressions_spÃ©ciales="";
 $interp="";
 
 if ($nombre_de_NB>1) {
@@ -48,19 +48,19 @@ $ininterpretable=true; }
 			
 				if( ($tab_EXPR[0]==1)&&($tab_EXPR[1]==0)&&($tab_EXPR[2]==0)) {
 				echo $da.' a 0 billes ';
-				$expressions_spéciales=1;
+				$expressions_spÃ©ciales=1;
 				}
 				
 					else if((($tab_EXPR[0]==0)&&($tab_EXPR[1]==1)&&($tab_EXPR[2]==0)&&($tab_EXPR[2]==0))||
 					( ($tab_EXPR[0]==1)&&($tab_EXPR[1]==0)&&($tab_EXPR[2]==1))) {
-					echo $da.' a plus billes (desambiguiser avec l énoncé transfo/comparaison ';
-					$expressions_spéciales=2;
+					echo $da.' a plus billes (desambiguiser avec l Ã©noncÃ© transfo/comparaison ';
+					$expressions_spÃ©ciales=2;
 			
 					}
 						else if((($tab_EXPR[0]==1)&&($tab_EXPR[1]==1)&&($tab_EXPR[2]==0)&&($tab_EXPR[2]==0))||
 					( ($tab_EXPR[0]==0)&&($tab_EXPR[1]==0)&&($tab_EXPR[2]==1))) {
-						echo $da.' a moins de billes (desambiguiser avec l énoncé transfo/comparaison ';
-						$expressions_spéciales=3;
+						echo $da.' a moins de billes (desambiguiser avec l Ã©noncÃ© transfo/comparaison ';
+						$expressions_spÃ©ciales=3;
 			
 					}
 					else {$ininterpretable=true;}
@@ -83,11 +83,11 @@ $ininterpretable=true; }
 					
 							if ($options_speciales[0]=="_P_"){
 							echo ' P a plus billes que T';
-							$expressions_spéciales=4;
+							$expressions_spÃ©ciales=4;
 							}
 								else if ($options_speciales[0]=="_T_"){
 								echo ' T a plus billes que P';
-								$expressions_spéciales=5;
+								$expressions_spÃ©ciales=5;
 								}
 			
 						}
@@ -96,11 +96,11 @@ $ininterpretable=true; }
 				
 								if ($options_speciales[0]=="_P_"){
 								echo ' P a moins billes que T';
-								$expressions_spéciales=6;
+								$expressions_spÃ©ciales=6;
 								}
 									else if ($options_speciales[0]=="_T_"){
 									echo ' _T_ a moins billes que _P_';
-									$expressions_spéciales=7;
+									$expressions_spÃ©ciales=7;
 									}
 				
 			
@@ -121,21 +121,21 @@ $ininterpretable=true; }
 		
 		if ($nombre_de_EXPR>=1) {
 		
-			if ($tab_EXPR[5]==1) { 			//mot detecté : ensemble
+			if ($tab_EXPR[5]==1) { 			//mot detectÃ© : ensemble
 		
 				if ((implode('',$tab_EXPR)=="000001")||(implode('',$tab_EXPR)=="000101")) {
-			//on évite les cas difficiles ou il y a plein d'expressions, on autorise juste la combinaison avec "maintenant", le reste est ininterprétable
+			//on Ã©vite les cas difficiles ou il y a plein d'expressions, on autorise juste la combinaison avec "maintenant", le reste est ininterprÃ©table
 		
 		
 					if((implode('',$tab_NAMES)=="001")||(implode('',$tab_NAMES)=="111")||(implode('',$tab_NAMES)=="110")) {
 			
-					echo 'calcul du tout, la valeur associée est '.$nb;
+					echo 'calcul du tout, la valeur associÃ©e est '.$nb;
 					
 					$interp="T1+P1";
 	
 					}
 						else if(implode('',$tab_NAMES)=="000"){
-						echo 'calcul du tout, la valeur associée est '.$nb.' bien que sa formulation ne détient aucun nom';
+						echo 'calcul du tout, la valeur associÃ©e est '.$nb.' bien que sa formulation ne dÃ©tient aucun nom';
 						$interp="T1+P1";
 						
 						}
@@ -147,21 +147,21 @@ $ininterpretable=true; }
 		
 		
 		if ((implode('',$tab_EXPR)=="000010")){
-		//mot detecté : 'avant' , on autorise pas d'autres expressions
+		//mot detectÃ© : 'avant' , on autorise pas d'autres expressions
 			if((implode('',$tab_NAMES)=="001")||(implode('',$tab_NAMES)=="110")) {
 			
-			echo 'calcul du tout passé, la valeur associée est '.$nb;
-			$interp='T1+P1 passé';
+			echo 'calcul du tout passÃ©, la valeur associÃ©e est '.$nb;
+			$interp='T1+P1 passÃ©';
 			
 			}
 			
 			else if ((implode('',$tab_NAMES)=="100")||(implode('',$tab_NAMES)=="010")){
 			$da=saisir($tab_NAMES,$liste_NAMES);
-			echo 'calcul de '.$da.' passé, la valeur associée est '.$nb;
+			echo 'calcul de '.$da.' passÃ©, la valeur associÃ©e est '.$nb;
 				if ($da=="P") {
-				$interp='P1 passé';
+				$interp='P1 passÃ©';
 				}
-				else { $interp='P2 passé';}
+				else { $interp='P2 passÃ©';}
 				
 			}
 			
@@ -171,18 +171,18 @@ $ininterpretable=true; }
 		
 		}
 		
-		if (implode('',$tab_EXPR)=="000100") { //mot detecté : maintenant
+		if (implode('',$tab_EXPR)=="000100") { //mot detectÃ© : maintenant
 		
 		if((implode('',$tab_NAMES)=="001")||(implode('',$tab_NAMES)=="111")||(implode('',$tab_NAMES)=="110")) {
 			
-			echo 'calcul du tout en tant que état final, la valeur associée est '.$nb;
+			echo 'calcul du tout en tant que Ã©tat final, la valeur associÃ©e est '.$nb;
 			$interp='T1 final';
 			
 			}
 			
 			else if ((implode('',$tab_NAMES)=="100")||(implode('',$tab_NAMES)=="010")){
 			$da=saisir($tab_NAMES,$liste_NAMES);
-			echo 'calcul de '.$da.' en tant que état final, la valeur associée est '.$nb;
+			echo 'calcul de '.$da.' en tant que Ã©tat final, la valeur associÃ©e est '.$nb;
 				if ($da=="P") {
 				$interp='P1 final';
 				}
@@ -193,7 +193,7 @@ $ininterpretable=true; }
 		
 		
 		}
-		if (($tab_EXPR[2])==1) { // mot detecté : de moins
+		if (($tab_EXPR[2])==1) { // mot detectÃ© : de moins
 		
 			if((implode('',$tab_EXPR)=="001000")|| (implode('',$tab_EXPR)=="001100") ) {
 
@@ -222,7 +222,7 @@ $ininterpretable=true; }
 				
 			else $ininterpretable=true;	
 		}
-		if (($tab_EXPR[1])==1) {  //mot detecté : de plus
+		if (($tab_EXPR[1])==1) {  //mot detectÃ© : de plus
 			if((implode('',$tab_EXPR)=="010000")|| (implode('',$tab_EXPR)=="010100") ) { 
 				if((implode('',$tab_NAMES)=="100")||(implode('',$tab_NAMES)=="010")){
 				$da=saisir($tab_NAMES,$liste_NAMES);
@@ -252,12 +252,12 @@ $ininterpretable=true; }
 	}
 	else if ($nombre_de_NAMES==0) {
 	
-		echo 'asémantique : '.$nb;  // A REVOIR : a gagné 3 billes est compté comme asémantique
+		echo 'asÃ©mantique : '.$nb;  // A REVOIR : a gagnÃ© 3 billes est comptÃ© comme asÃ©mantique
 		$interp='';
 		}
 		
 	else if ($nombre_de_NAMES==2) {
-	echo 'calcul du tout la valeur associée est : '.$nb;
+	echo 'calcul du tout la valeur associÃ©e est : '.$nb;
 	$interp='T1+P1';
 		}
 	
@@ -267,7 +267,7 @@ $ininterpretable=true; }
 	
 	if ($nombre_de_VERBES==0) {
 	
-	if ($tab_NAMES[2]==1) {echo 'calcul du tout la valeur associée est '.$nb ;
+	if ($tab_NAMES[2]==1) {echo 'calcul du tout la valeur associÃ©e est '.$nb ;
 	$interp="T1+P1";
 	}
 	else {
@@ -321,9 +321,9 @@ $ininterpretable=true; }
 		else if ($tab_VERBES[3]==1){ 
 		echo $da.'a pour etat initial'.$nb;
 		if ($da=="P") {
-		$interp='P1 passé';
+		$interp='P1 passÃ©';
 		}
-			else { $interp='T1 passé';}
+			else { $interp='T1 passÃ©';}
 		
 		}
 		
@@ -343,18 +343,18 @@ $ininterpretable=true; }
 	else $ininterpretable=true;
 	}
 
-if(($ininterpretable==true)||($expressions_spéciales==1)||($expressions_spéciales==2)||
-($expressions_spéciales==3)||($expressions_spéciales==4)|| ($expressions_spéciales==5)||($expressions_spéciales==6)||($expressions_spéciales==7))
+if(($ininterpretable==true)||($expressions_spÃ©ciales==1)||($expressions_spÃ©ciales==2)||
+($expressions_spÃ©ciales==3)||($expressions_spÃ©ciales==4)|| ($expressions_spÃ©ciales==5)||($expressions_spÃ©ciales==6)||($expressions_spÃ©ciales==7))
 
-{echo "ininterprétable";}
+{echo "ininterprÃ©table";}
 
 
 /// autres indications
 
-	//1 présence variable (année, bille etc.....)
+	//1 prÃ©sence variable (annÃ©e, bille etc.....)
 	
 echo "<br> ";
-echo"<u>";echo "présence de la variable : " ; echo"</u>";
+echo"<u>";echo "prÃ©sence de la variable : " ; echo"</u>";
 if($options_speciales[1]==true) {
 echo "vrai";
 $presence=1;

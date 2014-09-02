@@ -1,6 +1,6 @@
 <?php
 
-  //ce tableau permet de mémoriser des éléments importants qui aideron à l'analyse finale de la formulation
+  //ce tableau permet de mÃ©moriser des Ã©lÃ©ments importants qui aideron Ã© l'analyse finale de la formulation
 
 $tab_expression=array();
 
@@ -22,10 +22,10 @@ $tab_expression['c\'est']=array('il y');
 // verbes 
 
 $tab_expression['reste']=array('rest');
-$tab_expression['gagne']=array('gagn','gane','ganié','trouv');
+$tab_expression['gagne']=array('gagn','gane','ganiÃ©','trouv');
 $tab_expression['perd']=array('per');
-$tab_expression['avait']=array('avé','avai');
-$tab_expression['détient']=array('detient');
+$tab_expression['avait']=array('avÃ©','avai');
+$tab_expression['dÃ©tient']=array('detient');
 
 // noms  ....A instancier !!!
 
@@ -44,7 +44,7 @@ $tab_expression['avant']=array('aven','avan');
 
 //chiffres
 
-/////note importante :  si quatr et quatre sont tous deux associéà 4 l'algo n'a besoin que de connaître que quatr => 4 detecter la racine suffit)
+/////note importante :  si quatr et quatre sont tous deux associÃ©Ã© 4 l'algo n'a besoin que de connaÃ©tre que quatr => 4 detecter la racine suffit)
 
 $tab_expression['2']=array('deu');
 $tab_expression['3']=array('troi');  // seul la racine compte.
@@ -79,7 +79,7 @@ foreach ($tab_expression as $index => $patterns){
 
 // fin constitution des patterns, 
 
-// on remplace maintenant chacune des mauvaise écriture par la bonne
+// on remplace maintenant chacune des mauvaise Ã©criture par la bonne
 
 //
 /*

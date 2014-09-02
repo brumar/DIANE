@@ -4,7 +4,7 @@
 </head>
 <body>
 <form action="index.php" method="post">
-  <div style="width: 500px; text-align: left;" ="&lt;p">type
+  <div style="width: 500px; text-align: left;">type
 d'exercice
   <select style="" size="1" name="exercice_afficher">
 <option>xa1</option>
@@ -50,9 +50,9 @@ Combien de billes Tom a-t-il  de plus que Clara?
 ";
 break;
 case 'xa1' :
-echo "xa1  :   Léa a 11 billes
-Elle a 5 billes de plus que Jérôme.
-Combien Jérôme a-t-il de billes ?
+echo "xa1  :   Lï¿½a a 11 billes
+Elle a 5 billes de plus que Jï¿½rï¿½me.
+Combien Jï¿½rï¿½me a-t-il de billes ?
 ";
 break;
 case 'xff' :
@@ -64,7 +64,7 @@ break;
 case 'xfc' :
 echo "xfc  :   Anne avait 7 billes. 
 Elle gagne des billes et elle a maintenant 11 billes.
-Combien de billes a-t-elle  gagné?";
+Combien de billes a-t-elle  gagnï¿½?";
 break;
 case 'xfi':
 $typexo='xfi';							
@@ -78,11 +78,11 @@ echo"</br>";
 
 } ?>
 <form action="index.php" method="post">
-  <div style="width: 500px; text-align: left;" ="&lt;p">Entrez une réponse à analyser
+  <div style="width: 500px; text-align: left;" ="&lt;p">Entrez une rï¿½ponse ï¿½ analyser
   <input maxlength="150" size="100" style=""
  name="texte"><br>
   </div>
-  <div style="width: 500px; text-align: left;" ="&lt;p">Affichez l'énoncé correspondant à votre réponse avant de tester
+  <div style="width: 500px; text-align: left;" ="&lt;p">Affichez l'ï¿½noncï¿½ correspondant ï¿½ votre rï¿½ponse avant de tester
 <INPUT type="hidden" value="<?php if( (isset($_POST['exercice_afficher'])) ) {$ex_aff=$_POST['exercice_afficher'];echo $ex_aff;}?>" name="type_exercice">
 <br>
   </div>
@@ -102,7 +102,7 @@ echo"</br>";
 
 <?php
 
-function saisir($b,$c) { //cette fonction est utilisée dans analyse formulation.php
+function saisir($b,$c) { //cette fonction est utilisï¿½e dans analyse formulation.php
 
 for ($j=0;$j<count($b);$j++) {
 	if ($b[$j]==1) {
@@ -116,7 +116,7 @@ for ($j=0;$j<count($b);$j++) {
  
  
  $text=$_POST['texte'];
-	//type var est défini au début du script integre...
+	//type var est dï¿½fini au dï¿½but du script integre...
 $text=preg_replace('#([0-9]{1,2})#', " $0 " , $text); //permet d'espacer le necessaire
 
 $descriptif=array();
@@ -162,8 +162,8 @@ $typexo='xa1';
 $P1=5;
 $T1=11;
 $n=119;
-$Pdeux="léa;lea;elle";
-$Pun="jérom;jerom;jerôm;jérôm;il ;lui";
+$Pdeux="lï¿½a;lea;elle";
+$Pun="jï¿½rom;jerom;jerï¿½m;jï¿½rï¿½m;il ;lui";
 break;
 case 'xff' :
 $typexo='xff';	
@@ -202,7 +202,7 @@ analyse de la verbalisation</span></big></big></div>';
 
 include ("suppression_calculs.php");
 // echo "<br>";
-echo"<u>"; echo " texte après suppression des opérations : "; echo"</u>";
+echo"<u>"; echo " texte aprï¿½s suppression des opï¿½rations : "; echo"</u>";
 echo $text;
 echo "<br>";
 
@@ -214,7 +214,7 @@ echo "<br>";
 echo "<br>";
 include("analyse_formulation.php");
 echo "<br>";
-echo"<u>"; echo "mots_clefs_detectés : ";echo"</u>";echo "<br>";
+echo"<u>"; echo "mots_clefs_detectï¿½s : ";echo"</u>";echo "<br>";
 echo "(nb expressions : ";echo $nombre_de_EXPR.')';
 echo "<br>";echo "(nb nombres : ";echo $nombre_de_NB.')';
 echo "<br>";
@@ -263,7 +263,7 @@ echo '</span>';
 echo "<br>" ;
 echo "<br>" ;
 if (!(empty($nb))){
-echo 'nombre isolé  : '.$nb; }
+echo 'nombre isolï¿½  : '.$nb; }
 else $nb='';
 echo "<br>" ;
 
@@ -282,13 +282,13 @@ $reponse = ereg_replace ('([a-zA-Z]) *- *([a-zA-Z])','\1 \2',$reponse);
 //suprime tous caractere different de [^\d+-=:*]
 $reponse = trim(eregi_replace ('[^0-9|,|(|)|+|*|=|-]', " ",$reponse));//supprimer la division
 		
-//tabNombre contient  tous les nombres que contient la réponse de l'apprenant
+//tabNombre contient  tous les nombres que contient la rï¿½ponse de l'apprenant
 $tabNombre = preg_split ("/[\s]+/", $reponse);
 $tabNombre = array_values (preg_grep("/\d/", $tabNombre));
-$pattern = "/(((?:\d+\s*[\+\-\*\/x]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthèse non capturante (supprimer la division :)
+$pattern = "/(((?:\d+\s*[\+\-\*\/x]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthï¿½se non capturante (supprimer la division :)
 preg_match_all($pattern,$reponse,$tub);
 		
-//tableau des opération utilisées dans la réponse de l'apprenant ==> tabOperation
+//tableau des opï¿½ration utilisï¿½es dans la rï¿½ponse de l'apprenant ==> tabOperation
 $tabOperation = $tub[0];
 if(!empty($tabOperation[0])){
 $op=$tabOperation[0];
@@ -298,7 +298,7 @@ foreach ($tab as $key => $val) {
 if (intval($val)!=0)
 $tab[$key]=intval($val);
 }
-echo 'le tableau des opérations est :  '; print_r($tab);
+echo 'le tableau des opï¿½rations est :  '; print_r($tab);
 echo '<br>';
 
 }
@@ -362,7 +362,7 @@ $n=122;
 break;
 }
 
-//premiers tests, aucune opérande n'a été récupérée mais on trouve un nombre isolé $nb
+//premiers tests, aucune opï¿½rande n'a ï¿½tï¿½ rï¿½cupï¿½rï¿½e mais on trouve un nombre isolï¿½ $nb
 //	on cherche si il est issu d'un calcul mental
 
 if (empty($tab[0])&&(!empty($nb))) { 
@@ -394,10 +394,10 @@ echo "c'est une addition";  $col2='Addition'; $formule='+ T1 P1';
 	echo "  et nous avons un resultat " ; 
 	if (!empty($nb)) {
 	if($nb==$tab[4]) {
-			echo "bien identifié ";
+			echo "bien identifiï¿½ ";
 			$ident='rbi';
 			}
-			else { echo "mal identifié"; $ident='rmi'; } }
+			else { echo "mal identifiï¿½"; $ident='rmi'; } }
 	
 	if ($tab[4]==$T1+$P1) { 
 		echo " correct" ;
@@ -421,10 +421,10 @@ else if (($tab[0]==$T1)&&($tab[1]=='-')) {
 		echo "  et nous avons un resultat " ; 
 		if (!empty($nb)) {
 		if($nb==$tab[4]) {
-			echo "bien identifié ";
+			echo "bien identifiï¿½ ";
 			$ident='rbi';
 			}
-			else { echo "mal identifié"; $ident='rmi'; }}
+			else { echo "mal identifiï¿½"; $ident='rmi'; }}
 			
 			if ($tab[4]==$T1-$P1) { 
 				echo " correct" ;
@@ -442,10 +442,10 @@ else if (($tab[0]==$T1)&&($tab[1]=='-')) {
 		echo "  et nous avons un resultat " ; 
 		if (!empty($nb)) {
 		if($nb==$tab[4]) {
-			echo "bien identifié ";
+			echo "bien identifiï¿½ ";
 			$ident='rbi';
 			}
-			else { echo "mal identifié"; $ident='rmi'; }}
+			else { echo "mal identifiï¿½"; $ident='rmi'; }}
 			
 			if ($tab[4]==$T1-$P1) { 
 			echo " correct" ;
@@ -462,7 +462,7 @@ else if (($tab[0]==$T1)&&($tab[1]=='-')) {
 }	
 
 else if (($tab[0]==$P1)&&($tab[1]=='-')&&($tab[2]==$T1)){
-echo "c'est une soustraction inversée "; $col2='SoustInversée'; $formule='- T1 P1';
+echo "c'est une soustraction inversï¿½e "; $col2='SoustInversï¿½e'; $formule='- T1 P1';
 	if(($tab[3]=='=')&&(!empty($tab[4])&&(is_int($tab[4]) ))){
 	echo "  et nous avons un resultat " ; 
 	if ($tab[4]==$T1-$P1) { 
@@ -475,16 +475,16 @@ echo "c'est une soustraction inversée "; $col2='SoustInversée'; $formule='- T1 P
 		if (!empty($nb)) {
 		
 			if($nb==$tab[4]) {
-			echo "bien identifié";
+			echo "bien identifiï¿½";
 			$ident='rbi';
 			}
-			else { echo "mal identifié"; $ident='rmi'; }
+			else { echo "mal identifiï¿½"; $ident='rmi'; }
 		
 	}
 }}
 
 else if (($tab[0]==$T1)&&($tab[1]=='-')&&($tab[4]==$P1)){
-echo "c'est une soustraction inversée "; $col2='Soustraction'; $formule='- T1 P1';
+echo "c'est une soustraction inversï¿½e "; $col2='Soustraction'; $formule='- T1 P1';
 	if(  (!empty($tab[2]))&&(is_int($tab[2]))  ){
 	echo "  et nous avons un resultat " ; 
 	if ($tab[2]==$T1-$P1) { 
@@ -497,17 +497,17 @@ echo "c'est une soustraction inversée "; $col2='Soustraction'; $formule='- T1 P1
 		if (!empty($nb)) {
 		
 			if($nb==$tab[2]) {
-			echo "bien identifié";
+			echo "bien identifiï¿½";
 			$ident='rbi';
 			}
-			else { echo "mal identifié"; $ident='rmi'; }
+			else { echo "mal identifiï¿½"; $ident='rmi'; }
 		
 	}
 }}
 
 
 else if (($tab[0]==$P1)&&($tab[1]=='+')&&($tab[4]==$T1)&&($tab[3]=='=')){
-echo "c'est une addition à trou "; $col2='Addtrou'; $formule='- T1 P1';
+echo "c'est une addition ï¿½ trou "; $col2='Addtrou'; $formule='- T1 P1';
 	if(!empty($tab[2])&&(is_int($tab[2]) )){
 	echo "  et nous avons un resultat " ; 
 	if ($tab[4]==$T1-$P1) { 
@@ -521,17 +521,17 @@ echo "c'est une addition à trou "; $col2='Addtrou'; $formule='- T1 P1';
 		
 		if (!empty($nb)) {
 			if($nb==$tab[2]) {
-			echo "bien identifié";
+			echo "bien identifiï¿½";
 			$ident='rbi';
 			}
-			else { echo "mal identifié"; $ident='rmi'; }
+			else { echo "mal identifiï¿½"; $ident='rmi'; }
 		
 		}
 	}
 }
 
-else if (($tab[2]==$P1)&&($tab[1]=='+')&&($tab[4]==$T1)&&($tab[3]=='=')){ //la même mais écrit dans l'autre sens
-echo "c'est une addition à trou "; $col2='Addtrou'; $formule='- T1 P1';
+else if (($tab[2]==$P1)&&($tab[1]=='+')&&($tab[4]==$T1)&&($tab[3]=='=')){ //la mï¿½me mais ï¿½crit dans l'autre sens
+echo "c'est une addition ï¿½ trou "; $col2='Addtrou'; $formule='- T1 P1';
 	if(!empty($tab[0])&&(is_int($tab[0]) )){
 	echo "  et nous avons un resultat " ; 
 	if ($tab[4]==$T1-$P1) { 
@@ -544,10 +544,10 @@ echo "c'est une addition à trou "; $col2='Addtrou'; $formule='- T1 P1';
 		
 		if (!empty($nb)) {
 			if($nb==$tab[2]) {
-			echo "bien identifié";
+			echo "bien identifiï¿½";
 			$ident='rbi';
 			}
-			else { echo "mal identifié"; $ident='rmi'; }
+			else { echo "mal identifiï¿½"; $ident='rmi'; }
 		
 		}
 	}
@@ -565,8 +565,8 @@ echo '<div style="text-align: center;"><big><big><span
 appareillage aux options</span></big></big></div>';
 
 
-$profils=array(); //associe un problèmes les conditions pour rentrer dans les options.
-$nombres=array(); //associe à un problème les nombres de l'énoncé.
+$profils=array(); //associe un problï¿½mes les conditions pour rentrer dans les options.
+$nombres=array(); //associe ï¿½ un problï¿½me les nombres de l'ï¿½noncï¿½.
 
 $valeurs['115']=array(9,3);
 $valeurs['116']=array(11,4);
@@ -660,76 +660,76 @@ $profils['120']['correct1a']=array('Addition','+ T1 P1','P1','rbi');
 $profils['120']['correct1b']=array('Opmentale','+ T1 P1','P1','');
 $profils['120']['correct2a']=array('Addition','+ T1 P1','P1 final','rbi');
 $profils['120']['correct2b']=array('Opmentale','+ T1 P1','P1 final',''); 
-$profils['120']['correct3a']=array('Addition','+ T1 P1','P1 passé','rbi');
-$profils['120']['correct3b']=array('Opmentale','+ T1 P1','P1 passé','');         
+$profils['120']['correct3a']=array('Addition','+ T1 P1','P1 passï¿½','rbi');
+$profils['120']['correct3b']=array('Opmentale','+ T1 P1','P1 passï¿½','');         
 
-$profils['120']['interpretation_alternative_1a']=array('Addition','+ T1 P1','P1 gain','rbi');//elle a gagné 12 billes
-$profils['120']['interpretation_alternative_1b']=array('Opmentale','+ T1 P1','P1 gain','');   //elle a gagné 12 billes
+$profils['120']['interpretation_alternative_1a']=array('Addition','+ T1 P1','P1 gain','rbi');//elle a gagnï¿½ 12 billes
+$profils['120']['interpretation_alternative_1b']=array('Opmentale','+ T1 P1','P1 gain','');   //elle a gagnï¿½ 12 billes
 
-$profils['120']['interpretation_alternative_2a']=array('','','P1 passé','',$valeurs['120'][1]); //elle avait 5 billes
+$profils['120']['interpretation_alternative_2a']=array('','','P1 passï¿½','',$valeurs['120'][1]); //elle avait 5 billes
 $profils['120']['interpretation_alternative_2b']=array('','','P1','',$valeurs['120'][1]);   //elle a 5 billes
 
 
-//// EXERCICE 121 : Anne avait 7 billes. lle gagne des billes et elle a maintenant 11 billes.Combien de billes a-t-elle  gagné?
+//// EXERCICE 121 : Anne avait 7 billes. lle gagne des billes et elle a maintenant 11 billes.Combien de billes a-t-elle  gagnï¿½?
 
 
-$profils['121']['correct1']=array('Soustraction','- T1 P1','P1 gain','rbi');   // 11-7=4 lise a gagné 4 billes
+$profils['121']['correct1']=array('Soustraction','- T1 P1','P1 gain','rbi');   // 11-7=4 lise a gagnï¿½ 4 billes
 $profils['121']['correct2']=array('Opmentale','- T1 P1','P1 gain','');
 $profils['121']['correct3']=array('Addtrou','- T1 P1','P1','rbi');
 
-$profils['121']['interpretation_alternative_1a']=array('Opmentale','+ T1 P1','P1 gain',''); // elle a gagné 18 biles
+$profils['121']['interpretation_alternative_1a']=array('Opmentale','+ T1 P1','P1 gain',''); // elle a gagnï¿½ 18 biles
 $profils['121']['interpretation_alternative_1b']=array('Addition','+ T1 P1','P1 gain','rbi'); 
 
 $profils['121']['interpretation_alternative_1(2)a']=array('Opmentale','+ T1 P1','P1',''); // elle a  18 biles
 $profils['121']['interpretation_alternative_1(2)b']=array('Addition','+ T1 P1','P1','rbi'); 
 
-$profils['121']['interpretation_alternative_1(3)a']=array('Opmentale','+ T1 P1','P1 passé',''); // elle avait  18 biles
-$profils['121']['interpretation_alternative_1(3)b']=array('Addition','+ T1 P1','P1 passé','rbi'); 
+$profils['121']['interpretation_alternative_1(3)a']=array('Opmentale','+ T1 P1','P1 passï¿½',''); // elle avait  18 biles
+$profils['121']['interpretation_alternative_1(3)b']=array('Addition','+ T1 P1','P1 passï¿½','rbi'); 
 
-$profils['121']['interpretation_alternative_2a']=array('Addtrou','- T1 P1','P1 gain','rmi'); //7+4 = 11 elle a gagné 11 biles 
+$profils['121']['interpretation_alternative_2a']=array('Addtrou','- T1 P1','P1 gain','rmi'); //7+4 = 11 elle a gagnï¿½ 11 biles 
 $profils['121']['interpretation_alternative_2b']=array('Addtrou','- T1 P1','P1','rmi'); //7+4 = 11 elle a 11 billes
 $profils['121']['interpretation_alternative_2b']=array('Addtrou','- T1 P1','P1 final','rmi'); //7+4 = 11 elle a maintenant 11 billes
-$profils['121']['interpretation_alternative_2c']=array('Addtrou','- T1 P1','P1 passé','rmi'); //7+4 = 11 elle avait 11 billes
+$profils['121']['interpretation_alternative_2c']=array('Addtrou','- T1 P1','P1 passï¿½','rmi'); //7+4 = 11 elle avait 11 billes
 
 $profils['121']['interpretation_alternative_3a']=array('','','P1','',$valeurs['121'][1]); // elle a 11 billes
-$profils['121']['interpretation_alternative_3b']=array('','','P1 gain','',$valeurs['121'][1]); // elle a gagné 11 billes
-$profils['121']['interpretation_alternative_3c']=array('','','P1 passé','',$valeurs['121'][1]); // elle avait 11 billes
+$profils['121']['interpretation_alternative_3b']=array('','','P1 gain','',$valeurs['121'][1]); // elle a gagnï¿½ 11 billes
+$profils['121']['interpretation_alternative_3c']=array('','','P1 passï¿½','',$valeurs['121'][1]); // elle avait 11 billes
 $profils['121']['interpretation_alternative_3d']=array('','','P1 final','',$valeurs['121'][1]); // elle a maintenant 11 billes
 
 
 $profils['121']['interpretation_alternative_4a']=array('','','P1','',$valeurs['121'][0]); // elle a 7 billes
 $profils['121']['interpretation_alternative_4b']=array('','','P1 gain','',$valeurs['121'][0]); // elle a 7  billes
-$profils['121']['interpretation_alternative_4c']=array('','','P1 passé','',$valeurs['121'][0]); // elle avait 7 billes
+$profils['121']['interpretation_alternative_4c']=array('','','P1 passï¿½','',$valeurs['121'][0]); // elle avait 7 billes
 
 //// EXERCICE 122 : XFI : Simon gagne 6 billes et maintenant il a 13 billes. Combien Simon avait-t-il de billes?
 
-$profils['122']['correct1']=array('Soustraction','- T1 P1','P1 passé','rbi');
-$profils['122']['correct2']=array('Opmentale','- T1 P1','P1 passé','');
+$profils['122']['correct1']=array('Soustraction','- T1 P1','P1 passï¿½','rbi');
+$profils['122']['correct2']=array('Opmentale','- T1 P1','P1 passï¿½','');
 $profils['122']['correct3']=array('Addtrou','- T1 P1','P1','rbi');
 
-$profils['122']['interpretation_alternative_1(1)a']=array('Opmentale','+ T1 P1','P1 gain',''); // il a gagné 19 biles
+$profils['122']['interpretation_alternative_1(1)a']=array('Opmentale','+ T1 P1','P1 gain',''); // il a gagnï¿½ 19 biles
 $profils['122']['interpretation_alternative_1(1)b']=array('Addition','+ T1 P1','P1 gain','rbi'); 
 
 $profils['122']['interpretation_alternative_1(2)a']=array('Opmentale','+ T1 P1','P1',''); // il a  19 biles
 $profils['122']['interpretation_alternative_1(2)b']=array('Addition','+ T1 P1','P1','rbi'); 
 
-$profils['122']['interpretation_alternative_1(3)a']=array('Opmentale','+ T1 P1','P1 passé',''); // il avait  19 biles
-$profils['122']['interpretation_alternative_1(3)b']=array('Addition','+ T1 P1','P1 passé','rbi'); 
+$profils['122']['interpretation_alternative_1(3)a']=array('Opmentale','+ T1 P1','P1 passï¿½',''); // il avait  19 biles
+$profils['122']['interpretation_alternative_1(3)b']=array('Addition','+ T1 P1','P1 passï¿½','rbi'); 
 
 $profils['122']['interpretation_alternative_2a']=array('','','P1','',$valeurs['122'][1]); // il a 6 billes
-$profils['122']['interpretation_alternative_2b']=array('','','P1 gain','',$valeurs['122'][1]); // il a gagné 6  billes
-$profils['122']['interpretation_alternative_2c']=array('','','P1 passé','',$valeurs['122'][1]); // il avait 6 billes
+$profils['122']['interpretation_alternative_2b']=array('','','P1 gain','',$valeurs['122'][1]); // il a gagnï¿½ 6  billes
+$profils['122']['interpretation_alternative_2c']=array('','','P1 passï¿½','',$valeurs['122'][1]); // il avait 6 billes
 $profils['122']['interpretation_alternative_2d']=array('','','P1 final','',$valeurs['122'][1]); // il a maintenant 6 billes
 
-$profils['122']['interpretation_alternative_3a']=array('Addtrou','- T1 P1','P1 gain','rmi'); //6+7=13 il a gagné 13 biles
+$profils['122']['interpretation_alternative_3a']=array('Addtrou','- T1 P1','P1 gain','rmi'); //6+7=13 il a gagnï¿½ 13 biles
 $profils['122']['interpretation_alternative_3b']=array('Addtrou','- T1 P1','P1','rmi'); //6+7=13 il a  13 biles
-$profils['122']['interpretation_alternative_3c']=array('Addtrou','- T1 P1','P1 passé','rmi'); //6+7=13 il avait 13 billes
+$profils['122']['interpretation_alternative_3c']=array('Addtrou','- T1 P1','P1 passï¿½','rmi'); //6+7=13 il avait 13 billes
 $profils['122']['interpretation_alternative_3d']=array('Addtrou','- T1 P1','P1 final','rmi'); //6+7=13 il a maintenant 13 billes
 
 $profils['122']['interpretation_alternative_4a']=array('','','P1','',$valeurs['122'][0]); // il a  13 biles
-$profils['122']['interpretation_alternative_4b']=array('','','P1 gain','',$valeurs['122'][0]); // il a gagné 13 biles
-$profils['122']['interpretation_alternative_4c']=array('','','P1 passé','',$valeurs['122'][0]); // il avait 13 billes
-$profils['122']['interpretation_alternative_4d']=array('','','P1 passé','',$valeurs['122'][0]); // il a maintenant 13 billes
+$profils['122']['interpretation_alternative_4b']=array('','','P1 gain','',$valeurs['122'][0]); // il a gagnï¿½ 13 biles
+$profils['122']['interpretation_alternative_4c']=array('','','P1 passï¿½','',$valeurs['122'][0]); // il avait 13 billes
+$profils['122']['interpretation_alternative_4d']=array('','','P1 passï¿½','',$valeurs['122'][0]); // il a maintenant 13 billes
 
 $profils['122']['interpretation_alternative_5']=array('Soustraction','- T1 P1','P1 gain','rbi');
 $profils['122']['interpretation_alternative_5']=array('Opmentale','- T1 P1','P1 gain','');
@@ -737,9 +737,9 @@ $profils['122']['interpretation_alternative_5']=array('Addtrou','- T1 P1','P1 ga
 
 // Simon avait 19 billes
 // Simon a /avait 6 billes
-// 6+7=13 simon a/avait/a gagné 13 billes
+// 6+7=13 simon a/avait/a gagnï¿½ 13 billes
 // simon a/avait 13 billes
-// Simon a gagné 7 billes
+// Simon a gagnï¿½ 7 billes
 
 
 
@@ -757,7 +757,7 @@ $profils[strval($p)]['asemantique2c']=array('Opmentale','+ T1 P1','');
 $profils[strval($p)]['asemantique3']=array('','','','',$valeurs[strval($p)][0]);
 $profils[strval($p)]['asemantique4']=array('','','','',$valeurs[strval($p)][1]);
 
-// reste les reprises d'opérandes
+// reste les reprises d'opï¿½randes
 
 }
 ////$data['col2'],$data['col1'],$data['col5'],$data['col4'],$data['col6']
@@ -765,10 +765,10 @@ $profils[strval($p)]['asemantique4']=array('','','','',$valeurs[strval($p)][1]);
 	$descriptif=array($col2,$formule,$interp,$ident,$nb);
 	echo '<br>';
 	echo 'Table de codage : ';
-	print_r($descriptif);echo "<br>"; echo "<br>"; echo "Les 2 premières colonnes concernent les calculs, la troisième concerne le type d'affectation <br> 
+	print_r($descriptif);echo "<br>"; echo "<br>"; echo "Les 2 premiï¿½res colonnes concernent les calculs, la troisiï¿½me concerne le type d'affectation <br> 
 	(par exemple, T1+P1 est un tout est T1-P1 est une comparaison)<br>
-	la quatrième colonne concerne l'identification du résultat dans le calcul.
-	<br> la dernière colonne concerne le nombre isolé s'il existe";
+	la quatriï¿½me colonne concerne l'identification du rï¿½sultat dans le calcul.
+	<br> la derniï¿½re colonne concerne le nombre isolï¿½ s'il existe";
 	
 	//echo "<br>";
 	$tableau=$profils[strval($n)];
@@ -784,7 +784,7 @@ $profils[strval($p)]['asemantique4']=array('','','','',$valeurs[strval($p)][1]);
 	echo '<span style="color: rgb(102, 51, 255);">'; 
 	echo $rep;
 	echo '</span>';
-	echo ' est    associée dans les options du modèles des contraintes à une option de type    ';
+	echo ' est    associï¿½e dans les options du modï¿½les des contraintes ï¿½ une option de type    ';
 	echo '<span style="color: rgb(102, 51, 255);">'; 
 		$bool=1;
 		
@@ -810,14 +810,14 @@ $profils[strval($p)]['asemantique4']=array('','','','',$valeurs[strval($p)][1]);
 		
 		}
 			if ($bool==1) {
-			echo " aucune option particulière";
+			echo " aucune option particuliï¿½re";
 			}
 	echo '</span>';
 	echo "<br>";
 	echo "<br>";
-	echo "Note : les options du types asemantiqueX correspondent à des options asémantiques, c'est à dire des options auxquelles nous n'avons pas d'éléments <br> 
-	pour associer la réponse à une mauvaise interprétation du problème, le numéro qui suit indexe l'options parmis les possibles <br>
-	les options du type  interprétation_alternatives sont justement les autres cas, les options correctes correspondent à l'option sémantique juste pour répondre au problème<br>";
+	echo "Note : les options du types asemantiqueX correspondent ï¿½ des options asï¿½mantiques, c'est ï¿½ dire des options auxquelles nous n'avons pas d'ï¿½lï¿½ments <br> 
+	pour associer la rï¿½ponse ï¿½ une mauvaise interprï¿½tation du problï¿½me, le numï¿½ro qui suit indexe l'options parmis les possibles <br>
+	les options du type  interprï¿½tation_alternatives sont justement les autres cas, les options correctes correspondent ï¿½ l'option sï¿½mantique juste pour rï¿½pondre au problï¿½me<br>";
 	
 	
 	echo "</div>";
@@ -833,7 +833,7 @@ echo "<br>";
 }
 echo "<br>";
 echo "<br>";
-echo 'N\' hésitez pas à me faire<a href="mailto:bruno.martin@it-sudparis.eu?subject=Feedback  (bug/question/suggestion)">  un retour </a>même très succinct concernant un bug, une suggestion ou une question, merci par avance.' ;
+echo 'N\' hï¿½sitez pas ï¿½ me faire<a href="mailto:bruno.martin@it-sudparis.eu?subject=Feedback  (bug/question/suggestion)">  un retour </a>mï¿½me trï¿½s succinct concernant un bug, une suggestion ou une question, merci par avance.' ;
 
 
 
