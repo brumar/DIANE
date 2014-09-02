@@ -1,3 +1,8 @@
+# =========================
+# DIANE secret Files
+# =========================
+conn.php
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -34,3 +39,36 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+# =========================
+# Eclipse Files
+# =========================
+
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# PDT-specific
+.buildpath
+
+# =========================
+# WAMP Files
+# =========================
+
+_notes/
+

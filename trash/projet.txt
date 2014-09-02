@@ -1,0 +1,104 @@
+# phpMyAdmin MySQL-Dump
+# version 2.5.0-rc1
+# http://www.phpmyadmin.net/ (download page)
+#
+# Serveur: localhost
+# Généré le : Lundi 26 Mai 2003 à 08:36
+# Version du serveur: 4.0.12
+# Version de PHP: 4.3.1
+# Base de données: `projet`
+# --------------------------------------------------------
+
+#
+# Structure de la table `comparaison`
+#
+# Création: Dimanche 25 Mai 2003 à 11:43
+# Dernière modification: Dimanche 25 Mai 2003 à 12:38
+#
+
+CREATE TABLE `comparaison` (
+  `numero` smallint(5) unsigned NOT NULL auto_increment,
+  `enonce1` text,
+  `question1` text,
+  `enonce2` text,
+  `question2` text,
+  `partie1` smallint(5) unsigned default NULL,
+  `partie2` smallint(5) unsigned default NULL,
+  `tout1` smallint(5) unsigned default NULL,
+  `partie3` smallint(5) unsigned default NULL,
+  `valdiff` smallint(5) unsigned default NULL,
+  `tout2` smallint(5) unsigned default NULL,
+  `variable` enum('x','y','z') NOT NULL default 'x',
+  `question` enum('p','t') NOT NULL default 'p',
+  PRIMARY KEY  (`numero`)
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
+
+#
+# Contenu de la table `comparaison`
+#
+
+INSERT INTO `comparaison` VALUES (1, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 0, 1, 11, 'x', 'p');
+# --------------------------------------------------------
+
+#
+# Structure de la table `complement`
+#
+# Création: Dimanche 25 Mai 2003 à 12:42
+# Dernière modification: Dimanche 25 Mai 2003 à 12:52
+#
+
+CREATE TABLE `complement` (
+  `numero` smallint(5) unsigned NOT NULL auto_increment,
+  `enonce1` text,
+  `question1` text,
+  `enonce2` text,
+  `question2` text,
+  `partie1` smallint(5) unsigned default NULL,
+  `partie2` smallint(5) unsigned default NULL,
+  `tout1` smallint(5) unsigned default NULL,
+  `partie3` smallint(5) unsigned default NULL,
+  `tout2` smallint(5) unsigned default NULL,
+  `variable` enum('x','y','z') NOT NULL default 'x',
+  `question` enum('p','t') NOT NULL default 'p',
+  PRIMARY KEY  (`numero`)
+) TYPE=MyISAM AUTO_INCREMENT=16 ;
+
+#
+# Contenu de la table `complement`
+#
+
+INSERT INTO `complement` VALUES (15, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+INSERT INTO `complement` VALUES (3, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+INSERT INTO `complement` VALUES (1, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+INSERT INTO `complement` VALUES (2, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+# --------------------------------------------------------
+
+#
+# Structure de la table `ennonce`
+#
+# Création: Jeudi 08 Mai 2003 à 15:03
+# Dernière modification: Lundi 12 Mai 2003 à 22:07
+#
+
+CREATE TABLE `ennonce` (
+  `numero` int(11) NOT NULL auto_increment,
+  `question2` text,
+  `partie1` text,
+  `question1` text,
+  `partie2` text,
+  PRIMARY KEY  (`numero`,`numero`)
+) TYPE=MyISAM AUTO_INCREMENT=19 ;
+
+#
+# Contenu de la table `ennonce`
+#
+
+INSERT INTO `ennonce` VALUES (2, 'Combien sont-ils dans la famille Meunier?', 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique. ', 'cimbien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique. \r\n');
+INSERT INTO `ennonce` VALUES (3, 'A quel âge Jean s\'est-il arrêté?', 'Antoine z suivi les cours de peinture à l\'école d\'art pendant 8 ans et s\'est arrêté à 17 ans.', 'A quel âge antoine a t\'il commencé?', 'jean a commencé au même âge qu\' Antoine et a suivi les cours 2 ans de moins ');
+INSERT INTO `ennonce` VALUES (18, '', '', '', '');
+INSERT INTO `ennonce` VALUES (17, '', '', '', '');
+INSERT INTO `ennonce` VALUES (16, '', '', '', '');
+INSERT INTO `ennonce` VALUES (14, 'de la federation', 'allez', 'monsieur', 'le directeur ');
+INSERT INTO `ennonce` VALUES (15, 'de la federation', 'allez', 'monsieur', 'le directeur ');
+
+

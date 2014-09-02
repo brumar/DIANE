@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0076)http://selfhtml.selfhtml.com.fr/javascript/exemples/affichage/calculette.htm -->
+<HTML><HEAD><TITLE>Calculatrice</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<SCRIPT type=text/javascript>
+<!--
+function verification(entree) {
+  var seulement_ceci ="0123456789[]()-+*%/.";
+  for (var i = 0; i < entree.length; i++)
+   if (seulement_ceci.indexOf(entree.charAt(i))<0 ) return false;
+  return true;
+ }
+
+ function resultat() {
+   var x = 0;
+  if (verification(window.document.calculatrice.affiche.value))
+     x = eval(window.document.calculatrice.affiche.value);
+   window.document.calculatrice.affiche.value = x;
+ }
+
+ function ajouter(caracteres) {
+   window.document.calculatrice.affiche.value =
+   window.document.calculatrice.affiche.value + caracteres;
+ }
+
+ function fonction_speciale(fonction) {
+   if (verification(window.document.calculatrice.affiche.value)) {
+     if(fonction == "sqrt") {
+       var x = 0;
+     x = eval(window.document.calculatrice.affiche.value);
+     window.document.calculatrice.affiche.value = Math.sqrt(x);
+   }
+   if(fonction == "pow") {
+     var x = 0;
+     x = eval(window.document.calculatrice.affiche.value);
+     window.document.calculatrice.affiche.value = x * x;
+   }
+   if(fonction == "log") {
+     var x = 0;
+     x = eval(window.document.calculatrice.affiche.value);
+     window.document.calculatrice.affiche.value = Math.log(x);
+   }
+  } else window.document.calculatrice.affiche.value = 0
+}
+//-->
+</SCRIPT>
+
+<STYLE type=text/css>.button {
+	FONT-SIZE: 100%; WIDTH: 60px; FONT-FAMILY: System,sans-serif; TEXT-ALIGN: center
+}
+.affiche {
+	FONT-SIZE: 100%; WIDTH: 100%; FONT-FAMILY: System,sans-serif; TEXT-ALIGN: right
+}
+</STYLE>
+
+<META content="Microsoft FrontPage 5.0" name=GENERATOR></HEAD>
+<BODY text=#000000 bgColor=#ffffe0>
+<FORM name=calculatrice onsubmit="resultat();return false;" action="">
+<TABLE cellSpacing=0 cellPadding=10 border=5>
+  <TBODY>
+  <TR>
+    <TD bgColor=#c0c0c0><INPUT class=affiche align=right name=affiche size="20"></TD></TR>
+  <TR>
+    <TD bgColor=#e0e0e0>
+      <TABLE cellSpacing=2 cellPadding=0 border=0 height="139">
+        <TBODY>
+        <TR>
+          <TD height="26"><INPUT class=button onclick="ajouter('7')" type=button value="  7   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('8')" type=button value="  8   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('9')" type=button value="  9   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('+')" type=button value="  +   " width="60"></TD></TR>
+        <TR>
+          <TD height="25"><INPUT class=button onclick="ajouter('4')" type=button value="  4   " width="60"></TD>
+          <TD height="25"><INPUT class=button onclick="ajouter('5')" type=button value="  5   " width="60"></TD>
+          <TD height="25"><INPUT class=button onclick="ajouter('6')" type=button value="  6   " width="60"></TD>
+          <TD height="25"><INPUT class=button onclick="ajouter('-')" type=button value="  -   " width="60"></TD></TR>
+        <TR>
+          <TD height="26"><INPUT class=button onclick="ajouter('1')" type=button value="  1   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('2')" type=button value="  2   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('3')" type=button value="  3   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('*')" type=button value="  *   " width="60"></TD></TR>
+        <TR>
+          <TD height="26"><INPUT class=button onclick=resultat() type=button value="  =   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('0')" type=button value="  0   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('.')" type=button value="  .   " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="ajouter('/')" type=button value="  /   " width="60"></TD></TR>
+        <TR>
+          <TD height="26"><INPUT class=button onclick="fonction_speciale('sqrt')" type=button value="sqrt " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="fonction_speciale('pow')" type=button value=" pow " width="60"></TD>
+          <TD height="26"><INPUT class=button onclick="fonction_speciale('log')" type=button value=" log " width="60"></TD>
+          <TD height="26"><INPUT class=button type=reset value="  C  " width="60"></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></FORM></BODY></HTML>

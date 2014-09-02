@@ -1,0 +1,42 @@
+/* CSS Document */
+
+a{
+	color: #0000FF;
+	text-decoration: none;
+}
+
+a:link{
+	color: #0000FF;
+	text-decoration: none;
+}
+
+a:visited{
+	color: #0000FF;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #FF0000;
+	text-decoration: none;
+}
+hr {color:#030000}
+.aide {
+	font-size: 12pt;
+	text-align:center;
+	color: #000000;
+	font-style: normal;
+	font-weight: bold;
+	font-variant: normal;
+	}
+.champText {
+	background-color: #8C8CFF;
+	/*cursor: url("ejs.ani");*/
+}
+
+input.bouton {
+cursor: hand;
+}
+.enonce {
+	font-size: 17pt;
+	text-decoration:none;
+}

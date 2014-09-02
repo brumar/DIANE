@@ -1,0 +1,921 @@
+<html>
+<head>
+<title>Registration</title>
+
+<meta content="WebCT.com is WebCT's elearning hub on the web." name=description>
+<meta content="WebCT, WebCT.com, education, distance learning, online learning, on-line learning" name=keywords>
+<meta content=English name=language>
+<meta content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<!-- inserted no-cache meta tags 12-11-00 TB -->
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<!-- Get the init Bean -->
+
+                                                         
+
+        
+
+<STYLE type="text/css">
+A.light:link {COLOR: #ffffff; FONT-WEIGHT: bold;}
+A.light:visited {COLOR: #ffffff; FONT-WEIGHT: bold;}
+A.dark:link {COLOR: #000000; FONT-WEIGHT: bold;}
+A.dark:visited {COLOR: #000000; FONT-WEIGHT: bold;}
+
+TD {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 12px}
+BODY {FONT-FAMILY:  Arial, Helvetica, sans-serif; FONT-SIZE: 12px}
+P {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 12px}
+A {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 12px}
+LI {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 12px}
+H1 {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 20px; FONT-WEIGHT: bold}
+H2 {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 18px; FONT-WEIGHT: bold}
+H3 {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 16px; FONT-WEIGHT: bold}
+H4 {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 14px; FONT-WEIGHT: bold}
+.body {FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 12px;}
+.main {FONT-FAMILY: Arial, Helvetica, sans-serif; color:black; font-size:24px; font-weight:bold;}
+.head {COLOR: #666699; FONT-SIZE: 16px; FONT-WEIGHT: bold}
+.smbanner {COLOR: #ffffff; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 12px; FONT-WEIGHT:bold;}
+.commname {font-size:16px; font-weight:bold; text-decoration:none; color:black;}
+</style>
+
+<script language="JavaScript">
+<!--
+function showWarning()
+{
+    
+}
+function validate() {
+    var noBdate = " ";  
+	var bday = document.Registration.birthDay.selectedIndex;
+	var bmonth = document.Registration.birthMonth.selectedIndex;
+	var byear = document.Registration.birthYear.selectedIndex;
+    var selectedBday = document.Registration.birthDay.options[bday].value;
+    var selectedBmonth = document.Registration.birthMonth.options[bmonth].value;
+    var selectedByear = document.Registration.birthYear.options[byear].value;	    
+	
+	var leap = 0; if ((byear%4)==0) leap=1;
+	var addr = document.Registration.email.value;
+
+if (((addr.indexOf('@')==-1) || 
+     (addr.indexOf('.')==-1)) || 
+     (addr.indexOf(' ')!=-1)) {
+  alert('Please enter a valid email address.');return false;
+}
+
+// check graduation year
+var gy = document.Registration.gradYear.value;
+if (gy.length>4) {alert('Graduation year should contain no more than 4 digits.');return false;}
+
+if (isNaN(Number(gy))) {alert('Please enter numerals only for graduation year.');return false;}
+	
+// if any of the birthdate elements have been set, validate the date
+
+if ((selectedByear != noBdate)
+|| (selectedBmonth != noBdate)
+|| (selectedBday != noBdate))
+	
+{
+	if (selectedByear==noBdate)
+	{
+	alert('Please specify a birth year.');
+	return false;
+	}
+
+	if (selectedBmonth==noBdate)
+	{
+	alert('Please specify a birth month.');
+	return false;
+	}
+
+	if (selectedBday==noBdate)
+	{
+	alert('Please specify a birth day.');
+	return false;
+	}
+		
+	if (((bmonth==4) || (bmonth==6) || (bmonth==9) || (bmonth==11)) && bday==31)
+	{
+	 alert("Birthday: This month does not have 31 days. Please select a day between 1 and 30.");
+	 return false;
+	 }
+	
+	
+	if ((bmonth==2) && (bday>(28+leap))) 
+	{
+     alert('Birthday: There were only '+(28+leap)+' days in February of '+(byear+1919)+'.\nPlease select a day between 1 and '+(28+leap)+'.');
+	 return false;
+	 }
+}
+
+
+    	if (document.Registration.password.value != document.Registration.confirmPassword.value) {
+        document.Registration.confirmPassword.focus();
+        alert("Password and Confirm Password didn't match. Please type again.");
+		return false;
+	}
+		    
+	if (document.Registration.firstName.value.length < 1) {
+		document.Registration.firstName.focus();
+		alert("Please enter your first name.");
+		return false;
+	}
+		    
+	if (document.Registration.lastName.value.length < 1) {
+		document.Registration.lastName.focus();
+		alert("Please enter your last name.");
+		return false;
+	}
+		    
+	if (document.Registration.login.value.length < 1) {
+		document.Registration.login.focus();
+		alert("Please enter your user login name.");
+		return false;
+	}
+		    
+	if (document.Registration.password.value.length < 1) {
+		document.Registration.password.focus();
+		alert("Please enter your password.");
+		return false;
+	}
+		    
+	if (document.Registration.confirmPassword.value.length < 1) {
+		document.Registration.confirmPassword.focus();
+		alert("Please confirm your password.");
+		return false;
+	}
+			
+	if (document.Registration.email.value.length < 1) {
+		document.Registration.email.focus();
+		alert("Please enter your E-Mail address.");
+		return false;
+	}
+
+	if ((!document.Registration.studentRole.checked) && 
+	    (!document.Registration.facultyRole.checked) && 
+	    (!document.Registration.otherRole.checked)) {
+		alert("Please check Student or Faculty or Other");
+		return false;
+	}			    
+
+
+
+
+	if ((document.Registration.studentRole.checked) && 
+	    (document.Registration.degree.selectedIndex==0))
+		{
+		alert("Please indicate your academic role (Choose an item from the list).");
+		return false;
+	}
+	 
+	if ((document.Registration.otherRole.checked) && 
+	    (document.Registration.specifyRole.selectedIndex==0))
+		{
+		alert("Please indicate your role (Choose an item from the list).");
+		return false;
+	}	
+
+	return true;		    
+}
+
+function gotoURL(URL, frameName)
+{
+    window.location = URL;
+}
+
+function gotoURLTopFrame(URL)
+{
+    top.location = URL
+}
+
+function gotoURLIpsrFrame(URL)
+{
+    top.IPSR_FRAME.location = URL
+}
+
+function submitForm(val)
+{
+    document.Registration.t.value = val;
+    document.Registration.submit();
+    return false;
+}
+
+var deleteMsg="Are you sure you want to delete your account?";
+var warningMsg="You already have an account with WebCT.\n Are you sure you want to create another one?";
+
+// -->	
+</script>
+
+</head>
+
+
+
+
+
+
+<body leftMargin="0" topMargin="0" marginwidth="0" marginheight="0" bgcolor="#ffffff" background="http://hub-images.webct.com/images/regis_background.gif" onLoad="showWarning();">
+
+<form method="post" action=/service/RegistrationHandler name="Registration" onSubmit="return validate();">
+
+<input type="HIDDEN" name="t" value="stepone">
+
+<!-- Table: contains header, logo etc.--> 
+<table border="0" cellpadding="2" cellspacing="0" width="500" bgcolor="#FFFFFF">
+  <tr>
+    <td width="30" height="30" bgcolor="0033CC"><b><span style="font-size:16px;"><img src="http://hub-images.webct.com/images/shim.gif" width="29" height="1"></span></b></td>
+    <td width="200" height="30" bgcolor="0033CC"><b><span style="font-size:16px;"><font color="#FFFFFF" face="Arial, Helvetica, sans-serif" size="3">WebCT.com User Profile</font></span></b></td>
+    <td width="258" height="30" bgcolor="0033CC"><b><span style="font-size:16px;"><font color="#FFFFFF" face="Arial, Helvetica, sans-serif" size="2"><img src="http://hub-images.webct.com/resources/images/logo_small.gif" align="right" hspace="10"></font></span></b></td>
+  </tr>
+  <tr>
+    <td colspan="3" bgcolor="#0033CC"><img src="http://hub-images.webct.com/images/shim.gif" width="1" height="1"></td>
+  </tr>
+</table>
+  <!-- Table: contains body of form--> 	
+  <table border=0 cellpadding=2 cellspacing=0 width="500" bgcolor="#FFFFFF">
+    <tr> 
+      <td width="29">&nbsp;</td>
+      <td colspan="2">If you are under 13, you need permission from your parent 
+        or teacher to register. You will be asked to provide the email address 
+        of your parent or teacher when you register. At any time, parents or teachers 
+        may request that we remove personal information by writing to <b><a href="mailto:comments@webct.com">comments@webct.com</a></b>
+        <p>
+        Items marked with a (<font color="red">*</font>) are required.
+      </td>
+    </tr>
+    <!-- ROW: new section Account Information--> 
+    <tr> 
+      <td bgcolor="#9999CC" width="29"><img src="http://hub-images.webct.com/images/shim.gif" width="29" height="1"></td>
+      <td colspan="2" bgcolor="#9999CC"><b>Account Information:</b></td>
+    </tr>
+    <!-- ROW: error--> 
+    <tr bgcolor="#FFEEEE">  
+    </tr>
+    <!-- ROW: first name--> 
+    <tr> 
+      <td width="29" align="center"><font color="red"><b>*</b></font></td>
+      <td width="90">First Name</td>
+      <td width="381"> 
+        <input type="text" size="35"  name="firstName" value = "" >
+      </td>
+    </tr>
+    <!-- ROW: last name--> 
+    <tr> 
+      <td align="center"><font color="red"><b>*</b></font></td>
+      <td width="90">Last Name</td>
+      <td> 
+        <input type="text" size="35"  name="lastName" value ="" >
+      </td>
+    </tr>
+    <!-- ROW: login name--> 
+    <tr> 
+      <td align="center"><font color="red"><b>*</b></font></td>
+      <td>Login Name</td>
+      <td> 
+        <input type="text"    size="35"  maxlength="30" name="login" value ="" >
+      </td>
+    </tr>
+    <!-- ROW: password--> 
+    <tr> 
+      <td align="center"><font color="red"><b>*</b></font></td>
+      <td>Password</td>
+      <td> 
+        <input type="password" size="35" maxlength="100" name="password" value ="" >
+      </td>
+    </tr>
+    <!-- ROW: confirm password--> 
+    <tr> 
+      <td align="center"><font color="red"><b>*</b></font></td>
+      <td>Confirm Password</td>
+      <td> 
+        <input type="password" size="35" name="confirmPassword" value ="" >
+
+      </td>
+    </tr>
+    <!-- ROW: email--> 
+    <tr><!--cell: email label--> 
+      <td align="center"><font color="red"><b>*</b></font></td>
+      <td width="90">Email</td>
+      <td> 
+        <input type="text" name="email" size="35" value="" >
+      </td>
+    </tr>
+    <tr>
+      <td align="center">&nbsp;</td>
+      <td width="90">&nbsp;</td>
+      <td><font size="-2">If you are under 13, enter parent or teacher's email 
+        address.</font></td>
+    </tr>
+    <!-- ROW: gender--> 
+    <tr> 
+      <td align="center">&nbsp;</td>
+      <td width="90">Gender</td>
+      <td> 
+        <input type="radio"    name="gender" value="female">
+        Female 
+        <input type="radio"   name="gender" value="male">
+        Male </td>
+    </tr>
+    <!-- ROW: birthdate -->  
+    <tr> 
+      <td align="center">&nbsp;</td>
+      <td>Birthdate</td>
+      <td> 
+        <select name="birthMonth">
+           
+          <option value=" " selected>(Month)</option>
+           
+          <option value="January"   >January</option>
+           
+          <option value="February"   >February</option>
+           
+          <option value="March"   >March</option>
+           
+          <option value="April"   >April</option>
+           
+          <option value="May"   >May</option>
+           
+          <option value="June"   >June</option>
+           
+          <option value="July"   >July</option>
+           
+          <option value="August"   >August</option>
+           
+          <option value="September"   >September</option>
+           
+          <option value="October"   >October</option>
+           
+          <option value="November"   >November</option>
+           
+          <option value="December"   >December</option>
+           
+        </select>
+        <select name="birthDay">
+           
+          <option value=" " selected>(Day)</option>
+           
+          <option value="1"   >01</option>
+           
+          <option value="2"   >02</option>
+           
+          <option value="3"   >03</option>
+           
+          <option value="4"   >04</option>
+           
+          <option value="5"   >05</option>
+           
+          <option value="6"   >06</option>
+           
+          <option value="7"   >07</option>
+           
+          <option value="8"   >08</option>
+           
+          <option value="9"   >09</option>
+           
+          <option value="10"   >10</option>
+           
+          <option value="11"   >11</option>
+           
+          <option value="12"   >12</option>
+           
+          <option value="13"   >13</option>
+           
+          <option value="14"   >14</option>
+           
+          <option value="15"   >15</option>
+           
+          <option value="16"   >16</option>
+           
+          <option value="17"   >17</option>
+           
+          <option value="18"   >18</option>
+           
+          <option value="19"   >19</option>
+           
+          <option value="20"   >20</option>
+           
+          <option value="21"   >21</option>
+           
+          <option value="22"   >22</option>
+           
+          <option value="23"   >23</option>
+           
+          <option value="24"   >24</option>
+           
+          <option value="25"   >25</option>
+           
+          <option value="26"   >26</option>
+           
+          <option value="27"   >27</option>
+           
+          <option value="28"   >28</option>
+           
+          <option value="29"   >29</option>
+           
+          <option value="30"   >30</option>
+           
+          <option value="31"   >31</option>
+           
+        </select>
+        <select name="birthYear">
+           
+          <option value=" " selected>(Year)</option>
+           
+          <option value="1920"   >1920</option>
+           
+          <option value="1921"   >1921</option>
+           
+          <option value="1922"   >1922</option>
+           
+          <option value="1923"   >1923</option>
+           
+          <option value="1924"   >1924</option>
+           
+          <option value="1925"   >1925</option>
+           
+          <option value="1926"   >1926</option>
+           
+          <option value="1927"   >1927</option>
+           
+          <option value="1928"   >1928</option>
+           
+          <option value="1929"   >1929</option>
+           
+          <option value="1930"   >1930</option>
+           
+          <option value="1931"   >1931</option>
+           
+          <option value="1932"   >1932</option>
+           
+          <option value="1933"   >1933</option>
+           
+          <option value="1934"   >1934</option>
+           
+          <option value="1935"   >1935</option>
+           
+          <option value="1936"   >1936</option>
+           
+          <option value="1937"   >1937</option>
+           
+          <option value="1938"   >1938</option>
+           
+          <option value="1939"   >1939</option>
+           
+          <option value="1940"   >1940</option>
+           
+          <option value="1941"   >1941</option>
+           
+          <option value="1942"   >1942</option>
+           
+          <option value="1943"   >1943</option>
+           
+          <option value="1944"   >1944</option>
+           
+          <option value="1945"   >1945</option>
+           
+          <option value="1946"   >1946</option>
+           
+          <option value="1947"   >1947</option>
+           
+          <option value="1948"   >1948</option>
+           
+          <option value="1949"   >1949</option>
+           
+          <option value="1950"   >1950</option>
+           
+          <option value="1951"   >1951</option>
+           
+          <option value="1952"   >1952</option>
+           
+          <option value="1953"   >1953</option>
+           
+          <option value="1954"   >1954</option>
+           
+          <option value="1955"   >1955</option>
+           
+          <option value="1956"   >1956</option>
+
+           
+          <option value="1957"   >1957</option>
+           
+          <option value="1958"   >1958</option>
+           
+          <option value="1959"   >1959</option>
+           
+          <option value="1960"   >1960</option>
+           
+          <option value="1961"   >1961</option>
+           
+          <option value="1962"   >1962</option>
+           
+          <option value="1963"   >1963</option>
+           
+          <option value="1964"   >1964</option>
+           
+          <option value="1965"   >1965</option>
+           
+          <option value="1966"   >1966</option>
+           
+          <option value="1967"   >1967</option>
+           
+          <option value="1968"   >1968</option>
+           
+          <option value="1969"   >1969</option>
+           
+          <option value="1970"   >1970</option>
+           
+          <option value="1971"   >1971</option>
+           
+          <option value="1972"   >1972</option>
+           
+          <option value="1973"   >1973</option>
+           
+          <option value="1974"   >1974</option>
+           
+          <option value="1975"   >1975</option>
+           
+          <option value="1976"   >1976</option>
+           
+          <option value="1977"   >1977</option>
+           
+          <option value="1978"   >1978</option>
+           
+          <option value="1979"   >1979</option>
+           
+          <option value="1980"   >1980</option>
+           
+          <option value="1981"   >1981</option>
+           
+          <option value="1982"   >1982</option>
+           
+          <option value="1983"   >1983</option>
+           
+          <option value="1984"   >1984</option>
+           
+          <option value="1985"   >1985</option>
+           
+          <option value="1986"   >1986</option>
+           
+          <option value="1987"   >1987</option>
+           
+          <option value="1988"   >1988</option>
+           
+        </select>
+      </td>
+    </tr>
+    <!--ROW postal code--> 
+    <tr> 
+      <td align="center">&nbsp;</td>
+      <td>Zip/Postal Code</td>
+      <td> 
+        <input type="text" name="postalCode" size="10" value= " ">
+      </td>
+    </tr>
+    <!--ROW: country-->
+     
+    <tr> 
+      <td align="center">&nbsp;</td>
+      <td>Country</td>
+      <td> <select name="country" size=1><option value=" " selected>(Select a Country) <option value="CA">Canada <option value="US">United States <option value="">--------------------- <option value="AF">Afghanistan <option value="AL">Albania <option value="DZ">Algeria <option value="AS">American Samoa <option value="AD">Andorra <option value="AO">Angola <option value="AI">Anguilla <option value="AQ">Antartica <option value="AG">Antigua <option value="AR">Argentina <option value="AM">Armenia <option value="AW">Aruba <option value="AU">Australia <option value="AT">Austria <option value="AZ">Azerbaijan <option value="BS">Bahamas <option value="BH">Bahrain <option value="BD">Bangladesh <option value="BB">Barbados <option value="BF">Barkinoa Faso <option value="BY">Belarus <option value="BE">Belgium <option value="BZ">Belize <option value="BJ">Benin <option value="BM">Bermuda <option value="BT">Bhutan <option value="BO">Bolivia <option value="BA">Bosnia-Herzegovina <option value="BW">Botswana <option value="BV">Bouvet Island <option value="BR">Brazil <option value="BN">Brunei <option value="BG">Bulgaria <option value="BI">Burundi <option value="KH">Cambodia <option value="CM">Cameroon <option value="CV">Cape Verde Islands <option value="KY">Cayman Islands <option value="CF">Central African Rep. <option value="TD">Chad Republic <option value="CL">Chile <option value="CN">China <option value="CO">Colombia <option value="KM">Comoros <option value="CG">Congo <option value="CK">Cook Islands <option value="CR">Costa Rica <option value="HR">Croatia <option value="CY">Cyprus <option value="CZ">Czech Republic <option value="DK">Denmark <option value="DJ">Djibouti <option value="DM">Dominica <option value="DO">Dominican Republic <option value="TP">East Timor <option value="EC">Ecuador <option value="EG">Egypt <option value="SV">El Salvador <option value="GQ">Eqitorial Guinea <option value="ER">Eritrea <option value="EE">Estonia <option value="ET">Ethiopia <option value="FO">Faeroe Islands <option value="FK">Falkland Islands <option value="FJ">Fiji Islands <option value="FI">Finland <option value="FR">France <option value="GF">French Guiana <option value="PF">French Polynesia <option value="GA">Gabon <option value="GM">Gambia <option value="GE">Georgia <option value="DE">Germany <option value="GH">Ghana <option value="GI">Gibralter <option value="GR">Greece <option value="GL">Greenland <option value="GD">Grenada <option value="GP">Guadeloupe <option value="GU">Guam <option value="GT">Guatemala <option value="GN">Guinea <option value="GW">Guinea Bissau <option value="GY">Guyana <option value="HT">Haiti <option value="HN">Honduras <option value="HK">Hong Kong <option value="HU">Hungary <option value="IS">Iceland <option value="IN">India <option value="ID">Indonesia <option value="IR">Iran <option value="IQ">Iraq <option value="IE">Ireland <option value="IL">Israel <option value="IT">Italy <option value="JM">Jamaica <option value="JP">Japan <option value="JO">Jordan <option value="KZ">Kazakhstan <option value="KE">Kenya <option value="KI">Kiribati <option value="KP">Korea (North) <option value="KR">Korea (South) <option value="KW">Kuwait <option value="KG">Kyrgyzstan <option value="LA">Laos <option value="LV">Latvia <option value="LB">Lebanon <option value="LS">Lesotho <option value="LR">Liberia <option value="LY">Libya <option value="LT">Lithuania <option value="LU">Luxembourg <option value="MO">Macao <option value="MK">Macedonia <option value="MG">Madagascar <option value="MW">Malawi <option value="MY">Malaysia <option value="MV">Maldives <option value="ML">Mali Republic <option value="MT">Malta <option value="MH">Marshall Islands <option value="MR">Mauritania <option value="MU">Mauritius <option value="MX">Mexico <option value="FM">Micronesia <option value="MD">Moldiva (CIS) <option value="MN">Mongolia <option value="MS">Montserrat <option value="MA">Morocco <option value="MZ">Mozambique <option value="NA">Namibia <option value="NR">Nauru <option value="NP">Nepal <option value="AN">Netherland Antilles <option value="NL">Netherlands <option value="NZ">New Zealand <option value="NI">Nicaragua <option value="NE">Niger <option value="NG">Nigeria <option value="NU">Niue Island <option value="NF">Norfork Island <option value="NO">Norway <option value="OM">Oman <option value="Other">Other Country <option value="PK">Pakistan <option value="PW">Palau <option value="PA">Panama <option value="PG">Papua New Guinia <option value="PY">Paraguay <option value="PE">Peru <option value="PH">Philipines <option value="PL">Poland <option value="PT">Portugal <option value="PR">Puerto Rico <option value="QA">Qatar <option value="RE">Reunion Island <option value="RO">Romania <option value="RU">Russia <option value="RW">Rwanda <option value="ST">Sao Tome <option value="SA">Saudi Arabia <option value="SN">Senegal Republic <option value="SC">Seychelles Island <option value="SL">Sierrra Leone <option value="SG">Singapore <option value="SI">Slovenia <option value="SB">Soloman Island <option value="SO">Somalia <option value="ZA">South Africa <option value="ES">Spain <option value="LK">Sri Lanka <option value="SH">St Helen <option value="PM">St Pierre <option value="SD">Sudan <option value="SR">Suriname <option value="SZ">Swaziland <option value="SE">Sweden <option value="CH">Switzerland <option value="SY">Syria <option value="TW">Taiwan <option value="TZ">Tanzania <option value="TH">Thailand <option value="TG">Togo <option value="TO">Tonga <option value="TT">Trinidad and Tobago <option value="TN">Tunisia <option value="TR">Turkey <option value="TC">Turks/Caicos <option value="TV">Tuvalu <option value="UG">Uganda <option value="UA">Ukraine <option value="AE">United Arab Emirates <option value="GB">United Kingdom <option value="UY">Uruguay <option value="VU">Vanuatu <option value="VE">Venezuela <option value="VN">Viet Nam <option value="WF">Wallis / Futuna <option value="YE">Yemen Republic <option value="YU">Yugoslavia <option value="ZM">Zambia <option value="ZW">Zimbabwe </select> 
+      </td>
+    </tr>
+    <!-- ROW: spacer row--> 
+    <tr> 
+      <td colspan="3">&nbsp; </td>
+    </tr>
+    <!--ROW: New section: How would you describe yourself?--> 
+    <tr> 
+      <td align="center" bgcolor="#9999CC"><b><font color="red"><b>*</b></font></b></td>
+      <td colspan="2" bgcolor="#9999CC"><b>How would you describe yourself?</b></td>
+    </tr>
+    <!--ROW: Student role --> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td> 
+        <input type="checkbox"   name ="studentRole" value ="studentRole">
+        <b>Student</b> </td>
+       
+      <td> 
+        <select name="degree">
+           
+          <option value=" " selected>(choose one)</option>
+           
+          <option value="K-8"   >K-8</option>
+           
+          <option value="High School"   >High School</option>
+           
+          <option value="Undergraduate (2-year)"   >Undergraduate (2-year)</option>
+           
+          <option value="Undergraduate (4-year)"   >Undergraduate (4-year)</option>
+           
+          <option value="Graduate"   >Graduate</option>
+           
+          <option value="Post Graduate"   >Post Graduate</option>
+           
+          <option value="Continuing Ed"   >Continuing Ed</option>
+           
+        </select>
+      </td>
+    </tr>
+    <!--ROW: Student information, (major) --> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td align="left"> 
+        <p style="margin-left:23px;">Major</p>
+      </td>
+      <td> <span style="font-size: 12px;"> 
+        <input type="text" name="major" size="35" value= " ">
+        </span> </td>
+    </tr>
+    <!--ROW: Student information, (minor) --> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td align="left"> 
+        <p style="margin-left:24px;">Minor</p>
+      </td>
+      <td> 
+        <input type="text" name="minor" size="35" value= " ">
+      </td>
+    </tr>
+    <!--ROW: Student information, (graduation year) --> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td align="left"> 
+        <p style="margin-left:24px;">Graduation year</p>
+      </td>
+      <td> 
+        <input type="text" name="gradYear" size="4" value= " " maxlength="4">
+        &nbsp;Enter 4 digits, as in "2001." </td>
+    </tr>
+    <!--ROW: Faculty role --> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td> 
+        <input type="checkbox"    name="facultyRole" value="facultyRole">
+        <b>Faculty</b> </td>
+      <td>&nbsp;</td>
+    </tr>
+    <!--ROW: Faculty information, (Department) --> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td> 
+        <p style="margin-left:24px;">Department</p>
+      </td>
+      <td> 
+        <input type="text" name="department" size="35" value= " " >
+      </td>
+    </tr>
+    <!--ROW: Other role --> 
+    <tr> 
+      <td valign="top">&nbsp;</td>
+      <td valign="top"> 
+        <input type="checkbox"    name="otherRole" value="otherRole" >
+        <b>Other</b> </td>
+       
+      <td valign="top"> 
+        <select name="specifyRole">
+           
+          <option value=" " selected>(choose one)</option>
+           
+          <option value="Course Developer"   >Course Developer</option>
+           
+          <option value="Instructor"   >Instructor</option>
+           
+          <option value="Content Provider"   >Content Provider</option>
+           
+          <option value="System Administrator"   >System Administrator</option>
+           
+          <option value="IT Professional"   >IT Professional</option>
+           
+          <option value="Trainer"   >Trainer</option>
+           
+          <option value="Parent"   >Parent</option>
+           
+          <option value="None of the above"   >None of the above</option>
+           
+        </select>
+      </td>
+    </tr>
+    <!--ROW: New Section: Institution --> 
+    <tr> 
+      <td bgcolor="#9999CC">&nbsp;</td>
+      <td colspan="2" bgcolor="#9999CC"><b>Institution</b></td>
+    </tr>
+    <!--ROW: Institution location --> 
+    <tr valign="baseline"> 
+      <td>&nbsp;</td>
+      <td><b>Choose Location</b></td>
+      <td> 
+        <select name="instLocation">
+           
+          <option selected>(State or Province)</option>
+            
+          <option > Alabama </option>
+           
+          <option > Alaska </option>
+           
+          <option > Arizona </option>
+           
+          <option > Arkansas </option>
+           
+          <option > California </option>
+           
+          <option > Colorado </option>
+           
+          <option > Connecticut </option>
+           
+          <option > Delaware </option>
+           
+          <option > District of Columbia </option>
+           
+          <option > Florida </option>
+           
+          <option > Georgia </option>
+           
+          <option > Hawaii </option>
+           
+          <option > Idaho </option>
+           
+          <option > Illinois </option>
+           
+          <option > Indiana </option>
+           
+          <option > Iowa </option>
+           
+          <option > Kansas </option>
+           
+          <option > Kentucky </option>
+           
+          <option > Louisiana </option>
+           
+          <option > Maine </option>
+           
+          <option > Maryland </option>
+           
+          <option > Massachusetts </option>
+           
+          <option > Michigan </option>
+           
+          <option > Minnesota </option>
+           
+          <option > Mississippi </option>
+           
+          <option > Missouri </option>
+           
+          <option > Montana </option>
+           
+          <option > Nebraska </option>
+           
+          <option > Nevada </option>
+           
+          <option > New Hampshire </option>
+           
+          <option > New Jersey </option>
+           
+          <option > New Mexico </option>
+           
+          <option > New York </option>
+           
+          <option > North Carolina </option>
+           
+          <option > North Dakota </option>
+           
+          <option > Ohio </option>
+           
+          <option > Oklahoma </option>
+           
+          <option > Oregon </option>
+           
+          <option > Pennsylvania </option>
+           
+          <option > Rhode Island </option>
+           
+          <option > South Carolina </option>
+           
+          <option > South Dakota </option>
+           
+          <option > Tennessee </option>
+           
+          <option > Texas </option>
+           
+          <option > Utah </option>
+           
+          <option > Vermont </option>
+           
+          <option > Virginia </option>
+           
+          <option > Washington </option>
+           
+          <option > West Virginia </option>
+           
+          <option > Wisconsin </option>
+           
+          <option > Wyoming </option>
+           
+          <option > Alberta </option>
+           
+          <option > British Columbia </option>
+           
+          <option > Manitoba </option>
+           
+          <option > New Brunswick </option>
+           
+          <option > Newfoundland </option>
+           
+          <option > Northwest Territories </option>
+           
+          <option > Nova Scotia </option>
+           
+          <option > Ontario </option>
+           
+          <option > Prince Edward Island </option>
+           
+          <option > Quebec </option>
+           
+          <option > Saskatchewan </option>
+           
+        </select>
+      </td>
+    </tr>
+    <!--   ROW: specify location--> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td colspan="2">If outside Canada or US, please specify the name of the 
+        country. </td>
+    </tr>
+    <tr valign="top"> 
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td> 
+        <input type="text" name="specifyLocation"  size="35" value= " " >
+      </td>
+    </tr>
+    
+    <!--ROW: Institution name --> 
+    <tr valign="baseline"> 
+      <td>&nbsp;</td>
+      <td><b>Institution Name</b></td>
+      <td> 
+        <input type="text" size="35" name="institution" value ="" >
+      </td>
+    </tr>
+    <!--ROW: Institution Type --> 
+    <tr> 
+      <td>&nbsp;</td>
+      <td colspan="2"><b>Institution type(s):</b> Select all that apply.</td>
+    </tr>
+    <tr> 
+      <td>&nbsp;</td>
+      <td colspan="2"> 
+        <input type="checkbox"   name="highSchool" value="highSchool" >
+        Elementary or High School (K-12) </td>
+    </tr>
+    <tr> 
+      <td>&nbsp;</td>
+      <td colspan="2"> 
+        <input type="checkbox"   name="techSchool" value="techSchool" >
+        Technical/Trade School </td>
+    </tr>
+    <tr> 
+      <td>&nbsp;</td>
+      <td colspan="2"> 
+        <input type="checkbox"   name="comCollege" value="comCollege" >
+        2-Year College/Community College </td>
+    </tr>
+    <tr> 
+      <td>&nbsp;</td>
+      <td colspan="2"> 
+        <input type="checkbox"   name="university" value="university" >
+        4-Year College/University </td>
+    </tr>
+    <tr> 
+      <td>&nbsp;</td>
+      <td> 
+        <input type="checkbox"   name="otherType" value="otherType" >
+        Other (specify) </td>
+      <td> 
+        <input type="text" name="specifyType" size="35" value= " " >
+      </td>
+    </tr>
+
+    <!--ROW: blue stripe --> 
+    <tr> 
+      <td colspan="3" bgcolor="#9999CC"><img src="http://hub-images.webct.com/images/shim.gif" width=1, height=1 alt=""></td>
+    </tr>
+    <!--ROW: submit, reset, cancel etc. buttons --> 
+    <tr> 
+      <td bgcolor="#ffffff">&nbsp;</td>
+      <td colspan="2" bgcolor="#ffffff"> 
+        <input type="image" name="submit" value="submit" src="http://hub-images.webct.com/images/submit.gif" width="60" height="18" alt="Submit, and go to next page" border="0">
+        <a href="#" onClick="window.opener.location.replace('/entrypage'); window.opener.location.href='/entrypage';window.close();"><img src="http://hub-images.webct.com/images/cancel.gif" width="55" height="18" alt="CancelRegistration" border="0"></a> 
+         </td>
+    </tr>
+  </table>
+</form>   
+<script language="Javascript">
+  document.Registration.firstName.focus();
+</script>   
+
+
+
+</body>
+</html>

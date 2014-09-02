@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+<title>Bienvenue dans Adobe GoLive 6</title>
+<script type="text/javascript">
+<!--
+function traitement(chaine)
+{
+    x=chaine;
+    //alert(x);
+    //alert(x.length);
+    for (i=0 ;i<= x.length-1 ;i++)
+    {
+     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)=="."))
+     {
+         if (x.charAt(i-1) != " ")
+         {
+             x = x.substring(0,i) +" " + x.charAt(i) + x.substring (i+1,x.length);
+             alert(x);
+         }
+     }
+    }
+    for (i=0 ;i<= x.length-1;i++)
+    {
+     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)=="."))
+      {
+        if (x.charAt(i+1) != " ")
+         {
+             x = x.substring(0,i) + x.charAt(i)+ " " + x.substring (i+1,x.length);
+             alert(x);
+         }
+      }
+    }
+
+}
+-->
+</script>
+</head>
+<body bgcolor="#ffffff">
+<form method="post" name="form1">
+<textarea name="ZoneTexte" rows="4" cols="95"></textarea>
+<input type="button" value="Est-ce un nombre premier" onClick="traitement(document.form1.ZoneTexte.value)">					</form>		<p></p>
+</body>
+</html>
+

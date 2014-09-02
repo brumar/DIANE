@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Letting Only Numbers Pass to a Form Field</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<SCRIPT language=JavaScript>
+function checkIt(evt) {
+	evt = (evt) ? evt : window.event
+	var charCode = (evt.which) ? evt.which : evt.keyCode
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		status = "This field accepts numbers only."
+		return false
+	}
+	status = ""
+	return true
+}
+</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1141" name=GENERATOR></HEAD>
+<BODY>
+<H1>Letting Only Numbers Pass to a Form Field</H1>
+<HR>
+
+<FORM onsubmit="return false">Enter any positive integer: <INPUT 
+onkeypress="return checkIt(event)" name=numeric> </FORM></BODY></HTML>

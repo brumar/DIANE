@@ -1,0 +1,57 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>selection du texte</title>
+
+<script language="JavaScript">
+ texte = new Array("bonjour","monsieur","le","president","de","la","republique");
+ //alert(texte.join(" "));
+ //alert(texte.length + " nombres sont définis");
+ //alert(texte[0]);
+ max = texte.length;
+ //alert(max);
+ //function exemple(){
+ for (i=0; i<texte.length ;i++)
+ {
+ 	//document.write(texte[i]+" ");
+	document.write("<a href=\"javascript:;\" onClick=\"document.form2.T1.value=\'"+texte[i]+"\'\">"+texte[i]+"</a>"+" ");
+	//document.write("<a href=\"javascript:;\" onClick=\"document.info.T1.value=\'" + texte[i] + "\'\">"+texte[i]+"</a>";
+	
+ //}
+ //document.write("<form name=\"info\">"
+ //document.write("<input type=\"text\" name=\"T1\" size=\"20\">"
+ //document.write("</form>")
+	
+ }
+ i=1;
+</script>
+<SCRIPT LANGUAGE="javascript">
+function afficher(form2) { 
+//tab=new Array();
+//tab[0]=""
+//tab[i]= document.form2.T1.value;
+//document.form2.output.value=tab.join(" ");
+document.form2.output.value=document.form2.output.value+document.form2.T1.value+" ";
+document.form2.S1.value=document.form2.S1.value +document.form2.T1.value+" ";
+//i++;
+//alert(document.form2.output.value);
+} 
+</SCRIPT>
+
+</head>
+
+<body >
+
+<form name="form2">
+  <input type="text" name="T1" size="20"></p>
+
+
+<INPUT TYPE="button" NAME="bouton" VALUE="Afficher" onClick="afficher(form2)"><BR>
+<INPUT TYPE="text" NAME="output" VALUE="" size="20"> 
+  <p>&nbsp;</p>
+  <p><textarea rows="2" name="S1" cols="20"></textarea> </p>
+</FORM> 
+</BODY> 
+</HTML>

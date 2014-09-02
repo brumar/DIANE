@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Document sans nom</title>
+<script language="Javascript">
+// Supprimer une ligne dans toute les autres listes de destination
+
+function SupprimerListe(idOrigine)
+{	
+	var objOrigine = document.getElementById(idOrigine);
+	for(i=1;i<=3;i++)
+		{
+			if(idOrigine=="liste"+i)
+			{
+				idDestination="liste"+(i+1); i++;
+			}	
+			else
+			{
+				idDestination="liste"+i;
+			}
+			
+			var objDestination = document.getElementById(idDestination);
+			VerifValeurDansListe(idDestination, objOrigine.options[objOrigine.options.selectedIndex].value);
+				//alert(idDestination); 
+		}
+}
+
+// Vérifie la présence de Valeur dans IdListe
+function VerifValeurDansListe(IdListe, Valeur) {
+	var objListe = document.getElementById(IdListe);
+	for (k=objListe.length-1;k>=0;k--) 
+		if (objListe.options[k].value == Valeur) 
+			{
+				//if (blnAlerte) alert('Déjà présent.'); 
+				objListe.options[k]=null; 
+			}
+}
+</script>
+
+</head>
+
+<body>
+<select name="liste1" id="liste1" onchange="SupprimerListe('liste1');">
+	<option></option>
+	<option value="1">Un</option>
+	<option value="2">Deux</option>
+	<option value="3">Trois</option>
+	<option value="4">Quatre</option>
+	<option value="5">Cinq</option>
+	<option value="6">Six</option>
+	<option value="7">Sept</option>
+	<option value="8">Huit</option>
+</select>
+&nbsp;&nbsp;
+<select name="liste2" id="liste2" onchange="SupprimerListe('liste2');">
+	<option></option>
+	<option value="1">Un</option>
+	<option value="2">Deux</option>
+	<option value="3">Trois</option>
+	<option value="4">Quatre</option>
+	<option value="5">Cinq</option>
+	<option value="6">Six</option>
+	<option value="7">Sept</option>
+	<option value="8">Huit</option>
+</select>
+&nbsp;&nbsp;
+<select name="liste3" id="liste2" onchange="SupprimerListe('liste3');">
+	<option></option>
+	<option value="1">Un</option>
+	<option value="2">Deux</option>
+	<option value="3">Trois</option>
+	<option value="4">Quatre</option>
+	<option value="5">Cinq</option>
+	<option value="6">Six</option>
+	<option value="7">Sept</option>
+	<option value="8">Huit</option>
+</select>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+.infoBox {
+      border: solid 1px #BBCCDD;
+      width: 18em;
+    }
+    .infoBoxHeader {
+      /*background: #DAEAF0;*/
+      cursor: pointer;
+      text-align: left;
+	  text-decoration:underline;
+      /*font-weight: bold;*/
+    }
+    .infoBoxBody {
+      background: #F0F7FA;
+	  text-align:justify;
+    }
+	.tableau1 {
+	border-width:1px;
+	border-style:solid;
+	border-color:black;
+	width:32%;
+	margin: 5px;
+	padding: 1px;
+	}
+
+table {
+	border-width:1px;
+	border-style:solid;
+	border-color:black;
+	width:45%;
+	margin: 3px;
+	padding: 3px;
+ }
+span {
+	text-align: left;
+	white-space: normal;
+	font-weight: bold;
+}

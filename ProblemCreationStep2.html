@@ -1,0 +1,95 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Formulaire de saisie des énoncés étape 1</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script type="text/javascript" src="scripts_enonce.js"></script>
+</head>
+
+<body>
+<!--
+<p align="center">
+<a href="../index.html">Accueil</a> &nbsp;&nbsp;
+<a href="admin.php">Admin</a>&nbsp;&nbsp;
+<a href="eleve.html">Elève</a> !-->
+</p>
+<div align="left">
+	<form  id="form1">
+			<span align="center">Etape 1 : enregistrez votre &eacutenonc&eacute </span><br><br>
+			<textarea id="textarea" name="enonce" cols="55" rows="7" wrap="virtual"></textarea>
+	</form>
+</div>
+		<div class="commandWrap">
+		<ul><p>commandes</p><p class="note">
+		<li>Insertions<br><input type="button" value="question" id="Quest"/>
+		<input type="button" value="nombre" id="Nombre"/>
+		<input type="button" value="variable" id="Variable"/>
+		<input type="button" value="prénom masculin" id="homme"/>
+		<input type="button" value="prénom féminin" id="femme"/><br></li>
+		<li>Insertions personnalisée<br>
+		<input type="button" value="accès aux types" id="perso2"/>
+		<input type="button" value="nouveau type" id="perso1"/>
+		<br></li>		
+		<li>Général<br>
+		<input type="button" value="réinitialiser" id="reinit"/>
+		<input type="button" value="générer apperçu" id="apperçu"/></li></ul>
+		</div>
+	<!--
+	<input type="button" value="Envoyer" name="B1" onclick="verifForm(this.form)" />
+    <input type="reset" value="Effacer tout" name="B2" />-->
+	
+	
+    </div>
+	<script>
+	var Quest = document.getElementById('Quest');
+	var compteur = { "Quest" : 1, "Nombre" : 1, "Variable" : 1, "homme" : 1,"femme" : 1};
+	
+	
+	for(var i in compteur){//gestion des clicks sur commandes
+		element=document.getElementById(i);
+		addEvent(element, 'click', function(e) {
+		var target = (e.srcElement || e.target);
+		var id=target.id;
+		startTag="["+id+"("+compteur[id]+")=";
+		endTag="]";
+		
+		insertTag(startTag, endTag, "textarea", "");
+		compteur[id]+=1;
+		});
+	}
+	
+	var reinit=document.getElementById("reinit");
+	addEvent(reinit, 'click', function(e) {
+	document.getElementById("textarea").value="";
+	compteur = { "Quest" : 1, "Nombre" : 1, "Variable" : 1, "homme" : 1,"femme" : 1};
+	});
+	
+	
+	</script>
+	<!--
+	//var textArea = document.getElementById('textarea');
+	
+	//addEvent(QI, 'click', function(e) {
+	//document.write('<p>'+id+ '</p>');
+	document.write('<p>dadada</p>');
+   var target = (e.srcElement || e.target);
+	
+	//target.dewplay();
+	var id=target.id;
+	startTag="["+id+"]";
+	endTag="["+id+"/]";
+	tagType="";
+	insertTag(startTag, endTag, "textarea", tagType);
+
+   // }
+	
+	);
+}
+	
+	</script>!-->
+	
+</body>
+
+</html>

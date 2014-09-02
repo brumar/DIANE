@@ -1,0 +1,340 @@
+# MySQL-Front Dump 2.5
+#
+# Host: localhost   Database: projet
+# --------------------------------------------------------
+# Server version 4.0.12
+
+
+#
+# Table structure for table 'comparaison'
+#
+
+CREATE TABLE comparaison (
+  numero smallint(5) unsigned NOT NULL auto_increment,
+  enonce1 text,
+  question1 text,
+  enonce2 text,
+  question2 text,
+  partie1 smallint(5) unsigned default NULL,
+  partie2 smallint(5) unsigned default NULL,
+  tout1 smallint(5) unsigned default NULL,
+  partie3 smallint(5) unsigned default NULL,
+  valdiff smallint(5) unsigned default NULL,
+  tout2 smallint(5) unsigned default NULL,
+  variable enum('x','y','z') NOT NULL default 'x',
+  question enum('p','t') NOT NULL default 'p',
+  PRIMARY KEY  (numero)
+) TYPE=MyISAM;
+
+
+
+#
+# Dumping data for table 'comparaison'
+#
+
+INSERT INTO comparaison VALUES("1", "Antoine a suivie les cours de peinture à l \' ecole d \' art pendant 8 ans et s \' est arrêté à 17 ans .", "A quel âge Jean s \' est - il arrêté ?", "Jean a commencé au même âge qu \' Antoine et a suivie les cours 2 ans de moins .", "A quel âge Jean s \' est - il arrêté ?", "8", "9", "17", "6", "2", "15", "z", "t");
+INSERT INTO comparaison VALUES("2", "Dans la famille Bernard , il y a 6 personnes . \r\nQuand les Bernard vont avec les Durand à la pizzeria , ils sont 9 à table .", "Combien sont - ils dans la famille Durand ?", "Quand les Durand vont avec les Rousseau à la pizzeria , ils sont 2 de moins à table .", "Combien sont - ils dans la famille Rousseau ?", "6", "3", "9", "4", "2", "7", "x", "p");
+INSERT INTO comparaison VALUES("3", "Dans la famille Richard , il y a 5 personnes . Quand les Richard partent en vacances avec les Robert , ils sont 7 à l’hôtel .", "Combien sont - ils dans la famille Robert ?", "Dans la famille Dumas , il y a 3 personnes de moins que dans la famille Richard . \r\nLes Robert partent en vacances avec les Dumas .", "Combien seront - ils à l’hôtel ?", "5", "2", "7", "2", "3", "4", "x", "t");
+INSERT INTO comparaison VALUES("4", "Daniel achète à la librairie un cahier qui coûte 7 Euros et une règle . Il paie 12 Euros .", "Combien coûte la règle ?", "Clément achète une règle et un feutre . Il paie 2 Euros de moins que Daniel .", "Combien coûte le feutre ?", "7", "5", "12", "5", "2", "10", "y", "p");
+INSERT INTO comparaison VALUES("5", "Laurent achète au supermarché un classeur qui coûte 8 Euros \r\net des ciseaux . Il paie 14 Euros .", "Combien coûtent les ciseaux ?", "Un feutre coûte 3 Euros de moins qu’un classeur . \r\nAugustin achète des ciseaux et un feutre .", "Combien doit - il payer ?", "8", "6", "14", "5", "3", "11", "y", "t");
+INSERT INTO comparaison VALUES("6", "Pauline a suivi les cours de danse au conservatoire pendant 10 ans et s’est arrêtée à 17 ans .", "A quel âge Pauline a - t - elle commencé ?", "Julie a commencé au même âge que Pauline et s’est arrêtée 3 ans plus tôt .", "Combien de temps Julie a - t - elle suivi les cours ?", "10", "7", "17", "7", "3", "14", "z", "p");
+INSERT INTO comparaison VALUES("7", "Dans la famille Richard , il y a 5personnes . Quand les Richard partent en vacances avec les Robert , ils sont 7à l \' hôtel .", "Combien sont - ils dans la famille Robert ?", "Dans la famille Dumas , il a3 personnes de moins que dans la famille Richard .", "combien seront - ils a l \' hôtel ?", "5", "2", "7", "2", "3", "4", "x", "t");
+
+
+#
+# Table structure for table 'complement'
+#
+
+CREATE TABLE complement (
+  numero smallint(5) unsigned NOT NULL auto_increment,
+  enonce1 text,
+  question1 text,
+  enonce2 text,
+  question2 text,
+  partie1 smallint(5) unsigned default NULL,
+  partie2 smallint(5) unsigned default NULL,
+  tout1 smallint(5) unsigned default NULL,
+  partie3 smallint(5) unsigned default NULL,
+  valdiff smallint(5) unsigned default NULL,
+  tout2 smallint(5) unsigned default NULL,
+  variable enum('x','y','z') NOT NULL default 'x',
+  question enum('p','t') NOT NULL default 'p',
+  PRIMARY KEY  (numero)
+) TYPE=MyISAM;
+
+
+
+#
+# Dumping data for table 'complement'
+#
+
+INSERT INTO complement VALUES("2", "Dans la famille Martin , il y a 4 personnes . \r\nQuand les Martin vont avec les Dupont au restaurant , ils sont 10 à table .", "Combien sont - ils dans la famille Dupont ?", "Dans la famille Perrin , il y a 5 personnes . Les Dupont vont au restaurant avec les Perrin .", "Combien seront - ils à table ?", "4", "6", "10", "5", "1", "11", "x", "t");
+INSERT INTO complement VALUES("3", "Henri achète à la librairie une trousse qui coûte 5 Euros et une équerre . Il paie 8 Euros .", "Combien coûte l’équerre ?", "Hugo achète une équerre et un stylo . Il paie 10 Euros .", "Combien coûte le stylo ?", "5", "3", "8", "7", "2", "10", "y", "p");
+INSERT INTO complement VALUES("5", "Paul achète au supermarché un cahier qui coûte 4 Euros et un compas . Il paie 9 Euros .", "Combien coûte le compas ?", "Jean achète un stylo qui coûte 8 Euros et un compas .", "Combien a - t - il dépensé ?", "4", "5", "9", "8", "4", "13", "y", "t");
+INSERT INTO complement VALUES("6", "Paul a suivi les cours de musique au conservatoire pendant 12 ans et s’est arrêté à 18 ans .", "A quel âge Paul a - t - il commencé ?", "Pierre a commencé au même âge que Paul et s’est arrêté à 15 ans .", "Combien de temps Pierre a - t - il suivi les cours ?", "12", "6", "18", "9", "3", "15", "z", "p");
+INSERT INTO complement VALUES("4", "Dans la famille Dubois , il y a 5 personnes . Quand les Dubois vont manger en forêt avec les Lambert , ils sont 12 au pique - nique .", "Combien sont - ils dans la famille Dubois ?", "Quand les Lambert vont manger en forêt  avec les Meunier , ils sont 11 au pique - nique .", "Combien sont - ils dans la famille Meunier ?", "5", "7", "12", "4", "1", "11", "x", "p");
+INSERT INTO complement VALUES("1", "Dans la famille Martin , il y a 4 personnes . Quant les Martin vont avec les dupont au restaurant , ils sont 10 à table .", "Combien sont - ils dans la famille Martin ?", "Dans la famille Perrin , il a 5 personnes . Les Dupont vont au restaurant avec les Perrin .", "Combien seront - ils à table ?", "4", "6", "10", "5", "1", "11", "x", "t");
+INSERT INTO complement VALUES("7", "Lucas a suivi les cours de dessin à l \' ecole d \' art pendant 11 ans et s \' est arrêté à 19 ans .", "A quel âge Lucas a commencé les cours de dessin ?", "Eric a commencé au même âge que Lucas et a suivi les cours pendant 10 ans .", "A quel âge Eric s \' est - il arrêté ?", "11", "8", "19", "10", "1", "18", "z", "t");
+
+
+#
+# Table structure for table 'diagnostic'
+#
+
+CREATE TABLE diagnostic (
+  numDiag smallint(5) unsigned NOT NULL auto_increment,
+  numSerie smallint(5) unsigned default NULL,
+  numTrace smallint(5) unsigned default NULL,
+  numEleve smallint(5) unsigned default '0',
+  date datetime default NULL,
+  numExo smallint(5) unsigned default '0',
+  typeExo enum('e','a') default NULL,
+  question enum('p','t') default NULL,
+  var enum('x','y','z') default NULL,
+  questInt enum('0','1') default '1',
+  colonne1 tinyint(1) unsigned default '9',
+  colonne2 tinyint(1) unsigned default '9',
+  colonne3 tinyint(1) unsigned default '9',
+  colonne4 tinyint(1) unsigned default '9',
+  colonne5 tinyint(1) unsigned default '9',
+  colonne6 tinyint(1) unsigned default '9',
+  colonne7 tinyint(1) unsigned default '9',
+  colonne8 tinyint(1) unsigned default '9',
+  colonne9 tinyint(1) unsigned default '9',
+  colonne10 tinyint(1) unsigned default '9',
+  colonne11 tinyint(1) unsigned default '9',
+  colonne12 tinyint(1) unsigned default '9',
+  colonne13 tinyint(1) unsigned default '9',
+  colonne14 tinyint(1) unsigned default '9',
+  colonne15 tinyint(1) unsigned default '9',
+  colonne16 tinyint(1) unsigned default '9',
+  colonne17 tinyint(1) unsigned default '9',
+  colonne18 tinyint(1) unsigned default '9',
+  PRIMARY KEY  (numDiag)
+) TYPE=MyISAM;
+
+
+
+#
+# Dumping data for table 'diagnostic'
+#
+
+INSERT INTO diagnostic VALUES("8", "1", "31", "1", "2003-08-31 15:10:45", "2", "e", "t", "x", "1", "1", "2", "0", "0", "9", "9", "9", "9", "9", "9", "9", "9", "9", "9", "9", "9", "9", "9");
+INSERT INTO diagnostic VALUES("7", "1", "30", "15", "2003-08-31 14:44:52", "2", "e", "t", "x", "1", "1", "2", "0", "0", "9", "9", "9", "9", "9", "9", "9", "9", "9", "2", "4", "0", "0", "1");
+
+
+#
+# Table structure for table 'eleve'
+#
+
+CREATE TABLE eleve (
+  numEleve smallint(5) unsigned NOT NULL auto_increment,
+  nom varchar(20) NOT NULL default '',
+  prenom varchar(20) NOT NULL default '',
+  dateNais date default NULL,
+  classe enum('cm1','cm2','ce1','ce2') default NULL,
+  numClasse char(2) default NULL,
+  ecole varchar(50) default NULL,
+  ville varchar(50) default NULL,
+  PRIMARY KEY  (numEleve),
+  KEY nom (nom),
+  KEY prenom (prenom)
+) TYPE=MyISAM;
+
+
+
+#
+# Dumping data for table 'eleve'
+#
+
+INSERT INTO eleve VALUES("1", "hakem", "lkhider", "0000-00-00", "cm1", NULL, "hakem", NULL);
+INSERT INTO eleve VALUES("7", "sander", "emanuel", "0000-00-00", "cm2", NULL, "sander", NULL);
+INSERT INTO eleve VALUES("9", "hakem", "cherif", "0000-00-00", "cm2", NULL, "hakem", NULL);
+INSERT INTO eleve VALUES("10", "andronik", "thibaut", "0000-00-00", "cm2", NULL, "andronik", NULL);
+INSERT INTO eleve VALUES("11", "krief", "kelly", "0000-00-00", "cm2", NULL, "jules ferry", NULL);
+INSERT INTO eleve VALUES("12", "boisson", "guillaume", "0000-00-00", "cm2", NULL, "", NULL);
+INSERT INTO eleve VALUES("13", "hakem", "ahmed", "0000-00-00", "cm2", NULL, "", NULL);
+INSERT INTO eleve VALUES("14", "hakem", "lyes", "0000-00-00", "cm2", NULL, "", NULL);
+INSERT INTO eleve VALUES("15", "hakem", "fazia", "0000-00-00", "cm2", NULL, "lycée de djemaa saharidj", NULL);
+INSERT INTO eleve VALUES("16", "kellouche", "kahina", "1980-06-02", "cm1", NULL, "", NULL);
+INSERT INTO eleve VALUES("17", "hakem", "fatma", "1980-05-31", "ce1", "a", "djemaa", "haddouchi");
+
+
+#
+# Table structure for table 'enseignant'
+#
+
+CREATE TABLE enseignant (
+  numEns smallint(5) unsigned NOT NULL auto_increment,
+  nom varchar(30) default NULL,
+  prenom varchar(30) default NULL,
+  login varchar(10) default NULL,
+  pass varchar(16) default NULL,
+  PRIMARY KEY  (numEns)
+) TYPE=MyISAM;
+
+
+
+#
+# Dumping data for table 'enseignant'
+#
+
+INSERT INTO enseignant VALUES("3", "hakem", "lkhider", "khider", "kahina");
+INSERT INTO enseignant VALUES("4", "sander", "emanuel", "sander", "paris8");
+INSERT INTO enseignant VALUES("5", "", "", NULL, NULL);
+
+
+#
+# Table structure for table 'serie'
+#
+
+CREATE TABLE serie (
+  numSerie smallint(5) NOT NULL auto_increment,
+  choix enum('0','1') default '0',
+  exo1 smallint(5) unsigned default NULL,
+  type1 enum('a','e') default NULL,
+  questi1 enum('0','1') default NULL,
+  exo2 smallint(5) unsigned default NULL,
+  type2 enum('a','e') default NULL,
+  questi2 enum('0','1') default NULL,
+  exo3 smallint(5) unsigned default NULL,
+  type3 enum('a','e') default NULL,
+  questi3 enum('0','1') default NULL,
+  exo4 smallint(5) unsigned default NULL,
+  type4 enum('a','e') default NULL,
+  questi4 enum('0','1') default NULL,
+  exo5 smallint(5) unsigned default NULL,
+  type5 enum('a','e') default NULL,
+  questi5 enum('0','1') default NULL,
+  exo6 smallint(5) unsigned default NULL,
+  type6 enum('a','e') default NULL,
+  questi6 enum('0','1') default NULL,
+  exo7 smallint(5) unsigned default NULL,
+  type7 enum('a','e') default NULL,
+  questi7 enum('0','1') default NULL,
+  exo8 smallint(5) unsigned default NULL,
+  type8 enum('a','e') default NULL,
+  questi8 enum('0','1') default NULL,
+  exo9 smallint(5) unsigned default NULL,
+  type9 enum('a','e') default NULL,
+  questi9 enum('0','1') default NULL,
+  exo10 smallint(5) unsigned default NULL,
+  type10 enum('a','e') default NULL,
+  questi10 enum('0','1') default NULL,
+  exo11 smallint(5) unsigned default NULL,
+  type11 enum('a','e') default NULL,
+  questi11 enum('0','1') default NULL,
+  exo12 smallint(5) unsigned default NULL,
+  type12 enum('a','e') default NULL,
+  questi12 enum('0','1') default NULL,
+  exo13 smallint(5) unsigned default NULL,
+  type13 enum('a','e') default NULL,
+  questi13 enum('0','1') default NULL,
+  exo14 smallint(5) unsigned default NULL,
+  type14 enum('a','e') default NULL,
+  questi14 enum('0','1') default NULL,
+  exo15 smallint(5) unsigned default NULL,
+  type15 enum('a','b') default NULL,
+  questi15 enum('0','1') default NULL,
+  exo16 smallint(5) unsigned default NULL,
+  type16 enum('a','e') default NULL,
+  questi16 enum('0','1') default NULL,
+  exo17 smallint(5) unsigned default NULL,
+  type17 enum('a','e') default NULL,
+  questi17 enum('0','1') default NULL,
+  exo18 smallint(5) unsigned default NULL,
+  type18 enum('a','e') default NULL,
+  questi18 enum('0','1') default NULL,
+  questi19 enum('0','1') default NULL,
+  exo19 smallint(5) unsigned default NULL,
+  type19 enum('a','e') default NULL,
+  exo20 smallint(5) unsigned default NULL,
+  type20 enum('a','e') default NULL,
+  questi20 enum('0','1') default NULL,
+  exo21 smallint(5) unsigned default NULL,
+  type21 enum('a','e') default NULL,
+  questi21 enum('0','1') default NULL,
+  exo22 smallint(5) unsigned default NULL,
+  type22 enum('a','e') default NULL,
+  questi22 enum('0','1') default NULL,
+  exo23 smallint(5) unsigned default NULL,
+  type23 enum('a','e') default NULL,
+  questi23 enum('0','1') default NULL,
+  exo24 smallint(5) unsigned default NULL,
+  type24 enum('a','e') default NULL,
+  questi24 enum('0','1') default NULL,
+  PRIMARY KEY  (numSerie)
+) TYPE=MyISAM;
+
+
+
+#
+# Dumping data for table 'serie'
+#
+
+INSERT INTO serie VALUES("1", "1", "2", "", "0", "5", "", "0", "0", "a", "0", "6", "", "1", "3", "", "1", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "", "0", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "");
+INSERT INTO serie VALUES("2", "1", "4", "a", "0", "1", "e", "1", "0", "a", "0", "6", "e", "0", "0", "a", "0", "7", "e", "0", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "", "0", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "");
+INSERT INTO serie VALUES("3", "0", "3", "a", "0", "1", "e", "1", "0", "a", "0", "6", "e", "0", "0", "a", "0", "7", "e", "0", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "", "0", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "");
+INSERT INTO serie VALUES("4", "0", "2", "a", "0", "1", "e", "1", "0", "a", "0", "6", "e", "0", "0", "a", "0", "7", "e", "0", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "", "0", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "");
+INSERT INTO serie VALUES("5", "0", "1", "a", "1", "7", "e", "1", "4", "e", "1", "2", "e", "0", "5", "a", "0", "1", "e", "0", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "", "0", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "", "0", "", "");
+
+
+#
+# Table structure for table 'trace'
+#
+
+CREATE TABLE trace (
+  id smallint(5) unsigned NOT NULL auto_increment,
+  numEleve smallint(5) unsigned default NULL,
+  numExo smallint(5) unsigned default NULL,
+  typeExo enum('a','e') default NULL,
+  questInt enum('0','1') default NULL,
+  sas varchar(20) default NULL,
+  choix enum('1','2') default NULL,
+  operation1 enum('+','-','x',':') default NULL,
+  operation2 enum('+','-','x',':') default NULL,
+  operande1 int(10) unsigned default NULL,
+  operande2 int(10) unsigned default NULL,
+  operande3 int(10) unsigned default NULL,
+  zonetext text,
+  resultat tinyint(3) unsigned default NULL,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+
+
+#
+# Dumping data for table 'trace'
+#
+
+INSERT INTO trace VALUES("1", "1", "1", "a", "1", "Combien", "1", "", "", "6", "5", "0", "\r\n  14\r\n - \r\n   8\r\n______\r\n= 6\r\n\r\n  8\r\n - \r\n  3\r\n_____\r\n= 5\r\n\r\n  6\r\n + \r\n  5\r\n_____\r\n= 11\r\n", NULL);
+INSERT INTO trace VALUES("2", "1", "5", "a", "1", "Combien", "1", "", "", "14", "8", "0", "\r\n  14\r\n - \r\n   8\r\n______\r\n= 6\r\n", NULL);
+INSERT INTO trace VALUES("3", "1", "5", "a", "1", "", "1", "", "", "14", "8", "0", "\r\n  14\r\n - \r\n   8\r\n______\r\n= 6\r\n", NULL);
+INSERT INTO trace VALUES("4", "1", "5", "a", "1", "", "1", "", "", "14", "8", "0", "\r\n  14\r\n - \r\n   8\r\n______\r\n= 6\r\n", NULL);
+INSERT INTO trace VALUES("5", "1", "6", "a", "0", "", "1", "", "", "12", "4", "0", "\r\n  12\r\n  *  \r\n   4\r\n______\r\n= 48\r\n", NULL);
+INSERT INTO trace VALUES("6", "1", "6", "a", "0", "", "1", "", "", "17", "10", "0", "\r\n  17\r\n - \r\n  10\r\n______\r\n= 7\r\n", NULL);
+INSERT INTO trace VALUES("7", "7", "5", "a", "0", "", "1", "", "", "14", "8", "0", "\r\n  14\r\n - \r\n   8\r\n______\r\n= 6\r\n", NULL);
+INSERT INTO trace VALUES("8", "1", "2", "a", "1", "vont", "1", "", "", "12", "5", "0", "\r\n  12\r\n + \r\n   5\r\n______\r\n= 17\r\n", NULL);
+INSERT INTO trace VALUES("9", "7", "1", "a", "1", "", "1", "", "", "0", "0", "0", "u", NULL);
+INSERT INTO trace VALUES("10", "7", "5", "a", "0", "", "1", "-", "+", "14", "8", "0", "\r\n  14\r\n - \r\n   8\r\n______\r\n= 6\r\n", NULL);
+INSERT INTO trace VALUES("11", "7", "2", "a", "1", "", "1", "x", "", "0", "0", "0", "18", NULL);
+INSERT INTO trace VALUES("12", "7", "2", "a", "1", "", "2", "-", "+", "45", "56", "1", "\r\n  45\r\n + \r\n  56\r\n - \r\n   1\r\n______\r\n= 100\r\n", "15");
+INSERT INTO trace VALUES("13", "7", "6", "e", "1", "", "1", "-", "", "15", "6", "0", "\r\n  18\r\n - \r\n  12\r\n______\r\n= 6\r\n\r\n  15\r\n - \r\n   6\r\n______\r\n= 9\r\n", "9");
+INSERT INTO trace VALUES("14", "1", "3", "e", "1", ".", "1", "-", "", "10", "3", "0", "\r\n  8\r\n - \r\n  5\r\n_____\r\n= 3\r\nl’équerre coûte 3 Euros . \r\n  10\r\n - \r\n   3\r\n______\r\n= 7\r\nle stylo coûte 7 Euros . ", NULL);
+INSERT INTO trace VALUES("15", "13", "3", "e", "1", "l’équerre", "1", "-", "", "10", "3", "0", "l’équerre  coûte \r\n  8\r\n - \r\n  5\r\n_____\r\n= 3\r\n\r\n  10\r\n - \r\n   3\r\n______\r\n= 7\r\nle stylo coûte 7 Euros ", NULL);
+INSERT INTO trace VALUES("16", "1", "5", "", "1", "", "1", "", "", "9", "4", "0", "9 - 4 = 5", NULL);
+INSERT INTO trace VALUES("17", "1", "6", "", "1", "", "1", "", "", "18", "12", "0", "18 - 12 = 6", NULL);
+INSERT INTO trace VALUES("18", "1", "7", "", "0", "", "1", "", "", "19", "11", "0", "19 - 11 = 8", NULL);
+INSERT INTO trace VALUES("19", "1", "4", "", "1", "", "1", "", "", "12", "7", "0", "12 - 7 = 5", NULL);
+INSERT INTO trace VALUES("20", "1", "6", "", "1", "", "1", "", "", "18", "12", "0", "18 - 12 = 6", NULL);
+INSERT INTO trace VALUES("21", "1", "2", "", "0", "", "1", "", "", "10", "4", "0", "10 - 4 = 6", NULL);
+INSERT INTO trace VALUES("22", "1", "2", "", "0", "", "1", "", "", "10", "4", "0", "10 - 4 = 6", NULL);
+INSERT INTO trace VALUES("23", "1", "2", "", "0", "", "1", "", "", "6", "5", "0", "10 - 4 = 6\r\n6 + 5 = 11", NULL);
+INSERT INTO trace VALUES("24", "1", "3", "", "0", "", "1", "", "", "0", "0", "0", "", NULL);
+INSERT INTO trace VALUES("25", "15", "2", "", "0", "", "1", "", "", "10", "4", "0", "10 - 4 = 6", NULL);
+INSERT INTO trace VALUES("26", "15", "5", "", "0", "", "1", "", "", "0", "0", "0", "", NULL);
+INSERT INTO trace VALUES("27", "15", "2", "", "0", "", "1", "", "", "6", "5", "0", "10 - 4 = 6\r\n6 + 5 = 11", NULL);
+INSERT INTO trace VALUES("28", "15", "3", "", "1", "", "1", "", "", "8", "5", "0", "8 - 5 = 3", NULL);
+INSERT INTO trace VALUES("29", "15", "3", "", "1", "", "1", "", "", "8", "5", "0", "8 - 5 = 3", NULL);
+INSERT INTO trace VALUES("30", "15", "2", "", "1", "", "1", "", "", "6", "5", "0", "10 - 4 = 6\r\n6 + 5 = 11", NULL);
+INSERT INTO trace VALUES("31", "1", "2", "", "1", "-", "1", "-", "", "10", "4", "0", "Dans la \r\n  10\r\n - \r\n   4\r\n______\r\n= 6\r\n", NULL);
