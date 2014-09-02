@@ -7,7 +7,7 @@
 </head>
 
 <body id="main_body" >
-	<img id="top" src="top.png" alt="">
+	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>
 	<h2>Liste des énoncés</h2>

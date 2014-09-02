@@ -9,7 +9,7 @@
 <script type="text/javascript" src="userscript.js"></script>
 </head>
 <body id="main_body" >
-	<img id="top" src="top.png" alt="">
+	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>
 	<form name="form1" id="form1" class="appnitro" method="post" action="SpecificProblemSaving.php">

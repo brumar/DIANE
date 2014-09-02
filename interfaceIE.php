@@ -428,7 +428,7 @@ echo('<table width="255" height="153" align="left">
   <div id="lecteurs">');
 foreach ($filelist as $key=>$value) {
 $p1='<tr><td align="right" valign="bottom"><p>partie '.($key+1).'<p></td>
-	<td align="left" valign="top"><p><img style="cursor:pointer" id="player'.$key.'" src="play.png" />';
+	<td align="left" valign="top"><p><img style="cursor:pointer" id="player'.$key.'" src="static/images/play.png" />';
 $p2='</td></tr>';  
    echo ("$p1$p2");
 }

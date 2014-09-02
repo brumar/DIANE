@@ -19,7 +19,7 @@ $result = mysql_query($sql);
 mysql_close($BD_link);
 
 ?>
-<img id="top" src="top.png" alt="">
+<img id="top" src="static/images/top.png" alt="">
 	
 	<div id="form_container">
 		<form id="form_470585" class="appnitro"  method="post" action="">

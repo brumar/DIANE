@@ -124,7 +124,7 @@ ini_set("upload_max_filesize", "30M");
 ini_set("memory_limit", -1 );
 ?>
 
-	<img id="top" src="top.png" alt="">
+	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	
 		<h1><a>Untitled Form</a></h1>

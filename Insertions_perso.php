@@ -38,7 +38,7 @@ function updateMessage(name,id){
 
 
 
-	<img id="top" src="top.png" alt="">
+	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>
 	<h2>Choisissez vos types </h2>
@@ -125,6 +125,6 @@ function updateMessage(name,id){
 </div>
   
 
-<img id="bottom" src="bottom.png" alt="">
+<img id="bottom" src="static/images/bottom.png" alt="">
 </body>
 </html>

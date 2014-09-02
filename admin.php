@@ -8,7 +8,7 @@
 </head>
 <body id="main_body">
 	
-	<img id="top" src="top.png" alt="">
+	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>
 		<div style="width:400px;display:inline-block">
@@ -71,13 +71,13 @@
 </div>
 <div  style="width:200px;display:inline-block;vertical-align:top">
 <br><br><br><br><br><br>
-<img src="pbm.png" width="50%"  height="50%">
+<img src="static/images/pbm.png" width="50%"  height="50%">
 <br><br><br><br>
-<img src="series.png" width="50%"  height="50%">
+<img src="static/images/series.png" width="50%"  height="50%">
 <br><br><br><br><br><br>
-<img src="diag.png" width="50%"  height="50%">
+<img src="static/images/diag.png" width="50%"  height="50%">
 
 </div>
-<img id="bottom" src="bottom.png" alt="">
+<img id="bottom" src="static/images/bottom.png" alt="">
 </body>
 </html>

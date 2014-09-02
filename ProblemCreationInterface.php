@@ -9,7 +9,7 @@
 </head>
 <body id="main_body" >
 	
-	<img id="top" src="top.png" alt="">
+	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	
 		<h1><a>Untitled Form</a></h1>				
@@ -20,7 +20,7 @@
 		<label class="description" for="element_4">Ecriture d'un énoncé</label>	
 		<div>	<!-- <input id="property" type="button" name="prop" value="OK" onClick="parent.location='ProblemCreation.php'"/> -->
 		</div>
-		<a  href="TODO.php"><img src="pbm.png" heigth=40px width=52px style="cursor:hand;"></a>
+		<a  href="TODO.php"><img src="static/images/pbm.png" heigth=40px width=52px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide"><small>Choisissez cette option pour construire rapidement un nouveau problème</small></p>
 		</li>	</ul>	
 		
@@ -29,20 +29,20 @@
 		<label class="description" for="element_5">Création d'un nouveau template </label>	
 		<div>	<!--<input id="property" type="button" name="prop" value="OK" onClick="parent.location='ProblemCreation.php'"/>-->
 		</div>
-		<a  href="ProblemCreation.php"><img src="template.png" heigth=40px width=52px style="cursor:hand;"></a>
+		<a  href="ProblemCreation.php"><img src="static/images/template.png" heigth=40px width=52px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide_5"><small>Choisissez cette option pour construire un type de problème à partir de 0</small></p>
 		</li>		<li id="li_6" >
 		<label class="description" for="element_6">Partir d'un template existant </label>
 		<div>
 			<!-- <input id="t" type="button" name="prop" value="OK" onClick="parent.location='affichage.php'"/>  -->
 		</div>
-		<a  href="affichage.php"><img src="template_modif.png" heigth=38px width=100px style="cursor:hand;"></a>
+		<a  href="affichage.php"><img src="static/images/template_modif.png" heigth=38px width=100px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide_6"><small>Choisissez cette option pour construire un type de problème à partir d'un autre type de problème</small></p> 
 		</li>		<li id="li_7" >
 		<label class="description" for="element_7">Utiliser un template pour générer un problème </label>
 		<div><!-- <input id="pt" type="button" name="prop" value="OK" onClick="parent.location='choixPbm.php'"/>-->
 		</div> 
-		<a  href="choixPbm.php"><img src="template_instanciate.png" heigth=80px width=50px style="cursor:hand;"></a>
+		<a  href="choixPbm.php"><img src="static/images/template_instanciate.png" heigth=80px width=50px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide_6"><small>Cette étape est obligatoire pour finaliser la construction d'un énoncé. </small></p> 
 		</li>		</ul>
 		</form>	
@@ -51,6 +51,6 @@
 		</div>
 	</div>
 	</div>
-	<img id="bottom" src="bottom.png" alt="">
+	<img id="bottom" src="static/images/bottom.png" alt="">
 	</body>
 </html>

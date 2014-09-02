@@ -49,6 +49,6 @@
 </div>
   
 
-<img id="bottom" src="bottom.png" alt="">
+<img id="bottom" src="static/images/bottom.png" alt="">
 </body>
 </html>

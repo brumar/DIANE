@@ -91,7 +91,7 @@ if ((isset($_POST['infos']))&&(!(empty($_POST['infos'])))){
 }
 ?>
 
-<img id="top" src="top.png" alt="">
+<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 		<form id="form_470585" class="appnitro"  method="post" action="">
 		<p>Votre type de problème a bien été enregistré.</p>
