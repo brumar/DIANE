@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<?xml-stylesheet href="diag.xsl" type="text/xsl"?>
+<diagnostic>
+<exercice numTrace='3202'>
+<enonce>Claire a un rendez - vous très important ce soir , elle va acheter une robe noire et un accessoire pour l’accompagner . Dans la boutique , elle trouve la robe idéale à 106€ . Si elle achète la robe avec une ceinture , elle payera en total 125€ .<br/>À la fin , elle choisit un collier qui coûte 7€ de moins que la ceinture .<br/>Combien Claire va - t - elle payer en tout ?</enonce>
+<reponse>Claire va payer 118<br/>125€ - 7€ = 118<br/></reponse>
+<nom>Luidji M</nom>
+<resolution> a bien résolu le problème</resolution>
+<prenom col1="2">Luidji</prenom>
+<nbOper nbOper="1" calImp="0" sexe="m" col1="2">un</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="1" code="2" col2="9" col16="0" type="a">
+Différence
+<tout1>125</tout1>
+<tout2>118</tout2>
+<partie1>106</partie1>
+<partie3>99</partie3>
+<valdiff>7</valdiff>
+</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculé" nbOper="1" str="2" code="3" q="t" col1="2" col2="9" col6="9" col15="2" col16="0" type="a">
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du résultat final" col14="3" code="2">
+soustraction <op>(125-7)</op>
+</colonne15>
+<colonne17 sexe="m" intitule="résultat du calcul final" nbOper="1" sol="1" 
+					   str="2" col14="3" col15="2" code="0">
+correct<res>(118)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des données de l'opération" code="0" col14="3" nbOper="1" str="2">
+correctes</colonne16>
+<commentaire sol="1" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="3" col15="2" col16="0" col17="0" nbOper="1" str="2">
+</commentaire>
+</exercice>
+<exercice numTrace='3207'>
+<enonce>Louis va acheter un appareil photo numérique et sa sacoche de transport . L’appareil photo coûte 106€ . S’il achète la sacoche dans le même magasin , il devra payer 125€ .<br/>À la fin , il préfère acheter une sacoche d’occasion qui coûte 7€ de moins que la sacoche toute neuve .<br/>Combien Louis va - t - il payer en tout ?</enonce>
+<reponse>125€ - 7€ = 118<br/></reponse>
+<nom>Luidji M</nom>
+<resolution> a bien résolu le problème</resolution>
+<prenom col1="2">Luidji</prenom>
+<nbOper nbOper="1" calImp="0" sexe="m" col1="2">un</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="1" code="2" col2="9" col16="0" type="a">
+Différence
+<tout1>125</tout1>
+<tout2>118</tout2>
+<partie1>106</partie1>
+<partie3>99</partie3>
+<valdiff>7</valdiff>
+</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculé" nbOper="1" str="2" code="3" q="t" col1="2" col2="9" col6="9" col15="2" col16="0" type="a">
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du résultat final" col14="3" code="2">
+soustraction <op>(125-7)</op>
+</colonne15>
+<colonne17 sexe="m" intitule="résultat du calcul final" nbOper="1" sol="1" 
+					   str="2" col14="3" col15="2" code="0">
+correct<res>(118)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des données de l'opération" code="0" col14="3" nbOper="1" str="2">
+correctes</colonne16>
+<commentaire sol="1" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="3" col15="2" col16="0" col17="0" nbOper="1" str="2">
+</commentaire>
+</exercice>
+<exercice numTrace='3208'>
+<enonce>Luca va acheter une brosse à dents électrique avec ses pièces de rechange . La brosse à dents coûte 106€ . Dans ce magasin , la brosse à dents et ses pièces coûtent en total 125€ .<br/>S’il achète la brosse à dents sur Internet , les pièces de rechange coûtent 7€ de moins .<br/>Combien Luca va - t - il payer en total ?</enonce>
+<reponse>125€ - 7€ = 118<br/></reponse>
+<nom>Luidji M</nom>
+<resolution> a bien résolu le problème</resolution>
+<prenom col1="2">Luidji</prenom>
+<nbOper nbOper="1" calImp="0" sexe="m" col1="2">un</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="1" code="2" col2="9" col16="0" type="a">
+Différence
+<tout1>125</tout1>
+<tout2>118</tout2>
+<partie1>106</partie1>
+<partie3>99</partie3>
+<valdiff>7</valdiff>
+</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculé" nbOper="1" str="2" code="3" q="t" col1="2" col2="9" col6="9" col15="2" col16="0" type="a">
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du résultat final" col14="3" code="2">
+soustraction <op>(125-7)</op>
+</colonne15>
+<colonne17 sexe="m" intitule="résultat du calcul final" nbOper="1" sol="1" 
+					   str="2" col14="3" col15="2" code="0">
+correct<res>(118)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des données de l'opération" code="0" col14="3" nbOper="1" str="2">
+correctes</colonne16>
+<commentaire sol="1" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="3" col15="2" col16="0" col17="0" nbOper="1" str="2">
+</commentaire>
+</exercice>
+<exercice numTrace='3209'>
+<enonce>Pour sa mère , Anne va acheter un parfum et son emballage . Elle a choisi un parfum à 106€ . Si elle choisit un sac cadeau , le cadeau coûterait 125€ en total .<br/>À la fin , elle préfère acheter un rouleau papier cadeau qui coûte 7€ de moins que le sac cadeau .<br/>Combien Anne va - t - elle payer en tout ?</enonce>
+<reponse>125€ - 7€ = 118<br/></reponse>
+<nom>Luidji M</nom>
+<resolution> a bien résolu le problème</resolution>
+<prenom col1="2">Luidji</prenom>
+<nbOper nbOper="1" calImp="0" sexe="m" col1="2">un</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="1" code="2" col2="9" col16="0" type="a">
+Différence
+<tout1>125</tout1>
+<tout2>118</tout2>
+<partie1>106</partie1>
+<partie3>99</partie3>
+<valdiff>7</valdiff>
+</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculé" nbOper="1" str="2" code="3" q="t" col1="2" col2="9" col6="9" col15="2" col16="0" type="a">
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du résultat final" col14="3" code="2">
+soustraction <op>(125-7)</op>
+</colonne15>
+<colonne17 sexe="m" intitule="résultat du calcul final" nbOper="1" sol="1" 
+					   str="2" col14="3" col15="2" code="0">
+correct<res>(118)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des données de l'opération" code="0" col14="3" nbOper="1" str="2">
+correctes</colonne16>
+<commentaire sol="1" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="3" col15="2" col16="0" col17="0" nbOper="1" str="2">
+</commentaire>
+</exercice>
+<exercice numTrace='3211'>
+<enonce>Marie va acheter un livre d’art pour elle et un petit cadeau pour son frère . Le livre coûte 106€ . Si elle achète un CD pour son frère , elle payera en total 125€ .<br/>Elle achète pour lui une BD qui coûte 7€ de moins que le CD .<br/>Combien Marie va - t - elle payer en tout ?</enonce>
+<reponse>125€ - 7€ = 118<br/></reponse>
+<nom>Luidji M</nom>
+<resolution> a bien résolu le problème</resolution>
+<prenom col1="2">Luidji</prenom>
+<nbOper nbOper="1" calImp="0" sexe="m" col1="2">un</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="1" code="2" col2="9" col16="0" type="a">
+Différence
+<tout1>125</tout1>
+<tout2>118</tout2>
+<partie1>106</partie1>
+<partie3>99</partie3>
+<valdiff>7</valdiff>
+</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculé" nbOper="1" str="2" code="3" q="t" col1="2" col2="9" col6="9" col15="2" col16="0" type="a">
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du résultat final" col14="3" code="2">
+soustraction <op>(125-7)</op>
+</colonne15>
+<colonne17 sexe="m" intitule="résultat du calcul final" nbOper="1" sol="1" 
+					   str="2" col14="3" col15="2" code="0">
+correct<res>(118)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des données de l'opération" code="0" col14="3" nbOper="1" str="2">
+correctes</colonne16>
+<commentaire sol="1" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="3" col15="2" col16="0" col17="0" nbOper="1" str="2">
+</commentaire>
+</exercice>
+</diagnostic>

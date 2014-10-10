@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<diagnostic>
+	<colonne1 intitule="stratégie">
+		<str1 col1="1">stratégie par étape</str1>
+		<str2 col1="2">stratégie par différence</str2>
+		<str3 col1="3">stratégie mixte</str3>
+		<str4 col1="4">stratégie non pertinente</str4>
+		<str5 col1="5">stratégie menant à la solution mais non identifiable</str5>
+		<str6 col1="6">stratégie ne menant pas a la solution non identifiable</str6>
+		<str7 col1="7">problème non traité</str7>
+	</colonne1>
+	<colonne2 intitule="calcule du résultat intermédiaire">
+		<cas1 col2="0">implicite</cas1>
+		<cas2 col2="1">addition à trou</cas2>
+		<cas3 col2="2">soustraction</cas3>
+		<cas4 col2="3">soustraction inversée</cas4>
+		<cas5 col2="4">addition</cas5>
+		<cas6 col2="5">autre opération</cas6>
+		<cas7 col2="6">plusieurs opération</cas7>
+		<cas8 col2="7">soustraction à trou</cas8>
+		<cas9 col2="9">absence</cas9>
+	</colonne2>
+	<colonne3 intitule="pertinence des données de l'opération">
+		<cas1 col3="0">implicite</cas1>
+		<cas2 col3="1">au moins une des données est incorrecte</cas2>
+		<cas3 col3="9">pas d'opération posée</cas3>
+	</colonne3>
+	<colonne4 intitule="exactitude du résultat du calcul">
+		<cas1 col4="0">correcte</cas1>
+		<cas2 col4="1">petite erreur</cas2>
+		<cas3 col4="2">grosse erreur</cas3>
+		<cas4 col4="9">résultat absent</cas4>
+	</colonne4>
+	<colonne5 intitule="formulation du résultat intermédiaire"/>
+	<colonne6 intitule="calcul de comparaison">
+		<cas1 col6="0">implicite</cas1>
+		<cas2 col6="1">addition à trou</cas2>
+		<cas3 col6="2">soustraction</cas3>
+		<cas4 col6="3">soustraction inversée</cas4>
+		<cas5 col6="4">addition</cas5>
+		<cas6 col6="5">autre opération</cas6>
+		<cas7 col6="7">soustraction à trou</cas7>
+		<cas9 col6="9">absence</cas9>
+	</colonne6>
+	<colonne7>
+		<cas1 col7="0">implicite</cas1>
+		<cas2 col7="1">au moins une des données est incorrecte</cas2>
+		<cas3 col7="9">pas d'opération posée</cas3>
+	</colonne7>
+	<colonne8>
+		<cas1 col9="0">correcte</cas1>
+		<cas2 col9="1">petite erreur</cas2>
+		<cas3 col9="2">grosse erreur</cas3>
+		<cas4 col9="3">résultat absent</cas4>
+	</colonne8>
+	<colonne9/>
+	<colonne10 intitule="calcul de la différence">
+		<cas1 col10="0">implicite</cas1>
+		<cas2 col10="1">addition à trou</cas2>
+		<cas3 col10="2">soustraction</cas3>
+		<cas4 col10="3">soustraction inversée</cas4>
+		<cas5 col10="4">addition</cas5>
+		<cas6 col10="5">autre opération</cas6>
+		<cas7 col10="7">soustraction à trou</cas7>
+		<cas8 col10="9">absence</cas8>
+	</colonne10>
+	<colonne11>
+		<cas1 col11="0">implicite</cas1>
+		<cas2 col11="1">au moins une des données est incorrecte</cas2>
+		<cas3 col11="9">pas d'opération posée</cas3>
+	</colonne11>
+	<colonne12>
+		<cas1 col12="0">correcte</cas1>
+		<cas2 col12="1">petite erreur</cas2>
+		<cas3 col12="2">grosse erreur</cas3>
+		<cas4 col12="3">résultat absent</cas4>
+	</colonne12>
+	<colonne13/>
+	<colonne14 intitule="nature de ce qui est calculé">
+		<cas1 col14="0">calcul implicite</cas1>
+		<cas2 col14="1">calcul d'une partie</cas2>
+		<cas3 col14="2">calcul d'un tout</cas3>
+		<cas4 col14="3">calcul d'un des terme de la comparaison à partir de l'autre terme de la
+			différence</cas4>
+		<cas5 col14="4">calcul impliquant le résultat intermédiaire et la dernière donnée de l'énoncé</cas5>
+		<cas6 col14="5">autre cas</cas6>
+		<cas8 col14="9">absence</cas8>
+	</colonne14>
+	<colonne15 intitule="opération utilisée">
+		<cas1 col15="0">implicite</cas1>
+		<cas2 col15="1">addition à trou</cas2>
+		<cas3 col15="2">soustraction</cas3>
+		<cas4 col15="3">soustraction inversée</cas4>
+		<cas5 col15="4">addition de deux termes</cas5>
+		<cas6 col15="5">addition de tous les termes de l'énoncé</cas6>
+		<cas7 col15="6">autre opération sur tous les termes de l'énoncé</cas7>
+		<cas8 col15="7">opération non pertinente sur 2 des termes de l'énoncé</cas8>
+		<cas9 col15="8">autre cas</cas9>
+		<cas10 col15="9">absence</cas10>
+	</colonne15>
+	<colonne16 intitule="pertinence des données de l'opération finale">
+		<cas1 col16="0">données correctes</cas1>
+		<cas2 col16="1">au moins une des données est correcte sans être le résultat d'une erreur de calcul</cas2>
+		<cas3 col16="2">au moins une des données est correcte du fait d'une petite erreur de calcul</cas3>
+		<cas4 col16="3">au moins une des données est correcte du fait d'une grosse erreur de calcul</cas4>
+		<cas5 col16="4">les données sont correctes pour la comparaison mais pas pour l'opération finale</cas5>
+		<cas6 col16="9">absence</cas6>
+	</colonne16>
+	<colonne17 intitule="exactitude du résultat finale">
+		<cas1 col17="0">correcte</cas1>
+		<cas2 col17="1">petite erreur</cas2>
+		<cas3 col17="2">grosse erreur</cas3>
+		<cas4 col17="3">résultat absent</cas4>
+	</colonne17>
+	<colonne18/>
+</diagnostic>

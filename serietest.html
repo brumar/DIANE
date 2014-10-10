@@ -1,0 +1,539 @@
+<html>
+<head>
+
+<script type="text/javascript" language="javascript">
+function affiche(a)
+{
+if (a==1)
+{
+document.getElementById("calque1").style.visibility="visible";
+document.getElementById("calque2").style.visibility="hidden";
+document.getElementById("calque3").style.visibility="hidden";
+document.getElementById("calque4").style.visibility="hidden";
+document.getElementById("calque5").style.visibility="hidden";
+
+
+}
+else if (a==2)
+{
+document.getElementById("calque2").style.visibility="visible";
+document.getElementById("calque1").style.visibility="hidden";
+document.getElementById("calque3").style.visibility="hidden";
+document.getElementById("calque4").style.visibility="hidden";
+document.getElementById("calque5").style.visibility="hidden";
+
+}
+else if (a==3)
+{
+document.getElementById("calque3").style.visibility="visible";
+document.getElementById("calque1").style.visibility="hidden";
+document.getElementById("calque2").style.visibility="hidden";
+document.getElementById("calque4").style.visibility="hidden";
+document.getElementById("calque5").style.visibility="hidden";
+
+}
+else if (a==4)
+{
+document.getElementById("calque4").style.visibility="visible";
+document.getElementById("calque1").style.visibility="hidden";
+document.getElementById("calque2").style.visibility="hidden";
+document.getElementById("calque3").style.visibility="hidden";
+document.getElementById("calque5").style.visibility="hidden";
+
+}
+else if (a==5)
+{
+document.getElementById("calque5").style.visibility="visible";
+document.getElementById("calque1").style.visibility="hidden";
+document.getElementById("calque2").style.visibility="hidden";
+document.getElementById("calque3").style.visibility="hidden";
+document.getElementById("calque4").style.visibility="hidden";
+
+}
+
+
+}
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Document sans nom</title>
+<style type="text/css">
+<!--
+ .tableau
+  {
+	border-collapse: collapse; 
+	border-style: solid; 
+	border-width: 1px;
+	 
+  }-->
+</style>
+</head>
+
+<body>
+<p align="center"><a href="javascript:affiche(1)">Compl&eacute;ment</a>&nbsp;&nbsp; <a href="javascript:affiche(2)">Comparaison</a>&nbsp;&nbsp; <a href="javascript:affiche(3)">Distributivit&eacute;</a>&nbsp;&nbsp; <a href="javascript:affiche(4)">une &eacute;tape</a> 
+&nbsp;&nbsp;<a href="javascript:affiche(5)">Validez ici</a> </p>
+<form name="formulaire" action="traitSerie.php" method="post">
+<div id="calque1" style="position:absolute; left:30px; top:80px;">
+<table border="1" align="center" bordercolor="windowtext;" cellpadding="5" class="tableau">	 
+ <tr vAlign="center" align="middle" bgColor="#ccff99">
+        <TD>Selection des &eacute;nonc&eacute;s</TD>
+        <TD>Question Intermediaire </TD>
+        <TD>Ordre de s&eacute;l&eacute;ction</TD>
+        <TD>Enonc&eacute;s Compl&eacute;ment</TD>
+        <TD>Type</TD>
+      </tr>
+      <tr>
+        <TD align="middle"><input type="checkbox" value="1" name="select_e1"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e1"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e1"></TD>
+        <TD>Dans la famille Martin , il y a 4 personnes . Quand les Martin vont avec les   Dupont au restaurant , ils sont 10 &agrave; table .<BR>
+          Combien sont - ils dans la   famille Dupont ?<BR>
+          Dans la famille Perrin , il y a 5 personnes . Les Dupont   vont au restaurant avec les Perrin .<BR>
+          Combien seront - ils &agrave; table ?</TD>
+        <TD align="middle">xet</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="2" name="select_e2"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e2"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e2"></TD>
+        <TD>Henri ach&egrave;te &agrave; la librairie une trousse qui co&ucirc;te 5 Euros et une &eacute;querre .   Il paie 8 Euros .<BR>
+          Combien co&ucirc;te l' &eacute;querre ?<BR>
+          Hugo ach&egrave;te une &eacute;querre et un   stylo . Il paie 10 Euros .<BR>
+          Combien co&ucirc;te le stylo ?</TD>
+        <TD align="middle">yep</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="3" name="select_e3"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e3"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e3"></TD>
+        <TD>Paul ach&egrave;te au supermarch&eacute; un cahier qui co&ucirc;te 4 Euros et un compas . Il   paie 9 Euros .<BR>
+          Combien co&ucirc;te le compas ?<BR>
+          Jean ach&egrave;te un stylo qui co&ucirc;te 8   Euros et un compas .<BR>
+          Combien a - t - il d&eacute;pens&eacute; ?</TD>
+        <TD align="middle">yet</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="4" name="select_e4"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e4"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e4"></TD>
+        <TD>Paul a suivi les cours de musique au conservatoire pendant 12 ans et s' est   arr&ecirc;t&eacute; &agrave; 18 ans .<BR>
+          A quel &acirc;ge Paul a - t - il commenc&eacute; ?<BR>
+          Pierre a commenc&eacute;   au m&ecirc;me &acirc;ge que Paul et s' est arr&ecirc;t&eacute; &agrave; 15 ans .<BR>
+          Combien de temps Pierre a -   t - il suivi les cours ?</TD>
+        <TD align="middle">zep</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="5" name="select_e5"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e5"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e5"></TD>
+        <TD>Dans la famille Dubois , il y a 5 personnes . Quand les Dubois vont manger   en for&ecirc;t avec les Lambert , ils sont 12 au pique-nique .<BR>
+          Combien sont - ils   dans la famille Lambert ?<BR>
+          Quand les Lambert vont manger en for&ecirc;t avec les   Meunier , ils sont 11 au pique - nique .<BR>
+          Combien sont - ils dans la famille   Meunier ?</TD>
+        <TD align="middle">xep</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="6" name="select_e6"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e6"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e6"></TD>
+        <TD>Lucas a suivi les cours de dessin &agrave; l' &eacute;cole d' art pendant 11 ans et s' est   arr&ecirc;t&eacute; &agrave; 19 ans .<BR>
+          A quel &acirc;ge Lucas a - t - il commenc&eacute; ?<BR>
+          Eric a commenc&eacute;   au m&ecirc;me &acirc;ge que Lucas et a suivi les cours pendant 10 ans .<BR>
+          A quel &acirc;ge Eric   s' est - il arr&ecirc;t&eacute; ?</TD>
+        <TD align="middle">zet</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="7" name="select_e7"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e7"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e7"></TD>
+        <TD>Une bo&icirc;te rouge a une hauteur de 5 cm . Quand on pose une bo&icirc;te verte sur la   bo&icirc;te rouge , la hauteur de la pile est de 14 cm .<BR>
+          Quelle est la hauteur de   la bo&icirc;te verte ?<BR>
+          Quand on pose une bo&icirc;te jaune sur la bo&icirc;te verte , la   hauteur de la pile est de 11 cm .<BR>
+          Quelle est la hauteur de la bo&icirc;te jaune   ?</TD>
+        <TD align="middle">hep</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="8" name="select_e8"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e8"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e8"></TD>
+        <TD>Un boulanger ach&egrave;te au supermarch&eacute; 5 kg de fraises et un sac de chocolat .   Il a 8 kg d' achats .<BR>
+          Combien p&egrave;se le sac de chocolat ?<BR>
+          Un chocolatier   ach&egrave;te un sac de chocolat et un sac de sucre . Il a 10 kg d' achats .<BR>
+          Combien   p&egrave;se le sac de sucre ?</TD>
+        <TD align="middle">pep</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="9" name="select_e9"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e9"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e9"></TD>
+        <TD>Michael a voyag&eacute; en train pendant 12 h et est arriv&eacute; &agrave; 18 h .<BR>
+          A quelle   heure est - il parti ?<BR>
+          Nicolas est parti &agrave; la m&ecirc;me heure que Michael et est   arriv&eacute; &agrave; 15 h .<BR>
+          Combien de temps a - t - il voyag&eacute; ?</TD>
+        <TD align="middle">dep</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="10" name="select_e10"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e10"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e10"></TD>
+        <TD>Un cube blanc a une hauteur de 4 cm . Quand on pose un cube orange sur le   cube blanc , la hauteur de la pile est de 10 cm .<BR>
+          Quelle est la hauteur du   cube orange ?<BR>
+          Un cube noir a une hauteur de 5 cm . On pose le cube orange sur   le cube noir .<BR>
+          Quelle est la hauteur de la pile ?</TD>
+        <TD align="middle">het</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="11" name="select_e11"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e11"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e11"></TD>
+        <TD>Un boucher ach&egrave;te chez le grossiste 4 kg de c&ocirc;telettes et un bloc de p&acirc;t&eacute; .   Il a 9 kg d' achats .<BR>
+          Combien p&egrave;se le bloc de p&acirc;t&eacute; ?<BR>
+          Un charcutier ach&egrave;te   8 kg de saucisson et un bloc de p&acirc;t&eacute; .<BR>
+          Combien p&egrave;sent ses achats ?</TD>
+        <TD align="middle">pet</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="12" name="select_e12"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e12"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e12"></TD>
+        <TD>Driss a voyag&eacute; en bateau pendant 11h et est arriv&eacute; &agrave; 19h .<BR>
+          A quelle heure   est - il parti ?<BR>
+          Jonathan est parti &agrave; la m&ecirc;me heure que Driss et a voyag&eacute;   pendant 10h .<BR>
+          A quelle heure est - t - il arriv&eacute; ?</TD>
+        <TD align="middle">det</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="13" name="select_e13"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_e13"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_e13"></TD>
+        <TD>Paul buys a book which costs 4 Euros and a ruler at the supermarket . He   pays 9 Euros .<BR>
+          How much does the ruler cost ?<BR>
+          Pierre buys a pen which   costs 8 Euros and a ruler .<BR>
+          How much did he spend ?</TD>
+        <TD align="middle">yet</TD>
+      </tr>
+   
+	</table>
+ </div>
+ <div id="calque2" style="position:absolute; left:30px; top:80px; visibility:hidden">
+<table border="1" align="center" bordercolor="windowtext;" cellpadding="5" class="tableau">	  
+<tr vAlign="center" align="middle" bgColor="#ccff99">
+        <TD >Selection des &eacute;nonc&eacute;s</TD>
+        <TD>Question Intermediaire</TD>
+        <TD>Ordre de s&eacute;l&eacute;ction</TD>
+        <TD>Enonc&eacute;s Comparaison</TD>
+        <TD>Type</TD>
+      </tr> 
+	 
+	  <tr>
+        <TD align="middle" ><input type="checkbox" value="1" name="select_a1"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a1"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a1"></TD>
+        <TD>Antoine a suivi les cours de peinture &agrave; l' &eacute;cole d' art pendant 8 ans et s'   est arr&ecirc;t&eacute; &agrave; 17 ans .<BR>
+          A quel &acirc;ge Antoine a - t - il commenc&eacute; ?<BR>
+          Jean a   commenc&eacute; au m&ecirc;me &acirc;ge qu' Antoine et a suivi les cours 2 ans de moins .<BR>
+          A quel   &acirc;ge Jean s' est - il arr&ecirc;t&eacute; ?</TD>
+        <TD align="middle">zat</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="2" name="select_a2"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a2"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a2"></TD>
+        <TD>Dans la famille Bernard , il y a 6 personnes . Quand les Bernard vont avec   les Durand &agrave; la pizzeria , ils sont 9 &agrave; table .<BR>
+          Combien sont - ils dans la   famille Durand ?<BR>
+          Quand les Durand vont avec les Rousseau &agrave; la pizzeria , ils   sont 2 de moins &agrave; table .<BR>
+          Combien sont - ils dans la famille Rousseau ?</TD>
+        <TD align="middle">xap</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="3" name="select_a3"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a3"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a3"></TD>
+        <TD>Dans la famille Richard , il y a 5 personnes . Quand les Richard partent en   vacances avec les Robert , ils sont 7 &agrave; l' h&ocirc;tel .<BR>
+          Combien sont - ils dans la   famille Robert ?<BR>
+          Dans la famille Dumas , il y a 3 personnes de moins que dans   la famille Richard . Les Robert partent en vacances avec les Dumas .<BR>
+          Combien   seront - ils &agrave; l' h&ocirc;tel ?</TD>
+        <TD align="middle">xat</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="4" name="select_a4"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a4"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a4"></TD>
+        <TD>Daniel ach&egrave;te &agrave; la librairie un cahier qui co&ucirc;te 7 Euros et une r&egrave;gle . Il   paie 12 Euros .<BR>
+          Combien co&ucirc;te la r&egrave;gle ?<BR>
+          Cl&eacute;ment ach&egrave;te une r&egrave;gle et un   feutre . Il paie 2 Euros de moins que Daniel .<BR>
+          Combien co&ucirc;te le feutre ?</TD>
+        <TD align="middle">yap</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="5" name="select_a5"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a5"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a5"></TD>
+        <TD>Laurent ach&egrave;te au supermarch&eacute; un classeur qui co&ucirc;te 8 Euros et des ciseaux .   Il paie 14 Euros .<BR>
+          Combien co&ucirc;tent les ciseaux ?<BR>
+          Un feutre co&ucirc;te 3 Euros   de moins qu' un classeur . Augustin ach&egrave;te des ciseaux et un feutre .<BR>
+          Combien   doit - il payer ?</TD>
+        <TD align="middle">yat</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="6" name="select_a6"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a6"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a6"></TD>
+        <TD>Pauline a suivi les cours de danse au conservatoire pendant 10 ans et s' est   arr&ecirc;t&eacute;e &agrave; 17 ans .<BR>
+          A quel &acirc;ge Pauline a - t - elle commenc&eacute; ?<BR>
+          Julie a   commenc&eacute; au m&ecirc;me &acirc;ge que Pauline et s' est arr&ecirc;t&eacute;e 3 ans plus t&ocirc;t .<BR>
+          Combien   de temps Julie a - t - elle suivi les cours ?</TD>
+        <TD align="middle">zap</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="7" name="select_a7"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a7"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a7"></TD>
+        <TD>Une brique blanche a une hauteur de 6 cm . Quand on pose la brique blanche   sur une brique noire , la hauteur de la pile est de 11 cm .<BR>
+          Quelle est la   hauteur de la brique noire ?<BR>
+          Quand on pose la brique noire sur une brique   verte , la pile mesure 2 cm de moins .<BR>
+          Quelle est la hauteur de la brique   verte ?</TD>
+        <TD align="middle">hap</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="8" name="select_a8"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a8"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a8"></TD>
+        <TD>Un &eacute;picier ach&egrave;te au supermarch&eacute; 7 kg de poires et un sac de gruy&egrave;re r&acirc;p&eacute; .   Il a 12 kg d' achats .<BR>
+          Combien p&egrave;se le sac de gruy&egrave;re r&acirc;p&eacute; ?<BR>
+          Un fromager   ach&egrave;te un sac de gruy&egrave;re r&acirc;p&eacute; et un pack de lait , il a 2 kg d' achats de moins   que l' &eacute;picier .<BR>
+          Combien p&egrave;se le pack de lait ?</TD>
+        <TD align="middle">pap</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="9" name="select_a9"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a9"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a9"></TD>
+        <TD>Sophie a voyag&eacute; en voiture pendant 10 h et est arriv&eacute;e &agrave; 17 h .<BR>
+          A quelle   heure est - elle partie ?<BR>
+          Jennyfer est partie &agrave; la m&ecirc;me heure que Sophie et   est arriv&eacute;e 3 heures plus t&ocirc;t .<BR>
+          Combien de temps a - t - elle voyag&eacute; ?</TD>
+        <TD align="middle">dap</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="10" name="select_a10"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a10"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a10"></TD>
+        <TD>Un d&eacute; rouge a une hauteur de 5 cm . Quand on pose le d&eacute; rouge sur un d&eacute; bleu   , la hauteur de la pile est de 7 cm .<BR>
+          Quelle est la hauteur du d&eacute; bleu   ?<BR>
+          Un d&eacute; jaune mesure 3 cm de moins que le d&eacute; rouge . On pose le d&eacute; bleu sur   le d&eacute; jaune .<BR>
+          Quelle est la hauteur de la pile ?</TD>
+        <TD align="middle">hat</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="11" name="select_a11"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a11"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a11"></TD>
+        <TD>Un restaurateur ach&egrave;te chez le grossiste un sac de 8 kg de farine et un   cageot de crevettes . Il a 14 kg d' achats .<BR>
+          Combien p&egrave;se le cageot de   crevettes ?<BR>
+          Un sac de moules p&egrave;se 3 kg de moins que le sac de farine . Un   poissonnier ach&egrave;te un cageot de crevettes et un sac de moules .<BR>
+          Combien   p&egrave;sent ses achats ?</TD>
+        <TD align="middle">pat</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="12" name="select_a12"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a12"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a12"></TD>
+        <TD>Arnaud a voyag&eacute; en avion pendant 8 h et est arriv&eacute; &agrave; 17 h .<BR>
+          A quelle   heure est - il parti ?<BR>
+          David est parti &agrave; la m&ecirc;me heure qu' Arnaud et a voyag&eacute;   2 heures de moins .<BR>
+          A quelle heure est - il arriv&eacute; ?</TD>
+        <TD align="middle">dat</TD>
+      </tr>
+      <tr>
+        <TD align="middle" ><input type="checkbox" value="13" name="select_a13"></TD>
+        <TD align="middle"><input type="checkbox" name="questi_a13"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_a13"></TD>
+        <TD>Paul va &agrave; la boutique pour s&rsquo;acheter des v&ecirc;tements pour un mariage . Il   ach&egrave;te une veste en soie &agrave; 124 Euros et un pantalon . Le prix total est de 312   Euros .<BR>
+          Combien co&ucirc;te le pantalon ?<BR>
+          Au moment d&rsquo;aller &agrave; la caisse , il   voit une veste en lin qu&rsquo;il trouve plus belle que la veste en soie et la prend &agrave;   la place . Il paie finalement 5 euros de moins pour ses v&ecirc;tements .<BR>
+          Combien   co&ucirc;te la veste en lin ?</TD>
+        <TD align="middle">yap</TD>
+      </tr>
+    </table>
+  </div>
+	  <div id="calque3" style="position:absolute; left:30px; top:80px; visibility:hidden">
+<table border="1" align="center" bordercolor="windowtext;" cellpadding="5" class="tableau">
+	 <tr align="middle" bgColor="#ccff99">
+        <TD vAlign="center" colSpan="2" >Selection des &eacute;nonc&eacute;s</TD>
+        <TD>Ordre de s&eacute;l&eacute;ction</TD>
+        <TD>Enonc&eacute;s Distributivit&eacute; </TD>
+        <TD>Type</TD>
+      </tr>
+	
+
+      <tr>
+        <TD align="middle" colSpan="2" ><input type="checkbox" value="1" name="select_d1"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_d1"></TD>
+        <TD>Pour la rentr&eacute;e, Claire ach&egrave;te &agrave; chacun de ses 5 enfants : 3 tubes de colle,   8 habits nouveaux, 7 cahiers .<BR>
+          Combien Claire a-t-elle achet&eacute; d'objets en   tout pour ses enfants ?</TD>
+        <TD align="middle">Dyz1</TD>
+      </tr>
+      <tr>
+        <TD align="middle" colSpan="2" ><input type="checkbox" value="2" name="select_d2"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_d2"></TD>
+        <TD>Pour la rentr&eacute;e , Claire ach&egrave;te depuis 4 ans : 2 tubes de colle , 7 habits   nouveaux , 6 cahiers .<BR>
+          Combien Claire a - t - elle achet&eacute; d' objets durant   toutes ces ann&eacute;es ?</TD>
+        <TD align="middle">Dxy1</TD>
+      </tr>
+      <tr>
+        <TD align="middle" colSpan="2" ><input type="checkbox" value="3" name="select_d3"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_d3"></TD>
+        <TD>Pour la rentr&eacute;e , Paul ach&egrave;te chaque ann&eacute;e depuis 4 ans : 2 crayons &agrave; papier   , 7 crayons de couleur , 6 crayons feutre .<BR>
+          Combien Paul a - t - il achet&eacute; d'   objets durant toutes ces ann&eacute;es ?</TD>
+        <TD align="middle">Dxy0</TD>
+      </tr>
+      <tr>
+        <TD align="middle" colSpan="2" ><input type="checkbox" value="4" name="select_d4"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_d4"></TD>
+        <TD>Pour la rentr&eacute;e , Claire entre dans un magasin o&ugrave; tout est &agrave; 4 &euro;. Elle   ach&egrave;te : 2 crayons &agrave; papier , 7 crayons de couleur , 6 crayons feutres   .<BR>
+          Combien Claire a - t - elle d&eacute;pens&eacute; en tout dans le magasin ?</TD>
+        <TD align="middle">Dyx0</TD>
+      </tr>
+      <tr>
+        <TD align="middle" colSpan="2" ><input type="checkbox" value="5" name="select_d5"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_d5"></TD>
+        <TD>Pour la rentr&eacute;e , Claire ach&egrave;te dans un magasin : des crayons &agrave; papier &agrave; 2 &euro;   , des crayons de couleur &agrave; 7 &euro; , des crayons feutres &agrave; 6 &euro; . Elle en prend 4 de   chaque .<BR>
+          Combien Claire a - t - elle d&eacute;pens&eacute; en tout dans le magasin ?</TD>
+        <TD align="middle">Dxy1</TD>
+      </tr>
+	  </table>
+	  </div>
+	 <div id="calque4" style="position:absolute; left:30px; top:80px; visibility:hidden">
+<table border="1" align="center" bordercolor="windowtext;" cellpadding="5" class="tableau">
+	  <tr align="middle" bgColor="#ccff99">
+        <TD vAlign="center" colSpan="2" >Selection des &eacute;nonc&eacute;s</TD>
+        <TD>Ordre de s&eacute;l&eacute;ction</TD>
+        <TD>Enonc&eacute;s en une seule &eacute;tape </TD>
+        <TD>Type</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="1" name="select_etape1"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape1"></TD>
+        <TD align="left">X avait 3 billes . Puis Y lui a donn&eacute; 5 billes .<BR>
+          Combien de   billes a maintenant X ?</TD>
+        <TD align="middle">changement EFA (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="2" name="select_etape2"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape2"></TD>
+        <TD align="left">X avait 8 billes . Puis il a donn&eacute; 5 billes &agrave; Y.<BR>
+          Combien de   billes a maintenant X ?</TD>
+        <TD align="middle">changement EFP (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="3" name="select_etape3"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape3"></TD>
+        <TD align="left">X avait 3 billes . Y lui en a donn&eacute; . X a maintenant 8 billes   .<BR>
+          Combien de billes Y a - t - il donn&eacute; &agrave; X ?</TD>
+        <TD align="middle">changement TrA (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="4" name="select_etape4"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape4"></TD>
+        <TD align="left">X avait 8 billes . Il en a donn&eacute; &agrave; Y . Maintenant X a 3 billes   .<BR>
+          Combien X a - t - il donn&eacute; de billes &agrave; Y ?</TD>
+        <TD align="middle">changement TrP (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="5" name="select_etape5"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape5"></TD>
+        <TD align="left">X avait des billes . Y lui en a donn&eacute; 5 de plus . Maintenant X a   8 billes .<BR>
+          Combien X avait t - il de billes ?</TD>
+        <TD align="middle">changement EIA (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="6" name="select_etape6"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape6"></TD>
+        <TD align="left">X avait des billes . Il en a donn&eacute; 5 &agrave; Y . Maintenant X a 3   billes .<BR>
+          Combien X avait t - il de billes ?</TD>
+        <TD align="middle">changement EIP (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="7" name="select_etape7"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape7"></TD>
+        <TD align="left">X a 3 billes . Y a 5 billes .<BR>
+          Combien X et Y ont - il de   billes ensemble ?</TD>
+        <TD align="middle">combinaison tout (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="8" name="select_etape8"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape8"></TD>
+        <TD align="left">Combien X et Y ont ensemble 8 billes . X a 3 billes .<BR>
+          Combien   Y a t'il de billes ?</TD>
+        <TD align="middle">combinaison partie (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="9" name="select_etape9"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape9"></TD>
+        <TD align="left">X a 8 billes . Y a 5 billes .<BR>
+          Combien X a - il de billes de   plus que Y ?</TD>
+        <TD align="middle">comparaison diff (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="10" name="select_etape10"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape10"></TD>
+        <TD align="left">X a 8 billes . Y a 5 billes .<BR>
+          Combien Y a - il de billes de   moins que X ?</TD>
+        <TD align="middle">comparaison diff (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="11" name="select_etape11"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape11"></TD>
+        <TD align="left">X a 3 billes . Y a 5 billes de plus que X .<BR>
+          Combien Y a - il   de billes ?</TD>
+        <TD align="middle">comparaison tout (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="12" name="select_etape12"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape12"></TD>
+        <TD align="left">X a 8 billes . Y a 5 billes de moins que X .<BR>
+          Combien Y a - il   de billes ?</TD>
+        <TD align="middle">comparaison diff (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="13" name="select_etape13"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape13"></TD>
+        <TD align="left">X a 8 billes . Il a 5 billes de plus que Y .<BR>
+          Combien Y a - il   de billes ?</TD>
+        <TD align="middle">comparaison diff (x)</TD>
+      </tr>
+      <tr align="middle">
+        <TD vAlign="center" align="middle" colSpan="2" ><input type="checkbox" value="14" name="select_etape14"></TD>
+        <TD align="middle"><input maxLength="2" size="2" name="choix_etape14"></TD>
+        <TD align="left">X a 3 billes . Il a 5 billes de moins que Y .<BR>
+          Combien Y a - il   de billes ?</TD>
+        <TD align="middle">comparaison tout (x)</TD>
+      </tr>
+    <input type="hidden" value="13" name="i">
+    <input type="hidden" value="13" name="j">
+    <input type="hidden" value="5" name="m">
+    <input type="hidden" value="14" name="k">
+ 
+   
+  </table> 
+  </div>
+<div id="calque5" style="position:absolute; left:291px; top:122px; visibility:hidden">
+<table border="1" align="center" bordercolor="windowtext;" cellpadding="5" class="tableau">   
+      <tr>
+        <TD align="right"><STRONG>Donnez un nom &agrave; la s&eacute;rie</STRONG></TD>
+        <TD><input name="nomSerie"></TD>
+      </tr>
+      <tr>
+        <TD align="right"><STRONG>Commentaire</STRONG></TD>
+        <TD><TEXTAREA name="commentaire" cols="40"></TEXTAREA></TD>
+      </tr>
+   
+  </table>
+  <p align="center">
+    <input type="submit" value="Enregistrer" name="enregistrer">
+  </p>
+  </div>
+</FORM>
+
+</body>
+</html>

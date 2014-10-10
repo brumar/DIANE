@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<?xml-stylesheet href="diag_d.xsl" type="text/xsl"?>
+<diagnostic>
+<exercice numTrace='3158'>
+<enonce>Chez Toys'rus , tous les articles Diddle sont au prix de 4 Euros . Théa achète : 3 stylos , 7 blocs de papier à lettre et 6 peluches .<br/>Combien Théa a - t - elle dépensé en tout dans le magasin ?</enonce>
+<reponse>3 + 6 = 9</reponse>
+<nom>Apolyne L</nom>
+<prenom>Apolyne</prenom>
+<nbOper nbOper="1" calImp="0" sexe="f">un</nbOper>
+<fact>4</fact>
+<strategie typeStr="" str="" imp="0" sexe="f">
+<str></str>
+<facteur>4</facteur>
+<nbVal>3</nbVal>
+<sommeVal>16</sommeVal>
+<valSomme>3, 7, 6</valSomme>
+<minVal>3</minVal>
+</strategie>
+<operation>3 + 6 = 9<br/></operation>
+</exercice>
+</diagnostic>

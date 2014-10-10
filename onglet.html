@@ -1,0 +1,84 @@
+<html>
+<head>
+<script language="javascript">
+
+function affiche(a)
+{
+if (a==1)
+{
+document.getElementById("calque1").style.visibility="visible";
+document.getElementById("calque2").style.visibility="hidden";
+}
+else
+{
+document.getElementById("calque2").style.visibility="visible";
+document.getElementById("calque1").style.visibility="hidden";
+}
+}
+
+</script>
+
+</head>
+<body>
+
+<table>
+<tr>
+<td>
+<a href="javascript:affiche(1)">onglet1</a>
+</td>
+
+<td>
+<a href="javascript:affiche(2)">onglet2</a>
+</td>
+
+</tr>
+</table>
+
+<form>
+
+<div id="calque1" style="position:absolute; left:200px; top:20px;">
+<input type="text">
+<INPUT type="checkbox" name="questi_e1">
+<INPUT type="checkbox" name="questi_e1">
+<INPUT type="checkbox" name="questi_e1">
+</div>
+
+<div id="calque2" style="position:absolute; left:200px; top:20px; visibility:hidden">
+<select name="machin">
+<option>b</option>
+<option>C</option>
+<option>D</option>
+
+</select>
+<option>b</option>
+
+<input type="submit"></input>
+</div>
+
+</form>
+<table width="100%" border="1" align="center" bordercolor="windowtext;" cellpadding="5" class="tableau">
+  <tr align="center" valign="middle" class="titre2">
+    <td width="216">Particuliers
+    <td colspan="2">Frais de D&eacute;placement 
+      (&agrave; part)</td>
+  </tr>
+  <tr align="center">
+    <td>Taux Horaire&nbsp;: 
+      40 &euro;/TTC</td>
+
+    <td width="211">Dans un rayon de  30 Km</td>
+    <td width="118">10 &euro;/TTC</td>
+  </tr>
+  <tr align="center" valign="middle">
+    <td>Forfait D&eacute;pannage = 80 &euro;/TTC</td>
+    <td> Dans un rayon de plus de 30 Km</td>
+
+    <td>&agrave; d&eacute;finir selon la distance </td>
+  </tr>
+  <tr align="center" valign="middle">
+    <td colspan="3" bgcolor="#D1EFF9"> Si au bout de 2h, la panne n&rsquo;est pas r&eacute;solue, notre intervenant peut emporter le mat&eacute;riel &agrave; r&eacute;parer en atelier.</td>
+
+  </tr>
+</table>
+
+</body>
