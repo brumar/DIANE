@@ -18,7 +18,7 @@ function gestionClic(v1,v2,v3)
 {
    // document.getElementById('nbr_clics').innerHTML = '<em>Chargement...</em>';
     http = createRequestObject();
-    http.open('get', '../ajax/traitement_recup_exo.php?numEleve='+v1+'&id='+v2+'&numSerie='+v3, true);
+    http.open('get', 'traitement_recup_exo.php?numEleve='+v1+'&id='+v2+'&numSerie='+v3, true);
     http.onreadystatechange = handleAJAXReturn;
     http.send(null);
 }
@@ -39,7 +39,7 @@ function handleAJAXReturn()
         }
     }
 }
-function rafrechire()
+function rafrechir()
 {
 window.location.replace("../ajax/traitement_recup_exo.php");
 }

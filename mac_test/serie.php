@@ -7,7 +7,7 @@
 <head>
 <title>Série</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="../ajax/exemple_1.js"></script>
+<script type="text/javascript" src="static/js/exemple_1.js"></script>
 <script language="JavaScript">
 	 function fermer() {
 	 	opener=self;
