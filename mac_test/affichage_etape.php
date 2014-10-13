@@ -1,7 +1,7 @@
 <?php require ("conn.php"); ?>
 <html>
 <script type="text/javascript" language="javascript">
-  var texte = "Voulez-vous réellement supprimer cet énoncé ?"
+  var texte = "Voulez-vous rÃ©ellement supprimer cet Ã©noncÃ© ?"
   function supprimer(num)
   {
   	if(confirm(texte))
@@ -16,19 +16,19 @@
 </script>
 
  <head>
-  <title>Problème en une seule étape</title>
+  <title>ProblÃ¨me en une seule Ã©tape</title>
  </head>
 <body>
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <form action="selection.php" method="post">
   <table width="701" border="2" align="center" cellpadding="4" cellspacing="4" bordercolor="#FF0000">
     <tr align="center" bgcolor="#F0F7FA"> 
 	<td width="53">&nbsp;</td>
-	<td width="448">Enoncés &agrave; une &eacute;tape </td>
+	<td width="448">EnoncÃ©s &agrave; une &eacute;tape </td>
 	<td height="29">Type de <br>Probl&egrave;me </td>
     <td bgcolor="#F0F7FA">&nbsp;</td>
 
@@ -37,7 +37,7 @@
   // initialisation
 	$nb=8;
 	if(empty($page)) $page = 1;
-	if(empty($total)){ // nombre total de résultats
+	if(empty($total)){ // nombre total de rÃ©sultats
  	$sql1 = "select count(*) as qte from etape";
  	$p = @mysql_query($sql1,$BD_link);
  	$total = @mysql_result($p,"0","qte");
@@ -48,9 +48,9 @@
 
   $sql = "SELECT * FROM etape order by numero desc LIMIT $debut,$nb";
 
-  $result = mysql_query($sql) or die ("Requête incorrecte");
+  $result = mysql_query($sql) or die ("RequÃªte incorrecte");
   // = mysql_numrows($query);
-  if ($result) { // Si il y'a des résultats
+  if ($result) { // Si il y'a des rÃ©sultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -73,9 +73,9 @@
     <?php
         } // Fin instruction while
 
-      } else { // Pas de résultat trouvé
+      } else { // Pas de rÃ©sultat trouvÃ©
 
-    echo "Pas de résultat";
+    echo "Pas de rÃ©sultat";
 
       }
 ?>
@@ -91,11 +91,11 @@
  	   echo "<a href=\"$PHP_SELF?page=$i&total=$total\">page$i</a>";
        if($i < $nbpages) echo " - ";
     }
-  mysql_free_result($result); // Libère la mémoire
+  mysql_free_result($result); // LibÃ¨re la mÃ©moire
   mysql_close(); // Ferme la connexion
  ?>
   </p>
-  <p><a href="formEtape.html ">Créer un nouvel exercice</a></p></div>
+  <p><a href="formEtape.html ">CrÃ©er un nouvel exercice</a></p></div>
 
 </div>
   

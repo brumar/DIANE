@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Supprimer une série d'exercices</title>
+<title>Supprimer une sÃ©rie d'exercices</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <style type="text/css">
 <!--
@@ -36,7 +36,7 @@
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p><form  method="post" action="traitSupSerie.php">
   <h3 align="center">S&eacute;lectionnez les s&eacute;ries d'exercices &agrave;  supprimer</h3>
   <table border="1" align="center" bordercolor="windowtext;" cellpadding="5" class="tableau">	 
@@ -50,7 +50,7 @@
 <?php 
 require_once("conn.php");
 $sql1 = "SELECT numSerie,nomSerie,commentaire FROM serie";
-$result1 = mysql_query($sql1) or die ("Requête incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
 $i=1;
 while ($r1 = mysql_fetch_assoc($result1))
 	{

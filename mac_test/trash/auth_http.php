@@ -2,7 +2,7 @@
   /* if (!isset($_SERVER['PHP_AUTH_USER'])) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
-    echo 'Texte utilisé si le visiteur utilise le bouton d\'annulation';
+    echo 'Texte utilisÃ© si le visiteur utilise le bouton d\'annulation';
     exit;
   } 
   else if (($_SERVER['PHP_AUTH_USER']=="khider") and ($_SERVER['PHP_AUTH_PW']=="kahina"))
@@ -18,7 +18,7 @@
 	 if ( !isset($_SERVER['PHP_AUTH_USER']) ) { 
            header('WWW-Authenticate: Basic realm="My Realm"'); 
            header('HTTP/1.0 401 Unauthorized'); 
-           echo 'Texte utilisé si le visiteur utilise le bouton d\'annulation';
+           echo 'Texte utilisÃ© si le visiteur utilise le bouton d\'annulation';
 
            exit(); 
     }   

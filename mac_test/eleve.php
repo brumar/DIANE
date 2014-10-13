@@ -4,15 +4,15 @@
 	$result = mysql_query($query);
     if(!$result)
     {
-      echo 'la requète ne peut pas s\'executer.';
+      echo 'la requÃ¨te ne peut pas s\'executer.';
       exit;
     }
     $count = mysql_result($result, 0, 0 );
     if ( $count > 0 )
     {
         //session_start();
-		//session_unset();		// Détruit toutes les variables de session
-		//session_destroy();		// Finalement, détruit la session
+		//session_unset();		// DÃ©truit toutes les variables de session
+		//session_destroy();		// Finalement, dÃ©truit la session
 
 		$sql = "select * from eleve where nom = '".$_POST['nom']."' and prenom = '".$_POST['prenom']."'";
         $result1=mysql_query( $sql );
@@ -25,11 +25,11 @@
 		header("Location: serie.php");
     }
     else
-{// Nom et/ou Prénom incorecte
+{// Nom et/ou PrÃ©nom incorecte
 	echo('<html>');
 	echo('<head>');
 	echo('<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">');
-	echo('<title>Erreur dans le Nom et/ou Prénom</title>');
+	echo('<title>Erreur dans le Nom et/ou PrÃ©nom</title>');
 	echo('</head>');
 	echo('<body>');
 	echo('<p>&nbsp;</p>');

@@ -5,9 +5,9 @@ if ($compteur==0)
 {
 	$sql1 = "SELECT * FROM complement";
 	$sql2= "SELECT * FROM comparaison";
-	$result1 = mysql_query($sql1) or die ("Requête incorrecte");
-	$result2 = mysql_query($sql2) or die ("Requête incorrecte");
-		if ($result1) // Si il y'a des résultats
+	$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
+	$result2 = mysql_query($sql2) or die ("RequÃªte incorrecte");
+		if ($result1) // Si il y'a des rÃ©sultats
 		{ 
 			while ($enregistrement1 = mysql_fetch_assoc($result1))
 			 {
@@ -15,7 +15,7 @@ if ($compteur==0)
 			 }
 			 $trand1 = array_rand($t1,3);
 		}
-		if ($result2) // Si il y'a des résultats
+		if ($result2) // Si il y'a des rÃ©sultats
 		{ 
 			while ($enregistrement2 = mysql_fetch_assoc($result2))
 			 {

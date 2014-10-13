@@ -4,7 +4,7 @@ session_start();
 $_SESSION["numSerie"]= (int)trim($_GET["numSerie"]);
 require_once("conn.php");
 $sql1 = "SELECT * FROM serie where numSerie=".$_SESSION["numSerie"];
-$result1 = mysql_query($sql1) or die ("Requête incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
 $i=$_SESSION['numExo'];
 while ($r1 = mysql_fetch_assoc($result1))
 	{

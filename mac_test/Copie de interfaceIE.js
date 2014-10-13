@@ -96,7 +96,7 @@ function verifForm()
 	document.info.zonetexte.value = x;
 	if (document.info.zonetexte.value=='' )
 	{
-	alert('Tu dois écrire ta réponse dans la feuille');
+	alert('Tu dois Ã©crire ta rÃ©ponse dans la feuille');
 	}
 	else
 	{
@@ -365,7 +365,7 @@ if (document.info.R1[0].checked)
 				case " - " : conc = document.info.operande1.value.replace(',','.') + "-" + document.info.operande2.value.replace(',','.');
 							if (eval(conc) < 0)
 							{
-								alert ("Tu as inversé ta soustraction\nje ne peux pas calculer ta réponse");
+								alert ("Tu as inversÃ© ta soustraction\nje ne peux pas calculer ta rÃ©ponse");
 								window.document.info.resultat1.value ='';
 							} else
 							{
@@ -419,7 +419,7 @@ else if (document.info.R1[1].checked)
 											  x = eval(conc);
 											  if (x<0) 
 											  {
-												  alert("je ne peux pas faire cette opération");
+												  alert("je ne peux pas faire cette opÃ©ration");
 											  }
 											  else 
 											  {
@@ -437,7 +437,7 @@ else if (document.info.R1[1].checked)
 											  x = eval(conc);
 											  if (x<0) 
 											  {
-												  alert("je ne peux pas faire cette opération");
+												  alert("je ne peux pas faire cette opÃ©ration");
 											  }
 											  else
 											  {
@@ -451,7 +451,7 @@ else if (document.info.R1[1].checked)
 											  x = eval(conc);
 											  if (x<0) 
 											  {
-												  alert("je ne peux pas faire cette opération");
+												  alert("je ne peux pas faire cette opÃ©ration");
 											  }
 											  else
 											  {
@@ -473,14 +473,14 @@ function verifCal()
 {
 		if(((document.info.operande1.value=='')||(document.info.operande2.value=='')||(document.info.operateur1.options[document.info.operateur1.selectedIndex].value=='   ')||(document.info.resultat1.value==''))&&(document.info.R1[0].checked))
 			{
-				alert("Ton opération n'est pas complète");
+				alert("Ton opÃ©ration n'est pas complÃ¨te");
 				document.info.operande1.focus();
 			}
 	    else if(((document.info.operande1.value=='')||(document.info.operande2.value=='')||(document.info.operande3.value=='')||(document.info.operateur1.options[document.info.operateur1.selectedIndex].value
 =='   ')||(document.info.operateur2.options[document.info.operateur2.selectedIndex].value
 =='   ')||(document.info.resultat1.value==''))&&(document.info.R1[1].checked))
 			{
-				alert("Ton opération n'est pas complète");
+				alert("Ton opÃ©ration n'est pas complÃ¨te");
 				document.info.operande3.focus();
 			}
 		else 
@@ -583,7 +583,7 @@ function inserer(selec)
 		objectValueDeb = objectValue.substring( 0 , oField.selectionStart );
 		objectValueFin = objectValue.substring( oField.selectionEnd , oField.textLength );
 		objectSelected = objectValue.substring( oField.selectionStart ,oField.selectionEnd );
-	//	alert("Debut:'"+objectValueDeb+"' ("+deb+")\nFin:'"+objectValueFin+"' ("+fin+")\n\nSelectionné:'"+objectSelected+"'("+(fin-deb)+")");
+	//	alert("Debut:'"+objectValueDeb+"' ("+deb+")\nFin:'"+objectValueFin+"' ("+fin+")\n\nSelectionnÃ©:'"+objectSelected+"'("+(fin-deb)+")");
 		oField.value = objectValueDeb + selec +  objectValueFin;
 		oField.focus();
 		oField.selectionStart = objectValueDeb.length;//strlen(objectValueDeb);
@@ -597,7 +597,7 @@ function inserer(selec)
 		var str = document.selection.createRange().text;
 		if (str.length>0)
 		{
-		// Si on a selectionné du texte
+		// Si on a selectionnÃ© du texte
 			var sel = document.selection.createRange();
 			sel.text =  selec ;
 			sel.collapse();
@@ -650,7 +650,7 @@ function insererSas(selec)
 		objectValueDeb = objectValue.substring( 0 , oField.selectionStart );
 		objectValueFin = objectValue.substring( oField.selectionEnd , oField.textLength );
 		objectSelected = objectValue.substring( oField.selectionStart ,oField.selectionEnd );
-	//	alert("Debut:'"+objectValueDeb+"' ("+deb+")\nFin:'"+objectValueFin+"' ("+fin+")\n\nSelectionné:'"+objectSelected+"'("+(fin-deb)+")");
+	//	alert("Debut:'"+objectValueDeb+"' ("+deb+")\nFin:'"+objectValueFin+"' ("+fin+")\n\nSelectionnÃ©:'"+objectSelected+"'("+(fin-deb)+")");
 		oField.value = objectValueDeb + selec +  objectValueFin;
 		oField.focus();
 		oField.selectionStart = objectValueDeb.length;
@@ -664,7 +664,7 @@ function insererSas(selec)
 		var str = document.selection.createRange().text;
 		if (str.length>0)
 		{
-		// Si on a selectionné du texte
+		// Si on a selectionnÃ© du texte
 			var sel = document.selection.createRange();
 			sel.text =  selec ;
 			sel.collapse();

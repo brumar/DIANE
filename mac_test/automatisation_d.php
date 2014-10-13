@@ -79,7 +79,7 @@ for($compt=0; $compt<$total; $compt++)
 		 	$numTrace = $tabId[$compt];
 		
 			$t='distributivite' ;
-            print("numÈro de trace ".$numTrace."   "); print($t."<br>");print($text."<br>");
+            print("num√©ro de trace ".$numTrace."   "); print($t."<br>");print($text."<br>");
             include("diagauto_d.php");
 			echo "<br>______________________________________________________________<br>";
 	

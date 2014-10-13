@@ -8,10 +8,10 @@
 <p align="center">
 <a href="index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.php">Elève</a>
+<a href="eleve.php">ElÃ¨ve</a>
 </p>
 <form action="automatisation_d.php" method="post" target="_blank">
-  <h4 align="center">Choisissez un élève</h4>
+  <h4 align="center">Choisissez un Ã©lÃ¨ve</h4>
   <p align="center"> 
     <?php 
 	require("conn.php");

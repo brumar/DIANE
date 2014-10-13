@@ -3,7 +3,7 @@
 <title>Outil d'affichage</title>
 <?php
 // uh, mai 2001
-// ATTENTION !! Les quatre variables $HOST, $USER, $PASS et $DATB doivent être adaptées au fichier inc utilisé
+// ATTENTION !! Les quatre variables $HOST, $USER, $PASS et $DATB doivent Ãªtre adaptÃ©es au fichier inc utilisÃ©
 //require('var.inc.php3');
 ?>
 </head>
@@ -11,7 +11,7 @@
 <p align="center"> 
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>  
+<a href="eleve.html">ElÃ¨ve</a>  
   </p>
 <?php
 $cnx = mysql_connect("localhost", "root" , ""); //connexion au serveur de bases
@@ -38,7 +38,7 @@ if ($cnx)
 //$sql = "select * from complement";
         $sql = "select * from ".$_GET['tbl'];
 
-        $res1 = mysql_query($sql,$cnx);   // selection de la table demandée
+        $res1 = mysql_query($sql,$cnx);   // selection de la table demandÃ©e
         if ($res1)
         {
            $numreg = mysql_num_rows($res1);
@@ -69,14 +69,14 @@ if ($cnx)
           }
           else
           {
-          echo "Requ&ecirc;te $sql sans succ&egrave;s.<br>\n";   // si la requête échoue
+          echo "Requ&ecirc;te $sql sans succ&egrave;s.<br>\n";   // si la requÃªte Ã©choue
           echo mysql_errno() . ": " . mysql_error() . "<br>\n";
          }
       }
     }
   else
     {
-    echo "Base inaccessible.<br>\n";    // si la base n'est pas trouvée
+    echo "Base inaccessible.<br>\n";    // si la base n'est pas trouvÃ©e
     echo mysql_errno() . ": " . mysql_error() . "<br>\n";
     }
 mysql_close();

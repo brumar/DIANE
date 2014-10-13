@@ -1,8 +1,8 @@
 <?php 
   session_start();
-  // Détruit toutes les variables de session
+  // DÃ©truit toutes les variables de session
   session_unset();
-  // Finalement, détruit la session
+  // Finalement, dÃ©truit la session
   session_destroy();
   $nom = strtolower(trim($_POST['nom']));
   $prenom = strtolower(trim($_POST['prenom']));

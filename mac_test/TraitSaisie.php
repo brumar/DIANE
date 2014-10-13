@@ -106,13 +106,13 @@
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <table border="1">
 <tr>
-    <td>Enoncé1</td>
+    <td>EnoncÃ©1</td>
     <td>question1</td>
-    <td>Enoncé2</td>
+    <td>EnoncÃ©2</td>
     <td>Question2</td>
     <td>Partie1</td>
     <td>Partie2</td>

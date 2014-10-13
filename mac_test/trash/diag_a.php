@@ -173,8 +173,8 @@ $tabNombre = $nombre;
 		$question = $val["question"];
 		$var = $val["variable"];
  	}
- //printf ("Lignes modifiées : %d\n" ,mysql_affected_rows ());
-print ("<P>Construction du tableau des données :</P>\n");
+ //printf ("Lignes modifiÃ©es : %d\n" ,mysql_affected_rows ());
+print ("<P>Construction du tableau des donnÃ©es :</P>\n");
 print ("<P><TABLE BGCOLOR=#88ffcc border=2 cellspacing=2 cellpadding=2>\n");
 print ("<TD>\n<B>numero</B>\n");
 print ("<TD>\n<B>enonce1</B>\n");
@@ -269,7 +269,7 @@ if (isset($tabImp) and $dernierTabOp["1"]==end($tabImp))
 {
 	$addTrou=true;
 }
-//debut de l'élimination des nombres implicite (nombres qui ne sont pas des opérandes
+//debut de l'Ã©limination des nombres implicite (nombres qui ne sont pas des opÃ©randes
 if(count($tabOperation)==3)
 {
 	if(count($tabImp)==3)
@@ -577,7 +577,7 @@ for ($k = 0 ; $k < count($tabOperation); $k++)
 		 {
 			   $op1 = $T2[0]; $op2 = $T2[1]; $res = $T2[2];
 			   $op = $T1[0];
-	/*========== cas de calcul par différence pour les problèmes de comparaison ===============*/
+	/*========== cas de calcul par diffÃ©rence pour les problÃ¨mes de comparaison ===============*/
 	//=================  colonne14 & 15 & 16  =============
 			
 			if (($question == 't') and (end($tabOperation)==$tabOperation[$k]))
@@ -782,7 +782,7 @@ for ($k = 0 ; $k < count($tabOperation); $k++)
                     $colonne4=2;
 				}
 		 }//fin => if($difference = true)
-	/*=================colonne 6 à 8 terme de la comparaison==================*/
+	/*=================colonne 6 Ã  8 terme de la comparaison==================*/
 	if ((!$etape1 || !difference)and(!$verrou2))
 	{
 		
@@ -875,7 +875,7 @@ for ($k = 0 ; $k < count($tabOperation); $k++)
 				}
 			
 			//print("colonne6=".$colonne6);
-	/*______________________ colonne 7 pertinence des données ___________________*/
+	/*______________________ colonne 7 pertinence des donnÃ©es ___________________*/
 	if (($colonne6 == 0)and ($etape2) and ((($question == 't')and($resultatc!=$partie3))||(($question == 'p')and($resultatc!=$tout2))) )
 		{
 			$colonne7=9;
@@ -948,7 +948,7 @@ for ($k = 0 ; $k < count($tabOperation); $k++)
 
 
 }//fin du for
-/*====colonne 14 à 18 solution final========*/
+/*====colonne 14 Ã  18 solution final========*/
 //===================== colonnne 14 et 15 ===========================
 if (count($tabOperation)==1)
 {
@@ -968,7 +968,7 @@ $operande = trim(eregi_replace ('[^0-9|,]', " ",$operation_f));
 $T2 = array_values(preg_split ("/[\s]+/", $operande));
 
 $op1 = $T2[0]; $op = $T1[0]; $op2 = $T2[1]; $res = $T2[2];
-	/*========== cas de calcul par différence pour les problèmes de comparaison ===============*/
+	/*========== cas de calcul par diffÃ©rence pour les problÃ¨mes de comparaison ===============*/
 	//=================  colonne14 & 15 & 16  =============
 			
 			if (($question == 't') and (count($tabOperation)>=1))
@@ -1405,7 +1405,7 @@ else
 		}
 //print("<br>colonne14=".$colonne14."  colonne15=".$colonne15."  colonne16=".$colonne16."  colonne17=".$colonne17."<br>");
 
- /*================= colonne 16 pertinence des données de l'operation ==============*/
+ /*================= colonne 16 pertinence des donnÃ©es de l'operation ==============*/
 	 if ($colonne16==4)
 	 {$colonne16=4;}
 	 else if ($colonne16==9 and $colonne14==0)
@@ -1574,7 +1574,7 @@ else if ($diff)
 		}
 }
 
-//cas ou il y a plusieurs opération qui n'ont pas de place dans le codage colonne14=51
+//cas ou il y a plusieurs opÃ©ration qui n'ont pas de place dans le codage colonne14=51
 if(($colonne14=='5') and (ereg("[1-7]",$colonne2)) and (ereg("[1-7]",$colonne6)) and (count($tabOperation)-1>2)) 
 {
 	$colonne14=51;
@@ -1744,16 +1744,16 @@ $cfg_base = 'projet';
 
 if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
 {
-    // construction de la requête
+    // construction de la requÃªte
     // ------------------------------------------------------------------------
     $sql  = "SELECT numSerie,numTrace,numEleve,date,numExo,typeExo,question,var ,questInt,colonne1, colonne2, colonne3, colonne4,colonne5,colonne6, colonne7, colonne8, colonne9,colonne10,colonne11,colonne12,colonne13,colonne14,colonne15,colonne16,colonne17,colonne18 ";
     $sql .= "FROM diagnostic ";
     $sql .= "WHERE numEleve=".$_SESSION['numEleve'] ;
 
-    // définition des différentes colonnes de données
+    // dÃ©finition des diffÃ©rentes colonnes de donnÃ©es
     // ------------------------------------------------------------------------
     $champs = Array(
-      //     champ       en-tête     format         alignement  largeur
+      //     champ       en-tÃªte     format         alignement  largeur
       Array( 'numSerie',     'Numero Serie',       FORMAT_ENTIER, 'L',         15 ),
 	  Array( 'numTrace',     'Numero Trace',       FORMAT_ENTIER, 'L',         15 ),
 	  Array( 'numEleve',     'Num Eleve',       FORMAT_ENTIER, 'L',         12 ),
@@ -1787,14 +1787,14 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
 
     if ($resultat = mysql_db_query($cfg_base, $sql))
     {
-        // en-tête HTTP
+        // en-tÃªte HTTP
         // --------------------------------------------------------------------
         /*header('Content-disposition: filename=fichier.slk');
         header('Content-type: application/octetstream');
         header('Pragma: no-cache');
         header('Expires: 0');*/
 
-        // en-tête du fichier SYLK
+        // en-tÃªte du fichier SYLK
         // --------------------------------------------------------------------
 	 	$x= "ID;PASTUCES-phpInfo.net\n";// ID;Pappli
 		$x=$x."\n";
@@ -1815,7 +1815,7 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
 		$x=$x.";X".($nbcol = mysql_num_fields($resultat))."\n";
 		$x=$x."\n";
 
-        // récupération des infos de formatage des colonnes
+        // rÃ©cupÃ©ration des infos de formatage des colonnes
         // --------------------------------------------------------------------
 		for ($cpt = 0; $cpt < $nbcol; $cpt++)
         {
@@ -1833,7 +1833,7 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
 		$x=$x."F;W".$cpt." 256 8\n"; // F;Wcoldeb colfin largeur
 		$x=$x."\n";
 
-        // en-tête des colonnes (en gras --> SDM4)
+        // en-tÃªte des colonnes (en gras --> SDM4)
         // --------------------------------------------------------------------
 		for ($cpt = 1; $cpt <= $nbcol; $cpt++)
         {
@@ -1842,7 +1842,7 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
         }
 		$x=$x."\n";
 
-        // données utiles
+        // donnÃ©es utiles
         // --------------------------------------------------------------------
         $ligne = 2;
         while ($enr = mysql_fetch_array($resultat))
@@ -1874,7 +1874,7 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
     //creattion du fichier
 	$fichier="diag\\".$_SESSION['nom'].$_SESSION['numEleve'].".slk";
 	$fp = fopen ("$fichier", "w");
-	//enregistre les données dans le fichier
+	//enregistre les donnÃ©es dans le fichier
 	fputs($fp, "$x");
 	fclose ($fp);
     mysql_close();

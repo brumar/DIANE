@@ -13,10 +13,10 @@
 		//suprime tous caractere different de [^\d+-=:*]
 		$reponse = trim(eregi_replace ('[^0-9|,|+|*|=|-]', " ",$reponse));//supprimer la division :
 				   
-		$pattern = "/(((?:\d+\s*[\+\-\*\/x]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthèse non capturante , supprimer la division :
+		$pattern = "/(((?:\d+\s*[\+\-\*\/x]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthÃ¨se non capturante , supprimer la division :
 		preg_match_all($pattern,$reponse,$tab);
 		
-		//tableau des opération utilisées dans la réponse de l'apprenant ==> tabOperation
+		//tableau des opÃ©ration utilisÃ©es dans la rÃ©ponse de l'apprenant ==> tabOperation
 		$tabOperation = $tab[0];
 		$tabOperation2 = $tabOperation;
 		$tabSR = $tab[2];
@@ -57,7 +57,7 @@ $tabNombre = $nombre;
  require_once("conn.php");
 
 //======================================
-//trouver les nombres écrit en lettre
+//trouver les nombres Ã©crit en lettre
 if(count($nombre)==0)
 {
 	$Requete_SQL0 = "SELECT * FROM nombre";
@@ -217,7 +217,7 @@ if (isset($tabImp) and ($dernierTabOp["1"]==end($tabImp)||$dernierTabOp["0"]==en
 	$addTrou=true;
 }
 
-//debut de l'élimination des nombres implicite (nombres qui ne sont pas des opérandes
+//debut de l'Ã©limination des nombres implicite (nombres qui ne sont pas des opÃ©randes
 if(count($tabOperation)==3)
 {
 	if(count($tabImp)==3)
@@ -353,14 +353,14 @@ else if(count($tabOperation)==1)
 			}
 	}
 }
-		//Recherche les opérations utlisées dans le texte
- 		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d+))/"; //(?:) parenthèse non capturante 
+		//Recherche les opÃ©rations utlisÃ©es dans le texte
+ 		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d+))/"; //(?:) parenthÃ¨se non capturante 
 		preg_match_all($pattern,$calcules,$tableau);
-		//tableau des opération utilisées dans la réponse de l'apprenant ==> tabOperation
+		//tableau des opÃ©ration utilisÃ©es dans la rÃ©ponse de l'apprenant ==> tabOperation
 		$tabOperation3 = $tableau[0];
 		$tabSR = $tableau[2];
 		$tabR = $tableau[3];
-		//echo("<br>les oprétions utilisées sont :");print_r($tabOperation);
+		//echo("<br>les oprÃ©tions utilisÃ©es sont :");print_r($tabOperation);
 
 /*======ajouter le signe egale a l'operation s'il n'existe pas=======*/
 
@@ -552,7 +552,7 @@ for ($k=0; (($k<=count($tabOperation)-1)||($bool)); $k++)
 		 {
 			   $op1 = $T2[0]; $op2 = $T2[1]; $res = $T2[2];
 			   $op = $T1[0];
-	/*========== cas de calcul par différence pour les problèmes de comparaison ===============*/
+	/*========== cas de calcul par diffÃ©rence pour les problÃ¨mes de comparaison ===============*/
 	//=================  colonne14 & 15 & 16  =============
 			
 			if (($question == 't') and (end($tabOperation)==$tabOperation[$k]))
@@ -766,7 +766,7 @@ for ($k=0; (($k<=count($tabOperation)-1)||($bool)); $k++)
                     $colonne4=2;
 				}
 		 }//fin => if($difference = true)
-	/*=================colonne 6 à 8 terme de la comparaison==================*/
+	/*=================colonne 6 Ã  8 terme de la comparaison==================*/
 	if ((!$etape1 || !$difference) and (!$verrou2))
 	{
 	//$colonne6='';
@@ -823,8 +823,8 @@ for ($k=0; (($k<=count($tabOperation)-1)||($bool)); $k++)
 					 	(!$difference)
 					 )
 			   {
-				 $diffErr=true; //erreur dans le calcul de la différence, elle n'est pas à la bonne place
-				 $colonne6=2;$colonne7=1;$etape_2=false;//colonne7==11 Pour déceler une erreur dans l’étape de la comparaison
+				 $diffErr=true; //erreur dans le calcul de la diffÃ©rence, elle n'est pas Ã  la bonne place
+				 $colonne6=2;$colonne7=1;$etape_2=false;//colonne7==11 Pour dÃ©celer une erreur dans lÂ’Ã©tape de la comparaison
 				 $operande1 = $op1; $operande2 = $op2; $resultatc = $res;
 				 $resultat_comp = calcul($operande1,$op,$operande2);
 				 $etape2=true; $finc=$k;  //$verrou2=true;	$k++;
@@ -832,13 +832,13 @@ for ($k=0; (($k<=count($tabOperation)-1)||($bool)); $k++)
 			   }
 			else if (($op1.$op.$op2."=".$res)==($op1."-".$valdiff."=".$res) and (!$difference))
 			   {
-				 if($op1==$partie2 and count($tabOperation)==1) //calcul intermédiaire implicite
+				 if($op1==$partie2 and count($tabOperation)==1) //calcul intermÃ©diaire implicite
 				 {
 					$colonne2=0;$colonne3=9;$colonne4=0;$etape=true;	
 			 	 }
 				 else 
 				 {
-				 	$colonne6=2;$colonne7=1;$etape_2=false;//colonne7==11 Pour déceler une erreur dans l’étape de la comparaison
+				 	$colonne6=2;$colonne7=1;$etape_2=false;//colonne7==11 Pour dÃ©celer une erreur dans lÂ’Ã©tape de la comparaison
 				 	$operande1 = $op1; $operande2 = $op2; $resultatc = $res;
 					$resultat_comp = calcul($operande1,$op,$operande2);
 				 	$etape2 = true; $finc=$k; $k++; //$verrou2=true;
@@ -883,7 +883,7 @@ for ($k=0; (($k<=count($tabOperation)-1)||($bool)); $k++)
 				}
 			
 			//print("colonne6=".$colonne6);
-	/*______________________ colonne 7 pertinence des données ___________________*/
+	/*______________________ colonne 7 pertinence des donnÃ©es ___________________*/
 	if (($colonne6 == 0)and ($etape2) and ((($question == 't')and($resultatc!=$partie3))||(($question == 'p')and($resultatc!=$tout2))) )
 		{
 			$colonne7=9;
@@ -967,7 +967,7 @@ for ($k=0; (($k<=count($tabOperation)-1)||($bool)); $k++)
 }
 
 //fin du for
-/*====colonne 14 à 18 solution final========*/
+/*====colonne 14 Ã  18 solution final========*/
 //===================== colonnne 14 et 15 ===========================
 if (count($tabOperation)==1)
 {
@@ -987,7 +987,7 @@ $operande = trim(eregi_replace ('[^0-9|,]', " ",$operation_f));
 $T2 = array_values(preg_split ("/[\s]+/", $operande));
 
 $op1 = $T2[0]; $op = $T1[0]; $op2 = $T2[1]; $res = $T2[2];
-	/*========== cas de calcul par différence pour les problèmes de comparaison ===============*/
+	/*========== cas de calcul par diffÃ©rence pour les problÃ¨mes de comparaison ===============*/
 	//=================  colonne14 & 15 & 16  =============
 			
 			if (($question == 't') and (count($tabOperation)>=1))
@@ -1297,7 +1297,7 @@ else
 	 		{
 			 if($etape and $colonne2=='1')
 			 {$colonne2=9;$colonne3=9;$colonne4=9;$etape=false;$etape1=false;}
-			 $colonne14=41;//calcul d'un tout : soustratction des deux resultats intermédiaire au lieu de les additionner
+			 $colonne14=41;//calcul d'un tout : soustratction des deux resultats intermÃ©diaire au lieu de les additionner
 			 $colonne15=4;
 			 $operande1 = $op1; $operande2 = $op2; $resultatf = $res;
 			 $resultat_compf = abs(calcul($operande1,$op,$operande2));
@@ -1305,7 +1305,7 @@ else
 			 }
 	else if (($question =='t' and !$addTrou and ($colonne3==1 or $colonne7==1))and((($op1.$op.$op2."=".$res) == ($resultat."+".$resultatc."=".$res))||(($op1.$op.$op2."=".$res) == ($resultatc."+".$resultat."=".$res))))
 	 		{
-			 $colonne14=41;//calcul d'un tout : soustratction des deux resultats intermédiaire au lieu de les additionner
+			 $colonne14=41;//calcul d'un tout : soustratction des deux resultats intermÃ©diaire au lieu de les additionner
 			 $colonne15=4;
 			 $operande1 = $op1; $operande2 = $op2; $resultatf = $res;
 			 $resultat_compf = abs(calcul($operande1,$op,$operande2));
@@ -1340,7 +1340,7 @@ else
 					$colonne15 = 2;
 				 else if ($operande1 < $operande2)
 					$colonne15 = 3;
-				 $colonne14=42;//calcul d'un tout : soustratction des deux resultats intermédiaire au lieu de les additionner
+				 $colonne14=42;//calcul d'un tout : soustratction des deux resultats intermÃ©diaire au lieu de les additionner
 				 $resultat_compf = abs(calcul($operande1,$op,$operande2));
 				 $etape3=true;
 			 }
@@ -1548,7 +1548,7 @@ else
 
 //print("<br>colonne14=".$colonne14."  colonne15=".$colonne15."  colonne16=".$colonne16."  colonne17=".$colonne17."<br>");
 
- /*================= colonne 16 pertinence des données de l'operation ==============*/
+ /*================= colonne 16 pertinence des donnÃ©es de l'operation ==============*/
 	 if (isset($colonne16) and $colonne16==4)
 	 	{$colonne16=4;}
 	 else if (isset($colonne16) and $colonne16==8)
@@ -1599,7 +1599,7 @@ if (count($tabOperation2 >= 1))
 {
 if (count ($T1) == 2 )
 {
-	echo("deux opérateurs arithmétiques");
+	echo("deux opÃ©rateurs arithmÃ©tiques");
 	$op1 = $T2[0]; $op2 = $T2[1]; $op3 = $T2[2] ; $res = $T2[3];
 	$op = $T1[0];$oper = $T1[1];
 	if ($T2[3]!="")
@@ -1694,7 +1694,7 @@ else if ((count($T1)==3 || count($T1)==4)and(end($tabOperation2)==$operation_f))
 					$res=$tabR[0];
 					$pat1 = "/\d+/";$pat2 = "/\+|-|\*|:]/";
 					
-					//tableau des opérandes : uniquement l'opération finale
+					//tableau des opÃ©randes : uniquement l'opÃ©ration finale
 					preg_match_all($pat1,$str,$tabOperande);
 					$tabOper = $tabOperande[0];
 					preg_match_all($pat2,$str,$tabOperateur);
@@ -1764,7 +1764,7 @@ else if ($diff and  isset($resultatf))
 			$colonne17=2;
 		}
 }
-//cas ou il y a plusieurs opérations qui n'ont pas de place dans le codage colonne14=51
+//cas ou il y a plusieurs opÃ©rations qui n'ont pas de place dans le codage colonne14=51
  if(($colonne14=='5') and (ereg("[1-7]",$colonne2)) and (ereg("[1-7]",$colonne6)) and (count($tabOperation)-1>2)) 
 {
 $colonne14=51;

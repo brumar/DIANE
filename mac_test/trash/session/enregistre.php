@@ -1,5 +1,5 @@
 <?
-//on démarre la session
+//on dÃ©marre la session
 session_start();
 //on enregistre la variable nom dans la session ouverte
 session_register(nom);

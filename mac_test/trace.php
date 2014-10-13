@@ -164,16 +164,16 @@ if ($questi=="1")
             <?php if ($choix=="1") 
 			  {
 			  print("<input type=\"radio\" value=\"1\" name=\"R1\" checked disabled>");
-			  print("Une opération");
+			  print("Une opÃ©ration");
 			  print("<input type=\"radio\" value=\"2\" name=\"R1\" disabled>");
-			  print("Deux opération </td>");
+			  print("Deux opÃ©ration </td>");
 			  }
 		  else if ($choix=="2")
 		  {
 			  print("<input type=\"radio\" value=\"1\" name=\"R1\" disabled>");
-			  print("Une opération");
+			  print("Une opÃ©ration");
 			  print("<input type=\"radio\" value=\"2\" name=\"R1\" checked disabled>");
-			  print("Deux opération </td>");
+			  print("Deux opÃ©ration </td>");
 		  }	 
 		  ?>
         </tr>

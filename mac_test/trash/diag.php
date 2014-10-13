@@ -109,8 +109,8 @@ for ($i=0 ; $i < count($nombre) ;$i++)
 		$valdiff = $val["valdiff"]; 
 		$question = $val["question"];
  	} 
- //printf ("Lignes modifiÈes : %d\n" ,mysql_affected_rows ()); 
-print ("<P>Construction du tableau des donnÈes :</P>\n");
+ //printf ("Lignes modifi√©es : %d\n" ,mysql_affected_rows ()); 
+print ("<P>Construction du tableau des donn√©es :</P>\n");
 print ("<P><TABLE BGCOLOR=#88ffcc border=2 cellspacing=2 cellpadding=2>\n");
 print ("<TD>\n<B>numero</B>\n");
 print ("<TD>\n<B>enonce1</B>\n");
@@ -220,7 +220,7 @@ for ($k = 0 ; $k<count($tabOperation); $k++)
 			   if ($T2[2]!="")
 			   print ("l'operation est : ".$op1.$op.$op2."=".$res."<br>"); 
 			   	  
-			 /*========== cas de calcul par diffÈrence pour les problËmes de complement===============*/
+			 /*========== cas de calcul par diff√©rence pour les probl√®mes de complement===============*/
 			 /*=======================================================================================*/
 			 //=================colonne10=============
 			if ($question == 't')

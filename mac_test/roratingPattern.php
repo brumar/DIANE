@@ -174,8 +174,8 @@ function createArray ($string){
 	return($tab);
 }
 //$finalPattern=BindPatterns(GeneratePattern("#pattern#",2,2));
-//$note=getNote("marie a maenge trop de chocolat à la men", array("marie","chocolat","menthe","abeille"),true);
-//PickBest("marie a maenge trop de chocolat à la men", array(array("marie","chocolat","menthe","abeille"),array("marie","chocolat","menthe")),true);
+//$note=getNote("marie a maenge trop de chocolat Ã  la men", array("marie","chocolat","menthe","abeille"),true);
+//PickBest("marie a maenge trop de chocolat Ã  la men", array(array("marie","chocolat","menthe","abeille"),array("marie","chocolat","menthe")),true);
 
 //FindBestPattern("marie a maeng&eacute trop de chokola","#marie#");
 

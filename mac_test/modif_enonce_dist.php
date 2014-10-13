@@ -23,16 +23,16 @@ $result = mysql_query($requeteSQL) or die ("Requ&ecirc;te incorrecte");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Formulaire de saisie des énoncés de distributivité</title>
+<title>Formulaire de saisie des Ã©noncÃ©s de distributivitÃ©</title>
 <SCRIPT LANGUAGE="JavaScript">
-/* On crée une fonction de verification */
+/* On crÃ©e une fonction de verification */
 function verifForm(formulaire)
 {
     
     x=formulaire.enonce.value;
     for (i=0 ;i<= x.length-1 ;i++)
     {
-     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="€"))//||(x.charAt(i)=="'"))
+     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="Â€"))//||(x.charAt(i)=="'"))
      {
          if (x.charAt(i-1) != " ")
          {
@@ -42,7 +42,7 @@ function verifForm(formulaire)
     }
     for (i=0 ;i<= x.length-1;i++)
     {
-     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="€"))
+     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="Â€"))
       {
         if (x.charAt(i+1) != " ")
          {
@@ -76,7 +76,7 @@ function verifForm(formulaire)
  
 	if(formulaire.enonce.value == "") /* on detecte si enonce1 est vide */
 		{
-		alert('Remplissez le champs de l\'enoncé !!'); /* dans ce cas on lance un message d'alerte */
+		alert('Remplissez le champs de l\'enoncÃ© !!'); /* dans ce cas on lance un message d'alerte */
 		 }
 	else if(formulaire.question.value == "") /* on detecte si enonce1 est vide */
 		alert('Remplissez le champs de la question !!'); /* dans ce cas on lance un message d'alerte */
@@ -129,7 +129,7 @@ span {
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <form method="post" action="traitFormDist.php">
   <div align="center">

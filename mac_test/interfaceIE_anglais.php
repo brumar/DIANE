@@ -6,7 +6,7 @@ if (isset($_GET["totalExo"]))
 $nbExo=(int)trim($_GET["nbExo"]);
 require_once("conn.php");
 $sql1 = "SELECT * FROM serie where numSerie=".$_SESSION["numSerie"];
-$result1 = mysql_query($sql1) or die ("Requête incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
 $numExo=(int)trim($_GET["numExo"]);
 while ($r1 = mysql_fetch_assoc($result1))
 	  {
@@ -65,7 +65,7 @@ print("<form action=\"diag_a.php\" name=\"info\" method=\"post\">");
 	<table border="0" cellspacing="2">
         <tr>
           <td height="83" colspan="2" align="center">
-		  <span style="color:#0000CC"><b><dfn>&nbsp;&nbsp; Exercice N° 
+		  <span style="color:#0000CC"><b><dfn>&nbsp;&nbsp; Exercice NÂ° 
 		  <?php echo ($_SESSION["totalExo"]-$nbExo+1); ?> &nbsp;&nbsp;</dfn></b></span>
 		    <table width="89%" border="2" cellpadding="5" cellspacing="0">
               <tr>

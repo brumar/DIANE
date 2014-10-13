@@ -40,16 +40,16 @@
 
     if(!$result)
     {
-      echo 'la requète ne peut pas s\'executer.';
+      echo 'la requÃ¨te ne peut pas s\'executer.';
       exit;
     }
     $count = mysql_result( $result, 0, 0 );
     if ( $count > 0 )
     {
         session_start();
-		// Détruit toutes les variables de session
+		// DÃ©truit toutes les variables de session
 		session_unset();
-		// Finalement, détruit la session
+		// Finalement, dÃ©truit la session
 		session_destroy();
 
 
@@ -67,7 +67,7 @@
     {
       // visitor's name and password combination are not correct
 	  echo('<h3 align="center"><font color="#0000CC">'.$_POST['nom'].' '.$_POST['prenom'].'</font></h3>'); 
-      echo "<br><h4 align=\"center\">Si tu as fait une faute de frappe retourne à <a href=\"eleve.php\"> l'accueil</a><br>";
+      echo "<br><h4 align=\"center\">Si tu as fait une faute de frappe retourne Ã  <a href=\"eleve.php\"> l'accueil</a><br>";
 	  echo "sinon <a href=\"formeleve.php?nom=".$_POST['nom']."&prenom=".$_POST['prenom']."\">inscris toi ici</a><h4>";
 	  
     }

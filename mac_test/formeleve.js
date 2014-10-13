@@ -61,7 +61,7 @@ function validate() {
 	
 	if (selectedByear==noBdate)
 	{
-		alert('Veuillez entrer votre année de naissance.');
+		alert('Veuillez entrer votre annÃ©e de naissance.');
 		return false;
 	}
 	

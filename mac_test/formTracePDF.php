@@ -1,17 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>Formulaire pour choisir la trace d'un élève</title>
+<title>Formulaire pour choisir la trace d'un Ã©lÃ¨ve</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body>
 <p align="center">
 <a href="index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.php">Elève</a>
+<a href="eleve.php">ElÃ¨ve</a>
 </p>
 <form action="../fpdf/trace_pdf2.php" method="post" target="_blank">
-  <h4 align="center">Choisissez un élève</h4>
+  <h4 align="center">Choisissez un Ã©lÃ¨ve</h4>
   <p align="center"> 
     <?php 
 	require("conn.php");
@@ -39,7 +39,7 @@
 	?>
   </p>
   <p align="center"> 
-    <input type="submit" name="Submit" value="   Télécharger   ">
+    <input type="submit" name="Submit" value="   TÃ©lÃ©charger   ">
   </p>
 </form>
 </body>

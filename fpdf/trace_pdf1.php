@@ -97,24 +97,24 @@ if(($op3==0) || ($op3=="0") || ($op3==''))//|| ($oper2=''))
 	{
 		$pdf -> Image("images/boutonRadioAc.jpg",20,$y+5,5,5);
 		$pdf -> setXY(25,$y+5);
-		$pdf -> Cell(25,5,"Une opération",0,0,"C");
+		$pdf -> Cell(25,5,"Une opÃ©ration",0,0,"C");
 		
 		//$pdf -> Rect(45,$y+5,5,5,'D');
 		$pdf -> Image("images/boutonRadioIn.jpg",50,$y+5,5,5);
 		$pdf -> setXY(57,$y+5);
-		$pdf -> Cell(25,5,"Deux opérations",0,1,"C");
+		$pdf -> Cell(25,5,"Deux opÃ©rations",0,1,"C");
 	} 
 	else 
 		{
 	
 		$pdf -> Image("images/boutonRadioIn.jpg",20,$y+5,5,5);
 		$pdf -> setXY(25,$y+5);
-		$pdf -> Cell(25,5,"Une opération",0,0,"C");
+		$pdf -> Cell(25,5,"Une opÃ©ration",0,0,"C");
 		
 		//$pdf -> Rect(45,$y+5,5,5,'D');
 		$pdf -> Image("images/boutonRadioAc.jpg",50,$y+5,5,5);
 		$pdf -> setXY(57,$y+5);
-		$pdf -> Cell(25,5,"Deux opérations",0,1,"C");}
+		$pdf -> Cell(25,5,"Deux opÃ©rations",0,1,"C");}
 
 
 
@@ -181,7 +181,7 @@ $pdf -> Image("images/ecrireCal.jpg",35,$y+75,0,7);
 /*$pdf -> Rect(110,40,28,5,'D');
 $pdf -> SetXY(111,40);
  $pdf -> SetFont ('Times' ,'B' ,10 );
-$pdf -> Cell(0,5,"Passer à la ligne");
+$pdf -> Cell(0,5,"Passer Ã  la ligne");
  */
 $pdf -> Image("images/passerEffacer.jpg",110,40,0,5);
 
@@ -189,7 +189,7 @@ $pdf -> Image("images/passerEffacer.jpg",110,40,0,5);
 
 $pdf -> SetXY(110,30);
 $pdf -> SetFont ('Times' ,'B' ,14 );
-$pdf -> Cell(0,5,"Ecris tes calculs et ta réponse ici");
+$pdf -> Cell(0,5,"Ecris tes calculs et ta rÃ©ponse ici");
 
 /* $pdf -> Rect(145,40,30,5,'D');
 $pdf -> SetXY(146,40);

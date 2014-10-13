@@ -10,6 +10,6 @@ while ($ligne = mysql_fetch_object($resultat)) {
    echo $ligne->nom;
 }
 echo"</select>";
-/* pour libérer la mémoire */
+/* pour libÃ©rer la mÃ©moire */
 mysql_free_result($resultat);
 ?>

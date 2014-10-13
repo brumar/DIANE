@@ -1,5 +1,5 @@
 <?php
-$dossier2 = ".\\audio\\complement\\exo21\\";//prendre les caracteristiques de l'enoncé 
+$dossier2 = ".\\audio\\complement\\exo21\\";//prendre les caracteristiques de l'enoncÃ© 
 		if (is_dir($dossier2)){
 		$dir = opendir($dossier2); 
 			while($file = readdir($dir)) {
@@ -10,7 +10,7 @@ $dossier2 = ".\\audio\\complement\\exo21\\";//prendre les caracteristiques de l'
 		rmdir($dossier2);
 		}
 		
-$dossier2 = ".\\audio\\complement\\exo19\\";//prendre les caracteristiques de l'enoncé 
+$dossier2 = ".\\audio\\complement\\exo19\\";//prendre les caracteristiques de l'enoncÃ© 
 		if (is_dir($dossier2)){
 		$dir = opendir($dossier2); 
 			while($file = readdir($dir)) {

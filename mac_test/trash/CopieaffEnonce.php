@@ -1,7 +1,7 @@
 <? require ("conn.php"); ?>
 <html>
  <head>
-  <title>Construction des sÈries d'exercices</title>
+  <title>Construction des s√©ries d'exercices</title>
 	<script language="Javascript">
 	// Supprimer une ligne dans toute les autres listes de destination
 	
@@ -26,13 +26,13 @@
 			}
 	}
 	
-	// VÈrifie la prÈsence de Valeur dans IdListe
+	// V√©rifie la pr√©sence de Valeur dans IdListe
 	function VerifValeurDansListe(IdListe, Valeur) {
 		var objListe = document.getElementById(IdListe);
 		for (k=objListe.length-1;k>=0;k--) 
 			if (objListe.options[k].value == Valeur) 
 				{
-					//if (blnAlerte) alert('DÈj‡ prÈsent.'); 
+					//if (blnAlerte) alert('D√©j√† pr√©sent.'); 
 					objListe.options[k]=null; 
 				}
 	}
@@ -42,7 +42,7 @@
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">ElËve</a>
+<a href="eleve.html">El√®ve</a>
 </p>
 <form name="formulaire" action="traitSerie.php" method="post">
   <table width="100%" height="258%" border="2" align="center" cellpadding="4" cellspacing="4" bordercolor="#FF0000">
@@ -50,15 +50,15 @@
       <td width="8%" height="18%">Selection des &eacute;nonc&eacute;s</td>
       <td width="11%">Question Intermediaire </td>
       <td width="10%">Ordre de s&eacute;l&eacute;ction</td>
-      <td width="64%"> EnoncÈs compl&eacute;ment</td>
+      <td width="64%"> Enonc√©s compl&eacute;ment</td>
 	  <td width="7%">Type</td>
     </tr>
     <?
   $i=1;$j=1;$m=1;
   $sql = "SELECT * FROM complement";
-  $result = mysql_query($sql) or die ("RequÍte incorrecte");
+  $result = mysql_query($sql) or die ("Requ√™te incorrecte");
   
-  if ($result) { // Si il y'a des rÈsultats// while ($rs = mysql_fetch_array($query)) {
+  if ($result) { // Si il y'a des r√©sultats// while ($rs = mysql_fetch_array($query)) {
 	  while ($enregistrement = mysql_fetch_assoc($result))
 		{
 		  $text1 =  $enregistrement["enonce1"];
@@ -88,13 +88,13 @@
         
 	$i++;} // Fin instruction while
 
-     } else { // Pas de rÈsultat trouvÈ
+     } else { // Pas de r√©sultat trouv√©
 
-    echo "Pas de rÈsultat";
+    echo "Pas de r√©sultat";
 
       }
 
-  mysql_free_result($result); // LibËre la mÈmoire
+  mysql_free_result($result); // Lib√®re la m√©moire
 ?>
     <tr align="center" valign="middle" bgcolor="#CCFF99"> 
       <td width="8%" height="25%">Selection des &eacute;nonc&eacute;s</td>
@@ -105,8 +105,8 @@
     </tr>
     <?
   $sql = "SELECT * FROM comparaison";
-  $result = mysql_query($sql) or die ("RequÍte incorrecte");
-  if ($result) { // Si il y'a des rÈsultats
+  $result = mysql_query($sql) or die ("Requ√™te incorrecte");
+  if ($result) { // Si il y'a des r√©sultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -135,21 +135,21 @@
     </tr>
 	    <?
 		$j++;} // Fin instruction while
-			  } else { // Pas de rÈsultat trouvÈ
-			echo "Pas de rÈsultat";
+			  } else { // Pas de r√©sultat trouv√©
+			echo "Pas de r√©sultat";
 			  }
-		  mysql_free_result($result); // LibËre la mÈmoire
+		  mysql_free_result($result); // Lib√®re la m√©moire
 		?>
 	<tr align="center" bgcolor="#CCFF99"> 
       <td height="18%" colspan="2" valign="middle">Selection des &eacute;nonc&eacute;s</td>
       <td width="10%"> Ordre de s&eacute;l&eacute;ction</td>
-      <td width="64%"> EnoncÈs Distributivit&eacute; </td>
+      <td width="64%"> Enonc√©s Distributivit&eacute; </td>
 	  <td>Type</td>
     </tr>
     <?
   $sql3 = "SELECT * FROM distributivite";
-  $result3 = mysql_query($sql3) or die ("RequÍte incorrecte Dist");
-  if ($result3) { // Si il y'a des rÈsultats
+  $result3 = mysql_query($sql3) or die ("Requ√™te incorrecte Dist");
+  if ($result3) { // Si il y'a des r√©sultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result3))
 		{
@@ -181,13 +181,13 @@
         
 $m++;} // Fin instruction while
 
-      } else { // Pas de rÈsultat trouvÈ
+      } else { // Pas de r√©sultat trouv√©
 
-    echo "Pas de rÈsultat";
+    echo "Pas de r√©sultat";
 
       }
 
-  mysql_free_result($result3); // LibËre la mÈmoire
+  mysql_free_result($result3); // Lib√®re la m√©moire
   mysql_close(); // Ferme la connexion
 ?>
 	<input type="hidden" name="i" value="<?php echo ($i-1); ?>" >

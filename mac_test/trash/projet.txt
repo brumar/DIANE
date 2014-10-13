@@ -3,17 +3,17 @@
 # http://www.phpmyadmin.net/ (download page)
 #
 # Serveur: localhost
-# Généré le : Lundi 26 Mai 2003 à 08:36
+# GÃ©nÃ©rÃ© le : Lundi 26 Mai 2003 Ã  08:36
 # Version du serveur: 4.0.12
 # Version de PHP: 4.3.1
-# Base de données: `projet`
+# Base de donnÃ©es: `projet`
 # --------------------------------------------------------
 
 #
 # Structure de la table `comparaison`
 #
-# Création: Dimanche 25 Mai 2003 à 11:43
-# Dernière modification: Dimanche 25 Mai 2003 à 12:38
+# CrÃ©ation: Dimanche 25 Mai 2003 Ã  11:43
+# DerniÃ¨re modification: Dimanche 25 Mai 2003 Ã  12:38
 #
 
 CREATE TABLE `comparaison` (
@@ -37,14 +37,14 @@ CREATE TABLE `comparaison` (
 # Contenu de la table `comparaison`
 #
 
-INSERT INTO `comparaison` VALUES (1, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 0, 1, 11, 'x', 'p');
+INSERT INTO `comparaison` VALUES (1, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forÃªt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forÃªt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 0, 1, 11, 'x', 'p');
 # --------------------------------------------------------
 
 #
 # Structure de la table `complement`
 #
-# Création: Dimanche 25 Mai 2003 à 12:42
-# Dernière modification: Dimanche 25 Mai 2003 à 12:52
+# CrÃ©ation: Dimanche 25 Mai 2003 Ã  12:42
+# DerniÃ¨re modification: Dimanche 25 Mai 2003 Ã  12:52
 #
 
 CREATE TABLE `complement` (
@@ -67,17 +67,17 @@ CREATE TABLE `complement` (
 # Contenu de la table `complement`
 #
 
-INSERT INTO `complement` VALUES (15, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
-INSERT INTO `complement` VALUES (3, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
-INSERT INTO `complement` VALUES (1, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
-INSERT INTO `complement` VALUES (2, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+INSERT INTO `complement` VALUES (15, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forÃªt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forÃªt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+INSERT INTO `complement` VALUES (3, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forÃªt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forÃªt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+INSERT INTO `complement` VALUES (1, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forÃªt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forÃªt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
+INSERT INTO `complement` VALUES (2, 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forÃªt avec les Lambert, il sont 12 au pique-nique.', 'combien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forÃªt avec les Meunier, ils sont 11 au pique-nique.', 'Combien sont-ils dans la famille Meunier?', 5, 7, 12, 4, 11, 'x', 't');
 # --------------------------------------------------------
 
 #
 # Structure de la table `ennonce`
 #
-# Création: Jeudi 08 Mai 2003 à 15:03
-# Dernière modification: Lundi 12 Mai 2003 à 22:07
+# CrÃ©ation: Jeudi 08 Mai 2003 Ã  15:03
+# DerniÃ¨re modification: Lundi 12 Mai 2003 Ã  22:07
 #
 
 CREATE TABLE `ennonce` (
@@ -93,8 +93,8 @@ CREATE TABLE `ennonce` (
 # Contenu de la table `ennonce`
 #
 
-INSERT INTO `ennonce` VALUES (2, 'Combien sont-ils dans la famille Meunier?', 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique. ', 'cimbien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forêt avec les Meunier, ils sont 11 au pique-nique. \r\n');
-INSERT INTO `ennonce` VALUES (3, 'A quel âge Jean s\'est-il arrêté?', 'Antoine z suivi les cours de peinture à l\'école d\'art pendant 8 ans et s\'est arrêté à 17 ans.', 'A quel âge antoine a t\'il commencé?', 'jean a commencé au même âge qu\' Antoine et a suivi les cours 2 ans de moins ');
+INSERT INTO `ennonce` VALUES (2, 'Combien sont-ils dans la famille Meunier?', 'dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forÃªt avec les Lambert, il sont 12 au pique-nique. ', 'cimbien sont-il dans la famille Lambert?', 'quand les Lambert vont manger en forÃªt avec les Meunier, ils sont 11 au pique-nique. \r\n');
+INSERT INTO `ennonce` VALUES (3, 'A quel Ã¢ge Jean s\'est-il arrÃªtÃ©?', 'Antoine z suivi les cours de peinture Ã  l\'Ã©cole d\'art pendant 8 ans et s\'est arrÃªtÃ© Ã  17 ans.', 'A quel Ã¢ge antoine a t\'il commencÃ©?', 'jean a commencÃ© au mÃªme Ã¢ge qu\' Antoine et a suivi les cours 2 ans de moins ');
 INSERT INTO `ennonce` VALUES (18, '', '', '', '');
 INSERT INTO `ennonce` VALUES (17, '', '', '', '');
 INSERT INTO `ennonce` VALUES (16, '', '', '', '');

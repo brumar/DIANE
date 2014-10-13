@@ -6,7 +6,7 @@
 				{
 					case "1" : $_xml .= "Etape";
 								break;
-					case "2" : $_xml .= "Différence\r\n";
+					case "2" : $_xml .= "DiffÃ©rence\r\n";
 							   if($r["question"]=="p") {
 							   			$_xml .="<partie1>".$partie1."</partie1>\r\n";
 										$_xml .="<partie3>".$partie3."</partie3>\r\n";
@@ -26,11 +26,11 @@
 
 					case "4" : $_xml .= "Non pertinent";
 								break;
-					case "5" : $_xml .= "Non identifiable menant à une solution correcte";
+					case "5" : $_xml .= "Non identifiable menant Ã  une solution correcte";
 								break;
 					case "6" : $_xml .= "Non identifiable mais la solution est incorrecte";
 								break;
-					case "7" : $_xml .= "résultat de la difference comme résultat final Erreur";
+					case "7" : $_xml .= "rÃ©sultat de la difference comme rÃ©sultat final Erreur";
 								break;
 					case "9" : $_xml .= "absence";
 								break;
@@ -38,13 +38,13 @@
 				$_xml .="</colonne1>\r\n"; 
 			if(!($r["colonne2"]=='9' and $r["colonne3"]=='9' and $r["colonne4"]=='9'))
 			{
-				$_xml .="<colonne2 sexe=\"".$sexe."\" intitule=\"calcule du résultat intermédiaire\" nbOper=\"".$nbOper."\" code=\"" . $r["colonne2"] . "\">\r\n"; 
+				$_xml .="<colonne2 sexe=\"".$sexe."\" intitule=\"calcule du rÃ©sultat intermÃ©diaire\" nbOper=\"".$nbOper."\" code=\"" . $r["colonne2"] . "\">\r\n"; 
 				switch ($r["colonne2"])
 				{ 
 					case "0" : $_xml .= "implicite ";
 							   //$_xml .="<res>(".$partie2.")</res>\r\n";
 								break;
-					case "1" : $_xml .= "addition à trou ";
+					case "1" : $_xml .= "addition Ã  trou ";
 					          if($r["colonne3"]==0 and $r["colonne4"]==0) 
 							  			$_xml .="<op>(".$partie1."+ ? =".$tout1.")</op>\r\n";//resultat correct
 							  else if($r["colonne3"]==0 and $r["colonne4"]==1 or $r["colonne4"]==2) 
@@ -59,7 +59,7 @@
 							  			$_xml .="<op>(".$tabSR[0].")</op>\r\n";
 
 								break;
-					case "3" : $_xml .= "soustraction inversée ";
+					case "3" : $_xml .= "soustraction inversÃ©e ";
 					          if($r["colonne3"]==0 and $r["colonne4"]==0) 
 							  			$_xml .="<op>(".$partie1."-".$tout1.")</op>\r\n";
 							  else if($r["colonne3"]==0 and ($r["colonne4"]==1 or $r["colonne4"]==2)) 
@@ -71,18 +71,18 @@
 							  else if($r["colonne3"]==1 and $r["colonne4"]==0 and $nbOper>=2) 
 							  			$_xml .="<op>(".$tabSR[0].")</op>\r\n"; 
 							  break;
-					case "5" : $_xml .= "autre opération ";
+					case "5" : $_xml .= "autre opÃ©ration ";
 									$_xml .="<op>(".$tabOperation[0].")</op>\r\n"; 
 								break;
-					case "6" : $_xml .= "plusieurs opération ";
+					case "6" : $_xml .= "plusieurs opÃ©ration ";
 								break;
-					case "61" : $_xml .= "opération non pertinente sur toutes les données de l'énoncé ";
+					case "61" : $_xml .= "opÃ©ration non pertinente sur toutes les donnÃ©es de l'Ã©noncÃ© ";
 									$_xml .="<op>(".$tabSR[0].")</op>\r\n";
 								break;
-					case "62" : $_xml .= "opération non pertinente ";
+					case "62" : $_xml .= "opÃ©ration non pertinente ";
 									$_xml .="<op>(".$tabSR[0].")</op>\r\n";
 								break;
-					case "7" : $_xml .= "soustraction à trou ";
+					case "7" : $_xml .= "soustraction Ã  trou ";
 					          if($r["colonne3"]==0 and $r["colonne4"]==0) 
 							  			$_xml .="<op>(".$tout1."- ? =".$partie1.")</op>\r\n"; 
 							  else if($r["colonne3"]==0 and $r["colonne4"]==1 or $r["colonne4"]==2) 
@@ -93,7 +93,7 @@
 				}
 				$_xml .="</colonne2>\r\n"; 
 			  
-			   	$_xml .="<colonne4 sexe=\"".$sexe."\" intitule=\"résultat de calcul\" code=\"" . $r["colonne4"] . "\">\r\n"; 
+			   	$_xml .="<colonne4 sexe=\"".$sexe."\" intitule=\"rÃ©sultat de calcul\" code=\"" . $r["colonne4"] . "\">\r\n"; 
 				switch ($r["colonne4"])
 				{  
 					case "0" :  if($r["colonne2"]<4 and $r["colonne3"]==0)
@@ -137,19 +137,19 @@
 								if($r["colonne2"]!=0)
 								$_xml .="<res>(".$tabR[0].")</res>\r\n";
 								break;
-					case "9" : $_xml .= "résultat absent";
+					case "9" : $_xml .= "rÃ©sultat absent";
 								break;
 				}
 				$_xml .="</colonne4>\r\n"; 
 				
-				$_xml .="<colonne3 sexe=\"".$sexe."\" intitule=\"pertinence des données de l'opération\" col1=\"".$r["colonne1"]."\" col2=\"".$r["colonne2"]."\" code=\"" . $r["colonne3"] . "\">\r\n"; 
+				$_xml .="<colonne3 sexe=\"".$sexe."\" intitule=\"pertinence des donnÃ©es de l'opÃ©ration\" col1=\"".$r["colonne1"]."\" col2=\"".$r["colonne2"]."\" code=\"" . $r["colonne3"] . "\">\r\n"; 
 				switch ($r["colonne3"])
 				{ 
 					case "0" : $_xml .= "correcte";
 								break;
-					case "1" : $_xml .= "incorectes (au moins une des données est incorrecte)";
+					case "1" : $_xml .= "incorectes (au moins une des donnÃ©es est incorrecte)";
 								break;
-					case "9" : $_xml .= "pas d'opération posée";
+					case "9" : $_xml .= "pas d'opÃ©ration posÃ©e";
 								break;
 				}
 				$_xml .="</colonne3>\r\n";
@@ -166,7 +166,7 @@
 					{ 
 					case "0" : $_xml .= "implicite";
 									break;
-					case "1" : $_xml .= "addition à trou ";
+					case "1" : $_xml .= "addition Ã  trou ";
 					          if(($r["colonne7"]==0) and ($r["question"]=="t")) 
 							 	 $_xml .="<op>(".$valdiff."+ ? =".$partie1.")</op>\r\n"; 
 							  else if(($r["colonne7"]==0) and ($r["question"]=="p")) 
@@ -188,7 +188,7 @@
 							  else if(($r["colonne7"]==1) and ($r["colonne8"]=="0")) 
 							 	 $_xml .="<op>(".$tabSR[1].")</op>\r\n"; 	 
 								break;
-					case "3" : $_xml .= "soustraction inversée ";
+					case "3" : $_xml .= "soustraction inversÃ©e ";
 					           if(($r["colonne7"]==0) and ($r["question"]=="t")) 
 							 	 $_xml .="<op>(".$valdiff."-".$partie1.")</op>\r\n"; 
 							  else if(($r["colonne7"]==0) and ($r["question"]=="p")) 
@@ -200,11 +200,11 @@
 							  else if(($r["colonne7"]==0) and ($r["question"]=="p")) 
 							 	 $_xml .="<op>(".$tout1."+".$valdiff.")</op>\r\n"; 
 								break;
-					case "5" : $_xml .= "autre opération";
+					case "5" : $_xml .= "autre opÃ©ration";
 								break;
-					case "6" : $_xml .= "plusieurs opération";
+					case "6" : $_xml .= "plusieurs opÃ©ration";
 								break;
-					case "7" : $_xml .= "soustraction à trou ";
+					case "7" : $_xml .= "soustraction Ã  trou ";
 					          if($r["colonne7"]==0 and $r["question"]=="t") 
 							 	 $_xml .="<op>(".$partie1."- ? =".$valdiff.")</op>\r\n"; 
 							  else if($r["colonne7"]==0 and $r["question"]=="p") 
@@ -214,22 +214,22 @@
 								break;
 					}
 				$_xml .="</colonne6>\r\n"; 
-				 $_xml .="<colonne7 sexe=\"".$sexe."\" intitule=\"pertinence des données de l'opération\" code=\"" . $r["colonne7"] . "\">\r\n"; 
+				 $_xml .="<colonne7 sexe=\"".$sexe."\" intitule=\"pertinence des donnÃ©es de l'opÃ©ration\" code=\"" . $r["colonne7"] . "\">\r\n"; 
 				switch ($r["colonne7"])
 				{ 
 					case "0" : $_xml .= "implicite";
 								break;
-					case "1" : $_xml .= "au moins une des données est incorrecte sans être le résultat d'une erreur de calcul";
+					case "1" : $_xml .= "au moins une des donnÃ©es est incorrecte sans Ãªtre le rÃ©sultat d'une erreur de calcul";
 								break;
-					case "2" : $_xml .= "au moins une des données est incorrecte du fait d'une erreur de calcul";//petite
+					case "2" : $_xml .= "au moins une des donnÃ©es est incorrecte du fait d'une erreur de calcul";//petite
 								break;
-					case "3" : $_xml .= "au moins une des données est incorrecte du fait d'une erreur de calcul";//grosse
+					case "3" : $_xml .= "au moins une des donnÃ©es est incorrecte du fait d'une erreur de calcul";//grosse
 								break;
-					case "9" : $_xml .= "pas d'opération posée";
+					case "9" : $_xml .= "pas d'opÃ©ration posÃ©e";
 								break;
 				}
 				$_xml .="</colonne7>\r\n"; 
-				 $_xml .="<colonne8 sexe=\"".$sexe."\" intitule=\"résultat de calcul\" col14=\"".$r["colonne14"]."\" code=\"" . $r["colonne8"] . "\">\r\n"; 
+				 $_xml .="<colonne8 sexe=\"".$sexe."\" intitule=\"rÃ©sultat de calcul\" col14=\"".$r["colonne14"]."\" code=\"" . $r["colonne8"] . "\">\r\n"; 
 					switch ($r["colonne8"])
 					{  
 						case "0" : $_xml .= "correct ";
@@ -244,7 +244,7 @@
 								break;
 						case "2" : $_xml .= "erreur";//grosse erreur de calcul
 								break;
-						case "9" : $_xml .= "résultat absent";
+						case "9" : $_xml .= "rÃ©sultat absent";
 									break;
 					}
 					$_xml .="</colonne8>\r\n"; 
@@ -254,12 +254,12 @@
 		    {
 				if (!($r["colonne10"]=='9' and $r["colonne11"]=='9' and $r["colonne12"]=='9'))
 				{
-					$_xml .="<colonne10 sexe=\"".$sexe."\" intitule=\"calcule de la différence\" code=\"" . $r["colonne10"] . "\">\r\n"; 
+					$_xml .="<colonne10 sexe=\"".$sexe."\" intitule=\"calcule de la diffÃ©rence\" code=\"" . $r["colonne10"] . "\">\r\n"; 
 					switch ($r["colonne10"])
 					{ 
 						case "0" : $_xml .= "implicite";
 										break;
-						case "1" : $_xml .= "addition à trou ";
+						case "1" : $_xml .= "addition Ã  trou ";
 								  if(($r["colonne11"]==0) and ($r["question"]=="t")) 
 									 {
 									   if($partie2 >= $partie1)				
@@ -295,18 +295,18 @@
 									break;
 					}
 					$_xml .="</colonne10>\r\n"; 
-					$_xml .="<colonne11 sexe=\"".$sexe."\" intitule=\"pertinence des données de l'opération\" code=\"" . $r["colonne11"] . "\">\r\n"; 
+					$_xml .="<colonne11 sexe=\"".$sexe."\" intitule=\"pertinence des donnÃ©es de l'opÃ©ration\" code=\"" . $r["colonne11"] . "\">\r\n"; 
 					switch ($r["colonne11"])
 					{ 
 						case "0" : $_xml .= "implicite";
 									break;
-						case "1" : $_xml .= "au moins une des données est incorrecte";
+						case "1" : $_xml .= "au moins une des donnÃ©es est incorrecte";
 									break;
-						case "9" : $_xml .= "pas d'opération posée";
+						case "9" : $_xml .= "pas d'opÃ©ration posÃ©e";
 									break;
 					}
 					$_xml .="</colonne11>\r\n"; 
-					$_xml .="<colonne12 sexe=\"".$sexe."\" intitule=\"résultat\" code=\"" . $r["colonne12"] . "\">\r\n"; 
+					$_xml .="<colonne12 sexe=\"".$sexe."\" intitule=\"rÃ©sultat\" code=\"" . $r["colonne12"] . "\">\r\n"; 
 					switch ($r["colonne12"])
 					{ 
 						case "0" : $_xml .= "correcte ";
@@ -316,14 +316,14 @@
 									break;
 						case "2" : $_xml .= "erreur";
 									break;
-						case "9" : $_xml .= "résultat absent";
+						case "9" : $_xml .= "rÃ©sultat absent";
 									break;
 					}
 					$_xml .="</colonne12>\r\n"; 
 				}//fin du if(!($r["colonne10"]='9' and $r["colonne11"]='9' and $r["colonne12"]='9'))			
 		    }//fin du  if ($r["typeExo"]=="e") 
 			
-			$_xml .="<colonne14 sexe=\"".$sexe."\" intitule=\"nature de ce qui est calculé\" nbOper=\"".$nbOper."\" str=\"".$r["colonne1"]."\" code=\"".$r["colonne14"]."\" q=\"".$q."\" col1=\"".$r["colonne1"]."\" col15=\"".$r["colonne15"]."\" col16=\"".$r["colonne16"]."\" type=\"".$r["typeExo"]."\">\r\n"; 
+			$_xml .="<colonne14 sexe=\"".$sexe."\" intitule=\"nature de ce qui est calculÃ©\" nbOper=\"".$nbOper."\" str=\"".$r["colonne1"]."\" code=\"".$r["colonne14"]."\" q=\"".$q."\" col1=\"".$r["colonne1"]."\" col15=\"".$r["colonne15"]."\" col16=\"".$r["colonne16"]."\" type=\"".$r["typeExo"]."\">\r\n"; 
 				switch ($r["colonne14"])
 				{ 
 					case "0" : $_xml .= "implicite";
@@ -339,11 +339,11 @@
 					case "2" : $_xml .= "un tout";
 								break;
 					case "3" : if($r["typeExo"]=="e" and $r["colonne11"]==0 and $r["colonne11"]==0)
-								$_xml .= "Pour le calcul final, il a utilisé l'écart calculé précedement ($valdiff). ";
+								$_xml .= "Pour le calcul final, il a utilisÃ© l'Ã©cart calculÃ© prÃ©cedement ($valdiff). ";
 								else if($r["typeExo"]=="a")
 								$_xml .= "";
 								else
-							    $_xml .= "un des terme de la comparaison à partir de l'autre terme de la différence";
+							    $_xml .= "un des terme de la comparaison Ã  partir de l'autre terme de la diffÃ©rence";
 								if ($r["colonne1"]=="3")
 								{
 									if($r["question"]=="p") {
@@ -363,13 +363,13 @@
 								}
 								break;
 
-					case "4" : $_xml .= "le résultat précédent et la dernière donnée de l'énoncé";
+					case "4" : $_xml .= "le rÃ©sultat prÃ©cÃ©dent et la derniÃ¨re donnÃ©e de l'Ã©noncÃ©";
 								break;
-					case "41" : $_xml .= "addition des deux resultats précédent";
+					case "41" : $_xml .= "addition des deux resultats prÃ©cÃ©dent";
 								break;
-					case "42" : $_xml .= "soustraction des deux resultats précédent";
+					case "42" : $_xml .= "soustraction des deux resultats prÃ©cÃ©dent";
 										break;
-					case "43" : $_xml .= "soustraction de  deux données de l'énoncé";
+					case "43" : $_xml .= "soustraction de  deux donnÃ©es de l'Ã©noncÃ©";
 										break;
 					case "5" : $_xml .= "autre";
 								break;
@@ -379,33 +379,33 @@
 				}
 			$_xml .="</colonne14>\r\n"; 
 
-			$_xml .="<colonne15 sexe=\"".$sexe."\" intitule=\"calcule du résultat final\" col14=\"".$r["colonne14"]."\" code=\"" . $r["colonne15"] . "\">\r\n"; 
+			$_xml .="<colonne15 sexe=\"".$sexe."\" intitule=\"calcule du rÃ©sultat final\" col14=\"".$r["colonne14"]."\" code=\"" . $r["colonne15"] . "\">\r\n"; 
 				switch ($r["colonne15"])
 				{ 
 					case "0" : $_xml .= "implicite";
 								break;
-					case "1" : $_xml .= "addition à trou ";
+					case "1" : $_xml .= "addition Ã  trou ";
 							   $_xml .="<op>(".$tabOper[0]." + ? =".$tabOper[2].")</op>\r\n";
 							   $resFin=$tabOper[1];
 								break;
 					case "2" : $_xml .= "soustraction ";
 								$_xml .="<op>(".chop($opFinSR).")</op>\r\n";
 								break;
-					case "3" : $_xml .= "soustraction inversée ";
+					case "3" : $_xml .= "soustraction inversÃ©e ";
 								$_xml .="<op>(".chop($opFinSR).")</op>\r\n";
 								break;
 					case "4" : $_xml .= "addition ";
 								$_xml .="<op>(".chop($opFinSR).")</op>\r\n";
 								break;
-					case "5" : $_xml .= "addition de tous les termes de l'énoncé ";
+					case "5" : $_xml .= "addition de tous les termes de l'Ã©noncÃ© ";
 								$_xml .="<op>(".chop($opFinSR).")</op>\r\n";
 								break;
-					case "6" : $_xml .= "autre opération sur tous les termes de l'énoncé";
+					case "6" : $_xml .= "autre opÃ©ration sur tous les termes de l'Ã©noncÃ©";
 								break;
-					case "7" : $_xml .= "opération non pertinente sur 2 des termes de l'énoncé";
+					case "7" : $_xml .= "opÃ©ration non pertinente sur 2 des termes de l'Ã©noncÃ©";
 								$_xml .="<op>(".chop($opFinSR).")</op>\r\n";
 								break;
-					case "71" : $_xml .= "soustraction à trou";
+					case "71" : $_xml .= "soustraction Ã  trou";
 								$_xml .="<op>(".$tabOper[0]." - ? =".$tabOper[2].")</op>\r\n";
 							   $resFin=$tabOper[1];
 								break;
@@ -420,7 +420,7 @@
 				}
 			$_xml .="</colonne15>\r\n"; 
 			
-			$_xml .="<colonne17 sexe=\"".$sexe."\" intitule=\"résultat du calcul final\" nbOper=\"".$nbOper."\" sol=\"".$sol."\" 
+			$_xml .="<colonne17 sexe=\"".$sexe."\" intitule=\"rÃ©sultat du calcul final\" nbOper=\"".$nbOper."\" sol=\"".$sol."\" 
 					   str=\"".$r["colonne1"]."\" col14=\"".$r["colonne14"]."\" col15=\"".$r["colonne15"]."\" code=\"".$r["colonne17"]."\">\r\n"; 
 				switch ($r["colonne17"])
 				{  
@@ -435,35 +435,35 @@
 					case "8" : $_xml .= "erreur";
 							    $_xml .= "<res>(".$resFin.")</res>";
 								break;
-					case "9" : $_xml .= "résultat absent";
+					case "9" : $_xml .= "rÃ©sultat absent";
 								$_xml .= "<res>(".$resFin.")</res>";
 								break;
 				}
 				$_xml .="</colonne17>\r\n";
 				
-			$_xml .="<colonne16 sexe=\"".$sexe."\" intitule=\"pertinence des données de l'opération\" code=\"".$r["colonne16"]."\" col14=\"".$r["colonne14"]."\" nbOper=\"".$nbOper."\" str=\"".$r["colonne1"]."\">\r\n"; 
+			$_xml .="<colonne16 sexe=\"".$sexe."\" intitule=\"pertinence des donnÃ©es de l'opÃ©ration\" code=\"".$r["colonne16"]."\" col14=\"".$r["colonne14"]."\" nbOper=\"".$nbOper."\" str=\"".$r["colonne1"]."\">\r\n"; 
 				switch ($r["colonne16"])
 				{ 
 					case "0" : $_xml .= "correctes";
 								break;
-					//case "1" : $_xml .= "Au moins une des données est incorrecte sans être le résultat d'une erreur de calcul";
-					case "1" : $_xml .= "L'échec à cette dernière opération repose sur un choix incorrect des valeurs";
+					//case "1" : $_xml .= "Au moins une des donnÃ©es est incorrecte sans Ãªtre le rÃ©sultat d'une erreur de calcul";
+					case "1" : $_xml .= "L'Ã©chec Ã  cette derniÃ¨re opÃ©ration repose sur un choix incorrect des valeurs";
 								break;
-					case "2" : $_xml .= "Au moins une des données est incorrecte du fait d'une erreur de calcul au cours du calcul précédent";
+					case "2" : $_xml .= "Au moins une des donnÃ©es est incorrecte du fait d'une erreur de calcul au cours du calcul prÃ©cÃ©dent";
 								break;
-					case "3" : $_xml .= "Au moins une des données est incorrecte du fait d'une erreur de calcul au cours du calcul précédent";
+					case "3" : $_xml .= "Au moins une des donnÃ©es est incorrecte du fait d'une erreur de calcul au cours du calcul prÃ©cÃ©dent";
 								break;
 					case "4" : if($nbOper==1 and $r["typeExo"]=="a")
-								$_xml .= "Le choix des données est correct pour une autre comparaison mais pas pour répondre à la question";
+								$_xml .= "Le choix des donnÃ©es est correct pour une autre comparaison mais pas pour rÃ©pondre Ã  la question";
 								else 
-								$_xml .= "Le choix des données est correct pour la comparaison mais pas pour répondre à la question";
+								$_xml .= "Le choix des donnÃ©es est correct pour la comparaison mais pas pour rÃ©pondre Ã  la question";
 
 								break;
-					case "5" : $_xml .= "L’erreur au calcul final est due à l’erreur commise au calcul précédent";
+					case "5" : $_xml .= "LÂ’erreur au calcul final est due Ã  lÂ’erreur commise au calcul prÃ©cÃ©dent";
 								break;
 					case "8" : $_xml .= "erreur";
 								break;
-					case "9" : $_xml .= "pas d'opération posée";
+					case "9" : $_xml .= "pas d'opÃ©ration posÃ©e";
 								break;
 				}
 			$_xml .="</colonne16>\r\n"; 

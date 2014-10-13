@@ -31,7 +31,7 @@ function validate() {
 	
 	if (selectedByear==noBdate)
 	{
-	alert('Veuillez entrer votre année de naissance.');
+	alert('Veuillez entrer votre annÃ©e de naissance.');
 	return false;
 	}
 
@@ -64,7 +64,7 @@ function validate() {
 	
 	if ((!document.form1.cotisation[0].checked) && (!document.form1.cotisation[1].checked) && (!document.form1.cotisation[2].checked) && (!document.form1.cotisation[3].checked) )
 	 {
-		alert("Veuillez sélectionner la case de cotisation vous correspondant");
+		alert("Veuillez sÃ©lectionner la case de cotisation vous correspondant");
 		return false;
 	}
 	return true;		    
@@ -142,13 +142,13 @@ function validate() {
                 <option value="05"   >Mai</option>
                 <option value="06"   >Juin</option>
                 <option value="07"   >Juillet</option>
-                <option value="08"   >Août</option>
+                <option value="08"   >AoÃ»t</option>
                 <option value="09"   >Septembre</option>
                 <option value="10"   >Octobre</option>
                 <option value="11"   >Novembre</option>
                 <option value="12"   >Decembre</option>
               </select> <select name="birthYear">
-                <option value=" " selected>(Année)</option>
+                <option value=" " selected>(AnnÃ©e)</option>
                 <?php 
 				$annee = date("Y");
 				for($i=1;$i<($annee-1900);$i++)

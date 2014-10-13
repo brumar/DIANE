@@ -173,25 +173,25 @@
 header('Location: ../mac_test/affichage_etape.php');
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.0 //EN"> <html><head>
-<title>Traitement des problèmes à une étape</title></head><body>
+<title>Traitement des problÃ¨mes Ã  une Ã©tape</title></head><body>
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
-<h3 align="center">L'énoncé est enregistré avec succès</h3>
+<h3 align="center">L'Ã©noncÃ© est enregistrÃ© avec succÃ¨s</h3>
 <table border="1">
 <tr align="center">
-    <td>Enoncé</td>
+    <td>EnoncÃ©</td>
     <td>question</td>
     <td>charge cognitive</td>
     <td>partie1</td>
     <td>partie2</td>
     <td>tout</td>
-    <td>Type de problème</td>
+    <td>Type de problÃ¨me</td>
     <td>Inconnu</td>
 	<td>Type de variable</td>
-    <td>Stratégie</td>
+    <td>StratÃ©gie</td>
     <td>Descripteur</td>
     <td>Suggestions</td>    
 </tr>

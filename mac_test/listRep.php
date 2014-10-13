@@ -26,7 +26,7 @@ function listRep ($repertoire, $typefichier){
         $estfichier = is_file($repertoire.$fichier);
         $estdossier = is_dir($repertoire.$fichier);
 
-        //recup des éléments dans les tableaux respectifs
+        //recup des Ã©lÃ©ments dans les tableaux respectifs
         if ($estdossier==TRUE){
         $tab_dossier[$cptdossier] = $fichier;
         $cptdossier++;
@@ -58,7 +58,7 @@ function listRep ($repertoire, $typefichier){
         $result[$i] = $tab_fichier[$j];
     }
     }else{
-    //extension spécifiées
+    //extension spÃ©cifiÃ©es
     $i=0;
     for ($j=0; $j<$cptfichier+1; $j++){
         $extension = explode(".", $tab_fichier[$j]);

@@ -73,12 +73,12 @@ $pdf -> MultiCell(78,5,$text4);
 $pdf -> Rect(110,40,30,5,'D');
 $pdf -> SetXY(111,40);
 $pdf -> SetFont ('Times' ,'B' ,10 );
-$pdf -> Cell(0,5,"Retour à la ligne"); 
+$pdf -> Cell(0,5,"Retour Ã  la ligne"); 
 */
 $pdf -> Image("passerEffacer.jpg",110,40,0,5);
 $pdf -> SetFont ('Times' ,'B' ,14 );
 $pdf -> SetXY(110,30);
-$pdf -> Cell(0,5,"Ecris tes calculs et ta réponse ici");
+$pdf -> Cell(0,5,"Ecris tes calculs et ta rÃ©ponse ici");
 
 /* $pdf -> Rect(145,40,22,5,'D');
 $pdf -> SetXY(146,40);

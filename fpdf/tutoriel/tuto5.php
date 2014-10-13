@@ -4,7 +4,7 @@ require('../fpdf.php');
 
 class PDF extends FPDF
 {
-//Chargement des données
+//Chargement des donnÃ©es
 function LoadData($file)
 {
 	//Lecture des lignes du fichier
@@ -18,11 +18,11 @@ function LoadData($file)
 //Tableau simple
 function BasicTable($header,$data)
 {
-	//En-tête
+	//En-tÃªte
 	foreach($header as $col)
 		$this->Cell(40,7,$col,1);
 	$this->Ln();
-	//Données
+	//DonnÃ©es
 	foreach($data as $row)
 	{
 		foreach($row as $col)
@@ -31,16 +31,16 @@ function BasicTable($header,$data)
 	}
 }
 
-//Tableau amélioré
+//Tableau amÃ©liorÃ©
 function ImprovedTable($header,$data)
 {
 	//Largeurs des colonnes
 	$w=array(40,35,45,40);
-	//En-tête
+	//En-tÃªte
 	for($i=0;$i<count($header);$i++)
 		$this->Cell($w[$i],7,$header[$i],1,0,'C');
 	$this->Ln();
-	//Données
+	//DonnÃ©es
 	foreach($data as $row)
 	{
 		$this->Cell($w[0],6,$row[0],'LR');
@@ -53,16 +53,16 @@ function ImprovedTable($header,$data)
 	$this->Cell(array_sum($w),0,'','T');
 }
 
-//Tableau coloré
+//Tableau colorÃ©
 function FancyTable($header,$data)
 {
-	//Couleurs, épaisseur du trait et police grasse
+	//Couleurs, Ã©paisseur du trait et police grasse
 	$this->SetFillColor(255,0,0);
 	$this->SetTextColor(255);
 	$this->SetDrawColor(128,0,0);
 	$this->SetLineWidth(.3);
 	$this->SetFont('','B');
-	//En-tête
+	//En-tÃªte
 	$w=array(40,35,45,40);
 	for($i=0;$i<count($header);$i++)
 		$this->Cell($w[$i],7,$header[$i],1,0,'C',1);
@@ -71,7 +71,7 @@ function FancyTable($header,$data)
 	$this->SetFillColor(224,235,255);
 	$this->SetTextColor(0);
 	$this->SetFont('');
-	//Données
+	//DonnÃ©es
 	$fill=0;
 	foreach($data as $row)
 	{
@@ -88,8 +88,8 @@ function FancyTable($header,$data)
 
 $pdf=new PDF();
 //Titres des colonnes
-$header=array('Pays','Capitale','Superficie (km²)','Pop. (milliers)');
-//Chargement des données
+$header=array('Pays','Capitale','Superficie (kmÂ²)','Pop. (milliers)');
+//Chargement des donnÃ©es
 $data=$pdf->LoadData('pays.txt');
 $pdf->SetFont('Arial','',14);
 $pdf->AddPage();

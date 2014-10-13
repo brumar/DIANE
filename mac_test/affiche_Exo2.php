@@ -13,14 +13,14 @@ require_once("conn.php");
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 
 <table width="65%" border="1" align="center" cellpadding="2" cellspacing="2" bordercolor="#0000FF">
   
 <?php 
 $sql1 = "SELECT * FROM serie where numSerie=".$numSerie;
-$result1 = mysql_query($sql1) or die ("Requête incorrecte 1");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte 1");
 while ($r1 = mysql_fetch_assoc($result1))
 	{
 	   for ($i=1;$i<=24;$i++)
@@ -49,7 +49,7 @@ while ($r1 = mysql_fetch_assoc($result1))
 					$typeExo="et";
 					
 				$sql1 = "SELECT * FROM $type where numero=$exo";
-				$result1 = mysql_query($sql1) or die ("Requête incorrecte 2");
+				$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte 2");
 				while ($r = mysql_fetch_assoc($result1))
 					{
 					  if ($typeExo=="d")
@@ -89,7 +89,7 @@ while ($r1 = mysql_fetch_assoc($result1))
 					  $exo= stripcslashes($exo); 
 ?>
   <tr> 
-    <td bgcolor="#99FF00"><strong>Exercice N° <?php echo ($i); ?> de type : &nbsp;<?php echo ($exercice); ?></strong></td>
+    <td bgcolor="#99FF00"><strong>Exercice NÂ° <?php echo ($i); ?> de type : &nbsp;<?php echo ($exercice); ?></strong></td>
   </tr>
  
   <tr> 

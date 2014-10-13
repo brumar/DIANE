@@ -116,8 +116,8 @@ $tabNombre = $nombre;
 		$valdiff = $val["valdiff"]; 
 		$question = $val["question"];
  	} 
- //printf ("Lignes modifiées : %d\n" ,mysql_affected_rows ()); 
-print ("<P>Construction du tableau des données :</P>\n");
+ //printf ("Lignes modifiÃ©es : %d\n" ,mysql_affected_rows ()); 
+print ("<P>Construction du tableau des donnÃ©es :</P>\n");
 print ("<P><TABLE BGCOLOR=#88ffcc border=2 cellspacing=2 cellpadding=2>\n");
 print ("<TD>\n<B>numero</B>\n");
 print ("<TD>\n<B>enonce1</B>\n");
@@ -340,7 +340,7 @@ for ($k = 0 ; (($k < count($tabOperation)-1)||($bool==true)); $k++)
 		   if ($T2[2]!="")
 		   print ("<br>l'operation est : ".$op1.$op.$op2."=".$res."<br>"); 
 			  
-/*========== cas de calcul par différence pour les problèmes de complement===============*/
+/*========== cas de calcul par diffÃ©rence pour les problÃ¨mes de complement===============*/
 //=================  colonne10  =============
 		if ($question == 't')
 		{
@@ -644,7 +644,7 @@ for ($k = 0 ; (($k < count($tabOperation)-1)||($bool==true)); $k++)
 	 } 
 }//fin du for	
 
-/*====colonne 14 à 18 solution final========*/
+/*====colonne 14 Ã  18 solution final========*/
 //===================== colonnne 14 et 15 ===========================
 if (count($tabOperation)==1)
 {
@@ -924,7 +924,7 @@ else if ((count($tabOperation)==1) and ($question=='p'))
 			 $resultat_compf = abs(calcul($operande1,$op,$operande2));
 			 $difference2 = true ; 
 			 }
- /*================= colonne 16 pertinence des données de l'operation ==============*/
+ /*================= colonne 16 pertinence des donnÃ©es de l'operation ==============*/
 	 if (
 	 			((($question=='t')||($question=='t'))and($difference2))
 				and 

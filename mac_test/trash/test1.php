@@ -1,8 +1,8 @@
 <?php
-// scinde la phrase grâce aux virgules et espacements
+// scinde la phrase grÃ¢ce aux virgules et espacements
 // ce qui inclus les " ", \r, \t, \n et \f
 
-$text2 = "dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forêt avec les Lambert, il sont 12 au pique-nique. combien sont-il dans la famille Lambert?";
+$text2 = "dans la famille dubois, il y 5 personnes. quand les Dubois vont manger en forÃªt avec les Lambert, il sont 12 au pique-nique. combien sont-il dans la famille Lambert?";
 $chaine ="";
 $tabMot = preg_split ("/[,]+/", $text2);
 for ($i=0; $i < sizeof($tabMot);$i++)

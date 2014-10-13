@@ -10,7 +10,7 @@
    | <a href="javascript:AddText('[email]','email@email.fr','[/email]');">Email</a>
    | <a href="javascript:AddText('[b]','Texte en gras','[/b]');">Gras</a>
    | <a href="javascript:AddText('[i]','Texte en italique','[/i]');">Italique</a>
-   | <a href="javascript:AddText('[u]','Texte souligné','[/u]');">Souligné</a>...
+   | <a href="javascript:AddText('[u]','Texte soulignÃ©','[/u]');">SoulignÃ©</a>...
 <br>
 Smileys :
    <a href="javascript:AddText('',':)','');">Content</a>

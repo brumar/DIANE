@@ -36,7 +36,7 @@ $longueur = strlen($text);
 //suprime tous caractere different de [^\d+-=:*]
  $calcules = trim(eregi_replace ('[^0-9|,|+|*|:|=|-]', " ",$text));
  $calcules2= trim(eregi_replace ('[^0-9|,|+|*|:|=|-|(|)]', " ",$text));
- $tabCal =  preg_split ("/[\s]+/", $calcules); //scinde la phrase gr‚ce au virgule et espacement
+ $tabCal =  preg_split ("/[\s]+/", $calcules); //scinde la phrase gr√¢ce au virgule et espacement
  //$tabCal =  preg_split ("/[\s]+/", $calcules2);
  //$pattern = "/((?:\d+\s*[\+\-\*\/x:]\s*)*(?:\(\s*(?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*\)\s*[\+\-\*\/x:]?\s*)*\d*\s*=?\s*\d+)/";
  //$pattern = "/\d+\s*[\+\-\*\/x:]\s*)*(\(\s*(\d+\s*[\+\-\*\/x:]\s*)+\d+\s*\)\s*[\+\-\*\/x:]?\s*)*\d*\s*=?\d*\s*/";
@@ -48,11 +48,11 @@ $longueur = strlen($text);
 //print_r($tabCal);print("<br>");
 //print_r($tab[3]);print("<br>");
 								
-								/* Reconnaissance des opÈration utilisÈes dans le texte*/
+								/* Reconnaissance des op√©ration utilis√©es dans le texte*/
 
-$pat1 = "/\d+\s*[\+\-\*\/x:]\s*\d+\s*([\+\-\*\/x:]\s*\d+\s*)*\s*=\s*\d+\s*/"; //opÈration de type a+b+...+c=resultat
-$pat2 = "/\d+\s*[\*xX:\/]\s*\(\s*\d+\s*[\+\-\*\/x:]\s*\d+\s*([\+\-\*\/x:]\s*\d+\s*)*\)\s*=\s*\d+/"; //opÈration de type a*(b+c+...)=resultat
-$pat3 = "/\(\s*\d+\s*[\+\-\*\/x:]\s*\d+\s*([\+\-\*\/xX:]\s*\d+\s*)*\)\s*[\*\/xX:]\s*\d+\s*\=\s*\d+/"; ////opÈration de type (a+b+...)*c=resultat
+$pat1 = "/\d+\s*[\+\-\*\/x:]\s*\d+\s*([\+\-\*\/x:]\s*\d+\s*)*\s*=\s*\d+\s*/"; //op√©ration de type a+b+...+c=resultat
+$pat2 = "/\d+\s*[\*xX:\/]\s*\(\s*\d+\s*[\+\-\*\/x:]\s*\d+\s*([\+\-\*\/x:]\s*\d+\s*)*\)\s*=\s*\d+/"; //op√©ration de type a*(b+c+...)=resultat
+$pat3 = "/\(\s*\d+\s*[\+\-\*\/x:]\s*\d+\s*([\+\-\*\/xX:]\s*\d+\s*)*\)\s*[\*\/xX:]\s*\d+\s*\=\s*\d+/"; ////op√©ration de type (a+b+...)*c=resultat
 $pat4 = "/(\(?\s*\d+\s*([\+\-\*\/x:]\s*\d+\s*)?\)?\s*([\+\*\/xX:]\s*)?)*=\s*\d+/";
 
 $tabOperation=array();
@@ -101,8 +101,8 @@ print_r($tabOp3);print("<br>");
 exit(); 
  */ 
  for ($i=0; $i < count($tabCal) ; $i++)
-//print ($tabCal[$i]."<br>"); exit;//count retourne le nombre d'ÈlÈments dans var, qui est gÈnÈralement 
-//un tableau (et tout le reste n'aura qu'un ÈlÈment).
+//print ($tabCal[$i]."<br>"); exit;//count retourne le nombre d'√©l√©ments dans var, qui est g√©n√©ralement 
+//un tableau (et tout le reste n'aura qu'un √©l√©ment).
 	{
 	switch ($tabCal[$i])
 		{
@@ -380,7 +380,7 @@ exit();
 				   
 		}
      }
-/*print("les operation qui ont ÈtÈ saisie sont : <br>");
+/*print("les operation qui ont √©t√© saisie sont : <br>");
 for ($i=0; $i < count($tabOperation) ; $i++)
    {
 	 print($tabOperation[$i]."<br>");
@@ -514,7 +514,7 @@ if (isset($tabImp) and ($dernierTabOp["1"]==end($tabImp)||$dernierTabOp["0"]==en
 	$addTrou=true;
 }
 
-//debut de l'Èlimination des nombres implicite (nombres qui ne sont pas des opÈrandes
+//debut de l'√©limination des nombres implicite (nombres qui ne sont pas des op√©randes
 if(count($tabOperation)==3)
 {
 	if(count($tabImp)==3)
@@ -672,7 +672,7 @@ for ($i=0,$k=0; $i < count($tabOperation);$i++)
 //exit;
 /*-------fin difference entre les deux tableaux-----------*/
 //$bool=false;
-								//N=1 pas d'opÈration que du texte saisi
+								//N=1 pas d'op√©ration que du texte saisi
 
 if ((count($tabOperation)==0)&&(count($tabImp)==0)&&($longueur!=0))
 	{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,N) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
@@ -714,10 +714,10 @@ if ((count($tabOperation)==0)&&(in_array($at,$tabImp)))
 if ($longueur==0)
 	{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,B) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 	 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
-//dÈbut 1 opÈration
+//d√©but 1 op√©ration
 
 
-								/*CODE 1 opÈration (Fc,A, M, At,Fe,Ed,Em,Ea,Dc)*/
+								/*CODE 1 op√©ration (Fc,A, M, At,Fe,Ed,Em,Ea,Dc)*/
 //print_r($tabOperation);
 //echo(count($tabOperation));
 //exit();
@@ -777,7 +777,7 @@ if ($nbOper==1)
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fc) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 		 		 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 				 											
-							//Condensation (Fc) avec erreur de calul non identifiÈe (add=mult=4)
+							//Condensation (Fc) avec erreur de calul non identifi√©e (add=mult=4)
 				 
 			if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count($mul)==1)&&($presvar==true)&&($T2[4]!=$resfin)&&($T2[3]==$fact))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fc,Addition,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','4','4')";
@@ -802,7 +802,7 @@ if ($nbOper==1)
 		 		 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
 							/*
-								condensation avec erreur de parenthËse de  type f * a+b+c =r
+								condensation avec erreur de parenth√®se de  type f * a+b+c =r
 								Addition='5',Multiplication='5'  a ajouter dans la grille de codage
 							*/
 	
@@ -824,26 +824,26 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,A) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 		 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 		
-							/*CODE ADDITION(A=1) avec add fin ratÈe (add=2)*/
+							/*CODE ADDITION(A=1) avec add fin rat√©e (add=2)*/
 		
 		else if ((count($T1)==($nva-1))&&($add==true)&& (in_array($va1,$T2)) && (in_array($va2,$T2)) && (in_array($va3,$T2)) &&($T2[$nva]!=$sommeva)&&(count($T2)==($nva+1)))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,A,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-							/*(D) avec calcul intermÈdiaire implicite (Cimp=1)*/
+							/*(D) avec calcul interm√©diaire implicite (Cimp=1)*/
 			 
 			 if ((count($T1)==($nva-1))&&($add==true)&& (in_array($r1,$T2)) && (in_array($r2,$T2)) && (in_array($r3,$T2)) &&($T2[$nva]==$resfin))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,D,Cimp) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 		 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			 
 			 
-						/*(D) avec calcul intermÈdiaire implicite (Cimp=1) et erreur de calcul dans l'addition finale (Add=2)*/
+						/*(D) avec calcul interm√©diaire implicite (Cimp=1) et erreur de calcul dans l'addition finale (Add=2)*/
 			 
 			if ((count($T1)==($nva-1))&&($add==true)&& (in_array($r1,$T2)) && (in_array($r2,$T2)) && (in_array($r3,$T2)) &&($T2[$nva]!=$resfin))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,D,Cimp,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1','2')";
 		 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-						 /*(D) avec calcul intermÈdiaire implicite (Cimp=1) et erreur d'unitÈ mal placÈ*/
+						 /*(D) avec calcul interm√©diaire implicite (Cimp=1) et erreur d'unit√© mal plac√©*/
 			
 			if ($r1%10==$r1) $r11=$r1*10; else $r11=$r1;
 			if ($r2%10==$r2) $r21=$r2*10; else $r21=$r2;
@@ -855,7 +855,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 		 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 																		
  					
-						/*(D) avec calcul intermÈdiaire implicite (Cimp=1) et erreur de retenue*/
+						/*(D) avec calcul interm√©diaire implicite (Cimp=1) et erreur de retenue*/
 			$max = max (strlen($r1),strlen($r2),strlen($r3));
 			$r1Tab="".$r1;
 			if(strlen($r1)<$max)
@@ -891,7 +891,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 		 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}																		
 														
 														
-						/*(F) avec calcul intermÈdiaire implicite (Cimp=1)*/
+						/*(F) avec calcul interm√©diaire implicite (Cimp=1)*/
 			
 			$mul=true;
 			for ($j=0; (($j < count($T1))&& ($mul==true));$j++)
@@ -906,7 +906,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,F,Cimp) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 		 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-	/*(F) avec calcul intermÈdiaire implicite (Cimp=1) et erreur de calcul dans la multiplication finale (Multi=2)*/
+	/*(F) avec calcul interm√©diaire implicite (Cimp=1) et erreur de calcul dans la multiplication finale (Multi=2)*/
 			
 			if ((count($T1)==1)&&($mul==true)&& (in_array($sommeva,$T2)) && (in_array($fact,$T2)) &&($T2[2]!=$resfin))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,F,Cimp,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1','2')";
@@ -945,7 +945,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			 
 			 
-			 			/*CODE (M=1) et multiplication ratÈe (Multiplication=2)*/
+			 			/*CODE (M=1) et multiplication rat√©e (Multiplication=2)*/
 																				
 		else if ((count($T1)==1)&&($T1[0]=="*")&& (in_array($fact,$T2)) && (in_array($nva,$T2))&& ($T2[2]!=$nva*$fact))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,M,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -960,7 +960,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 
 
-						/*CODE Add totale(At=1) avec addition ratÈe (add=2)*/
+						/*CODE Add totale(At=1) avec addition rat√©e (add=2)*/
 											
 		else if ((count($T1)==$nva)&&($add==true)&& (in_array($va1,$T2)) && (in_array($va2,$T2)) && (in_array($va3,$T2)) && (in_array($fact,$T2))&&($T2[$nva+1]!=$sommeva+$fact))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,At,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -985,14 +985,14 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			 
 			 
-			 /*CODE Explosion1 (Fe) 1 seule opÈration (15+15+15+15=60) avec addition finale ratÈe (add=2)*/
+			 /*CODE Explosion1 (Fe) 1 seule op√©ration (15+15+15+15=60) avec addition finale rat√©e (add=2)*/
 			 
 		if (($add==true)&&(count($diff)==1)&& ($diff[0]!=$resfin)&&(count($T1)==$fact-1))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe,Addition,Cimp) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2','1')";
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			 
 
-						/*DÈcomposition(Ed)*/
+						/*D√©composition(Ed)*/
 		for ($i=0,$k=0 ; $i < count($T2) ;$i++)
 			{	if ($T2[$i]!=$fact)
 		 	 		{$dif[$k] = $T2[$i];$k++;}
@@ -1005,7 +1005,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Ed) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-						/*DÈcomposition(Ed) avec erreur de calcul addition finale (add=2)*/
+						/*D√©composition(Ed) avec erreur de calcul addition finale (add=2)*/
 			
 		if (($add==true)&&(count($dif)==1)&& ($dif[0]!=$resfin)&&(count($T2)==$sommeva+1)&&($cp==false))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Ed,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1014,7 +1014,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 
 						/*Myriade(Em)*/
 												
-						/* Myriade(Em) 3 variables de valeur diffÈrente */
+						/* Myriade(Em) 3 variables de valeur diff√©rente */
 		if(($va1!=$va2)&&($va1!=$va3)&&($va2!=$va3))
 		{
 			for ($i=0,$k=0,$j=0 ; $i < count($T2) ;$i++)
@@ -1035,14 +1035,14 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 				 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 				 
-				 		/*Addition ratÈe pour myriade (Add=2) (Em=1)*/
+				 		/*Addition rat√©e pour myriade (Add=2) (Em=1)*/
 				 
 			if (($add==true)&&(count($v1)==$fact)&& (count($v2)==$fact)&& (count($v3)==$fact)&&($re[0]!=$resfin)&&(count($re)==1))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
 				 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 		}
 
-						/* Myriade(Em) 3 variables de valeur Ègale ; valeur du facteur diffÈrente de la valeur des variables */
+						/* Myriade(Em) 3 variables de valeur √©gale ; valeur du facteur diff√©rente de la valeur des variables */
 												
 		else if (($va1==$va2)&&($va1==$va3)&&($va2==$va3)&&($fact!=$va1))
 		{
@@ -1060,7 +1060,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-						 /*Addition ratÈe pour myriade (Add=2) (Em=1)*/
+						 /*Addition rat√©e pour myriade (Add=2) (Em=1)*/
 			 
 		if (($add==true)&&(count($v1)==$fact*$nva)&& ($re[0]!=$resfin)&&(count($re)==1))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1068,7 +1068,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 
 		}
 		
-				/* Myriade(Em) 3 variables de valeur Ègale ; valeur du facteur Ègale ‡ la valeur des variables (Ed aussi)*/
+				/* Myriade(Em) 3 variables de valeur √©gale ; valeur du facteur √©gale √† la valeur des variables (Ed aussi)*/
 												
 		else if (($va1==$va2)&&($va1==$va3)&&($va2==$va3)&&($fact==$va1))
 		{
@@ -1086,7 +1086,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em,Ed) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-			 /*Addition ratÈe pour myriade (Add=2) (Em=1 et Ed=1)*/
+			 /*Addition rat√©e pour myriade (Add=2) (Em=1 et Ed=1)*/
 		if (($add==true)&&(count($v1)==$fact*$nva)&& ($re[0]!=$resfin)&&(count($re)==1))
 		{
 		$Requete_SQL2 = "INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em,Ed,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1','2')";
@@ -1094,7 +1094,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 		}
 
 		}
-		/* Myriade(Em) 2 variables de valeur Ègale et la 3Ëme diffÈrente */
+		/* Myriade(Em) 2 variables de valeur √©gale et la 3√®me diff√©rente */
 													
 		else if (($va1==$va2)&&($va1!=$va3))
 		{	for ($i=0,$k=0,$j=0 ; $i < count($T2) ;$i++)
@@ -1111,7 +1111,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-			 		/*Addition ratÈe pour myriade (Add=2) (Em=1)*/
+			 		/*Addition rat√©e pour myriade (Add=2) (Em=1)*/
 			 
 			 if (($add==true)&&(count($v1)==$fact*($nva-1))&&(count($v2)==$fact)&&($re[0]!=$resfin)&&(count($re)==1))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1138,7 +1138,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-			 					/*Addition ratÈe pour myriade (Add=2) (Em=1)*/
+			 					/*Addition rat√©e pour myriade (Add=2) (Em=1)*/
 			 
 			 if (($add==true)&&(count($v1)==$fact*($nva-1))&&(count($v2)==$fact)&&($re[0]!=$resfin)&&(count($re)==1))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1165,7 +1165,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-			 			/*Addition ratÈe pour myriade (Add=2) (Em=1)*/
+			 			/*Addition rat√©e pour myriade (Add=2) (Em=1)*/
 			 
 			 if (($add==true)&&(count($v1)==$fact*($nva-1))&&(count($v2)==$fact)&&($re[0]!=$resfin)&&(count($re)==1))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Em,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
@@ -1188,7 +1188,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Ea) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 		
-					/*Addition ratÈe pour mise en brique (Ea=1) (Addition=2)*/
+					/*Addition rat√©e pour mise en brique (Ea=1) (Addition=2)*/
 		
 		if (($T2[0]==$fact)&&(count($T2)==$sommeva+1)&&($add==true)&&($mb==true)&&($T2[$sommeva]!=$resfin))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Ea,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1213,7 +1213,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
 																																		
-					/* (Dc=1) et Erreur de calcul non identifiÈe (Add=4;Multi=4) pour (Dc)*/
+					/* (Dc=1) et Erreur de calcul non identifi√©e (Add=4;Multi=4) pour (Dc)*/
 			if (($condi==true)&&(count($T1)==((2*$nva)-1))&&(in_array($va1,$T2)) && (in_array($va2,$T2)) && (in_array($va3,$T2))&& (in_array($fact,$T2))&&($T2[$nva*2]!=$resfin)&&($T1[count($T1)-1]=="*"))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Dc,Addition,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','4','4')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
@@ -1230,7 +1230,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,M2) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-					/* Code  (M2=1) et erreur de calcul non identifiÈe (Add=4;Multi=4) */
+					/* Code  (M2=1) et erreur de calcul non identifi√©e (Add=4;Multi=4) */
 																	
 			if (($condi==true)&&(count($T1)==((2*$nva)-1))&&(in_array($va1,$T2)) && (in_array($va2,$T2)) && (in_array($va3,$T2))&& (count($mdeux)>=$nva)&&($T2[$nva*2]!=$resmdeux)&&($T1[count($T1)-1]=="*"))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,M2,Addition,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','4','4')";
@@ -1248,7 +1248,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,M3) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			
-								/* (M3=1) erreur de calcul non identifiÈe (Add=4;Multi=4)  */
+								/* (M3=1) erreur de calcul non identifi√©e (Add=4;Multi=4)  */
 																	
 			if (($condi==true)&&(count($T1)==((2*$nva)-1))&&(in_array($va1,$T2)) && (in_array($va2,$T2)) && (in_array($va3,$T2))&& (count($mtrois)>=$nva)&&($T2[$nva*2]!=$resmtrois)&&($T1[count($T1)-1]=="*"))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,M3,Addition,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','4','4')";
@@ -1256,7 +1256,7 @@ if ((count($T1)==$nva)&&(count($T2)==($nva+2))&&(count($add)==($nva-1))&&(count(
 			
 		
 }
-//fin nombre opÈrations=1
+//fin nombre op√©rations=1
 
 					//Explosion2 (Fe2)
 
@@ -1313,7 +1313,7 @@ if (count($tabOperation)==$fact+1)
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe2) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 				 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 					
-					/*Addition finale ratÈe pour Fe2 (Fe2=1) (Addition=2)*/
+					/*Addition finale rat√©e pour Fe2 (Fe2=1) (Addition=2)*/
 					
 				if (($add==true)&&(count($diff)==1)&& ($diff[0]!=$resfin)&&(count($T1)==$fact-1)&& ($int==true))
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe2,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1383,13 +1383,13 @@ if (count($tabOperation)==$fact+1)
 						{$add=false;}
 				}
 
-					//Addition intermediaire ratÈe (Addition=1) (Fe2=1)
+					//Addition intermediaire rat√©e (Addition=1) (Fe2=1)
 
 				if (($add==true) && ($T2[$fact]==$som[$fact-1])&&(count($T1)==$fact-1)&& ($addfausse==true))
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe2,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 				 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 					
-					//Add intermediaire ratÈe  et Addition finale ratÈe (Addition=3)(Fe2=1) 
+					//Add intermediaire rat√©e  et Addition finale rat√©e (Addition=3)(Fe2=1) 
 					
 				if (($add==true) && ($T2[$fact]!=$som[$fact-1])&&(count($T1)==$fact-1)&& ($addfausse==true))
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe2,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','3')";
@@ -1420,10 +1420,10 @@ if (count($tabOperation)==2)
 					{$int=true;}
 				else {$int=false;}
 					//print($int); exit;
-				$addrat=true;//Pour (Addition ratÈe)
+				$addrat=true;//Pour (Addition rat√©e)
 				if(($add==true)&&(in_array($va1,$T2)) && (in_array($va2,$T2)) && (in_array($va3,$T2)) && ($T2[$nva]!=$sommeva)&&(count($T2)==$nva+1))//Pour (Fa)
-					{$addrat=true; $saddrat=$T2[$nva];}//Pour (Addition ratÈe)
-				else{$addrat=false;}//Pour (addition ratÈe)
+					{$addrat=true; $saddrat=$T2[$nva];}//Pour (Addition rat√©e)
+				else{$addrat=false;}//Pour (addition rat√©e)
 					 
 		
 				$operation_f = $tabOperation[1];
@@ -1461,26 +1461,26 @@ if (count($tabOperation)==2)
 							VALUES ('".$numSerie."','".$numEleve."','".$date."','".$n."','1','2','3')";
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ".$Requete_SQL2.'<br />'.mysql_error());
 			}					
-			//Addition ratÈe (Addition=1) pour(F)
+			//Addition rat√©e (Addition=1) pour(F)
 				$som=$saddrat*$fact;
 				if ((count($T1)==1)&&($T1[0]=="*")&& (in_array($fact,$T2)) && (in_array($saddrat,$T2))&&($T2[2]==$som)&&($addrat==true))  
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,F,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 				 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 					
-				//Multiplication ratÈe (Multiplication=2) pour (F)
+				//Multiplication rat√©e (Multiplication=2) pour (F)
 				
 				if ((count($T1)==1)&&($T1[0]=="*")&& (in_array($fact,$T2)) && (in_array($sommeva,$T2))&&($T2[2]!=$resfin)&&($int==true))
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,F,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
 				 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 					
-				//Addition et multiplication ratÈe (Add=1 et Multi=2) pour(F)
+				//Addition et multiplication rat√©e (Add=1 et Multi=2) pour(F)
 				if ((count($T1)==1)&&($T1[0]=="*")&& (in_array($fact,$T2)) && (in_array($saddrat,$T2))&& ($T2[2]!=$som) &&($addrat==true))
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,F,Addition,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1','2')";
 				 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 					
 					
 					
-					/*CODE Explosion1 (Fe) 2 opÈrations (2+6+7=15) et (15+15+15+15=60)*/
+					/*CODE Explosion1 (Fe) 2 op√©rations (2+6+7=15) et (15+15+15+15=60)*/
 				$add=true;
 				for ($i=0; (($i < count($T1))&&($add==true));$i++)
 					{	if($T1[$i]=="+")
@@ -1506,13 +1506,13 @@ if (count($tabOperation)==2)
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			 	 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 				 
-				 //Addition finale ratÈe (Addition=2) pour(Fe(2 opÈrations))
+				 //Addition finale rat√©e (Addition=2) pour(Fe(2 op√©rations))
 				 if (($add==true)&&(count($diff)==1)&& ($diff[0]!=$resfin)&&(count($T1)==$fact-1)&&($int==true))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
 			 	 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 					
 						
-					//Addition intermediaire ratÈe (Addition=1) pour(Fe(2 opÈrations))
+					//Addition intermediaire rat√©e (Addition=1) pour(Fe(2 op√©rations))
 				for ($i=0,$k=0 ; $i < count($T2) ;$i++)
 		 		{	 if ($T2[$i]!=$saddrat)
 		  	    	  {$di[$k] = $T2[$i];$k++;}
@@ -1523,14 +1523,14 @@ if (count($tabOperation)==2)
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 				 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 					
-					//Addition intermÈdiaire et finale ratÈe (Addition=3) pour(Fe(2 opÈrations))
+					//Addition interm√©diaire et finale rat√©e (Addition=3) pour(Fe(2 op√©rations))
 					
 				if ((count($T1)==$fact-1)&&($add==true)&& ($T2[$fact]!=$som)&&($addrat==true)&&(count($di)==1)&&($di[0]!=$som))  
 					{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Fe,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','3')";
 				 	$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 }
 
-//Fin 2 opÈrations
+//Fin 2 op√©rations
 
 						//Explosion1 (De) et  Explosion2 (De2)
 if (count($tabOperation)==$nva+1)				
@@ -1670,7 +1670,7 @@ if (count($tabOperation)==$nva+1)
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,De) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			 
-			 					//Addition finale ratÈe (Addition=2) pour (De)
+			 					//Addition finale rat√©e (Addition=2) pour (De)
 			 
 		if ((count($dif1)==$fact)&&(count($dif2)==$fact)&&(count($dif3)==$fact)&&($erradd==true))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,De,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1684,7 +1684,7 @@ if (count($tabOperation)==$nva+1)
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());
 			 }
 				
-								//Addition finale ratÈe (Addition=2) pour (De2)
+								//Addition finale rat√©e (Addition=2) pour (De2)
 				
 		if ((count($diffe1)==$va1)&&(count($diffe2)==$va2)&&(count($diffe3)==$va3)&&($erradd==true))
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,De2,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
@@ -1779,7 +1779,7 @@ if (count($tabOperation)==$nva+1)
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			 
 			 
-			 //unitÈ mal placÈ
+			 //unit√© mal plac√©
 			if ($r1%10==$r1) $r11=$r1*10; else $r11=$r1;
 			if ($r2%10==$r2) $r21=$r2*10; else $r21=$r2;
 			if ($r3%10==$r3) $r31=$r3*10; else $r31=$r3;
@@ -1827,18 +1827,18 @@ if (count($tabOperation)==$nva+1)
 			$result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ".$Requete_SQL2.'<br/>'.mysql_error());
 			}									
 
-				// Addition finale ratÈe (Addition =2) pour (D)
+				// Addition finale rat√©e (Addition =2) pour (D)
 				
 		if (($operint==true)&&($erraddfin==true))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,D,Addition) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2')";
 			 	 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 				 
-				 //multiplication int ratÈe (Multiplication=1) pour (D)
+				 //multiplication int rat√©e (Multiplication=1) pour (D)
 		if (($erad==true)&&($addfjust==true))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,D,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 			 	 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 		
-		 		//multiplication int ratÈe (multiplication=1) et addition fin ratÈe(Add=2) pour (D)
+		 		//multiplication int rat√©e (multiplication=1) et addition fin rat√©e(Add=2) pour (D)
 		if (($erad==true)&&($addffx==true))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,D,Addition,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','2','1')";
 			 	 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());} 
@@ -1847,7 +1847,7 @@ if (count($tabOperation)==$nva+1)
 				 			//Forme classique (D)
 																
 
-						//Forme classique (D) (mÈthode non utilisÈe)
+						//Forme classique (D) (m√©thode non utilis√©e)
 /*if (count($tabOperation)==$nva+1)
 //print(count($tabOperation));exit;
 {			$etape=true;
@@ -1905,7 +1905,7 @@ if (count($tabOperation)==$nva+1)
 												
 }					
 				
-						 //DÈveloppement incomplet (Di)
+						 //D√©veloppement incomplet (Di)
 																			
 if (count($tabOperation)==$nva)
 {
@@ -1955,14 +1955,14 @@ if (count($tabOperation)==$nva)
 			{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Di) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1')";
 			 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 			 
-						//multiplication int ratÈe (Multiplication=1) pour (Di)
+						//multiplication int rat√©e (Multiplication=1) pour (Di)
 		if (($dev==true)&&($operint==false))
 				{$Requete_SQL2 ="INSERT INTO diagdistrib (numSerie,numEleve,date,numExo,Di,Multiplication) VALUES ('".$numSerie."','".$_SESSION['numEleve']."','".$date."','".$n."','1','1')";
 			 	 $result = mysql_query($Requete_SQL2) or die("Erreur d'Insertion dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());}
 				
 }
 
-						/*DÈveloppement incomplet (non utilisÈe)
+						/*D√©veloppement incomplet (non utilis√©e)
 
 	if (count($tabOperation)==$nva)
 {

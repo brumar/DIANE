@@ -4,15 +4,15 @@ session_start();
 
 echo $login; // il a la valeur de la variable de session correspondante.
 
-// la variable $login présente dans notre page prend une valeur différente de
-// celle présente dans la session. La variable de session $login n'a pas été
-// modifiée ; elle a toujours la même valeur !
+// la variable $login prÃ©sente dans notre page prend une valeur diffÃ©rente de
+// celle prÃ©sente dans la session. La variable de session $login n'a pas Ã©tÃ©
+// modifiÃ©e ; elle a toujours la mÃªme valeur !
 
 $login="nouveau_login";
 
 echo $login; // Affiche "nouveau_login"
 
-// Met à jour la variable de session $login avec la nouvelle valeur à savoir
+// Met Ã  jour la variable de session $login avec la nouvelle valeur Ã  savoir
 // "nouveau_login"
 
 session_register("login");

@@ -1,5 +1,5 @@
 <?php 
-/* colonne 14 à 18 la solution finale*/
+/* colonne 14 Ã  18 la solution finale*/
 //===================== colonnne 14 et 15 ===========================
 if (count($tabOperation)==1)
 {
@@ -105,9 +105,9 @@ print ("le resultat intermediaire est :".$resultat);
 				if ($tabImp[0]==
 			}*/
 
- /*================= colonne 16 pertinence des données de l'operation ==============*/
+ /*================= colonne 16 pertinence des donnÃ©es de l'operation ==============*/
  
-	if (($colonne14 == 9)||($colonne14 == 0????Ð?	?????)) 
+	if (($colonne14 == 9)||($colonne14 == 0????Ã?	?????)) 
 		{
 			print(" colonne16 = 9 "); $colonne16=9; 
 		}

@@ -111,10 +111,10 @@ if ($text=='')
 		//suprime tous caractere different de [^\d+-=:*]
 		$reponse = trim(eregi_replace ('[^0-9|,|+|*|:|=|-]', " ",$reponse));
 				   
-		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthèse non capturante 
+		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthÃ¨se non capturante 
 		preg_match_all($pattern,$reponse,$tab);
 		
-		//tableau des opération utilisées dans la réponse de l'apprenant ==> tabOperation
+		//tableau des opÃ©ration utilisÃ©es dans la rÃ©ponse de l'apprenant ==> tabOperation
 		$tabOperation = $tab[0];
 		$tabOperation2 = $tabOperation;
 		$tabSR = $tab[2];
@@ -225,7 +225,7 @@ if (isset($tabImp))
 	{
 		$addTrou=true;
 	}
-	//debut de l'élimination des nombres implicite (nombres qui ne sont pas des opérandes
+	//debut de l'Ã©limination des nombres implicite (nombres qui ne sont pas des opÃ©randes
 	
 	if(count($tabOperation)==3)
 	{
@@ -370,7 +370,7 @@ if (isset($tabImp))
 		}
 	}
 }
-//début de la verification des cas implicites
+//dÃ©but de la verification des cas implicites
 $bool=false;
 if ((count($tabOperation)==0) and ((count($tabImp)==1)||(count($tabImp)==2)))
 {
@@ -613,8 +613,8 @@ else if (count($tabOperation)==1)
 	{
 		$bool=true;
 	}
-	$exclusion=false;  //colonnes par différence		  
-	$exclusion1=false; //colonne par étape
+	$exclusion=false;  //colonnes par diffÃ©rence		  
+	$exclusion1=false; //colonne par Ã©tape
 
 for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 {
@@ -656,7 +656,7 @@ for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 		  // if ($T2[2]!="")
 		   //print ("<br>l'operation est : ".$op1.$op.$op2."=".$res."<br>");
 
-/*==========cas de calcul par différence pour les problèmes de complement===============*/
+/*==========cas de calcul par diffÃ©rence pour les problÃ¨mes de complement===============*/
 //=================  colonne10=============
 		if ($question=='t')
 		{
@@ -713,7 +713,7 @@ for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 				}*/
 			else if ((($op1.$op.$op2."=".$res)==($partie1."-".$op2."=".$partie3))||(($op1.$op.$op2."=".$res)==($partie3."-".$op2."=".$partie1)))
 				{
-				 //print ("colonne 10=7");//soustraction à trou
+				 //print ("colonne 10=7");//soustraction Ã  trou
 				 $colonne10=7 ;
 				 $operande1=$op1; $operande2=$res; $resultat=$op2; $resultatd=$op2;
 				 $resultat_comp=calcul($operande1,"-",$operande2);
@@ -1020,7 +1020,7 @@ for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 
 }//fin du for
 
-/*====colonne 14 à 18 solution final========*/
+/*====colonne 14 Ã  18 solution final========*/
 //===================== colonnne 14 et 15===========================
 if (count($tabOperation)==1)
 {
@@ -1553,7 +1553,7 @@ else if ($question=='p' and ($op1.$op.$op2."=".$res)==($tout2."-".$partie1."=".$
 	$resultat_compf=abs(calcul($operande1,$op,$operande2));
 	}
 	else 
-	{//revoir ce cas. calcul implicite comme réponse à la question finale
+	{//revoir ce cas. calcul implicite comme rÃ©ponse Ã  la question finale
 	
 	$colonne2=2;$colonne3=1;
 	$operande1=$op1; $operande2=$op2; $resultatf=$res;
@@ -1579,7 +1579,7 @@ else if ($question=='p' and ($op1.$op.$op2."=".$res==$op1."+".$tout2."=".$res ||
 	$operande1=$op1; $operande2=$op2; $resultatf=$res;
 	$resultat_compf=abs(calcul($operande1,"-",$operande2));
 }
-/*================= colonne 16 pertinence des données de l'operation==============*/
+/*================= colonne 16 pertinence des donnÃ©es de l'operation==============*/
 	
 	 if ($colonne16==4)
 	 {
@@ -1865,7 +1865,7 @@ else if (isset($resultatf) and (($resultatf < $resultat_compf-1) ||($resultatf >
 	{
 		 $colonne17=2; //print(" colonne17=2 ");
 	}
-//cas ou il y a plusieurs opération qui n'ont pas de place dans le codage colonne14=51
+//cas ou il y a plusieurs opÃ©ration qui n'ont pas de place dans le codage colonne14=51
 if(($colonne14=='5') and (ereg("[1-7]",$colonne2)) and (ereg("[1-7]",$colonne10)) and (count($tabOperation)-1>2)) 
 {
 $colonne14=51;
@@ -1891,7 +1891,7 @@ else if ($colonne1==6)
 {
 	$colonne1=6;
 }
-else if ($varImp and count($tabOperation)==0 and count($tabImp)==1)//à revoire
+else if ($varImp and count($tabOperation)==0 and count($tabImp)==1)//Ã  revoire
 {
 	if(($question=='t' and $tabImp[0]==$tout2)||($question=='p' and $tabImp[0]==$partie3))
 	{

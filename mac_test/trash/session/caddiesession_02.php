@@ -10,14 +10,14 @@
     }     
     
     if ($_GET["action"]=="destroy") {
-        // on a demander à tout supprimer
+        // on a demander Ã  tout supprimer
         session_destroy();
         header("Location: ".$_SERVER["PHP_SELF"]);
         die();
     }
 
     if (isset($_GET["raz"])) {
-        // On a demandé à reinitialiser une valeur
+        // On a demandÃ© Ã  reinitialiser une valeur
         switch ($_GET["raz"]) {
             case "pomme":
                 unset($caddie["pommes"]);
@@ -36,7 +36,7 @@
     }
     
     if (isset($_GET["achat"])) {
-        // On a demandé à incrémenter une valeur    
+        // On a demandÃ© Ã  incrÃ©menter une valeur    
         switch ($_GET["achat"]) {
             case "pomme":
                 $caddie["pommes"]++;
@@ -67,6 +67,6 @@ Nb Bananes:<?php echo $caddie["bananes"];?><br />
 <a href="<?php echo $_SERVER["file:///G|/Documents%20and%20Settings/hk/Bureau/PHP_SELF"];?>?raz=banane">RAZ</a><br />
 
 <br/>
-<a href="<?php echo $_SERVER["file:///G|/Documents%20and%20Settings/hk/Bureau/PHP_SELF"];?>?action=destroy">Détruire la session</a><br/>
+<a href="<?php echo $_SERVER["file:///G|/Documents%20and%20Settings/hk/Bureau/PHP_SELF"];?>?action=destroy">DÃ©truire la session</a><br/>
 
          

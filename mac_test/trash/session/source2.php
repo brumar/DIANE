@@ -12,7 +12,7 @@ verification de la session
 <?
 echo ("login transmis : ".$_SESSION['session_login']) ;
 ?>
- <a href="source3.php">passer à la page suivante
+ <a href="source3.php">passer Ã  la page suivante
 </body>
 </html>
 

@@ -268,8 +268,8 @@ onClick=\"document.info.T1.value='".$piece1."'\">".$piece."</a>"." ");
       <tr height="34">
         <td width="63%" valign="top" height="34" align="center">
        	<p align="left">
-       	<input type="radio" value="1" checked name="R1" onclick="masquer();">Une opération
-       	<input type="radio" name="R1" value="2" onclick="masquer();">Deux opération
+       	<input type="radio" value="1" checked name="R1" onclick="masquer();">Une opÃ©ration
+       	<input type="radio" name="R1" value="2" onclick="masquer();">Deux opÃ©ration
        	</td>
       </tr>
       <tr height="24">

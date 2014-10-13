@@ -503,8 +503,8 @@ textEl.value  = text;
         </tr>
         <tr>
             <td height="41"> 
-              <input type="radio" value="1" checked name="R1" onclick="masquer();">Une opération
-              <input type="radio" name="R1" value="2" onclick="masquer();">Deux opération
+              <input type="radio" value="1" checked name="R1" onclick="masquer();">Une opÃ©ration
+              <input type="radio" name="R1" value="2" onclick="masquer();">Deux opÃ©ration
         </tr>
         <tr>
           <td align="center"> 

@@ -101,7 +101,7 @@ print($calcules."<br>");
 
 }
 
-print("<br><br>les opérations qui ont été saisie sont : <br>");
+print("<br><br>les opÃ©rations qui ont Ã©tÃ© saisie sont : <br>");
 
 print_r($tabOperation); print("<br>");
 print_r($tabOperation2); print("<br>");

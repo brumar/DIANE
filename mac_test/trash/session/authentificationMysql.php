@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------- //
 // Ensuite pour proteger les pages il suffit de faire un require de la       //
 // librairie avant toute autre commande, d'ouvrir une connexion avec la base //
-// de données puis d'appeler la fonction authUser() avec la connexion        //
+// de donnÃ©es puis d'appeler la fonction authUser() avec la connexion        //
 // ouverte.                                                                  //
 // ------------------------------------------------------------------------- //
 

@@ -1,13 +1,13 @@
 <?
 
 // ------------------------------------------------------------------------- //
-// Protection avec HTTP-BASIC et données dans MySQL.                         //
+// Protection avec HTTP-BASIC et donnÃ©es dans MySQL.                         //
 // ------------------------------------------------------------------------- //
 // Auteur: Perrich                                                           //
 // Email:  perrich@netsolution.fr                                            //
 // Web: http://www.frshop.net/                                               //
 // ------------------------------------------------------------------------- //
-// lib_auth.php : cette librairie est à appeler sur chaque page              //
+// lib_auth.php : cette librairie est Ã  appeler sur chaque page              //
 // ------------------------------------------------------------------------- //
 
 function headerDefine() {
@@ -22,7 +22,7 @@ function authUser( $con ) {
   global $PHP_AUTH_USER, $PHP_AUTH_PW; 
 
   if ( empty( $PHP_AUTH_USER) || ($PHP_AUTH_USER=="") ) {
-    // rien n'a été saisi, on demande le login et le mot de passe
+    // rien n'a Ã©tÃ© saisi, on demande le login et le mot de passe
     headerDefine();
   } else { 
     // on recherche l'utilisateur saisi dans la fenetre

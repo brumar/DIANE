@@ -19,7 +19,7 @@ function Header()
 	$this->SetTextColor(220,50,50);
 	//Epaisseur du cadre (1 mm)
 	$this->SetLineWidth(1);
-	//Titre centré
+	//Titre centrÃ©
 	$this->Cell($w,9,$titre,1,1,'C',1);
 	//Saut de ligne
 	$this->Ln(10);
@@ -27,13 +27,13 @@ function Header()
 
 function Footer()
 {
-	//Positionnement à 1,5 cm du bas
+	//Positionnement Ã  1,5 cm du bas
 	$this->SetY(-15);
 	//Arial italique 8
 	$this->SetFont('Arial','I',8);
 	//Couleur du texte en gris
 	$this->SetTextColor(128);
-	//Numéro de page
+	//NumÃ©ro de page
 	$this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
 }
 
@@ -57,7 +57,7 @@ function CorpsChapitre($fichier)
 	fclose($f);
 	//Times 12
 	$this->SetFont('Times','',12);
-	//Sortie du texte justifié
+	//Sortie du texte justifiÃ©
 	$this->MultiCell(0,5,$txt);
 	//Saut de ligne
 	$this->Ln();
@@ -78,7 +78,7 @@ $pdf=new PDF();
 $titre='Vingt mille lieues sous les mers';
 $pdf->SetTitle($titre);
 $pdf->SetAuthor('Jules Verne');
-$pdf->AjouterChapitre(1,'UN ÉCUEIL FUYANT','20k_c1.txt');
+$pdf->AjouterChapitre(1,'UN Ã‰CUEIL FUYANT','20k_c1.txt');
 $pdf->AjouterChapitre(2,'LE POUR ET LE CONTRE','20k_c2.txt');
 $pdf->Output();
 ?>

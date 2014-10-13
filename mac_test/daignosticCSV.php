@@ -1,5 +1,5 @@
 <?
-// Liste les données de la table
+// Liste les donnÃ©es de la table
  require ("../mac/conn.php");
 
 // -------------------------------------------
@@ -22,7 +22,7 @@ if (mysql_num_rows($resQuery) != 0)
 	   $i++;
 	 }
 	 echo "\n";
-	 // données de la table
+	 // donnÃ©es de la table
 	 while ($arrSelect = mysql_fetch_array($resQuery, MYSQL_ASSOC)) 
 	 {
 		  foreach($arrSelect as $elem)

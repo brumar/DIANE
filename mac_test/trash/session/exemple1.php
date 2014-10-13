@@ -1,10 +1,10 @@
 <?php
 
-session_start(); // Démarre la session. Spécifie une id de session.
+session_start(); // DÃ©marre la session. SpÃ©cifie une id de session.
 
-$login="nom"; // On définit la variable classique $login
+$login="nom"; // On dÃ©finit la variable classique $login
 
-$password="mot de passe"; // On définit la variable classique $password
+$password="mot de passe"; // On dÃ©finit la variable classique $password
 
 session_register("login"); // On enregistre $login dans la session
 

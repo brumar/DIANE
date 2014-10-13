@@ -19,10 +19,10 @@ $nom_e4 = $_POST["nom_e4"]; $prenom_e4 = $_POST["prenom_e4"]; $date4 = $_POST["d
 //$pdf -> setTextColor(25,29,200);
 $pdf -> AddPage (); 
 $pdf -> SetFont ('Times' ,'B' ,14 ); 
-$pdf -> Cell (40 ,5 ,'Association Djemâa Saharidj',0,1);
+$pdf -> Cell (40 ,5 ,'Association DjemÃ¢a Saharidj',0,1);
 $pdf -> SetFont (''); 
 $pdf -> Cell (40 ,5 ,'Chez SI YOUCEF Tahar',0,1);
-$pdf -> Cell (40 ,5 ,'117, rue du Faubourg Poissonnière',0,1);
+$pdf -> Cell (40 ,5 ,'117, rue du Faubourg PoissonniÃ¨re',0,1);
 $pdf -> Cell (40 ,5 ,'75009 Paris',0,1);
 $pdf -> Ln(10);
 $annee= date("Y");
@@ -30,7 +30,7 @@ $mois = date("m");
 $jour = date("d");
 $date = $jour." / ".$mois." / ".$annee;
 $pdf -> SetFont ('Times' ,'B' ,18 ); 
-$pdf -> Cell (0,10,"Bulletin d'adhésion ".$annee,0,1,'C');
+$pdf -> Cell (0,10,"Bulletin d'adhÃ©sion ".$annee,0,1,'C');
 $pdf -> Ln(15);
 $pdf -> SetFont ('Times' ,'' ,14 ); 
 $pdf -> Ln(1);
@@ -38,7 +38,7 @@ $pdf -> Cell (15 ,5 ,'Nom :',0,0);
 $pdf -> Cell (0 ,5 ,$nom,0,1); 
 
 $pdf -> Ln(1);
-$pdf -> Cell (22 ,5 ,'Prénom :',0,0);
+$pdf -> Cell (22 ,5 ,'PrÃ©nom :',0,0);
 $pdf -> Cell (0 ,5 ,$prenom,0,1); 
 
 $pdf -> Ln(1);
@@ -46,7 +46,7 @@ $pdf -> Cell (37 ,5 ,'Date Naissance :',0,0);
 $pdf -> Cell (0 ,5 ,$date_n,0,1); 
 
 $pdf -> Ln(1);
-$pdf -> Cell (15 ,5 ,'Tél :',0,0);
+$pdf -> Cell (15 ,5 ,'TÃ©l :',0,0);
 $pdf -> Cell (0 ,5 ,$tel,0,1); 
 
 $pdf -> Ln(1);
@@ -55,9 +55,9 @@ $pdf -> Cell (0 ,5 ,$mail,0,1);
 
 $pdf -> Ln(10);
 $pdf -> Cell (15 ,5 ,'',0,0);
-$texte1="Je m'engage par ce présent bulletin à adhérer pour l'année ".$annee." à l'association Djemâa sahaidj et avoir pris connaissance du statut de l'association ainsi que son réglement intérieur.";
+$texte1="Je m'engage par ce prÃ©sent bulletin Ã  adhÃ©rer pour l'annÃ©e ".$annee." Ã  l'association DjemÃ¢a sahaidj et avoir pris connaissance du statut de l'association ainsi que son rÃ©glement intÃ©rieur.";
 $pdf -> MultiCell(0,5,$texte1);
-$texte2="Veuillez cocher ci-après la case vous concernant. Merci de joindre le règlement vous correspondant à l'ordre de l'association.";
+$texte2="Veuillez cocher ci-aprÃ¨s la case vous concernant. Merci de joindre le rÃ¨glement vous correspondant Ã  l'ordre de l'association.";
 $pdf -> Ln(4);
 $pdf -> Cell (15 ,5 ,'',0,0);
 $pdf -> MultiCell(0,5,$texte2);
@@ -75,7 +75,7 @@ else
 {
 $pdf -> Cell (10 ,5 ,'',0,0);
 }
-$pdf -> Cell (0 ,5 ,'Cotisation "Couple" (40€)',0,1);
+$pdf -> Cell (0 ,5 ,'Cotisation "Couple" (40Â€)',0,1);
 
 $pdf -> Ln(2);
 $pdf -> Cell (50 ,5 ,'',0,0);
@@ -90,7 +90,7 @@ else
 {
 $pdf -> Cell (10 ,5 ,'',0,0);
 }
-$pdf -> Cell (0 ,5 ,'Cotisation "Salarié individuelle" - marié ou célibataire - (25€)',0,1);
+$pdf -> Cell (0 ,5 ,'Cotisation "SalariÃ© individuelle" - mariÃ© ou cÃ©libataire - (25Â€)',0,1);
 
 $pdf -> Ln(2);
 $pdf -> Cell (50 ,5 ,'',0,0);
@@ -105,7 +105,7 @@ else
 {
 $pdf -> Cell (10 ,5 ,'',0,0);
 }
-$pdf -> Cell (0 ,5 ,'Cotisation "Etudiant ou Chômeur" (15€)',0,1);
+$pdf -> Cell (0 ,5 ,'Cotisation "Etudiant ou ChÃ´meur" (15Â€)',0,1);
 
 $pdf -> Ln(2);
 $pdf -> Cell (50 ,5 ,'',0,0);
@@ -121,10 +121,10 @@ else
 {
 $pdf -> Cell (10 ,5 ,'',0,0);
 }
-$pdf -> Cell (0 ,5 ,'Cotisation "Nouvel adhèrant"(80€)',0,1);
+$pdf -> Cell (0 ,5 ,'Cotisation "Nouvel adhÃ¨rant"(80Â€)',0,1);
 $pdf -> Ln(10);
 $pdf -> SetFont ('Times' ,'BI' ,14 ); 
-$pdf -> Cell (0 ,5 ,'Enfants à charges',0,1);
+$pdf -> Cell (0 ,5 ,'Enfants Ã  charges',0,1);
 $pdf -> Ln(4);
 $pdf -> Cell (10 ,10 ,'',0,0);
 $x = $pdf-> GetX();
@@ -135,7 +135,7 @@ $pdf -> SetFont ('Times' ,'B' ,12 );
 $pdf -> SetXY($x+2,$y+1);
 $pdf -> Cell (0 ,5 ,'Nom',0,0);
 $pdf -> SetXY($x+42,$y+1);
-$pdf -> Cell (0 ,5 ,'Prénom',0,0);
+$pdf -> Cell (0 ,5 ,'PrÃ©nom',0,0);
 $pdf -> SetXY($x+82,$y+1);
 $pdf -> Cell (0 ,5 ,'Date Naissance',0,0);
 //ligne 2
@@ -184,7 +184,7 @@ $pdf -> Cell (130,5 ,'',0,0);
 $pdf -> Cell (0 ,5 ,'Signature',0,0);
 $pdf -> Ln(34);
 $pdf -> SetFont ('Times' ,'IB' ,11 ); 
-$pdf -> Cell (0 ,5 ,'Merci de joindre une enveloppe timbrée libellé à votre adresse pour recevoir votre reçu de règlement.',1,0,'C');
+$pdf -> Cell (0 ,5 ,'Merci de joindre une enveloppe timbrÃ©e libellÃ© Ã  votre adresse pour recevoir votre reÃ§u de rÃ¨glement.',1,0,'C');
 
 //$pdf -> cell (100,10 , 'c moi khider ton ami de toujours','RL',1); 
 //$pdf -> Rect(110,40,90,30,'D');

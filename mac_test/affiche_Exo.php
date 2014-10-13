@@ -12,7 +12,7 @@ session_start();
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <h4 align="center">Cliquez <?php print("<a href=\"affiche_Exo2.php?numSerie=".$_GET["numSerie"]."\"> ici</a>"); ?> pour afficher tous les exercices de la s&eacute;rie "<?php echo $_GET["nom"]; ?>"</h4>
 	
@@ -25,7 +25,7 @@ session_start();
 $numSerie = $_GET["numSerie"];
 session_register('numSerie');
 $sql1 = "SELECT * FROM serie where numSerie=".$_GET["numSerie"];
-$result1 = mysql_query($sql1) or die ("Requête incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
 while ($r1 = mysql_fetch_assoc($result1))
 	{
 	   for ($i=1;$i<=24;$i++)

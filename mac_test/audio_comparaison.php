@@ -1,7 +1,7 @@
 <?php require ("conn.php"); ?>
 <html>
 <script type="text/javascript" language="javascript">
-  var texte = "Voulez-vous réellement supprimer cet énoncé ?"
+  var texte = "Voulez-vous rÃ©ellement supprimer cet Ã©noncÃ© ?"
   function supprimer(num)
   {
   	if(confirm(texte))
@@ -15,21 +15,21 @@
   }
 </script>
  <head>
-  <title>Enoncé comparaison</title>
+  <title>EnoncÃ© comparaison</title>
  </head>
 <body>
 
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 
 <form action="selection.php" method="post">
   <table width="900" border="2" align="center" cellpadding="4" cellspacing="4" bordercolor="#FF0000">
     <tr align="center" bgcolor="#99FF99"> 
 	
-	<td width="800" height="29" bgcolor="#F0F7FA">Enoncés comparaison</td>
+	<td width="800" height="29" bgcolor="#F0F7FA">EnoncÃ©s comparaison</td>
  
 	<td  width="100" bgcolor="#F0F7FA">Action</td>
     </tr>
@@ -37,7 +37,7 @@
   // initialisation
 	$nb=7;
 	if(empty($page)) $page = 1;
-	if(empty($total)){ // nombre total de résultats
+	if(empty($total)){ // nombre total de rÃ©sultats
  	$sql1 = "select count(*) as qte from comparaison";
  	$p = @mysql_query($sql1,$BD_link);
  	$total = @mysql_result($p,"0","qte");
@@ -48,9 +48,9 @@
 
   $sql = "SELECT * FROM comparaison order by numero desc LIMIT $debut,$nb";
 
-  $result = mysql_query($sql) or die ("Requête incorrecte");
+  $result = mysql_query($sql) or die ("RequÃªte incorrecte");
   // = mysql_numrows($query);
-  if ($result) { // Si il y'a des résultats
+  if ($result) { // Si il y'a des rÃ©sultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -61,7 +61,7 @@
 		  $exo = $text1."<br>".$text2."<br>".$text3."<br>".$text4;
 		  $num = $enregistrement["numero"];
 		   $exo= stripslashes($exo);
-		   $dossier2 = "audio/comparaison/exo$num/";//prendre les caracteristiques de l'enoncé 
+		   $dossier2 = "audio/comparaison/exo$num/";//prendre les caracteristiques de l'enoncÃ© 
 			if (is_dir($dossier2)){$presence_audio=true;}else{$presence_audio=false;}
 ?>
     <tr> 
@@ -71,7 +71,7 @@
 	
 	<td height="27">
 		<?php if($presence_audio){echo ("<a href=\"audio_comparaison_upload.php?num=$num&delete=true\"");?>
-	onclick="return(confirm('Etes-vous sûr ?'));"> supprimer audio</a>
+	onclick="return(confirm('Etes-vous sÃ»r ?'));"> supprimer audio</a>
 		<?php }else{echo ("<a href=\"audio_comparaison_upload.php?num=$num&type=comparaison\">"); ?>
 	ajouter audio</a>
 		<?php } ?>
@@ -80,9 +80,9 @@
     <?php
         } // Fin instruction while
 
-      } else  // Pas de résultat trouvé
+      } else  // Pas de rÃ©sultat trouvÃ©
 
-    echo "Pas de résultat";
+    echo "Pas de rÃ©sultat";
 
       
 ?>
@@ -98,7 +98,7 @@
  	   echo "<a href=\"$PHP_SELF?page=$i&total=$total\">page$i</a>";
        if($i < $nbpages) echo " - ";
     }
-  mysql_free_result($result); // Libère la mémoire
+  mysql_free_result($result); // LibÃ¨re la mÃ©moire
   mysql_close($BD_link); // Ferme la connexion
  ?>
   </p>

@@ -10,7 +10,7 @@
 		/* echo $reponse;
 		echo "<br/>"; */
 		
-		//tabNombre contient  tous les nombres que contient la r�ponse de l'apprenant
+		//tabNombre contient  tous les nombres que contient la rï¿½ponse de l'apprenant
 		$tabNombre = preg_split ("/[\s]+/", $reponse);
 
 		$tabNombre = array_values (preg_grep("/\d/", $tabNombre));

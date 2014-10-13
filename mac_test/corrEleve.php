@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Identification de l'élève</title>
+<title>Identification de l'Ã©lÃ¨ve</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body>

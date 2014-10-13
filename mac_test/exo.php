@@ -18,7 +18,7 @@ session_start();
 $numSerie = $_GET["numSerie"];
 session_register('numSerie');
 $sql1 = "SELECT * FROM serie where numSerie=".$_GET["numSerie"];
-$result1 = mysql_query($sql1) or die ("Requête incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
 while ($r1 = mysql_fetch_assoc($result1))
 	{
 	   for ($i=1;$i<=24;$i++)

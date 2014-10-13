@@ -4,7 +4,7 @@ function abandonner()
 	window.close();
 }
 
-/*******fonction qui annule la dernière action de la zone de texte********/
+/*******fonction qui annule la derniÃ¨re action de la zone de texte********/
 function annulerAction()
 {
 	document.execCommand('Undo');//document.execCommand('Undo');
@@ -102,7 +102,7 @@ function verifForm()
 	document.info.zonetexte.value = x;
 	if (document.info.zonetexte.value=='' )
 	{
-	alert('Tu dois écrire ta réponse dans la feuille');
+	alert('Tu dois Ã©crire ta rÃ©ponse dans la feuille');
 	}
 	else
 	{
@@ -118,7 +118,7 @@ function masquer()
 	document.info.operande1.focus();
 }
 
-//*-------------initialisation de la calculette après precedent--------------*//
+//*-------------initialisation de la calculette aprÃ¨s precedent--------------*//
 function initPrecedent(op1,op2,oper,res)
 {	
 	switch(oper)
@@ -231,7 +231,7 @@ function save(mot)
 		document.info.zonetexte.value=document.info.zonetexte.value+mot+" ";
 }
 
-/*************************** choix du signe (operateur aritmétique) ********************/
+/*************************** choix du signe (operateur aritmÃ©tique) ********************/
 function operat(val)
 { 
 	switch(val)
@@ -301,7 +301,7 @@ function resultat()
 {
 		if ((document.info.operande1.value == "") || (document.info.operande2.value == "")|| (document.info.operateur1.selectedIndex==0))
 		{
-			alert ("Tu dois remplir toutes les cases\n avant de calculer le résultat");
+			alert ("Tu dois remplir toutes les cases\n avant de calculer le rÃ©sultat");
 		}
 		else
 	   {
@@ -317,7 +317,7 @@ function resultat()
 				case " - " : conc = document.info.operande1.value.replace(',','.') + "-" + document.info.operande2.value.replace(',','.');
 							if (eval(conc) < 0)
 							{
-								alert ("Tu as inversé ta soustraction\nje ne peux pas calculer ta réponse");
+								alert ("Tu as inversÃ© ta soustraction\nje ne peux pas calculer ta rÃ©ponse");
 								window.document.info.resultat1.value ='';
 							} else
 							{
@@ -350,7 +350,7 @@ function verifCal()
 {
 		if(((document.info.operande1.value=='')||(document.info.operande2.value=='')||(document.info.operateur1.options[document.info.operateur1.selectedIndex].value=='   ')||(document.info.resultat1.value=='')))
 			{
-				alert("Ton opération n'est pas complète");
+				alert("Ton opÃ©ration n'est pas complÃ¨te");
 				document.info.operande1.focus();
 			}
 		else 
@@ -426,7 +426,7 @@ function inserer(selec)
 		var str = document.selection.createRange().text;
 		if (str.length>0)
 		{
-		// Si on a selectionné du texte
+		// Si on a selectionnÃ© du texte
 			var sel = document.selection.createRange();
 			sel.text =  selec ;
 			sel.collapse();
@@ -467,8 +467,8 @@ function insererSas(selec,id)
 	var reChar =/[^0-9]/;/*chaine qui ne contient pas de chiffre*/
 	var sas = document.forms['info'].elements['T1'].value;
 	
-	var PLMot = selec.substring(0,1);//Première lettre du mot
-	var maj = new RegExp("[A-Z]");//expression regulière qui reconnait les majuscules
+	var PLMot = selec.substring(0,1);//PremiÃ¨re lettre du mot
+	var maj = new RegExp("[A-Z]");//expression reguliÃ¨re qui reconnait les majuscules
 	if(maj.test(PLMot) && id>1)
 	{	
 		NomPropre=true;
@@ -478,7 +478,7 @@ function insererSas(selec,id)
 		//met tous les mots en miniscule
 		selec=selec.toLowerCase();
 	}
-	//met un espace après un chiffre si c'est un mot.	
+	//met un espace aprÃ¨s un chiffre si c'est un mot.	
 	if(reChar.test(selec) && reNumber.test(sas))
 	{selec= ' '+selec;}
 
@@ -505,7 +505,7 @@ function insererSas(selec,id)
 		var str = document.selection.createRange().text;
 		if (str.length>0)
 		{
-		// Si on a selectionné du texte
+		// Si on a selectionnÃ© du texte
 			var sel = document.selection.createRange();
 			sel.text =  selec ;
 			sel.collapse();
@@ -541,7 +541,7 @@ function insererSas(selec,id)
 			r.select();
 		}
 	}
-	/**** Met la première lettre de chaque phrase en majuscule ****/
+	/**** Met la premiÃ¨re lettre de chaque phrase en majuscule ****/
 		
 			sas =document.forms['info'].elements['T1'].value;
 			tabSas = sas.split(/[ ]+/);
@@ -620,7 +620,7 @@ function calculSas()
 	//fin du  if(selec == ' = ')
 	insererSas(selec);
 }
-/********* met le curseur à la fin de phrase **********/
+/********* met le curseur Ã  la fin de phrase **********/
 function curseurFin(element)
 {
 		oField = document.forms['info'].elements[element];
@@ -634,7 +634,7 @@ function curseurFin(element)
 function annulerSas()
 {
 	var sas = document.forms['info'].elements['T1'].value;
-	tabSas = sas.split(/[ ]+/);//le séparateur est un ensemble de blanc
+	tabSas = sas.split(/[ ]+/);//le sÃ©parateur est un ensemble de blanc
 	elementSupp = tabSas.pop();//supprime le dernier element du tableau
 	document.forms['info'].elements['T1'].value = tabSas.join(" ");
 	if (tabSas.length != 0)

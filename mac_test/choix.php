@@ -7,7 +7,7 @@
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <h4><em>Choix de l'&eacute;nonc&eacute; : </em></h4>
 <form name="form1" method="get" action="Interface.php" >

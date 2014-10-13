@@ -15,7 +15,7 @@ $pdf->AliasNbPages();
 	{             
 		$k[]=$record[0];
 	}
-//debut de la première page
+//debut de la premiÃ¨re page
 	$sql3="select * from eleve where numeleve=".$numEleve;
 	$result3 = mysql_query($sql3) or die("Erreur de S&eacute;lection dans la base : ". $sql3 .'<br />'. mysql_error());
 	while ($r3 = mysql_fetch_assoc($result3))
@@ -31,15 +31,15 @@ $pdf->AliasNbPages();
 	$pdf -> AddPage (); 
 	$pdf -> SetFont ('Times' ,'' ,14 );
 	$pdf -> SetXY(35,50);
-	$pdf -> Cell(0,10,"Numéro élève : ".$numEleve,0,2);
+	$pdf -> Cell(0,10,"NumÃ©ro Ã©lÃ¨ve : ".$numEleve,0,2);
 	$pdf -> Cell(0,10,"Nom : ".$nom,0,2);
-	$pdf -> Cell(0,10,"Prénom : ".$prenom,0,2);
+	$pdf -> Cell(0,10,"PrÃ©nom : ".$prenom,0,2);
 	$pdf -> Cell(0,10,"Date Naissance : ".$dateNais,0,2);
 	$pdf -> Cell(0,10,"Ecole : ".$ecole,0,2);
 	$pdf -> Cell(0,10,"Ville : ".$ville,0,2);
 	$pdf -> Cell(0,10,"Classe : ".$classe,0,2);
-//fin de la première page
-//début de la boucle for
+//fin de la premiÃ¨re page
+//dÃ©but de la boucle for
 	for($i=0; $i<count($k);$i++)
 	{
 		$sql1 ="select * from trace where id =".$k[$i];
@@ -77,7 +77,7 @@ $pdf->AliasNbPages();
 			$codeExo = $variable.$type1.$question.$questi;	
 			$pdf -> AddPage (); 
 			$pdf -> SetFont ('Times' ,'' ,10 );
-			$pdf -> Cell(0,5,$nom." ".$prenom." | Numéro de série ".$numSerie." | Numéro exercice ".$num. " | Numéro de trace ".$k[$i],0,0,"C");
+			$pdf -> Cell(0,5,$nom." ".$prenom." | NumÃ©ro de sÃ©rie ".$numSerie." | NumÃ©ro exercice ".$num. " | NumÃ©ro de trace ".$k[$i],0,0,"C");
 			$pdf -> SetFont ('Times' ,'B' ,14 );
 			$pdf -> SetXY(50,35);
 			$pdf -> Cell(15,6,$codeExo,1,0,"C");
@@ -112,23 +112,23 @@ $pdf->AliasNbPages();
 				{
 					$pdf -> Image("images/boutonRadioAc.jpg",20,$y+5,5,5);
 					$pdf -> setXY(25,$y+5);
-					$pdf -> Cell(25,5,"Une opération",0,0,"C");
+					$pdf -> Cell(25,5,"Une opÃ©ration",0,0,"C");
 					
 					//$pdf -> Rect(45,$y+5,5,5,'D');
 					$pdf -> Image("images/boutonRadioIn.jpg",50,$y+5,5,5);
 					$pdf -> setXY(57,$y+5);
-					$pdf -> Cell(25,5,"Deux opérations",0,1,"C");
+					$pdf -> Cell(25,5,"Deux opÃ©rations",0,1,"C");
 				} 
 				else 
 					{
 					$pdf -> Image("images/boutonRadioIn.jpg",20,$y+5,5,5);
 					$pdf -> setXY(25,$y+5);
-					$pdf -> Cell(25,5,"Une opération",0,0,"C");
+					$pdf -> Cell(25,5,"Une opÃ©ration",0,0,"C");
 					
 					//$pdf -> Rect(45,$y+5,5,5,'D');
 					$pdf -> Image("images/boutonRadioAc.jpg",50,$y+5,5,5);
 					$pdf -> setXY(57,$y+5);
-					$pdf -> Cell(25,5,"Deux opérations",0,1,"C");
+					$pdf -> Cell(25,5,"Deux opÃ©rations",0,1,"C");
 					}
 			
 			if(($op3==0) || ($op3=="0") || ($op3==''))
@@ -189,7 +189,7 @@ $pdf->AliasNbPages();
 			
 			$pdf -> SetXY(110,30);
 			$pdf -> SetFont ('Times' ,'B' ,14 );
-			$pdf -> Cell(0,5,"Ecris tes calculs et ta réponse ici");
+			$pdf -> Cell(0,5,"Ecris tes calculs et ta rÃ©ponse ici");
 			
 			$pdf -> Rect(110,50,85,180,'D');
 			$pdf -> SetXY(112,52);
@@ -207,17 +207,17 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 
 $pdf -> SetFont ('Times' ,'B' ,14 );
-$pdf -> Cell(0,10,'Résultats du diagnostic',0,0,'C');
+$pdf -> Cell(0,10,'RÃ©sultats du diagnostic',0,0,'C');
 $pdf -> SetY(25);
 
-//Premier tableau : imprime toutes les colonnes de la requête
+//Premier tableau : imprime toutes les colonnes de la requÃªte
 $pdf->Table('select numTrace as Trace,numDiag as Diag,CONCAT(var,typeExo,question,questInt) as Type, colonne1 as col1,colonne2 as col2,colonne3 as col3,colonne4 as col4,colonne5 as col5,colonne6 as col6,colonne7 as col7,
 			       colonne8 as col8,colonne9 as col9,colonne10 as col10,colonne11 as col11,colonne12 as col12,colonne13 as col13,colonne14 as col14,colonne15 as col15,
 				   colonne16 as col16,colonne17 as col17,colonne18 as col18 from diagnostic where numEleve='.$numEleve);
 
 /* fin de la page du diagnostic */
 $nomFichier=$nom.$numEleve.".pdf";
-//$pdf -> Output ($nomFichier,"D");//le D = forcer le téléchargement et le I ouvrire sans forcer  
+//$pdf -> Output ($nomFichier,"D");//le D = forcer le tÃ©lÃ©chargement et le I ouvrire sans forcer  
 //
 $pdf -> Output (); 
 

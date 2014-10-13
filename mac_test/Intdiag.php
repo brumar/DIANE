@@ -1,7 +1,7 @@
 <?php 
 require ("conn.php");  
 $sql = "SELECT * FROM diagnostic where numDiag=30";
-$result = mysql_query($sql) or die ("Requête incorrecte");
+$result = mysql_query($sql) or die ("RequÃªte incorrecte");
 if ($result) 
   { 
   while ($enregistrement = mysql_fetch_assoc($result))
@@ -42,23 +42,23 @@ echo "<br>";
 switch ($col1)
 	{
 		case "1" : echo "Etape";break;
-		case "2" : echo "Différence";break;
+		case "2" : echo "DiffÃ©rence";break;
 		case "3" : echo "Etape et difference";break;
 		case "4" : echo "Non pertinent";break;
 		case "5" : echo "Non identifiable solution correcte";break;
 		case "6" : echo "Non identifiable solution incorrecte";break;
-		case "7" : echo "resultat de la difference comme résultat Erreur";break;
+		case "7" : echo "resultat de la difference comme rÃ©sultat Erreur";break;
 		case "9" : echo "absence";
 	}
 switch ($col2)
 	{
 		case "0" : echo "implicite";break;
-		case "1" : echo "addition à trou";break;
+		case "1" : echo "addition Ã  trou";break;
 		case "2" : echo "soustraction";break;
-		case "3" : echo "soustraction inversée";break;
+		case "3" : echo "soustraction inversÃ©e";break;
 		case "4" : echo "addition";break;
 		case "5" : echo "Non identifiable solution incorrecte";break;
-		case "6" : echo "resultat de la difference comme résultat Erreur";break;
+		case "6" : echo "resultat de la difference comme rÃ©sultat Erreur";break;
 		case "7" : echo "absence";
 	}
 		

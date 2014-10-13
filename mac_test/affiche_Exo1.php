@@ -7,7 +7,7 @@
  <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
  <?php 
 require_once("conn.php"); 
@@ -25,7 +25,7 @@ else if ($type =='etape')
 	
 $questi = $_GET["questi"];
 $sql1 = "SELECT * FROM $type where numero=$numExo";
-$result1 = mysql_query($sql1) or die ("Requête incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
 while ($r = mysql_fetch_assoc($result1))
 	{
 		if ($typeExo=="d")

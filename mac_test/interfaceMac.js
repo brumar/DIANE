@@ -340,7 +340,7 @@ function resultat()
 					case " - " : conc = document.info.operande1.value.replace(',','.') + "-" + document.info.operande2.value.replace(',','.');
 								if (eval(conc) < 0)
 								{
-									alert ("tu as inversé ta soustraction\natention la prochaine fois");
+									alert ("tu as inversÃ© ta soustraction\natention la prochaine fois");
 									y = document.info.operande1.value;
 									document.info.operande1.value = document.info.operande2.value;
 									document.info.operande2.value = y;
@@ -415,12 +415,12 @@ function verifCal()
 {
 		if(((document.info.operande1.value=='')||(document.info.operande2.value=='')||(document.info.operation.value=='   ')||(document.info.resultat1.value==''))&&(document.info.R1[0].checked))
 			{
-				alert("Ton opération n'est pas complète");
+				alert("Ton opÃ©ration n'est pas complÃ¨te");
 				document.info.operande1.focus();
 			}
 	    else if(((document.info.operande1.value=='')||(document.info.operande2.value=='')||(document.info.operande3.value=='')||(document.info.operation.value=='   ')||(document.info.operation1.value=='   ')||(document.info.resultat1.value==''))&&(document.info.R1[1].checked))
 			{
-				alert("Ton opération n'est pas complète");
+				alert("Ton opÃ©ration n'est pas complÃ¨te");
 				document.info.operande3.focus();
 			}
 		else 

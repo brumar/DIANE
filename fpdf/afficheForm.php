@@ -140,7 +140,7 @@ $nom_e4 = strtoupper($_POST["nom_e4"]); $prenom_e4 = strtoupper($_POST["prenom_e
                 <input name="date4" type="hidden" value="<?php echo $date4 ?>">
               </p>
               <p> 
-                <input type="submit" name="envoyer" value="Télécharger le Formulaire en pdf">
+                <input type="submit" name="envoyer" value="TÃ©lÃ©charger le Formulaire en pdf">
               </p>
             </form>&nbsp;&nbsp;&nbsp; </p></td>
         </tr>

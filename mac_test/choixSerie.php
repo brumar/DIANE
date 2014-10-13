@@ -34,7 +34,7 @@
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
   <a href="admin.php">Admin</a>&nbsp;&nbsp;
-  <a href="eleve.html">Elève</a>
+  <a href="eleve.html">ElÃ¨ve</a>
  </p>
 <form  method="post" action="traitChoixSerie.php">
   <h3 align="center">S&eacute;lectionnez les s&eacute;ries d'exercices &agrave; activer</h3>
@@ -51,7 +51,7 @@
 <?php 
 require_once("conn.php");
 $sql1 = "SELECT numSerie,nomSerie,commentaire FROM serie";
-$result1 = mysql_query($sql1) or die ("Requête incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte");
 $i=1;
 while ($r1 = mysql_fetch_assoc($result1))
 	{

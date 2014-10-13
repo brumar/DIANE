@@ -10,12 +10,12 @@
 		/* echo $reponse;
 		echo "<br/>"; */
 		
-		//tabNombre contient  tous les nombres que contient la réponse de l'apprenant
+		//tabNombre contient  tous les nombres que contient la rÃ©ponse de l'apprenant
 		$tabNombre = preg_split ("/[\s]+/", $reponse);
 
 		$tabNombre = array_values (preg_grep("/\d/", $tabNombre));
 		
-		$pattern = "/(((?:\d+\s*[\+\-\*\/x]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthèse non capturante (supprimer la division :)
+		$pattern = "/(((?:\d+\s*[\+\-\*\/x]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthÃ¨se non capturante (supprimer la division :)
 		preg_match_all($pattern,$reponse,$tab);
 		
 		$tabOperation = $tab[0];

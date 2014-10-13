@@ -54,9 +54,9 @@
 ?>
 <table border="1">
 <tr>
-    <td>Enoncé1</td>
+    <td>EnoncÃ©1</td>
     <td>question1</td>
-    <td>Enoncé2</td>
+    <td>EnoncÃ©2</td>
     <td>Question2</td>
     <td>Partie1</td>
     <td>Partie2</td>

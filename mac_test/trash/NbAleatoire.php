@@ -1,8 +1,8 @@
 <? 
 require ("conn.php"); 
 $sql = "SELECT * FROM complement";
-$result = mysql_query($sql) or die ("Requête incorrecte");
-if ($result) // Si il y'a des résultats
+$result = mysql_query($sql) or die ("RequÃªte incorrecte");
+if ($result) // Si il y'a des rÃ©sultats
 { 
 	while ($enregistrement = mysql_fetch_assoc($result))
 	 {

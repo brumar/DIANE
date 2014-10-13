@@ -31,7 +31,7 @@ $tab_VERBES[$count]=preg_match('#'.$pattern.'#',$text);
 
 
 
-// modification :  si PDEUX et PUN présent, alors, il faut éviter de tenir compte de PUN==1 et PDEUX==1
+// modification :  si PDEUX et PUN prÃ©sent, alors, il faut Ã©viter de tenir compte de PUN==1 et PDEUX==1
 
 if ($tab_NAMES[2]==1) {
 $tab_NAMES[1]=0;
@@ -39,7 +39,7 @@ $tab_NAMES[0]=0;
 
 }
 
-//option spéciale : si PUN et PDEUX sont présents tous deux il faut savoir lequel est présent le premier
+//option spÃ©ciale : si PUN et PDEUX sont prÃ©sents tous deux il faut savoir lequel est prÃ©sent le premier
 
 if  (($tab_NAMES[1]==1)&&($tab_NAMES[0]==1)) {
 if(strpos($text,"_P_")<strpos($text, "_T_")){
@@ -48,9 +48,9 @@ else {$options_speciales[0]="_T_";}
 }
 
 
-//option spéciale : la deuxième case contiendra la présence ou non de la variable de formulation
+//option spÃ©ciale : la deuxiÃ¨me case contiendra la prÃ©sence ou non de la variable de formulation
 
-if (preg_match('#'.$type_var.'#',$text)){ //type var est défini au début du script integre...
+if (preg_match('#'.$type_var.'#',$text)){ //type var est dÃ©fini au dÃ©but du script integre...
 $options_speciales[1]=true;
 }
 else $options_speciales[1]=false;

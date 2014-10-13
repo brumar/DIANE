@@ -21,7 +21,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Formulaire de saisie des énoncés de distributivité</title>
+<title>Formulaire de saisie des Ã©noncÃ©s de distributivitÃ©</title>
 <style>
     .infoBox {
       border: solid 1px #BBCCDD;
@@ -61,13 +61,13 @@ span {
 }
     </style>
 <SCRIPT LANGUAGE="JavaScript">
-/* On crée une fonction de verification */
+/* On crÃ©e une fonction de verification */
 function verifForm(formulaire)
 {
     x=formulaire.enonce.value;
     for (i=0 ;i<= x.length-1 ;i++)
     {
-     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="€"))//||(x.charAt(i)=="'"))
+     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="Â€"))//||(x.charAt(i)=="'"))
      {
          if (x.charAt(i-1) != " ")
          {
@@ -77,7 +77,7 @@ function verifForm(formulaire)
     }
     for (i=0 ;i<= x.length-1;i++)
     {
-     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="€"))
+     if ((x.charAt(i)==",") || (x.charAt(i)=="-") || (x.charAt(i)=="?") || (x.charAt(i)==".") || (x.charAt(i)=="Â€"))
       {
         if (x.charAt(i+1) != " ")
          {
@@ -111,12 +111,12 @@ function verifForm(formulaire)
  
 	if(formulaire.typePb.value == "") /* on detecte si enonce est vide */
 		{
-		alert('Choisissez  le type de problème !!'); /* dans ce cas on lance un message d'alerte */
+		alert('Choisissez  le type de problÃ¨me !!'); /* dans ce cas on lance un message d'alerte */
 		formulaire.typePb.focus();
 		 }
 	else if(formulaire.enonce.value == "") /* on detecte si enonce est vide */
 		{
-		alert('Remplissez le champs de l\'enoncé !!'); /* dans ce cas on lance un message d'alerte */
+		alert('Remplissez le champs de l\'enoncÃ© !!'); /* dans ce cas on lance un message d'alerte */
 		formulaire.enonce.focus();
 		 }
 	else if(formulaire.question.value == "") /* on detecte si question est vide */
@@ -127,7 +127,7 @@ function verifForm(formulaire)
 	else
 	    formulaire.submit(); /* sinon on envoi le formulaire */
 }
-// listes déroulantes liées 
+// listes dÃ©roulantes liÃ©es 
 function Choix(form) {
 i = form.typePb.selectedIndex;
 //form.inconnu.selectedIndex = 0;
@@ -138,7 +138,7 @@ case 1 : var txt = new Array ('Etat Initital avec perte','Etat Initital avec ajo
 case 2 : var txt = new Array ('Partie','Tout'); 
 		 var txt1 = new Array ('partie','tout'); 
 			break;
-case 3 : var txt = new Array ('Différence','Tout'); 
+case 3 : var txt = new Array ('DiffÃ©rence','Tout'); 
 		 var txt1 = new Array ('diff','tout'); 
 		 break;
 case 4 : var txt = new Array ('Total-->multiplication','Multiplicateur-->Division quotition','Taille du groupe-->Division partition'); 		 var txt1 = new Array ('mult','divq','divp'); 
@@ -165,7 +165,7 @@ function effacer()
 }
 </SCRIPT>
 <script>
-// Affiche ou masque les details d’une zone
+// Affiche ou masque les details dÂ’une zone
 // idDetail : id de l'element contenant le detail
 function toggle(idDetail) {
   var style = document.getElementById(idDetail).style;
@@ -178,17 +178,17 @@ function afficherTexte()
 var inconnu = document.formEtape.inconnu.value;
 var typePb = document.formEtape.typePb.value;
 switch (inconnu) {
-	case 'EFA' : var txt = "X avait 3 billes. Puis Y lui a donné 5 billes.<br/> Combien de billes a maintenant X ?";
+	case 'EFA' : var txt = "X avait 3 billes. Puis Y lui a donnÃ© 5 billes.<br/> Combien de billes a maintenant X ?";
 			 break;
-	case 'EFP' : var txt = "X avait 8 billes. Puis il a donné 5 billes à Y.<br/> Combien de billes a maintenant X ?";
+	case 'EFP' : var txt = "X avait 8 billes. Puis il a donnÃ© 5 billes Ã  Y.<br/> Combien de billes a maintenant X ?";
 			 break;
-	case 'TrA' : var txt = "X avait 3 billes. Y lui en a donné. X a maintenant 8 billes. <br/>Combien de billes Y a - t - il donné à X ?";
+	case 'TrA' : var txt = "X avait 3 billes. Y lui en a donnÃ©. X a maintenant 8 billes. <br/>Combien de billes Y a - t - il donnÃ© Ã  X ?";
 			 break;
-	case 'TrP' : var txt = "X avait 8 billes. Il en a donné à Y. Maintenant X a 3 billes. <br/>Combien X a - t - il donné de billes à Y ?";
+	case 'TrP' : var txt = "X avait 8 billes. Il en a donnÃ© Ã  Y. Maintenant X a 3 billes. <br/>Combien X a - t - il donnÃ© de billes Ã  Y ?";
 			 break;
-	case 'EIA' : var txt = "X avait des billes. Y lui en a donné 5 de plus. Maintenant X a 8 billes. <br/>Combien X avait t - il de billes ?";
+	case 'EIA' : var txt = "X avait des billes. Y lui en a donnÃ© 5 de plus. Maintenant X a 8 billes. <br/>Combien X avait t - il de billes ?";
 			 break;
-	case 'EIP' : var txt = "X avait des billes. Il en a donné 5 à Y. Maintenant X a 3 billes. <br/>Combien X avait t - il de billes ?";
+	case 'EIP' : var txt = "X avait des billes. Il en a donnÃ© 5 Ã  Y. Maintenant X a 3 billes. <br/>Combien X avait t - il de billes ?";
 			 break;
 	case 'partie' : var txt = "X a 8 billes. Y a 5 billes. <br/>Combien X a - il de billes  de plus que Y ?";
 			 break;
@@ -199,11 +199,11 @@ switch (inconnu) {
 				  else  if(typePb='comparaison')
 					var txt = "X a 3 billes. Il a 5 billes de moins que Y. <br/>Combien Y a - il de billes ?";
 				  break;
-	case 'mult' : var txt = "Dans une boîte, il y a 10 bonbons. Combien de bonbons faut-il pour remplir 4 boîtes ?";
+	case 'mult' : var txt = "Dans une boÃ®te, il y a 10 bonbons. Combien de bonbons faut-il pour remplir 4 boÃ®tes ?";
 				break;
-	case 'divq' : var txt = "Dans une boîte, il y a 10 bonbons. Si X a 40 bonbons, combien de boîtes pourra-t-il remplir ?";
+	case 'divq' : var txt = "Dans une boÃ®te, il y a 10 bonbons. Si X a 40 bonbons, combien de boÃ®tes pourra-t-il remplir ?";
 				break;
-	case 'divp' : var txt = "X a 40 bonbons, il les distribue entre 4 boîtes pour que toutes en aient la même quantité. Dans chaque boîte, combien de bonbons y aura-t-il?";
+	case 'divp' : var txt = "X a 40 bonbons, il les distribue entre 4 boÃ®tes pour que toutes en aient la mÃªme quantitÃ©. Dans chaque boÃ®te, combien de bonbons y aura-t-il?";
 				break;
 
 	default: var txt=''; break;
@@ -224,7 +224,7 @@ myDiv.innerHTML = txt;
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <form action="traitFormEtape.php" method="post" name="formEtape" id="formEtape">
   <div align="center">
@@ -291,7 +291,7 @@ switch ($inconnu)
 			
 	case 'partie' : echo ("<option value=\"partie\" selected>Partie</option>");break;
 			 
-	case 'diff' : echo ("<option value=\"diff\" selected>Différence</option>");break;
+	case 'diff' : echo ("<option value=\"diff\" selected>DiffÃ©rence</option>");break;
 			 
 	case 'tout' : echo ("<option value=\"tout\" selected>Tout</option>");break;
 			

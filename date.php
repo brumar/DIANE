@@ -1,5 +1,5 @@
 <?php 
-//--- le fonction sur une page séparée nommée par exemple combo.php ---// 
+//--- le fonction sur une page sÃ©parÃ©e nommÃ©e par exemple combo.php ---// 
 
 //$date_du_jour=date("d-m-Y"); 
 $jour=date("d"); 
@@ -18,8 +18,8 @@ function combo_jour ($jour=""){
     } 
 } 
 //------Les mois--------// 
-$mois_liste = array('Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août', 
-'Septembre','Octobre','Novembre','Décembre'); 
+$mois_liste = array('Janvier','FÃ©vrier','Mars','Avril','Mai','Juin','Juillet','AoÃ»t', 
+'Septembre','Octobre','Novembre','DÃ©cembre'); 
 function combo_mois ($mois=""){         
     global $mois_liste; 
     for ($i=1;$i<13;$i++)  
@@ -33,7 +33,7 @@ function combo_mois ($mois=""){
     echo '>',$mois_liste[$j],'</option>'; 
     } 
 } 
-//---Les années------// 
+//---Les annÃ©es------// 
 function combo_an ($an=""){ 
     $annee = date("Y"); 
     //$limit = $annee + 2; 
@@ -48,11 +48,11 @@ function combo_an ($an=""){
 } 
 //--- fin de la fonction ---// 
 //--- 
-//--- exemple de formulaire avec appel de la fonction sur une page nommée mon_script.php par exmple ---// 
+//--- exemple de formulaire avec appel de la fonction sur une page nommÃ©e mon_script.php par exmple ---// 
 
 //require("combo.php"); 
 
-echo '<table border="0" bgcolor="#000000" width="540"><form method="blabla" action="truc"><tr><td colspan="2" align="center">Exemple de select avec une fonction combo<br>Sélectionne en entrée la date du jour<hr></td></tr><tr><td valign="top">Date de début :</td><td> 
+echo '<table border="0" bgcolor="#000000" width="540"><form method="blabla" action="truc"><tr><td colspan="2" align="center">Exemple de select avec une fonction combo<br>SÃ©lectionne en entrÃ©e la date du jour<hr></td></tr><tr><td valign="top">Date de dÃ©but :</td><td> 
     <select name="jour_deb" size="1">'; 
     combo_jour ($jour); 
     echo '</select> 

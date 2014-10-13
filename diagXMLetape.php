@@ -6,7 +6,7 @@ $requete1 = "select * from diagetape where numEleve =".$_POST["numEleve"];
 //$requete1 = "select * from diag_etape where numDiag between 34 and 377";
 //$requete1 = "select * from diag_etape where colonne1=2";
 
-$result = mysql_query($requete1) or die("Impossible d'interroger la base de données");
+$result = mysql_query($requete1) or die("Impossible d'interroger la base de donnÃ©es");
 $num = mysql_num_rows($result);
 if ($num != 0) 
 { 
@@ -20,7 +20,7 @@ if ($num != 0)
 	unset($reponse,$tabImplicite,$tabOperation,$tabNombre,$tab,$tabSR,$tabR,$tabOper,$tabTOper,$tabTOperateur,$tabImp,$tabReponse,$i,$j);
 		
 		$req = "select zoneText as reponse from trace where id=".$r["numTrace"];
-		$res = mysql_query($req) or die("Impossible d'interroger la base de données");
+		$res = mysql_query($req) or die("Impossible d'interroger la base de donnÃ©es");
 		while ($rc = mysql_fetch_array($res)) 
 	  	{
 		//suprime tous caractere different de [^\d+-=:*]
@@ -31,21 +31,21 @@ if ($num != 0)
 		//suprime tous caractere different de [^\d+-=:*]
 		$reponse = trim(eregi_replace ('[^0-9|,|(|)|+|*|:|=|-]', " ",$reponse));
 		
-		//tabNombre contient  tous les nombres que contient la réponse de l'apprenant
+		//tabNombre contient  tous les nombres que contient la rÃ©ponse de l'apprenant
 		$tabNombre = preg_split ("/[\s]+/", $reponse);
 		$tabNombre = array_values (preg_grep("/\d/", $tabNombre));
 
 		//ER qui reconnait les operation de type a+....+a = a ou sans le signe egale 
-		//(?:) parenthèse non capturante 
+		//(?:) parenthÃ¨se non capturante 
 		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d*))/"; 
 		preg_match_all($pattern,$reponse,$tab);
 		
-		//tableau des opérations utilisées dans la réponse de l'apprenant ==> tabOperation
+		//tableau des opÃ©rations utilisÃ©es dans la rÃ©ponse de l'apprenant ==> tabOperation
 		$tabOperation = $tab[0];
 		$tabSR = $tab[2];
 		$tabR = $tab[3];
 		
-		//tableau des opérandes 
+		//tableau des opÃ©randes 
 		$pat1 = "/\d+/";
 		$tabTOper= array();
 		for($i=0;$i<count($tabOperation); $i++)
@@ -55,7 +55,7 @@ if ($num != 0)
 			$tabTOper=array_merge($tabTOper,${"tabOper".$i});
 		}
 		
-		//tableau des opérandes 
+		//tableau des opÃ©randes 
 		$pat1 = "/\+|-|\*|\//";
 		$tabTOperateur= array();
 		for($i=0;$i<count($tabOperation); $i++)
@@ -84,14 +84,14 @@ if ($num != 0)
 				{
 					$tabReponse[] = $tabNombre[$i];
 				}
-		//comparer les résultats des opérations avec ceux du tableau tabImp
+		//comparer les rÃ©sultats des opÃ©rations avec ceux du tableau tabImp
 		$tabImp=array_diff($tabReponse,$tabR);
 		if(isset($tabImp) and count($tabImp)>0)
 			$calImp=1;
 		else 
 			$calImp=0;
 			
-//operation à réaliser d'après l'énoncé du pb (addition ou soustraction)
+//operation Ã  rÃ©aliser d'aprÃ¨s l'Ã©noncÃ© du pb (addition ou soustraction)
 $enonceAdd = array ('EFA','EIP','tout');
 $enonceSous = array ('EFP','EIA','TrP','TrA','partie','diff');
 
@@ -104,7 +104,7 @@ print_r(${"tabOper".$i});print ("<br>");
 }
 
 print ("le tableau des nombres :  ");print_r($tabNombre1);print ("<br>");
-print ("le tableau contient les nombres qui sont implicites ou dans la reponse de l'élève:  ");print_r($tabReponse);print ("<br>");
+print ("le tableau contient les nombres qui sont implicites ou dans la reponse de l'Ã©lÃ¨ve:  ");print_r($tabReponse);print ("<br>");
 print ("le tableau sans resultats :  ");print_r($tabSR);print ("<br>");
 print ("le tableau resultat :  ");print_r($tabR);print ("<br>");
 print ("le tableau implicite :  ");print_r($tabImp);print ("<br><br><br><br>"); */
@@ -112,7 +112,7 @@ print ("le tableau implicite :  ");print_r($tabImp);print ("<br><br><br><br>"); 
 		
 		
 		
-		//Recherche les informations sur l'énoncé dans la BD
+		//Recherche les informations sur l'Ã©noncÃ© dans la BD
 		$requete2 = "SELECT * FROM etape where numero=".$r["numExo"];
 		$result2 = mysql_query($requete2) or die("Erreur de S&eacute;lection dans la base : ". $requete2 .'<br />'. mysql_error());
 		while ($r2 = mysql_fetch_assoc($result2))
@@ -128,8 +128,8 @@ print ("le tableau implicite :  ");print_r($tabImp);print ("<br><br><br><br>"); 
 					$inconnu = $r2["inconnu"];
 					$nombre = trim(eregi_replace ('[^0-9]', " ",$r2["enonce"]));
 					$donnees =  array_values(preg_split ("/[\s]+/", $nombre));
-					//echo("le tableau de données :"); print_r($donnees);
-					//varInc : définit la variable inconnu de l'énoncé à calculer 
+					//echo("le tableau de donnÃ©es :"); print_r($donnees);
+					//varInc : dÃ©finit la variable inconnu de l'Ã©noncÃ© Ã  calculer 
 					if(in_array($partie1,$donnees) and in_array($partie2,$donnees))
 						$varInc="tout";
 					else if(in_array($partie1,$donnees) and in_array($tout,$donnees))
@@ -137,7 +137,7 @@ print ("le tableau implicite :  ");print_r($tabImp);print ("<br><br><br><br>"); 
 					else if(in_array($partie2,$donnees) and in_array($tout,$donnees))
 						$varInc="partie1";	
 				}
-		//Rechercher le Nom, Prénom et le sexe de l'apprenant
+		//Rechercher le Nom, PrÃ©nom et le sexe de l'apprenant
 		$requete3 = "select nom, prenom, sexe from eleve where numEleve=".$r["numEleve"];
 		$result3 = mysql_query($requete3) or die("Erreur de S&eacute;lection dans la base : ". $requete3 .'<br/>'. mysql_error());
 		while ($r3 = mysql_fetch_assoc($result3))
@@ -149,7 +149,7 @@ print ("le tableau implicite :  ");print_r($tabImp);print ("<br><br><br><br>"); 
 		$nbOper=count($tabOperation);
 		switch ($nbOper)
 				{ 
-					case "0" : $nbOperLettre="zéro"; break;
+					case "0" : $nbOperLettre="zÃ©ro"; break;
 					case "1" : $nbOperLettre="un"; break;
 					case "2" : $nbOperLettre="deux"; break;
 					case "3" : $nbOperLettre="trois"; break;
@@ -238,8 +238,8 @@ print ("le tableau implicite :  ");print_r($tabImp);print ("<br><br><br><br>"); 
 	$_xml .="</diagnostic>"; 
 	fwrite($file, $_xml); 
 	fclose($file); 
-	//echo "le fichier XML vient d'être créer.  <a href=\"diagXMLphp.php\">visualiser</a><br/>"; 	
-		echo "Le fichier vient d'être créer.  <a href=\"diagXMLetape.xml\">visualiser</a><br/>"; 	
+	//echo "le fichier XML vient d'Ãªtre crÃ©er.  <a href=\"diagXMLphp.php\">visualiser</a><br/>"; 	
+		echo "Le fichier vient d'Ãªtre crÃ©er.  <a href=\"diagXMLetape.xml\">visualiser</a><br/>"; 	
 
 } 
 else 

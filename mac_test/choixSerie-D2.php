@@ -10,13 +10,13 @@
 	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>
-	<h2>Choisissez vos séries</h2>
+	<h2>Choisissez vos sÃ©ries</h2>
 	<form action="traitChoixSerie.php" method="post" class="appnitro">
 	<ul>
 <?php 
 require_once("conn.php");
 $sql1 = "SELECT numSerie,nomSerie,commentaire FROM serie";
-$result1 = mysql_query($sql1) or die ("Requète incorrecte");
+$result1 = mysql_query($sql1) or die ("RequÃ¨te incorrecte");
 $i=0;
 while ($r1 = mysql_fetch_assoc($result1))
 	{

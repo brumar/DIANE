@@ -1,5 +1,5 @@
 <?php 
-/* colonne2 à colonne 4 */
+/* colonne2 Ã  colonne 4 */
 if ($difference != true)
 	{
 		   //differce est different de true donc les colonne :

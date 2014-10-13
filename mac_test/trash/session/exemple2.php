@@ -1,10 +1,10 @@
 <?php
 
-// Ici $login et $password ne sont pas définis
+// Ici $login et $password ne sont pas dÃ©finis
 
 session_start();
 
-// Ils sont définis à partir d'ici.
+// Ils sont dÃ©finis Ã  partir d'ici.
 
 echo $login;
 

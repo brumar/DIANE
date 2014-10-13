@@ -39,20 +39,20 @@ $tabReponse=array();
 		//suprime tous caractere different de [^\d+-=:*]
 		$reponse = trim(eregi_replace ('[^0-9|(|)|+|*|:|=|-]', " ",$reponse));
 		
-		//tabNombre contient  tous les nombres que contient la réponse de l'apprenant
+		//tabNombre contient  tous les nombres que contient la rÃ©ponse de l'apprenant
 		$tabNombre = preg_split ("/[\s]+/", $reponse);
 		$tabNombre = array_values (preg_grep("/\d/", $tabNombre));
 		$tabNombre1=$tabNombre;
 		//ER qui reconnait les operation de type a+....+a = a ou sans le signe egale 
-		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthèse non capturante 
+		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthÃ¨se non capturante 
 		preg_match_all($pattern,$reponse,$tab);
 		
-		//tableau des opération utilisées dans la réponse de l'apprenant ==> tabOperation
+		//tableau des opÃ©ration utilisÃ©es dans la rÃ©ponse de l'apprenant ==> tabOperation
 		$tabOperation = $tab[0];
 		$tabSR = $tab[2];
 		$tabR = $tab[3];
 		
-		//tableau des opérandes 
+		//tableau des opÃ©randes 
 		$pat1 = "/\d+/";
 		$tabTOper= array();
 		for($i=0;$i<count($tabOperation); $i++)
@@ -62,7 +62,7 @@ $tabReponse=array();
 			$tabTOper=array_merge($tabTOper,${"tabOper".$i});
 		}
 		
-		//tableau des opérateurs 
+		//tableau des opÃ©rateurs 
 		$pat1 = "/\+|-|\*|\//";
 		$tabTOperateur= array();
 		for($i=0;$i<count($tabOperation); $i++)
@@ -89,7 +89,7 @@ $tabReponse=array();
 				{
 					$tabReponse[] = $tabNombre[$i];
 				}
-		//comparer les résultats des opérations avec ceux du tableau tabImp
+		//comparer les rÃ©sultats des opÃ©rations avec ceux du tableau tabImp
 		$tabImp=array_diff($tabReponse,$tabR);
 
 			
@@ -98,7 +98,7 @@ $tabReponse=array();
 //for($i=0;$i<count($tabOperation);$i++)
 //{print_r(${"tabOper".$i});print ("<br>");}
 //print ("le tableau des nombres :  ");print_r($tabNombre);print ("<br>");
-//print ("le tableau contient les nombres qui sont implicites ou dans la reponse de l'élève:  ");print_r($tabReponse);print ("<br>");
+//print ("le tableau contient les nombres qui sont implicites ou dans la reponse de l'Ã©lÃ¨ve:  ");print_r($tabReponse);print ("<br>");
 //print ("le tableau implicite :  ");print_r($tabImp);print ("<br>");
 if(count($tabOperation)==0 and count($tabNombre)>0)
 {
@@ -125,14 +125,14 @@ if(count($tabOperation)==0 and count($tabNombre)>0)
     	$enonce=$val["enonce"];
 		$nombre = trim(eregi_replace ('[^0-9]', " ",$enonce));
 		$donnees =  array_values(preg_split ("/[\s]+/", $nombre));
-		//echo("le tableau de données :"); print_r($donnees);
+		//echo("le tableau de donnÃ©es :"); print_r($donnees);
 		$partie1=$val["partie1"];
     	$partie2=$val["partie2"];
 		$tout=$val["tout"];
 		$inconnu=$val["inconnu"];
 		$typePb=$val["typePb"];
 		$var=$val["variable"];
-		//varInc : définit la variable inconnu de l'énoncé à calculer 
+		//varInc : dÃ©finit la variable inconnu de l'Ã©noncÃ© Ã  calculer 
 		if(in_array($partie1,$donnees) and in_array($partie2,$donnees))
 			$varInc="tout";
 		else if(in_array($partie1,$donnees) and in_array($tout,$donnees))
@@ -175,13 +175,13 @@ function calcul2($tab1,$tab2)
 	}
 
 
-		//comparer les résultats des opérations avec ceux du tableau tabImp
+		//comparer les rÃ©sultats des opÃ©rations avec ceux du tableau tabImp
 		$tabImplicite=array_diff($tabImp,$tabR);
-		//operation à réaliser d'après l'énoncé du pb (addition ou soustraction)
+		//operation Ã  rÃ©aliser d'aprÃ¨s l'Ã©noncÃ© du pb (addition ou soustraction)
 		$enonceAdd = array ('EFA','EIP','tout');
 		$enonceSous = array ('EFP','EIA','TrP','TrA','partie','diff');
 
-//début de la verification des cas implicites
+//dÃ©but de la verification des cas implicites
 if (count($tabOperation)==0 and count($tabImplicite)==1)
 {
  switch($varInc)
@@ -251,7 +251,7 @@ if($varInc=="partie2")
 		}
 	else if (($op1.$op.$op2."=".$res)==($tout."-".$op2."=".$partie1))
 		{
-		//soustraction à trou
+		//soustraction Ã  trou
 		 $col2=7 ;
 		 $operande1=$op1; $operande2=$res; $resultat=$op2;
 		 $resultat_comp=calcul($operande1,"-",$operande2);
@@ -272,7 +272,7 @@ if($varInc=="partie2")
 	   }  
 	 else if (($op1.$op.$op2."=".$res)==($op1."-".$op2."=".$partie2) and ($op1!=$partie1 || $op2!=$tout))
 	   {
-		 //soustraction avec des données qui ne sont pas dans l'enoncé
+		 //soustraction avec des donnÃ©es qui ne sont pas dans l'enoncÃ©
 		 $col2=2;$col3=1;$col1=3;
 		 $operande1=$op1; $operande2=$op2; $resultat=$res;
 		 $resultat_comp=calcul($operande1,$op,$operande2);
@@ -301,7 +301,7 @@ if($varInc=="partie2")
 		}
 	else if ((($op1.$op.$op2."=".$res)==($tout."*".$partie1."=".$partie2))||(($op1.$op.$op2."=".$res)==($partie1."*".$tout."=".$partie2)))
 		{
-		 //autre opération MULTIPLICATION avec les bonnes données de l'enoncé et resultat bon
+		 //autre opÃ©ration MULTIPLICATION avec les bonnes donnÃ©es de l'enoncÃ© et resultat bon
 		 $col2=53;$col3=0;
 		 $operande1=$op1; $operande2=$op2; $resultat=$res;
 		 $resultat_comp=calcul($operande1,$op,$operande2);
@@ -310,7 +310,7 @@ if($varInc=="partie2")
 
 	else if ((($op1.$op.$op2."=".$res)==($tout."*".$partie1."=".$res))||(($op1.$op.$op2."=".$res)==($partie1."*".$tout."=".$res)))
 		{
-		 //autre opération MULTIPLICATION avec les bonnes données de l'enoncé
+		 //autre opÃ©ration MULTIPLICATION avec les bonnes donnÃ©es de l'enoncÃ©
 		 $col2=51;$col3=0;
 		 $operande1=$op1; $operande2=$op2; $resultat=$res;
 		 $resultat_comp=calcul($operande1,$op,$operande2);
@@ -318,7 +318,7 @@ if($varInc=="partie2")
 		}
 	else if ((($op1.$op.$op2."=".$res)==($tout.":".$partie1."=".$res))||(($op1.$op.$op2."=".$res)==($partie1.":".$tout."=".$res)))
 		{
-		 //autre opération DIVISION avec les bonnes données de l'enoncé
+		 //autre opÃ©ration DIVISION avec les bonnes donnÃ©es de l'enoncÃ©
 		 $col2=52;$col3=1;
 		 $operande1=$op1; $operande2=$op2; $resultat=$res;
 		 $resultat_comp=calcul($operande1,$op,$operande2);
@@ -326,7 +326,7 @@ if($varInc=="partie2")
 		}
 	else if ((($op1.$op.$op2."=".$res)==($op1.":".$op2."=".$res))||(($op1.$op.$op2."=".$res)==($op1."*".$op2."=".$res)))
 		{
-		 //Division au lieu d'une addition autre données
+		 //Division au lieu d'une addition autre donnÃ©es
 		 $col2=5;$col3=1;
 		 $operande1=$op1; $operande2=$op2; $resultat=$res;
 		 $resultat_comp=calcul($operande1,$op,$operande2);
@@ -374,7 +374,7 @@ if($varInc=="partie2")
 }//fin du if($varInc=="partie2")
 else if($varInc=="tout")
 {
-	//col 2 pour les cas d'addition deux données
+	//col 2 pour les cas d'addition deux donnÃ©es
 	if ((($op1.$op.$op2."=".$res)==($partie1."+".$op2."=".$partie2))||(($op1.$op.$op2."=".$res)==($partie2."+".$op2."=".$partie1)))
 	   {
 		 $col2=1;$col3=1; //addition a trou 
@@ -412,21 +412,21 @@ else if($varInc=="tout")
 		 }
 	else if ((($op1.$op.$op2."=".$res)==($partie1."*".$partie2."=".$tout))||(($op1.$op.$op2."=".$res)==($partie2."*".$partie1."=".$tout)))
 		{
-			 //Multiplication au lieu d'une addition avec les bonnes données et le bon resultat
+			 //Multiplication au lieu d'une addition avec les bonnes donnÃ©es et le bon resultat
 			 $col2=53;$col3=0;
 			 $operande1=$op1; $operande2=$op2; $resultat=$res;
 			 $resultat_comp=calcul($operande1,$op,$operande2);
 		 }
 	else if ((($op1.$op.$op2."=".$res)==($partie1."*".$partie2."=".$res))||(($op1.$op.$op2."=".$res)==($partie2."*".$partie1."=".$res)))
 		{
-			 //Multiplication au lieu d'une addition avec les bonnes données
+			 //Multiplication au lieu d'une addition avec les bonnes donnÃ©es
 			 $col2=51;$col3=0;
 			 $operande1=$op1; $operande2=$op2; $resultat=$res;
 			 $resultat_comp=calcul($operande1,$op,$operande2);
 		 }
 	else if ((($op1.$op.$op2."=".$res)==($partie1.":".$partie2."=".$res))||(($op1.$op.$op2."=".$res)==($partie2.":".$partie1."=".$res)))
 		{
-			 //Division au lieu d'une addition avec les bonnes données
+			 //Division au lieu d'une addition avec les bonnes donnÃ©es
 			 $col2=52;$col3=0;
 			 $operande1=$op1; $operande2=$op2; $resultat=$res;
 			 $resultat_comp=calcul($operande1,$op,$operande2);
@@ -495,15 +495,15 @@ if(count($tabOperation)>1)
 }
 if (count($tabOperation)==1 and ($col2==1 || $col2==7  || $col2==6) and (end($tabNombre1)!=$resultat))
 	{
-		$col5=1;//mauvais choix de réponse addition à trou, soustraction à trou et add à trou avec erreur de signe
+		$col5=1;//mauvais choix de rÃ©ponse addition Ã  trou, soustraction Ã  trou et add Ã  trou avec erreur de signe
 	}
 else if (count($tabOperation)==1 and (($col2==2 || $col2==3  || $col2==53) and ($varInc=="partie2")) and (end($tabNombre1)!=$resultat))
 	{
-		$col5=11;//mauvais choix de réponse soustraction, soustraction inversée, erreur de signe
+		$col5=11;//mauvais choix de rÃ©ponse soustraction, soustraction inversÃ©e, erreur de signe
 	}
 else if (count($tabOperation)==1 and (($col2==4 || $col2==41 || $col2==53) and ($varInc=="tout")) and (end($tabNombre1)!=$resultat))
 	{
-		$col5=11;//mauvais choix de réponse addition à trou, soustraction à trou et add à trou avec erreur de signe
+		$col5=11;//mauvais choix de rÃ©ponse addition Ã  trou, soustraction Ã  trou et add Ã  trou avec erreur de signe
 	}
 //print("<br>col1=".$col1." | col2=".$col2." | col3=".$col3." | col4=".$col4." | col5=".$col5."<br>");
 //exit();

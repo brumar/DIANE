@@ -26,7 +26,7 @@ if(isset($_POST["identifiant"])){
  	$sql1 = "SELECT * FROM lists WHERE type='insertions' and id=\"$id\"";
  
 
-  $result = mysql_query($sql1); //or die ("Requête incorrecte");
+  $result = mysql_query($sql1); //or die ("RequÃªte incorrecte");
   $t=0;
   while ($enregistrement = mysql_fetch_assoc($result))
 		{

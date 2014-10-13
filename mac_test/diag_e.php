@@ -171,10 +171,10 @@ if ($text=='')
 		//suprime tous caractere different de [^\d+-=:*]
 		$reponse = trim(eregi_replace ('[^0-9|,|+|*|:|=|-]', " ",$reponse));
 				   
-		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthèse non capturante 
+		$pattern = "/(((?:\d+\s*[\+\-\*\/x:]\s*)+\d+\s*)=?\s*(\d*))/"; //(?:) parenthÃ¨se non capturante 
 		preg_match_all($pattern,$reponse,$tab);
 		
-		//tableau des opération utilisées dans la réponse de l'apprenant ==> tabOperation
+		//tableau des opÃ©ration utilisÃ©es dans la rÃ©ponse de l'apprenant ==> tabOperation
 		$tabOperation = $tab[0];
 		$tabOperation2 = $tabOperation;
 		$tabSR = $tab[2];
@@ -287,7 +287,7 @@ if (isset($tabImp))
 	{
 		$addTrou=true;
 	}
-	//debut de l'élimination des nombres implicite (nombres qui ne sont pas des opérandes
+	//debut de l'Ã©limination des nombres implicite (nombres qui ne sont pas des opÃ©randes
 	
 	if(count($tabOperation)==3)
 	{
@@ -432,7 +432,7 @@ if (isset($tabImp))
 		}
 	}
 }
-//début de la verification des cas implicites
+//dÃ©but de la verification des cas implicites
 $bool=false;
 if ((count($tabOperation)==0) and ((count($tabImp)==1)||(count($tabImp)==2)))
 {
@@ -675,8 +675,8 @@ else if (count($tabOperation)==1)
 	{
 		$bool=true;
 	}
-	$exclusion=false;  //colonnes par différence		  
-	$exclusion1=false; //colonne par étape
+	$exclusion=false;  //colonnes par diffÃ©rence		  
+	$exclusion1=false; //colonne par Ã©tape
 
 for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 {
@@ -718,7 +718,7 @@ for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 		  // if ($T2[2]!="")
 		   //print ("<br>l'operation est : ".$op1.$op.$op2."=".$res."<br>");
 
-/*==========cas de calcul par différence pour les problèmes de complement===============*/
+/*==========cas de calcul par diffÃ©rence pour les problÃ¨mes de complement===============*/
 //=================  colonne10=============
 		if ($question=='t')
 		{
@@ -775,7 +775,7 @@ for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 				}*/
 			else if ((($op1.$op.$op2."=".$res)==($partie1."-".$op2."=".$partie3))||(($op1.$op.$op2."=".$res)==($partie3."-".$op2."=".$partie1)))
 				{
-				 //print ("colonne 10=7");//soustraction à trou
+				 //print ("colonne 10=7");//soustraction Ã  trou
 				 $colonne10=7 ;
 				 $operande1=$op1; $operande2=$res; $resultat=$op2; $resultatd=$op2;
 				 $resultat_comp=calcul($operande1,"-",$operande2);
@@ -1082,7 +1082,7 @@ for ($k=0 ; (($k <= count($tabOperation)-1)||($bool==true)); $k++)
 
 }//fin du for
 
-/*====colonne 14 à 18 solution final========*/
+/*====colonne 14 Ã  18 solution final========*/
 //===================== colonnne 14 et 15===========================
 if (count($tabOperation)==1)
 {
@@ -1615,7 +1615,7 @@ else if ($question=='p' and ($op1.$op.$op2."=".$res)==($tout2."-".$partie1."=".$
 	$resultat_compf=abs(calcul($operande1,$op,$operande2));
 	}
 	else 
-	{//revoir ce cas. calcul implicite comme réponse à la question finale
+	{//revoir ce cas. calcul implicite comme rÃ©ponse Ã  la question finale
 	
 	$colonne2=2;$colonne3=1;
 	$operande1=$op1; $operande2=$op2; $resultatf=$res;
@@ -1641,7 +1641,7 @@ else if ($question=='p' and ($op1.$op.$op2."=".$res==$op1."+".$tout2."=".$res ||
 	$operande1=$op1; $operande2=$op2; $resultatf=$res;
 	$resultat_compf=abs(calcul($operande1,"-",$operande2));
 }
-/*================= colonne 16 pertinence des données de l'operation==============*/
+/*================= colonne 16 pertinence des donnÃ©es de l'operation==============*/
 	
 	 if ($colonne16==4)
 	 {
@@ -1927,7 +1927,7 @@ else if (isset($resultatf) and (($resultatf < $resultat_compf-1) ||($resultatf >
 	{
 		 $colonne17=2; //print(" colonne17=2 ");
 	}
-//cas ou il y a plusieurs opération qui n'ont pas de place dans le codage colonne14=51
+//cas ou il y a plusieurs opÃ©ration qui n'ont pas de place dans le codage colonne14=51
 if(($colonne14=='5') and (ereg("[1-7]",$colonne2)) and (ereg("[1-7]",$colonne10)) and (count($tabOperation)-1>2)) 
 {
 $colonne14=51;
@@ -1954,7 +1954,7 @@ else if ($colonne1==6)
 {
 	$colonne1=6;
 }
-else if ($varImp and count($tabOperation)==0 and count($tabImp)==1)//à revoire
+else if ($varImp and count($tabOperation)==0 and count($tabImp)==1)//Ã  revoire
 {
 	if(($question=='t' and $tabImp[0]==$tout2)||($question=='p' and $tabImp[0]==$partie3))
 	{
@@ -2085,17 +2085,17 @@ $cfg_base='projet';
 
 //if (mysql_connect($BD_hote, $BD_login, $BD_pass))
 //{
-    // construction de la requête
+    // construction de la requÃªte
     // ------------------------------------------------------------------------
     $sql="SELECT numSerie,numTrace,numEleve,date,numExo,typeExo,question,var ,questInt,colonne1, colonne2, colonne3, colonne4,colonne5,colonne6, colonne7, colonne8, colonne9,colonne10,colonne11,colonne12,colonne13,colonne14,colonne15,colonne16,colonne17,colonne18 ";
     $sql .= "FROM diagnostic ";
     $sql .= "WHERE numEleve=".$_SESSION['numEleve'] ;
 
 
-    // définition des différentes colonnes de données
+    // dÃ©finition des diffÃ©rentes colonnes de donnÃ©es
     // ------------------------------------------------------------------------
     $champs=Array(
-      //     champ       en-tête     format         alignement  largeur
+      //     champ       en-tÃªte     format         alignement  largeur
       Array( 'numSerie',     'Numero Serie',       FORMAT_ENTIER, 'L',         15 ),
       Array( 'numTrace',     'Numero Trace',       FORMAT_ENTIER, 'L',         15 ),
 	  Array( 'numEleve',     'Num Eleve',       FORMAT_ENTIER, 'L',         12 ),
@@ -2127,14 +2127,14 @@ $cfg_base='projet';
     // ------------------------------------------------------------------------
     if ($resultat=mysql_db_query($BD_base, $sql))
     {
-        // en-tête HTTP
+        // en-tÃªte HTTP
         // --------------------------------------------------------------------
         /*header('Content-disposition: filename=fichier.slk');
         header('Content-type: application/octetstream');
         header('Pragma: no-cache');
         header('Expires: 0');*/
 
-        // en-tête du fichier SYLK
+        // en-tÃªte du fichier SYLK
         // --------------------------------------------------------------------
 		$x= "ID;PASTUCES-phpInfo.net\n";// ID;Pappli
 		$x=$x."\n";
@@ -2155,7 +2155,7 @@ $cfg_base='projet';
 		$x=$x.";X".($nbcol=mysql_num_fields($resultat))."\n";
 		$x=$x."\n";
 
-        // récupération des infos de formatage des colonnes
+        // rÃ©cupÃ©ration des infos de formatage des colonnes
         // --------------------------------------------------------------------
 		for ($cpt=0; $cpt < $nbcol; $cpt++)
         {
@@ -2173,7 +2173,7 @@ $cfg_base='projet';
 		$x=$x."F;W".$cpt." 256 8\n"; // F;Wcoldeb colfin largeur
 		$x=$x."\n";
 
-        // en-tête des colonnes (en gras --> SDM4)
+        // en-tÃªte des colonnes (en gras --> SDM4)
         // --------------------------------------------------------------------
 		for ($cpt=1; $cpt <= $nbcol; $cpt++)
         {
@@ -2182,7 +2182,7 @@ $cfg_base='projet';
         }
 		$x=$x."\n";
 
-        // données utiles
+        // donnÃ©es utiles
         // --------------------------------------------------------------------
         $ligne=2;
         while ($enr=mysql_fetch_array($resultat))
@@ -2214,7 +2214,7 @@ $cfg_base='projet';
     //creattion du fichier
 	$fichier="diag/".$_SESSION['nom'].$_SESSION['numEleve'].".slk";
 	$fp=fopen ("$fichier", "w");
-	//enregistre les données dans le fichier
+	//enregistre les donnÃ©es dans le fichier
 	fputs($fp, "$x");
 	fclose ($fp);
     mysql_close();

@@ -10,15 +10,15 @@
     <td width="77" height="46" bgcolor="#00CC66"> <h4>Selection des ennonc&eacute;s</h4></td>
     <td width="104" bgcolor="#00CC66"> <h4>Presence de la Question Intermediaire 
       </h4></td>
-	  <td width="642" bgcolor="#00CC66"> <h4>Ennoncé</h4></td>
+	  <td width="642" bgcolor="#00CC66"> <h4>EnnoncÃ©</h4></td>
 
     </tr>
   <?
   $sql = "SELECT * FROM complement";
 
-  $result = mysql_query($sql) or die ("Requête incorrecte");
+  $result = mysql_query($sql) or die ("RequÃªte incorrecte");
   // = mysql_numrows($query);
-  if ($result) { // Si il y'a des résultats
+  if ($result) { // Si il y'a des rÃ©sultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -36,13 +36,13 @@
   <?
         } // Fin instruction while
 
-      } else { // Pas de résultat trouvé
+      } else { // Pas de rÃ©sultat trouvÃ©
 
-    echo "Pas de résultat";
+    echo "Pas de rÃ©sultat";
 
       }
 
-  mysql_free_result($query); // Libère la mémoire
+  mysql_free_result($query); // LibÃ¨re la mÃ©moire
   mysql_close(); // Ferme la connexion
 ?>
 </table>

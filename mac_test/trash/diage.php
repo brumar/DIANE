@@ -105,8 +105,8 @@ for ($i=0 ; $i < count($nombre) ;$i++)
 		$tout2 = $val["tout2"]; 
 		$valdiff = $val["valdiff"]; 
  	} 
- //printf ("Lignes modifiÈes : %d\n" ,mysql_affected_rows ()); 
-print ("<P>Construction du tableau des donnÈes :</P>\n");
+ //printf ("Lignes modifi√©es : %d\n" ,mysql_affected_rows ()); 
+print ("<P>Construction du tableau des donn√©es :</P>\n");
 print ("<P><TABLE BGCOLOR=#88ffcc border=2 cellspacing=2 cellpadding=2>\n");
 print ("<TD>\n<B>numero</B>\n");
 print ("<TD>\n<B>enonce1</B>\n");

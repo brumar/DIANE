@@ -11,7 +11,7 @@ $terminer=false;
 session_register('terminer');
 ?>	
 <script type='text/javascript'>
-//alert("La série d'exercice est terminée");
+//alert("La sÃ©rie d'exercice est terminÃ©e");
 window.close();
 </script>";
 <?php 
@@ -23,7 +23,7 @@ window.close();
 <title>Interface</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <style type="text/css" media="all">
-	/* Ce style CSS ne dois pas être enlevé, sinon les divs ne se cacherons pas ... */
+	/* Ce style CSS ne dois pas Ãªtre enlevÃ©, sinon les divs ne se cacherons pas ... */
 	.cachediv {
 		visibility: hidden;
 		overflow: hidden;
@@ -142,9 +142,9 @@ if ($questi=="1")
         </tr>
         <tr>
           <td height="28"> <input type="radio" value="1" name="R1" checked  onclick="masquer();">
-            Une opération
+            Une opÃ©ration
             <input type="radio" value="2" name="R1"  onclick="masquer();">
-            Deux opérations </td>
+            Deux opÃ©rations </td>
         </tr>
         <tr>
           <td align="center">

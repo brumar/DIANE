@@ -6,14 +6,14 @@
 	//$mysql = mysql_connect( 'sql.free.fr ', 'hakem.lkhider', 'kahina' );
     /* if(!$mysql)
     {
-      echo 'Vous ne pouvez vous connecter a la basse de donnée.';
+      echo 'Vous ne pouvez vous connecter a la basse de donnÃ©e.';
       exit;
     }
     // select the appropriate database
     $mysql = mysql_select_db( 'hakem_lkhider' );
     if(!$mysql)
     {
-      echo 'vous ne pouvez entrer dans la base de donnée Projet.';
+      echo 'vous ne pouvez entrer dans la base de donnÃ©e Projet.';
       exit();
     } */
 
@@ -22,7 +22,7 @@
     $result = mysql_query( $query );
     if(!$result)
     {
-      echo 'la requète ne peut pas s\'executer.';
+      echo 'la requÃ¨te ne peut pas s\'executer.';
       exit();
     }
 

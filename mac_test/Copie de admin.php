@@ -8,7 +8,7 @@
 <p align="center">
 <a href="index.html">Accueil</a> &nbsp;&nbsp;
 <a href="enseignant.php">Enseignant</a>&nbsp;&nbsp;
-<a href="eleve.php">Elève</a>
+<a href="eleve.php">ElÃ¨ve</a>
 </p>
 <table width="43%" height="232" border="1" align="center" cellspacing="5">
   <tr> 
@@ -28,7 +28,7 @@
   </tr>
   <tr> 
     <td bordercolor="#0000FF" bgcolor="#99FF99">
-		<a href="formsaisie.html">Enregistrer un nouvel enoncé dans la base de donnée</a>
+		<a href="formsaisie.html">Enregistrer un nouvel enoncÃ© dans la base de donnÃ©e</a>
 	</td>
   </tr>
   <tr> 
@@ -38,28 +38,28 @@
   </tr>
   <tr> 
     <td bordercolor="#0000FF" bgcolor="#99FF99">
-		<a href="doc_csv.php">Tél&eacute;charger le fichier de diagnostic</a>
+		<a href="doc_csv.php">TÃ©l&eacute;charger le fichier de diagnostic</a>
 	</td>
   </tr>
   <tr> 
     <td bordercolor="#0000FF" bgcolor="#99FF99">
-		<a href="affichage_a.php">Visualiser les &eacute;noncés Comparaison</a>
+		<a href="affichage_a.php">Visualiser les &eacute;noncÃ©s Comparaison</a>
 	</td>
   </tr>
   <tr> 
     <td bordercolor="#0000FF" bgcolor="#99FF99">
-		<a href="affichage_e.php">Visualiser les enoncés Compl&eacute;ment</a>
+		<a href="affichage_e.php">Visualiser les enoncÃ©s Compl&eacute;ment</a>
 	</td>
   </tr>
  
   <tr>
     <td bordercolor="#0000FF" bgcolor="#99FF99"> 
-      <a href="filedir.php">Télécharger les fichiers de diagnostic de tous les élèves</a>
+      <a href="filedir.php">TÃ©lÃ©charger les fichiers de diagnostic de tous les Ã©lÃ¨ves</a>
 	 </td>
   </tr>
   <tr>
     <td bordercolor="#0000FF" bgcolor="#99FF99">
-		<a href="formTracePDF.php">Télécharger le fichier de trace d'un élève en PDF</a>
+		<a href="formTracePDF.php">TÃ©lÃ©charger le fichier de trace d'un Ã©lÃ¨ve en PDF</a>
 	</td>
   </tr>
 </table>

@@ -12,18 +12,18 @@ var $ColorIndex;
 
 function Header()
 {
-    //Imprime l'en-tête du tableau si nécessaire
+    //Imprime l'en-tÃªte du tableau si nÃ©cessaire
     if($this->ProcessingTable)
         $this->TableHeader();
 }
 
 function Footer()
 {
-    //Positionnement à 1,5 cm du bas
+    //Positionnement Ã  1,5 cm du bas
     $this->SetY(-15);
     //Police Arial italique 8
     $this->SetFont('Arial','I',8);
-    //Numéro de page
+    //NumÃ©ro de page
     $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 }
 
@@ -85,16 +85,16 @@ function AddCol($field=-1,$width=-1,$caption='',$align='L')
 
 function Table($query,$prop=array())
 {
-    //Exécute la requête
-    $res=mysql_query($query) or die('Erreur: '.mysql_error()."<BR>Requête: $query");
-    //Ajoute toutes les colonnes si aucune n'a été définie
+    //ExÃ©cute la requÃªte
+    $res=mysql_query($query) or die('Erreur: '.mysql_error()."<BR>RequÃªte: $query");
+    //Ajoute toutes les colonnes si aucune n'a Ã©tÃ© dÃ©finie
     if(count($this->aCols)==0)
     {
         $nb=mysql_num_fields($res);
         for($i=0;$i<$nb;$i++)
             $this->AddCol();
     }
-    //Détermine les noms des colonnes si non spécifiés
+    //DÃ©termine les noms des colonnes si non spÃ©cifiÃ©s
     foreach($this->aCols as $i=>$col)
     {
         if($col['c']=='')
@@ -105,7 +105,7 @@ function Table($query,$prop=array())
                 $this->aCols[$i]['c']=ucfirst(mysql_field_name($res,$col['f']));
         }
     }
-    //Traite les propriétés
+    //Traite les propriÃ©tÃ©s
     if(!isset($prop['width']))
         $prop['width']=0;
     if($prop['width']==0)
@@ -126,7 +126,7 @@ function Table($query,$prop=array())
     $this->RowColors=array($prop['color1'],$prop['color2']);
     //Calcule les largeurs des colonnes
     $this->CalcWidths($prop['width'],$prop['align']);
-    //Imprime l'en-tête
+    //Imprime l'en-tÃªte
     $this->TableHeader();
     //Imprime les lignes
     $this->SetFont('Arial','',8);

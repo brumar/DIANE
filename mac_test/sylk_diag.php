@@ -20,17 +20,17 @@ $cfg_base = 'projet';
 
 if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
 {
-    // construction de la requête
+    // construction de la requÃªte
     // ------------------------------------------------------------------------
     $sql  = "SELECT numSerie,numTrace,numEleve,date,numExo,typeExo,question,var ,questInt,colonne1, colonne2, colonne3, colonne4,colonne5,colonne6, colonne7, colonne8, colonne9,colonne10,colonne11,colonne12,colonne13,colonne14,colonne15,colonne16,colonne17,colonne18 ";
     $sql .= "FROM diagnostic ";
     //$sql .= "WHERE numero<7 "; // PHP
     
 
-    // définition des différentes colonnes de données
+    // dÃ©finition des diffÃ©rentes colonnes de donnÃ©es
     // ------------------------------------------------------------------------
     $champs = Array(
-      //     champ       en-tête     format         alignement  largeur
+      //     champ       en-tÃªte     format         alignement  largeur
       Array( 'numSerie',     'Numero Serie',       FORMAT_ENTIER, 'L',         15 ),
       Array( 'numTrace',     'Numero Trace',       FORMAT_ENTIER, 'L',         15 ),
 	  Array( 'numEleve',     'Num Eleve',       FORMAT_ENTIER, 'L',         12 ),
@@ -64,14 +64,14 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
 
     if ($resultat = mysql_db_query($cfg_base, $sql))
     {
-        // en-tête HTTP
+        // en-tÃªte HTTP
         // --------------------------------------------------------------------
         header('Content-disposition: filename=fichier.slk');
         header('Content-type: application/octetstream');
         header('Pragma: no-cache');
         header('Expires: 0');
 
-        // en-tête du fichier SYLK
+        // en-tÃªte du fichier SYLK
         // --------------------------------------------------------------------
         echo "ID;PASTUCES-phpInfo.net\n"; // ID;Pappli
         echo "\n";
@@ -92,7 +92,7 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
         echo ";X".($nbcol = mysql_num_fields($resultat))."\n";
         echo "\n";
 
-        // récupération des infos de formatage des colonnes
+        // rÃ©cupÃ©ration des infos de formatage des colonnes
         // --------------------------------------------------------------------
 		for ($cpt = 0; $cpt < $nbcol; $cpt++)
         {
@@ -110,7 +110,7 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
         echo "F;W".$cpt." 256 8\n"; // F;Wcoldeb colfin largeur
         echo "\n";
 
-        // en-tête des colonnes (en gras --> SDM4)
+        // en-tÃªte des colonnes (en gras --> SDM4)
         // --------------------------------------------------------------------
 		for ($cpt = 1; $cpt <= $nbcol; $cpt++)
         {
@@ -119,7 +119,7 @@ if (mysql_connect($cfg_hote, $cfg_user, $cfg_pass))
         }
         echo "\n";
 
-        // données utiles
+        // donnÃ©es utiles
         // --------------------------------------------------------------------
         $ligne = 2;
         while ($enr = mysql_fetch_array($resultat))

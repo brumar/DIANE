@@ -9,7 +9,7 @@ $numEleve = $_SESSION["numEleve"];
 			{
 				$sql2 = "select id, numSerie,numExo,typeExo,questInt,sas,operation1,operande1,operande2,zonetext,resultat from trace where ";
 				$sql2 .= "numEleve = ".$numEleve." order by id DESC LIMIT 1";
-				$result2 = mysql_query($sql2) or die ("Requête incorrecte2");
+				$result2 = mysql_query($sql2) or die ("RequÃªte incorrecte2");
 				while ($traceRecord = mysql_fetch_assoc($result2))
 					{
 					  $numTrace = $traceRecord["id"];
@@ -43,7 +43,7 @@ if (isset($_GET["numExo"])) $numExo=(int)trim($_GET["numExo"]);
 
 
 $sql1 = "SELECT * FROM serie where numSerie=".$_SESSION["numSerie"];
-$result1 = mysql_query($sql1) or die ("Requête incorrecte1");
+$result1 = mysql_query($sql1) or die ("RequÃªte incorrecte1");
 
 while ($r1 = mysql_fetch_assoc($result1))
 	  {
@@ -136,7 +136,7 @@ print("<form action=\"diag_d.php\" name=\"info\" method=\"post\">");
 		    
 		    <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		      <tr>
-		        <td height="24" valign="top" class="aide">&nbsp;&nbsp; Exercice N° <?php echo ($_SESSION["totalExo"]-$nbExo+1); ?></td>
+		        <td height="24" valign="top" class="aide">&nbsp;&nbsp; Exercice NÂ° <?php echo ($_SESSION["totalExo"]-$nbExo+1); ?></td>
 	          </tr>
 		      <tr>
 		  	    <td>
@@ -156,7 +156,7 @@ if($type=="distributivite")
 		  $text2 =  $enregistrement["question"];
 		  $text2 = str_replace("'","\'",$text2);
 		}
-	//Enoncé de distributivite
+	//EnoncÃ© de distributivite
 	for($piece = strtok($text1, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 	{
 		  $piece1 = $piece;  
@@ -166,7 +166,7 @@ if($type=="distributivite")
 		  $i++;
 	}
 	print("<Br>");
-	//Question de l'énoncé de distributivité
+	//Question de l'Ã©noncÃ© de distributivitÃ©
 	 for($piece = strtok($text2, " "), $i=1; $piece != "" ; $piece = strtok(" "))
 	 {
 		  $piece1 = $piece; 
@@ -189,7 +189,7 @@ else
 		  $text4 =  $enregistrement["question2"];
 		  $text4 = str_replace("'","\'",$text4);
 		}
-	//Première partie de l'énoncé
+	//PremiÃ¨re partie de l'Ã©noncÃ©
 	for($piece = strtok($text1, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 		{
 		  $piece1 = $piece;
@@ -199,7 +199,7 @@ else
 		  $i++;
 		}
 		print("<Br>");
-	//Question intermédiaire
+	//Question intermÃ©diaire
 	if ($questi=="1")
 	   {
 		 for($piece = strtok($text2, " "), $i=1; $piece != "" ; $piece = strtok(" "))
@@ -212,7 +212,7 @@ else
 			 } 
 		 print("<Br>");
 	  }
-	//Deuxième partie de l'énoncé.  
+	//DeuxiÃ¨me partie de l'Ã©noncÃ©.  
 	for($piece = strtok($text3, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 	   {
 		  $piece1 = $piece;

@@ -73,11 +73,11 @@ header('Location: ../mac_test/affichage_d.php');
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <table border="1">
 <tr>
-        <td>Enoncé</td>
+        <td>EnoncÃ©</td>
         <td>question</td>
         <td>va1</td>
         <td>va2</td>
@@ -88,7 +88,7 @@ header('Location: ../mac_test/affichage_d.php');
         <td>Facteur</td>
         <td>Fact</td>
         <td>variable Facteur</td>
-        <td>variable Factorisés</td>
+        <td>variable FactorisÃ©s</td>
         <td>Element</td>
         <td>Element structurant</td>
         <td>Strategie</td>

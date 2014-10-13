@@ -1,4 +1,4 @@
-/* On crée une fonction de verification */
+/* On crÃ©e une fonction de verification */
 function verifForm(formulaire)
 {
     ExpReg = /\d/;

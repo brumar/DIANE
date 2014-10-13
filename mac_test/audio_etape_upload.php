@@ -5,7 +5,7 @@
 
 if((isset($_GET['delete']))){
 	$ex=$_GET['num'];
-	$dossier2 = "audio/etape/exo$ex/";//prendre les caracteristiques de l'enoncÈ 
+	$dossier2 = "audio/etape/exo$ex/";//prendre les caracteristiques de l'enonc√© 
 		if (is_dir($dossier2)){
 		$dir = opendir($dossier2); 
 			while($file = readdir($dir)) {
@@ -31,7 +31,7 @@ if($_POST){
 	$fichier =$_FILES['doc'];
 	$dossier = '.\\upload\\';
 	$ex=$_POST['numexo'];	
-	$dossier2 = "audio/etape/exo$ex/";//prendre les caracteristiques de l'enoncÈ 
+	$dossier2 = "audio/etape/exo$ex/";//prendre les caracteristiques de l'enonc√© 
 	if (is_dir($dossier2)){ //suppression du dossier
 			$dir = opendir($dossier2); 
 			while($file = readdir($dir)) {
@@ -42,7 +42,7 @@ if($_POST){
 			rmdir($dossier2);
 		}
 	if (!mkdir($dossier2, 0777)) { //creation du dossier if (!mkdir($dossier2, 0777,true))
-	die('Echec lors de la crÈation des rÈpertoires...'); //is dir ; unlink
+	die('Echec lors de la cr√©ation des r√©pertoires...'); //is dir ; unlink
 	}
 	$echec=false;
 	$t=count($fichier['name']);
@@ -54,16 +54,16 @@ if($_POST){
 		$fichier2 = basename($name);
 		$extensions = array('.mp3');
 		$extension = strrchr($name, '.'); 
-//DÈbut des vÈrifications de sÈcuritÈ...
+//D√©but des v√©rifications de s√©curit√©...
 		if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
 		{$erreur = 'Vous devez uploader un fichier mp3';}
 		if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
 		{
 			$fichier2 = strtr($fichier2, 
-           '¿¡¬√ƒ≈«»… ÀÃÕŒœ“”‘’÷Ÿ⁄€‹›‡·‚„‰ÂÁËÈÍÎÏÌÓÔÚÛÙıˆ˘˙˚¸˝ˇ', 
+           '√Ä√Å√Ç√É√Ñ√Ö√á√à√â√ä√ã√å√ç√é√è√í√ì√î√ï√ñ√ô√ö√õ√ú√ù√†√°√¢√£√§√•√ß√®√©√™√´√¨√≠√Æ√Ø√∞√≤√≥√¥√µ√∂√π√∫√ª√º√Ω√ø', 
           ' AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
 			$fichier2 = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier2);
-				if(!(move_uploaded_file($tmp_name, $dossier2.$fichier2))) //Si la fonction renvoie TRUE, c'est que Áa a fonctionnÈ...
+				if(!(move_uploaded_file($tmp_name, $dossier2.$fichier2))) //Si la fonction renvoie TRUE, c'est que √ßa a fonctionn√©...
 				{ $echec=true;}
 		}
 	 }
@@ -104,10 +104,10 @@ ini_set("upload_max_filesize", "30M");
 ini_set("memory_limit", -1 );
 ?>
 <p align="left">
-<b><u>Note : </u></b>L'ordre alphabÈtique de vos mp3 determinera leur ordre d'apparition dans l'exercice.<br>
+<b><u>Note : </u></b>L'ordre alphab√©tique de vos mp3 determinera leur ordre d'apparition dans l'exercice.<br>
 Par exemple : phrase1.mp3, phrase2.mp3, phrase3.mp3<br><br>
-Si une phrase (ou plusieurs) correspond ‡ une question intermediaire ajoutez "-QI" au nom du fichier,<br> cela permettra au programme de les desactiver si l'option question intermediaire est desactiver<br>
-<u>Par exemple :</u> si part2.mp3 est une question intermediaire, renommez-l‡ part2-QI.mp3 <br>
+Si une phrase (ou plusieurs) correspond √† une question intermediaire ajoutez "-QI" au nom du fichier,<br> cela permettra au programme de les desactiver si l'option question intermediaire est desactiver<br>
+<u>Par exemple :</u> si part2.mp3 est une question intermediaire, renommez-l√† part2-QI.mp3 <br>
 </p>
 <form method="POST" action="audio_etape_upload.php" enctype="multipart/form-data">
      <input type="hidden" name="MAX_FILE_SIZE" value="1000000">

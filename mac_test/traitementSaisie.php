@@ -92,7 +92,7 @@
 						//echo("de plus");
 						$tout2 = $tout1+$valdiff;
 					}
-					else if(eregi(" de moins | moins que | de moins$ | plus tôt | plus tôt$",$_POST["enonce2"]))
+					else if(eregi(" de moins | moins que | de moins$ | plus tÃ´t | plus tÃ´t$",$_POST["enonce2"]))
 					{
 					   //echo("de moins");
 					   $tout2 = $tout1-$valdiff;
@@ -108,7 +108,7 @@
 						//echo("de plus");
 						$partie3= $partie1+$valdiff;
 					}
-					else if(eregi(" de moins | moins que | de moins$ | plus tôt | plus tôt$",$_POST["enonce2"]))
+					else if(eregi(" de moins | moins que | de moins$ | plus tÃ´t | plus tÃ´t$",$_POST["enonce2"]))
 					{
 					   //echo("de moins");
 					   $partie3= $partie1-$valdiff;
@@ -140,13 +140,13 @@ header('Location: ../mac_test/affichage_e.php');
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">Elève</a>
+<a href="eleve.html">ElÃ¨ve</a>
 </p>
 <table border="1">
 <tr>
-    <td>Enoncé1</td>
+    <td>EnoncÃ©1</td>
     <td>question1</td>
-    <td>Enoncé2</td>
+    <td>EnoncÃ©2</td>
     <td>Question2</td>
     <td>Partie1</td>
     <td>Partie2</td>
@@ -159,8 +159,8 @@ header('Location: ../mac_test/affichage_e.php');
     <td>valeur de la difference</td>
     <td>Tendance</td>
     <td>Taille Nombre</td>
-    <td>Ordre données</td>
-    <td>Stratégie</td>
+    <td>Ordre donnÃ©es</td>
+    <td>StratÃ©gie</td>
     <td>Descripteur</td>
     <td>Suggestions</td>
 </tr>
@@ -180,7 +180,7 @@ header('Location: ../mac_test/affichage_e.php');
     <td><?php echo $valdiff; ?></td>
     <td><?php if(isset($tendance)) echo $tendance; ?></td>
 	<td><?php if(isset($taille_nombre)) echo $taille_nombre; ?></td>
-	<td><?php if(isset($ordre_donnees)) echo $ordre_données; ?></td>
+	<td><?php if(isset($ordre_donnees)) echo $ordre_donnÃ©es; ?></td>
     <td><?php if(isset($strategie)) echo $strategie; ?></td>
 	<td><?php if(isset($descripteur)) echo $descripteur; ?></td>
 	<td><?php if(isset($suggestions)) echo $suggestions; ?></td>

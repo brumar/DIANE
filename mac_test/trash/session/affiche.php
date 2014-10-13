@@ -1,15 +1,15 @@
 <?
-//on démarre la session
+//on dÃ©marre la session
 session_start();
 
-//on affiche la variable enregistrée précédemment
+//on affiche la variable enregistrÃ©e prÃ©cÃ©demment
 //print 'votre nom est '.$HTTP_SESSION_VARS[nom];
 
 //vous pouvez l'afficher sous cette forme avec les nouvelle version de php
 print '<br>votre nom est '.$_SESSION[a];
 
-// liens page vérifier nommée verif.php
+// liens page vÃ©rifier nommÃ©e verif.php
 
-print '<br><a href="verif.php">Vérifier l\'enregistrement</a>'; 
+print '<br><a href="verif.php">VÃ©rifier l\'enregistrement</a>'; 
 
 ?> 
