@@ -26,7 +26,7 @@ li 208 car 2
 			{
 			 $sql2 = "select id, numSerie,numExo,typeExo,questInt,sas,operation1,operande1,operande2,zonetext,resultat from trace where ";
 			 $sql2 .= "numEleve = ".$numEleve." and numSerie=".$numSerie." order by id DESC LIMIT 1";
-				$result2 = mysql_query($sql2) or die ("Requ�te incorrecte2".$sql2);
+				$result2 = mysql_query($sql2) or die ("Requéte incorrecte2".$sql2);
 				while ($traceRecord = mysql_fetch_assoc($result2))
 					{
 					  $numTrace = $traceRecord["id"];
@@ -65,7 +65,7 @@ if (isset($_GET["numExo"])) {$numExo=(int)($_GET["numExo"]);  }
 
 
 $sql1 = "SELECT * FROM serie where numSerie=".$_SESSION["numSerie"];
-$result1 = mysql_query($sql1) or die ("Requ�te incorrecte1");
+$result1 = mysql_query($sql1) or die ("Requéte incorrecte1");
 while ($r1 = mysql_fetch_assoc($result1))
 	  {
 	if($nbExo!=0)//if($numExo<=$_SESSION["totalExo"])
@@ -153,7 +153,7 @@ print("<form action=\"diag_general.php\" name=\"info\" method=\"post\" onsubmit=
 		    
 		    <table width="97%" border="0" cellpadding="0" cellspacing="0">
 		      <tr>
-		      <td height="24" valign="top" class="aide">&nbsp;&nbsp; Exercice N� <?php echo ($_SESSION["totalExo"]-$nbExo+1); ?></td>
+		      <td height="24" valign="top" class="aide">&nbsp;&nbsp; Exercice Né <?php echo ($_SESSION["totalExo"]-$nbExo+1); ?></td>
 	          </tr>
 			    
 		      <tr>
@@ -176,7 +176,7 @@ if($type=="distributivite")
 		  $text2 =  $enregistrement["question"];
 		  $text2 = str_replace("'","\'",$text2);
 		}
-	//Enonc� de distributivite
+	//Enoncé de distributivite
 	for($piece = strtok($text1, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 	{
 		  $id++;
@@ -187,7 +187,7 @@ if($type=="distributivite")
 		  $i++;
 	}
 	print("<Br>");
-	//Question de l'�nonc� de distributivit�
+	//Question de l'énoncé de distributivité
 	 for($piece = strtok($text2, " "), $i=1; $piece != "" ; $piece = strtok(" "))
 	 {
 		  $id++;
@@ -207,7 +207,7 @@ else if($type=="etape")
 		  $text2 =  $enregistrement["question"];
 		  $text2 = str_replace("'","\'",$text2);
 		}
-	//Enonc� de distributivite
+	//Enoncé de distributivite
 	for($piece = strtok($text1, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 	{
 		  $id++;
@@ -218,7 +218,7 @@ else if($type=="etape")
 		  $i++;
 	}
 	print("<Br>");
-	//Question de l'�nonc� de distributivit�
+	//Question de l'énoncé de distributivité
 	 for($piece = strtok($text2, " "), $i=1; $piece != "" ; $piece = strtok(" "))
 	 {
 			$id++;
@@ -237,7 +237,7 @@ else if($type=="pbm_instancied")
 		$text =  $enregistrement["text"];
 		$idpbm=$enregistrement['idpbm'];
 	}
-	//Enonc� de distributivite
+	//Enoncé de distributivite
 	for($piece = strtok($text, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 	{
 		$id++;
@@ -248,7 +248,7 @@ else if($type=="pbm_instancied")
 		$i++;
 	}
 	print("<Br>");
-	//Question de l'�nonc� de distributivit�
+	//Question de l'énoncé de distributivité
 }
 else
 {
@@ -263,7 +263,7 @@ else
 		  $text4 =  $enregistrement["question2"];
 		  $text4 = str_replace("'","\'",$text4);
 		}
-	//Premi�re partie de l'�nonc�
+	//Premiére partie de l'énoncé
 	for($piece = strtok($text1, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 		{
 			$id++;
@@ -274,7 +274,7 @@ else
 		  $i++;
 		}
 		print("<Br>");
-	//Question interm�diaire
+	//Question intermédiaire
 	if ($questi=="1")
 	   {
 		 for($piece = strtok($text2, " "), $i=1; $piece != "" ; $piece = strtok(" "))
@@ -288,7 +288,7 @@ else
 			 } 
 		 print("<Br>");
 	  }
-	//Deuxi�me partie de l'�nonc�.  
+	//Deuxiéme partie de l'énoncé.  
 	for($piece = strtok($text3, " "), $i=1 ; $piece != "" ; $piece = strtok(" "))
 	   {
 			$id++;
@@ -401,7 +401,7 @@ $dir = opendir($dirname);
 while($file = readdir($dir)) {
 	if($file != '.' && $file != '..' && !is_dir($dirname.$file))
 	{
-		if(($questi==1)||(!preg_match("/QI/", $file)))//cette condition permet d'enlever la question interm�diaire si elle n'est pas demand�e
+		if(($questi==1)||(!preg_match("/QI/", $file)))//cette condition permet d'enlever la question intermédiaire si elle n'est pas demandée
 			{
 			//echo '<a href="'.$dirname.$file.'">'.$file.'</a>';
 			$filelist[] = $dirname.$file;
@@ -508,7 +508,7 @@ else if($reste == 0)
 
 
 for (var i = 0, c = lecteurs.length ; i < c ; i++) {
-//on ajoute � toutes les images une fonction qui m�morise le temps des clics dessus
+//on ajoute à toutes les images une fonction qui mémorise le temps des clics dessus
    addEvent(lecteurs[i], 'click', function(e) {
    
    time=((new Date).getTime()-date_init);
@@ -525,7 +525,7 @@ for (var i = 0, c = lecteurs.length ; i < c ; i++) {
     });
 }
 
-for (var i = 0, c = inputs.length ; i < c ; i++) {//on ajoute � tous les boutons une fonction qui m�morise le temps des clics dessus
+for (var i = 0, c = inputs.length ; i < c ; i++) {//on ajoute à tous les boutons une fonction qui mémorise le temps des clics dessus
    //objects
    
 	addEvent(inputs[i], 'click', function(e) {
@@ -537,7 +537,7 @@ for (var i = 0, c = inputs.length ; i < c ; i++) {//on ajoute � tous les bouto
     });
 }
 
-for (var i = 0, c = TabWords.length ; i < c ; i++) {//on ajoute � tous les mots une fonction qui m�morise le temps des clics dessus
+for (var i = 0, c = TabWords.length ; i < c ; i++) {//on ajoute à tous les mots une fonction qui mémorise le temps des clics dessus
    //objects
    addEvent(TabWords[i], 'click', function(e) {
    time=((new Date).getTime()-date_init);

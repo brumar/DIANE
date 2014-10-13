@@ -1,9 +1,9 @@
 
 
 function addEvent(element, event, func) {
-	if (element.addEventListener) { // Si notre �l�ment poss�de la m�thode addEventListener()
+	if (element.addEventListener) { // Si notre élément posséde la méthode addEventListener()
         element.addEventListener(event, func, false);
-		} else { // Si notre �l�ment ne poss�de pas la m�thode addEventListener()
+		} else { // Si notre élément ne posséde pas la méthode addEventListener()
 	//alert(element);
         element.attachEvent('on' + event, func);
     }
@@ -51,7 +51,7 @@ function insertTag(startTag, endTag, textareaId, tagType) {
         field.setSelectionRange(startSelection.length + startTag.length, startSelection.length + startTag.length + currentSelection.length);
     } 
 
-    field.scrollTop = scroll; // et on red�finit le scroll.
+    field.scrollTop = scroll; // et on redéfinit le scroll.
 }
 
 function GoToInsertion(){

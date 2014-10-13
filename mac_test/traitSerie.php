@@ -700,11 +700,11 @@ $result = mysql_query($Requete_SQL) or die("Erreur d'Insertion dans la base : ".
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">El�ve</a>
+<a href="eleve.html">Eléve</a>
 </p>
 <p align="center">&nbsp;</p>
-<h3 align="center">La s�rie <?php echo ('"'.$_POST["nomSerie"].'"'); ?> est cr��e avec succ�s</h3>
+<h3 align="center">La série <?php echo ('"'.$_POST["nomSerie"].'"'); ?> est créée avec succés</h3>
 <p align="center">&nbsp;</p>
-<p align="center"><a href="affEnonce.php">Cr�er une nouvelle s�rie</a></p>
+<p align="center"><a href="affEnonce.php">Créer une nouvelle série</a></p>
 </body>
 </html>

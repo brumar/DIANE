@@ -12,9 +12,9 @@
 <?php 
 	require_once("conn.php");
 	$sql1 = "select count(*) as total from serie";
-	$result1 = mysql_query($sql1) or die ("Requ�te incorrecte");
+	$result1 = mysql_query($sql1) or die ("Requéte incorrecte");
 	$sql2 = "update serie set choix ='0'";
-	$result2 = mysql_query($sql2) or die ("Requ�te incorrecte");
+	$result2 = mysql_query($sql2) or die ("Requéte incorrecte");
 	$tab=array();
 	while ($r1 = mysql_fetch_assoc($result1))
 		{
@@ -32,7 +32,7 @@
 				$tab[$k]=$lien;
 				//echo ("<tr><td align=\"center\">".$lien."</td></tr>");
 				$sql = "update serie set choix =".$_POST["ordre_serie".$i]." where numSerie =".$_POST["choix".$i];
-				$result = mysql_query($sql) or die ("Requ�te incorrecte");	
+				$result = mysql_query($sql) or die ("Requéte incorrecte");	
 			}
 		}
 	

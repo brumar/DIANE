@@ -40,9 +40,9 @@ function AnswerTest(){
 function addEvent(element, event, func) {
 
     
-	if (element.addEventListener) { // Si notre �l�ment poss�de la m�thode addEventListener()
+	if (element.addEventListener) { // Si notre élément posséde la méthode addEventListener()
         element.addEventListener(event, func, false);
-    } else { // Si notre �l�ment ne poss�de pas la m�thode addEventListener()
+    } else { // Si notre élément ne posséde pas la méthode addEventListener()
 	//alert(element);
         element.attachEvent('on' + event, func);
     }

@@ -1,7 +1,7 @@
 <?php require ("conn.php"); ?>
 <html>
 <script type="text/javascript" language="javascript">
-  var texte = "Voulez-vous r�ellement supprimer cet �nonc� ?"
+  var texte = "Voulez-vous réellement supprimer cet énoncé ?"
   function supprimer(num)
   {
   	if(confirm(texte))
@@ -16,26 +16,26 @@
 </script>
  <head>
  <meta http-equiv="Content-Type" content="text/html; charset=Latin-1">
-  <title>Enonc� comparaison</title>
+  <title>Enoncé comparaison</title>
  </head>
 <body>
 <p align="center">
 <a href="../index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
-<a href="eleve.html">El�ve</a>
+<a href="eleve.html">Eléve</a>
 </p>
 <form action="selection.php" method="post">
   <table width="664" border="2" align="center" cellpadding="4" cellspacing="4" bordercolor="#FF0000">
     <tr align="center" bgcolor="#99FF99"> 
 	<td bgcolor="#F0F7FA">&nbsp;</td>
-	<td width="642" height="29" bgcolor="#F0F7FA">Enonc�s Comparaison</td>
+	<td width="642" height="29" bgcolor="#F0F7FA">Enoncés Comparaison</td>
     <td bgcolor="#F0F7FA">&nbsp;</td>
     </tr>
     <?php
   // initialisation
 	$nb=4;
 	if(empty($page)) $page = 1;
-	if(empty($total)){ // nombre total de r�sultats
+	if(empty($total)){ // nombre total de résultats
  	$sql1 = "select count(*) as qte from comparaison";
  	$p = @mysql_query($sql1,$BD_link);
  	$total = @mysql_result($p,"0","qte");
@@ -46,9 +46,9 @@
 
   $sql = "SELECT * FROM comparaison order by numero desc LIMIT $debut,$nb";
 
-  $result = mysql_query($sql) or die ("Requ�te incorrecte");
+  $result = mysql_query($sql) or die ("Requéte incorrecte");
   // = mysql_numrows($query);
-  if ($result) { // Si il y'a des r�sultats
+  if ($result) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -68,9 +68,9 @@
     <?php
         } // Fin instruction while
 
-      } else { // Pas de r�sultat trouv�
+      } else { // Pas de résultat trouvé
 
-    echo "Pas de r�sultat";
+    echo "Pas de résultat";
 
       }
 ?>
@@ -86,11 +86,11 @@
  	   echo "<a href=\"$PHP_SELF?page=$i&total=$total\">page$i</a>";
        if($i < $nbpages) echo " - ";
     }
-  mysql_free_result($result); // Lib�re la m�moire
+  mysql_free_result($result); // Libére la mémoire
   mysql_close(); // Ferme la connexion
  ?>
   </p>
-  <p><a href="formsaisie.html">Cr�er un nouvel exercice</a></p>
+  <p><a href="formsaisie.html">Créer un nouvel exercice</a></p>
 </div>
   
 </form>

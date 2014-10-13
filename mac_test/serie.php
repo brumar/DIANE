@@ -42,7 +42,7 @@ cursor: hand;
 		   $_SESSION["numExo"]=1; */
 		
 		$sql1 = "SELECT numSerie,nomSerie,nbExo,choix FROM serie where choix >= 1 order by choix";
-		$result1 = mysql_query($sql1) or die ("Requ�te incorrecte");
+		$result1 = mysql_query($sql1) or die ("Requéte incorrecte");
 		$numExo=1;
 		while ($r1 = mysql_fetch_assoc($result1))
 		{

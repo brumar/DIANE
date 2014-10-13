@@ -36,7 +36,7 @@
   // initialisation
 	$nb=4;
 	if(empty($page)) $page = 1;
-	if(empty($total)){ // nombre total de r�sultats
+	if(empty($total)){ // nombre total de résultats
  	$sql1 = "select count(*) as qte from distributivite";
  	$p = @mysql_query($sql1,$BD_link);
  	$total = @mysql_result($p,"0","qte");
@@ -49,7 +49,7 @@
 
   $result = mysql_query($sql) or die ("Requète incorrecte");
   // = mysql_numrows($query);
-  if ($result) { // Si il y'a des r�sultats
+  if ($result) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -68,7 +68,7 @@
     <?php
         } // Fin instruction while
 
-      } else { // Pas de r�sultat trouv�
+      } else { // Pas de résultat trouvé
 
     echo "Pas de résultat";
 
@@ -86,7 +86,7 @@
  	   echo "<a href=\"$PHP_SELF?page=$i&total=$total\">page$i</a>";
        if($i < $nbpages) echo " - ";
     }
-  mysql_free_result($result); // Lib�re la m�moire
+  mysql_free_result($result); // Libére la mémoire
   mysql_close(); // Ferme la connexion
  ?>
   </p>

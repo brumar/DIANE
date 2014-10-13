@@ -25,7 +25,7 @@
   $sql = "SELECT * FROM complement";
   $result = mysql_query($sql) or die ("Requète incorrecte");
   
-  if ($result) { // Si il y'a des r�sultats// while ($rs = mysql_fetch_array($query)) {
+  if ($result) { // Si il y'a des résultats// while ($rs = mysql_fetch_array($query)) {
 	  while ($enregistrement = mysql_fetch_assoc($result))
 		{
 		  $text1 =  $enregistrement["enonce1"];
@@ -48,26 +48,26 @@
         
 	$i++;} // Fin instruction while
 
-     } else { // Pas de r�sultat trouv�
+     } else { // Pas de résultat trouvé
 
-    echo "Pas de r�sultat";
+    echo "Pas de résultat";
 
       }
 
-  mysql_free_result($result); // Lib�re la m�moire
+  mysql_free_result($result); // Libére la mémoire
 ?>
     <tr align="center"> 
       <td width="77" bgcolor="#00CC66">
 <h4>Selection des &eacute;nonc&eacute;s</h4></td>
       <td width="104" bgcolor="#00CC66"><h4> Question Intermediaire</h4></td>
       <td width="104" bgcolor="#00CC66"> <h4>Ordre de s&eacute;l&eacute;ction</h4></td>
-      <td width="641" bgcolor="#00CC66"> <h4>Enonc�s comparaison</h4></td>
+      <td width="641" bgcolor="#00CC66"> <h4>Enoncés comparaison</h4></td>
 	  <td width="" bgcolor="#00CC66"><h4>Type</h4></td>
     </tr>
     <?
   $sql = "SELECT * FROM comparaison";
-  $result = mysql_query($sql) or die ("Requ�te incorrecte");
-  if ($result) { // Si il y'a des r�sultats
+  $result = mysql_query($sql) or die ("Requéte incorrecte");
+  if ($result) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -91,13 +91,13 @@
         
 $j++;} // Fin instruction while
 
-      } else { // Pas de r�sultat trouv�
+      } else { // Pas de résultat trouvé
 
-    echo "Pas de r�sultat";
+    echo "Pas de résultat";
 
       }
 
-  mysql_free_result($result); // Lib�re la m�moire
+  mysql_free_result($result); // Libére la mémoire
   mysql_close(); // Ferme la connexion
 ?>
 	<input type="hidden" name="i" value="<?php echo ($i-1); ?>" >
@@ -109,7 +109,7 @@ $j++;} // Fin instruction while
   <table align="center" cellpadding="4" cellspacing="4" bordercolor="#FF0000">
     <!--DWLayoutTable-->
     <tr>
-      <td width="221" align="right"><strong>Donnez un nom � la s�rie</strong></td>
+      <td width="221" align="right"><strong>Donnez un nom à la série</strong></td>
       <td width="679"><input name="nomSerie" type="text"></td>
     </tr>
     <tr>

@@ -146,13 +146,13 @@ function multiClass(eltId) {
 			}
 	}
 	
-	// V�rifie la pr�sence de Valeur dans IdListe
+	// Vérifie la présence de Valeur dans IdListe
 	function VerifValeurDansListe(IdListe, Valeur) {
 		var objListe = document.getElementById(IdListe);
 		for (var k=objListe.length-1;k>=0;k--) 
 			if (objListe.options[k].value == Valeur) 
 				{
-					//if (blnAlerte) alert('D�j� pr�sent.'); 
+					//if (blnAlerte) alert('Déjé présent.'); 
 					objListe.options[k]=null; 
 				}
 	}
@@ -199,7 +199,7 @@ function multiClass(eltId) {
   $sql = "select * from complement order by numero desc";
   $result = mysql_query($sql) or die ("Requete incorrecte");
   
-  if ($result) { // Si il y'a des r�sultats// while ($rs = mysql_fetch_array($query)) {
+  if ($result) { // Si il y'a des résultats// while ($rs = mysql_fetch_array($query)) {
 	  while ($enregistrement = mysql_fetch_assoc($result))
 		{
 		  $text1 =  $enregistrement["enonce1"];
@@ -225,13 +225,13 @@ function multiClass(eltId) {
         
 	$i++;} // Fin instruction while
 
-     } else { // Pas de r�sultat trouv�
+     } else { // Pas de résultat trouvé
 
     echo "Pas de résultat";
 
       }
 
-  mysql_free_result($result); // Lib�re la m�moire
+  mysql_free_result($result); // Libére la mémoire
 ?>
           </table>
 	</div>
@@ -250,7 +250,7 @@ function multiClass(eltId) {
       <?php
   $sql = "SELECT * FROM comparaison order by numero desc";
   $result = mysql_query($sql) or die ("Requete incorrecte");
-  if ($result) { // Si il y'a des r�sultats
+  if ($result) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result))
 		{
@@ -276,10 +276,10 @@ function multiClass(eltId) {
       </tr>
       <?php
 		$j++;} // Fin instruction while
-			  } else { // Pas de r�sultat trouv�
+			  } else { // Pas de résultat trouvé
 			echo "Pas de résultat";
 			  }
-		  mysql_free_result($result); // Lib�re la m�moire
+		  mysql_free_result($result); // Libére la mémoire
 		?>
     </table>
   </div>
@@ -296,7 +296,7 @@ function multiClass(eltId) {
 	    <?php
   $sql3 = "SELECT * FROM distributivite order by numero desc";
   $result3 = mysql_query($sql3) or die ("Requete incorrecte Dist");
-  if ($result3) { // Si il y'a des r�sultats
+  if ($result3) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result3))
 		{
@@ -327,13 +327,13 @@ function multiClass(eltId) {
         
 $m++;} // Fin instruction while
 
-      } else { // Pas de r�sultat trouv�
+      } else { // Pas de résultat trouvé
 
     echo "Pas de résultat";
 
       }
 
-  mysql_free_result($result3); // Lib�re la m�moire
+  mysql_free_result($result3); // Libére la mémoire
 
 ?>
       </table>
@@ -351,7 +351,7 @@ $m++;} // Fin instruction while
           <?php
   $sql4 = "SELECT * FROM etape order by numero desc";
   $result4 = mysql_query($sql4) or die ("Requete incorrecte etape");
-  if ($result4) { // Si il y'a des r�sultats
+  if ($result4) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result4))
 		{
@@ -380,12 +380,12 @@ $m++;} // Fin instruction while
           <?php 
 	$k++;} // Fin instruction while
 
-      } else { // Pas de r�sultat trouv�
+      } else { // Pas de résultat trouvé
 
     echo "Pas de résultat";
 
       }
-  mysql_free_result($result4); // Lib�re la m�moire
+  mysql_free_result($result4); // Libére la mémoire
    // Ferme la connexion
 ?>
        
@@ -406,7 +406,7 @@ $m++;} // Fin instruction while
           <?php
   $sql5 = "SELECT * FROM pbm_instancied";
   $result5 = mysql_query($sql5) or die ("Requete incorrecte pbm génériques");
-  if ($result5) { // Si il y'a des r�sultats
+  if ($result5) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
   while ($enregistrement = mysql_fetch_assoc($result5))
 		{
@@ -426,12 +426,12 @@ $m++;} // Fin instruction while
           <?php 
 	$t++;} // Fin instruction while
 
-      } else { // Pas de r�sultat trouv�
+      } else { // Pas de résultat trouvé
 
     echo "Pas de résultat";
 
       }
-  mysql_free_result($result5); // Lib�re la m�moire
+  mysql_free_result($result5); // Libére la mémoire
   mysql_close(); // Ferme la connexion
 ?>
 	   <input type="hidden" name="i" value="<?php echo ($i-1); ?>" >
