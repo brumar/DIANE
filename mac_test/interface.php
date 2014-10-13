@@ -20,7 +20,7 @@ if (($_SESSION["terminer"])||($num=='')||($num==0))
 <html>
 <head>
 <title>Interface</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <SCRIPT LANGUAGE=Javascript SRC="interface.js"> </SCRIPT>
 </head>
 <body onload="masquer()">

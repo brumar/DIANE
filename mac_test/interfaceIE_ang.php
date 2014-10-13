@@ -17,7 +17,7 @@ if (($_SESSION["terminer"])||($num=='')||($num==0))
 <html>
 <head>
 <title>Interface IE</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <SCRIPT language=JavaScript src="interfaceIE.js"></script>
 </head>
 <body onload="masquer()">

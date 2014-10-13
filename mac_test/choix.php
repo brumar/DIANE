@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Diagnostique</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 <p align="center">

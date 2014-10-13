@@ -28,7 +28,7 @@
 {// Nom et/ou Prénom incorecte
 	echo('<html>');
 	echo('<head>');
-	echo('<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">');
+	echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">');
 	echo('<title>Erreur dans le Nom et/ou Prénom</title>');
 	echo('</head>');
 	echo('<body>');

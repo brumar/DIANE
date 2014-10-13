@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Formulaire d'inscription</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script language="JavaScript" src="formeleve.js"></script>
 </head>
 <body>

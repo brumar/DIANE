@@ -21,7 +21,7 @@ window.close();
 <html>
 <head>
 <title>Interface</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script language="JavaScript" src="interfaceMac.js"></script>
 </head>
 <body onload="masquer();">

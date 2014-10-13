@@ -21,7 +21,7 @@ window.close();
 <html>
 <head>
 <title>Interface</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css" media="all">
 	/* Ce style CSS ne dois pas être enlevé, sinon les divs ne se cacherons pas ... */
 	.cachediv {

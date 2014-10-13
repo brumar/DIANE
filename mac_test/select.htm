@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Document sans nom</title>
 <script language="Javascript">
 // Supprimer une ligne dans toute les autres listes de destination
@@ -27,13 +27,13 @@ function SupprimerListe(idOrigine)
 		}
 }
 
-// Vérifie la présence de Valeur dans IdListe
+// VÃ©rifie la prÃ©sence de Valeur dans IdListe
 function VerifValeurDansListe(IdListe, Valeur) {
 	var objListe = document.getElementById(IdListe);
 	for (k=objListe.length-1;k>=0;k--) 
 		if (objListe.options[k].value == Valeur) 
 			{
-				//if (blnAlerte) alert('Déjà présent.'); 
+				//if (blnAlerte) alert('DÃ©jÃ  prÃ©sent.'); 
 				objListe.options[k]=null; 
 			}
 }

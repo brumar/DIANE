@@ -1,4 +1,4 @@
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php 
 $i=$_POST['i'];//nombre d'exercice de complement existant
 $j=$_POST['j'];//nombre d'exercice de comparaison existant
@@ -693,7 +693,7 @@ $result = mysql_query($Requete_SQL) or die("Erreur d'Insertion dans la base : ".
 <html>
 <head>
 <title>Exercices de la serie</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
