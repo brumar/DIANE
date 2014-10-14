@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<xsl:output encoding="iso-8859-1"/>
+	<xsl:output encoding="UTF-8" method="xml" media-type="application/xml" />
 	<xsl:include href="balises.xsl"/>
 	<xsl:template match="diagnostic">
 		<html>
@@ -44,23 +44,23 @@
 	<xsl:template match="prenom">
 		<xsl:choose>
 			<xsl:when test="@col1!=9">
-				<xsl:value-of select="."/> a procédé de la manière suivante :<br/>
+				<xsl:value-of select="."/> a procÃ©dÃ© de la maniÃ¨re suivante :<br/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="nbOper">
 		<xsl:choose>
-			<xsl:when test="@nbOper>1 and @calImp=0">Sa résolution s'est faite en <xsl:value-of select="."/> calculs explicites.<br/>
+			<xsl:when test="@nbOper>1 and @calImp=0">Sa rÃ©solution s'est faite en <xsl:value-of select="."/> calculs explicites.<br/>
 			</xsl:when>
-			<xsl:when test="@nbOper>1 and @calImp=1">Sa résolution s'est faite en <xsl:value-of select="."/> calculs explicites et un ou plusieurs calculs implicites.<br/>
+			<xsl:when test="@nbOper>1 and @calImp=1">Sa rÃ©solution s'est faite en <xsl:value-of select="."/> calculs explicites et un ou plusieurs calculs implicites.<br/>
 			</xsl:when>
-			<xsl:when test="@nbOper=1 and @calImp=0">Sa résolution s'est faite en <xsl:value-of select="."/> calcul explicite.<br/>
+			<xsl:when test="@nbOper=1 and @calImp=0">Sa rÃ©solution s'est faite en <xsl:value-of select="."/> calcul explicite.<br/>
 			</xsl:when>
-			<xsl:when test="@nbOper=1 and @calImp=1">Sa résolution s'est faite en <xsl:value-of select="."/> calcul explicite et un ou plusieurs calculs implicites.<br/>
+			<xsl:when test="@nbOper=1 and @calImp=1">Sa rÃ©solution s'est faite en <xsl:value-of select="."/> calcul explicite et un ou plusieurs calculs implicites.<br/>
 			</xsl:when>
-			<xsl:when test="@nbOper=0 and @sexe='f' and @col1!=9">Elle n'a pas posé d'opérations.<br/>
+			<xsl:when test="@nbOper=0 and @sexe='f' and @col1!=9">Elle n'a pas posÃ© d'opÃ©rations.<br/>
 			</xsl:when>
-			<xsl:when test="@nbOper=0 and @sexe='m' and @col1!=9">Il n'a pas posé d'opérations.<br/>
+			<xsl:when test="@nbOper=0 and @sexe='m' and @col1!=9">Il n'a pas posÃ© d'opÃ©rations.<br/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -68,9 +68,9 @@
 	<xsl:template match="strategie">
 		<xsl:if test="@sexe='m'">
 			<xsl:choose>
-				<xsl:when test="@typeStr='D'">Il a effectué un développement. Plus précisément, son développement </xsl:when>
-				<xsl:when test="@typeStr='F'">Il a effectué une factorisation. Plus précisément, sa factorisation </xsl:when>
-				<xsl:when test="@typeStr='RA'">Il a utilisé un raisonnement correct mais atypique. Son raisonnement </xsl:when>
+				<xsl:when test="@typeStr='D'">Il a effectuÃ© un dÃ©veloppement. Plus prÃ©cisÃ©ment, son dÃ©veloppement </xsl:when>
+				<xsl:when test="@typeStr='F'">Il a effectuÃ© une factorisation. Plus prÃ©cisÃ©ment, sa factorisation </xsl:when>
+				<xsl:when test="@typeStr='RA'">Il a utilisÃ© un raisonnement correct mais atypique. Son raisonnement </xsl:when>
 				<xsl:when test="@typeStr='RI'">Il a fait un raisonnement incomplet. Il a</xsl:when>
 				<xsl:when test="@typeStr='ER'">Il a </xsl:when>
 				<xsl:when test="@typeStr='PR'"/>
@@ -78,53 +78,53 @@
 		</xsl:if>
 		<xsl:if test="@sexe='f'">
 			<xsl:choose>
-				<xsl:when test="@typeStr='D'">Elle a effectué un développement. Plus précisément son développement </xsl:when>
-				<xsl:when test="@typeStr='F'">Elle a effectué une factorisation. Plus précisément sa factorisation </xsl:when>
-				<xsl:when test="@typeStr='RA'">Elle a utilisé un raisonnement  mais atypique. Son raisonnement </xsl:when>
+				<xsl:when test="@typeStr='D'">Elle a effectuÃ© un dÃ©veloppement. Plus prÃ©cisÃ©ment son dÃ©veloppement </xsl:when>
+				<xsl:when test="@typeStr='F'">Elle a effectuÃ© une factorisation. Plus prÃ©cisÃ©ment sa factorisation </xsl:when>
+				<xsl:when test="@typeStr='RA'">Elle a utilisÃ© un raisonnement  mais atypique. Son raisonnement </xsl:when>
 				<xsl:when test="@typeStr='RI'">Elle a fait un raisonnement incomplet. Elle a</xsl:when>
 				<xsl:when test="@typeStr='ER'">Elle a </xsl:when>
 			</xsl:choose>
 		</xsl:if>
 		<xsl:choose>
-			<xsl:when test="@str='D' or @str='F' ">est de la forme classique, en deux étapes :<br/>
+			<xsl:when test="@str='D' or @str='F' ">est de la forme classique, en deux Ã©tapes :<br/>
 			</xsl:when>
-			<xsl:when test="@str='Dc' or @str='Fc' ">est de la forme classique, en une seule étape :<br/>
+			<xsl:when test="@str='Dc' or @str='Fc' ">est de la forme classique, en une seule Ã©tape :<br/>
 			</xsl:when>
 			<xsl:when test="@str='Fe' and @imp='1'">
-				est sous forme d'additions successives des différents termes de la somme : 
+				est sous forme d'additions successives des diffÃ©rents termes de la somme : 
 				<xsl:if test="@sexe='m'">
-					Il a d'abord additionné de manière implicite les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
-					il a additionné cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
+					Il a d'abord additionnÃ© de maniÃ¨re implicite les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
+					il a additionnÃ© cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
 				</xsl:if>
 				<xsl:if test="@sexe='f'">
-					Elle a d'abord additionné de manière implicite les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
-					elle a additionné cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
+					Elle a d'abord additionnÃ© de maniÃ¨re implicite les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
+					elle a additionnÃ© cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@str='Fe'">
-				est sous forme d'additions successives des différents termes de la somme : 
+				est sous forme d'additions successives des diffÃ©rents termes de la somme : 
 				<xsl:if test="@sexe='m'">
-					Il a d'abord additionné les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
-					il a additionné cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
+					Il a d'abord additionnÃ© les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
+					il a additionnÃ© cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
 				</xsl:if>
 				<xsl:if test="@sexe='f'">
-					Elle a d'abord additionné les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
-					elle a additionné cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
+					Elle a d'abord additionnÃ© les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
+					elle a additionnÃ© cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@str='Fe2' ">
-				est sous forme d'additions successives des différents termes de la somme :
+				est sous forme d'additions successives des diffÃ©rents termes de la somme :
 				<xsl:if test="@sexe='m'">
-					Il a d'abord additionné les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
-					il a additionné cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
+					Il a d'abord additionnÃ© les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
+					il a additionnÃ© cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
 				</xsl:if>
 				<xsl:if test="@sexe='f'">
-					Elle a d'abord additionné les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
-					elle a additionné cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
+					Elle a d'abord additionnÃ© les termes de la somme (<xsl:value-of select="./valSomme"/>), ensuite 
+					elle a additionnÃ© cette valeur autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@str='De' ">
-					est sous forme d'additions successives des différents termes de la somme (<xsl:value-of select="./valSomme"/>) 
+					est sous forme d'additions successives des diffÃ©rents termes de la somme (<xsl:value-of select="./valSomme"/>) 
 					autant de fois que la valeur du facteur (<xsl:value-of select="./facteur"/>) :<br/>
 			</xsl:when>
 			<xsl:when test="@str='De2' ">
@@ -151,22 +151,22 @@
 			</xsl:when>
 			<xsl:when test="@str='Ej' ">
 				est sous forme d'addition successive du facteur (<xsl:value-of select="./facteur"/>), 
-				et cumulées avec le résultat précédent :<br/>
+				et cumulÃ©es avec le rÃ©sultat prÃ©cÃ©dent :<br/>
 			</xsl:when>
 			<xsl:when test="@str='At' ">
-				additionné tous les termes de l'énoncé (<xsl:value-of select="./facteur"/>, <xsl:value-of select="./valSomme"/>) :<br/>
+				additionnÃ© tous les termes de l'Ã©noncÃ© (<xsl:value-of select="./facteur"/>, <xsl:value-of select="./valSomme"/>) :<br/>
 			</xsl:when>
 			<xsl:when test="@str='M' ">
-				multiplié le facteur (<xsl:value-of select="./facteur"/>) par le nombre de termes sommables (<xsl:value-of select="./nbVal"/>) :<br/>
+				multipliÃ© le facteur (<xsl:value-of select="./facteur"/>) par le nombre de termes sommables (<xsl:value-of select="./nbVal"/>) :<br/>
 			</xsl:when>
 			<xsl:when test="@str='M2' ">
-				fait un développement erroné avec une erreur dans le facteur. 
+				fait un dÃ©veloppement erronÃ© avec une erreur dans le facteur. 
 				<xsl:if test="@sexe='m'">Il</xsl:if>
 				<xsl:if test="@sexe='f'">Elle</xsl:if>
-				a confondu le facteur avec le plus petit élément des termes de la somme (<xsl:value-of select="./minVal"/>) :<br/>
+				a confondu le facteur avec le plus petit Ã©lÃ©ment des termes de la somme (<xsl:value-of select="./minVal"/>) :<br/>
 			</xsl:when>
 			<xsl:when test="@str='M3' ">
-				fait un développement erroné avec une erreur dans le facteur. 
+				fait un dÃ©veloppement erronÃ© avec une erreur dans le facteur. 
 				<xsl:if test="@sexe='m'">Il</xsl:if>
 				<xsl:if test="@sexe='f'">Elle</xsl:if>
 				a confondu le facteur avec le nombre de termes sommables (<xsl:value-of select="./nbVal"/>) :<br/>
@@ -175,7 +175,7 @@
 				fait une addition des termes de la somme (<xsl:value-of select="./valSomme"/>) : <br/>
 			</xsl:when>
 			<xsl:when test="@str='Di' ">
-				fait un développement incomplet  : <br/>
+				fait un dÃ©veloppement incomplet  : <br/>
 			</xsl:when>
 			<xsl:when test="@str='N' ">
 				fait une erreur unique . <br/>
@@ -183,25 +183,25 @@
             <xsl:when test="@imp='3' ">
 				<xsl:if test="@sexe='m'">Il </xsl:if>
 				<xsl:if test="@sexe='f'">Elle </xsl:if>
-                n'a pas posé d'opération.<br/>
+                n'a pas posÃ© d'opÃ©ration.<br/>
 			</xsl:when>
             <xsl:when test="@str='impf' ">
 				<xsl:if test="@sexe='m'">Il </xsl:if>
 				<xsl:if test="@sexe='f'">Elle </xsl:if>
-                n'a pas posé d'opération.<br/>
+                n'a pas posÃ© d'opÃ©ration.<br/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="calImp">
 		<xsl:choose>
 			<xsl:when test="@imp='1' ">
-				Le calcul intermédiaire est calculé de manière implicite<br/>
+				Le calcul intermÃ©diaire est calculÃ© de maniÃ¨re implicite<br/>
 			</xsl:when>
 			<xsl:when test="@imp='2' ">
-				Le calcul final est caclulé de manière implicite<br/>
+				Le calcul final est caclulÃ© de maniÃ¨re implicite<br/>
 			</xsl:when>
 			<xsl:when test="@imp='3' ">
-				Le calcul intermédiaire et le calcul final sont calculés de manière implicite<br/>
+				Le calcul intermÃ©diaire et le calcul final sont calculÃ©s de maniÃ¨re implicite<br/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>

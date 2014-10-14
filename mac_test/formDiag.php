@@ -33,7 +33,7 @@ else if ($type=="etape")
   <h4 align="center">Veuillez entrer le num&eacute;ro de DIAGNOSTIC</h4>
   <p align="center">
     <?php 
-	require("mac_test/conn.php");
+	require("conn.php");
 	$Select_String = "<select name='numEleve'>";
 	$Select_End = "</select>";
 	//$sql ="SELECT DISTINCT b.numEleve, a.nom, a.prenom from eleve a, trace b where a.numEleve = b.numEleve";

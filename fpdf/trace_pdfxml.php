@@ -244,8 +244,8 @@ $result = mysql_query($requete1) or die("Impossible d'interroger la base de donn
 $num = mysql_num_rows($result);
 if ($num != 0) 
 { 
-	$file= fopen("diagXML.xml", "w"); 
-	$_xml ="<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>\r\n"; 
+	$file= fopen("diagnostics\\diagXML.xml", "w"); 
+	$_xml ="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"; 
 	$_xml .="<?xml-stylesheet href=\"diag.xsl\" type=\"text/xsl\"?>\r\n";
 	$_xml .="<diagnostic>\r\n"; 
 	while ($r = mysql_fetch_array($result)) 
@@ -842,7 +842,7 @@ if ($num != 0)
 	 
 	  } 
 	$_xml .="</diagnostic>"; 
-	fwrite($file, $_xml); 
+	fwrite($file, utf8_encode($_xml)); 
 	fclose($file); 
 	
 	}
@@ -868,7 +868,7 @@ xslt_free($xh);
 
 //print "$result";
 
-$result=ereg_replace("<\?xml version=\"1.0\" encoding=\"iso-8859-1\"\?>","",$result);
+$result=ereg_replace("<\?xml version=\"1.0\" encoding=\"UTF-8\"\?>","",$result);
 $result=ereg_replace("/[\s| +|\f\n\r\t]/","",$result);
 
 //************************fin du diagnostic LN ****************************

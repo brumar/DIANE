@@ -1,5 +1,5 @@
 <?php 
-require_once("mac_test/conn.php");
+require_once("conn.php");
 $requete1 = "select * from diagetape where numEleve =".$_POST["numEleve"];
 //$requete1 = "select * from diag_etape where colonne2=2 and colonne14=0";//".$_POST["numDiag"];
 //$requete1 = "select * from diag_etape where numDiag = 80";//.$_POST["numDiag"];
@@ -10,8 +10,8 @@ $result = mysql_query($requete1) or die("Impossible d'interroger la base de donn
 $num = mysql_num_rows($result);
 if ($num != 0) 
 { 
-	$file= fopen("diagXMLetape.xml", "w"); 
-	$_xml ="<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>\r\n"; 
+	$file= fopen("diagnostics\\diagXMLetape.xml", "w"); 
+	$_xml ="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"; 
 	$_xml .="<?xml-stylesheet href=\"diag_etape.xsl\" type=\"text/xsl\"?>\r\n";
 	$_xml .="<diagnostic>\r\n"; 
 	while ($r = mysql_fetch_array($result)) 
@@ -236,10 +236,10 @@ print ("le tableau implicite :  ");print_r($tabImp);print ("<br><br><br><br>"); 
 	 
 	  } 
 	$_xml .="</diagnostic>"; 
-	fwrite($file, $_xml); 
+	fwrite($file, utf8_encode($_xml)); 
 	fclose($file); 
-	//echo "le fichier XML vient d'être créer.  <a href=\"diagXMLphp.php\">visualiser</a><br/>"; 	
-		echo "Le fichier vient d'être créer.  <a href=\"diagXMLetape.xml\">visualiser</a><br/>"; 	
+	//echo "le fichier XML vient d'être créer.  <a href=\"diagnostics\\diagXMLphp.php\">visualiser</a><br/>"; 	
+		echo "Le fichier vient d'être créer.  <a href=\"diagnostics\\diagXMLetape.xml\">visualiser</a><br/>"; 	
 
 } 
 else 

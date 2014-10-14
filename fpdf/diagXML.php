@@ -1,17 +1,17 @@
 <?php 
-require_once("mac_test/conn.php");
+require_once("conn.php");
 //$requete1 = "select * from diagnostic where numEleve =".$_POST["numDiag"];
 //$requete1 = "select * from diagnostic where colonne1 = 7 and colonne6=2";//".$_POST["numDiag"];
-$requete1 = "select * from diagnostic where numEleve =".$numEleve." and numTrace =".$k[$i]);
+$requete1 = "select * from diagnostic where numEleve =".$numEleve." and numTrace =".$k[$i];
 //$requete1 = "select * from diagnostic where numDiag between 34 and 377";
 
 $result = mysql_query($requete1) or die("Impossible d'interroger la base de données");
 $num = mysql_num_rows($result);
 if ($num != 0) 
 { 
-	$file= fopen("diagXML.xml", "w"); 
-	$_xml ="<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>\r\n"; 
-	$_xml .="<?xml-stylesheet href=\"diag.xsl\" type=\"text/xsl\"?>\r\n";
+	$file= fopen("diagnostics\\diagXML.xml", "w"); 
+	$_xml ="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"; 
+	$_xml .="<?xml-stylesheet href=\"..\\static\\diag.xsl\" type=\"text/xsl\"?>\r\n";
 	$_xml .="<diagnostic>\r\n"; 
 	while ($r = mysql_fetch_array($result)) 
 	 { 
@@ -607,9 +607,9 @@ if ($num != 0)
 	 
 	  } 
 	$_xml .="</diagnostic>"; 
-	fwrite($file, $_xml); 
+	fwrite($file, utf8_encode($_xml)); 
 	fclose($file); 
-	echo "le fichier XML vient d'être créer.  <a href=\"diagXMLphp.php\">visualiser</a><br/>"; 	
+	echo "le fichier XML vient d'être cr&eacute;&eacute;.  <a href=\"diagnostics\\diagXMLphp.php\">visualiser</a><br/>"; 	
 } 
 else 
 { 

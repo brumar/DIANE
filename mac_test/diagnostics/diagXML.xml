@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet href="diag.xsl" type="text/xsl"?>
+<diagnostic>
+<exercice numTrace='3184'>
+<enonce>Dans la famille Richard , il y a 5 personnes . Quand les Richard partent en vacances avec les Robert , ils sont 7 à l' hôtel .<br/>Dans la famille Dumas , il y a 3 personnes de moins que dans la famille Richard . Les Robert partent en vacances avec les Dumas .<br/>Combien seront - ils à l' hôtel ?</enonce>
+<reponse>La <br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="t" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3185'>
+<enonce>Dans la famille Richard , il y a 5 personnes . Quand les Richard partent en vacances avec les Robert , ils sont 7 à l' hôtel .<br/>Dans la famille Dumas , il y a 3 personnes de moins que dans la famille Richard . Les Robert partent en vacances avec les Dumas .<br/>Combien seront - ils à l' hôtel ?</enonce>
+<reponse>La <br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="t" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3186'>
+<enonce>Daniel achète à la librairie un cahier qui coûte 7 Euros et une règle . Il paie 12 Euros .<br/>Clément achète une règle et un feutre . Il paie 2 Euros de moins que Daniel .<br/>Combien coûte le feutre ?</enonce>
+<reponse>d</reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3187'>
+<enonce>Laurent achète au supermarché un classeur qui coûte 8 Euros et des ciseaux . Il paie 14 Euros .<br/>Un feutre coûte 3 Euros de moins qu' un classeur . Augustin achète des ciseaux et un feutre .<br/>Combien doit - il payer ?</enonce>
+<reponse>s</reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="t" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="t" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="t" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3189'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Paul 312<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me correctement</resolution>
+<prenom col1="6">B</prenom>
+<nbOper nbOper="0" calImp="1" sexe="m" col1="6">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="6" col2="9" col16="8" type="a">
+Non identifiable mais la solution est incorrecte</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="6" code="0" q="p" col1="6" col2="9" col6="9" col15="0" col16="8" type="a">
+implicite<res>312</res>
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="0" code="0">
+implicite</colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="3" 
+					   str="6" col14="0" col15="0" code="8">
+erreur<res>(312)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="8" col14="0" nbOper="0" str="6">
+erreur</colonne16>
+<commentaire sol="3" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="0" col15="0" col16="8" col17="8" nbOper="0" str="6">
+</commentaire>
+</exercice>
+<exercice numTrace='3190'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Paul 312<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me correctement</resolution>
+<prenom col1="6">B</prenom>
+<nbOper nbOper="0" calImp="1" sexe="m" col1="6">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="6" col2="9" col16="8" type="a">
+Non identifiable mais la solution est incorrecte</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="6" code="0" q="p" col1="6" col2="9" col6="9" col15="0" col16="8" type="a">
+implicite<res>312</res>
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="0" code="0">
+implicite</colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="3" 
+					   str="6" col14="0" col15="0" code="8">
+erreur<res>(312)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="8" col14="0" nbOper="0" str="6">
+erreur</colonne16>
+<commentaire sol="3" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="0" col15="0" col16="8" col17="8" nbOper="0" str="6">
+</commentaire>
+</exercice>
+<exercice numTrace='3191'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>124 - 3 = place<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me correctement</resolution>
+<prenom col1="4">B</prenom>
+<nbOper nbOper="1" calImp="0" sexe="m" col1="4">un</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="1" code="4" col2="9" col16="1" type="a">
+Non pertinent</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="1" str="4" code="5" q="p" col1="4" col2="9" col6="9" col15="2" col16="1" type="a">
+autre</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="5" code="2">
+soustraction <op>(124-3)</op>
+</colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="1" sol="3" 
+					   str="4" col14="5" col15="2" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="1" col14="5" nbOper="1" str="4">
+L'Ã©chec Ã  cette derniÃ¨re opÃ©ration repose sur un choix incorrect des valeurs</colonne16>
+<commentaire sol="3" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="5" col15="2" col16="1" col17="9" nbOper="1" str="4">
+</commentaire>
+</exercice>
+<exercice numTrace='3192'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Caisse trouve combien moment<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3193'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>124 plus place que<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me correctement</resolution>
+<prenom col1="6">B</prenom>
+<nbOper nbOper="0" calImp="1" sexe="m" col1="6">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="6" col2="9" col16="8" type="a">
+Non identifiable mais la solution est incorrecte</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="6" code="0" q="p" col1="6" col2="9" col6="9" col15="0" col16="8" type="a">
+implicite<res>124</res>
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="0" code="0">
+implicite</colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="3" 
+					   str="6" col14="0" col15="0" code="8">
+erreur<res>(124)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="8" col14="0" nbOper="0" str="6">
+erreur</colonne16>
+<commentaire sol="3" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="0" col15="0" col16="8" col17="8" nbOper="0" str="6">
+</commentaire>
+</exercice>
+<exercice numTrace='3194'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Belle en Euros place<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3195'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Vêtements que<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3196'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Euros trouve un trouve<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me correctement</resolution>
+<prenom col1="6">B</prenom>
+<nbOper nbOper="0" calImp="1" sexe="m" col1="6">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="6" col2="9" col16="8" type="a">
+Non identifiable mais la solution est incorrecte</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="6" code="0" q="p" col1="6" col2="9" col6="9" col15="0" col16="8" type="a">
+implicite<res>1</res>
+</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="0" code="0">
+implicite</colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="3" 
+					   str="6" col14="0" col15="0" code="8">
+erreur<res>(1)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="8" col14="0" nbOper="0" str="6">
+erreur</colonne16>
+<commentaire sol="3" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="0" col15="0" col16="8" col17="8" nbOper="0" str="6">
+</commentaire>
+</exercice>
+<exercice numTrace='3197'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Place pour belle vêtements<br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3198'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse> = veste <br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3199'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Prend 3 + 2 = 6 vêtements <br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me correctement</resolution>
+<prenom col1="4">B</prenom>
+<nbOper nbOper="1" calImp="0" sexe="m" col1="4">un</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="1" code="4" col2="9" col16="1" type="a">
+Non pertinent</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="1" str="4" code="5" q="p" col1="4" col2="9" col6="9" col15="4" col16="1" type="a">
+autre</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="5" code="4">
+addition <op>(3+2)</op>
+</colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="1" sol="3" 
+					   str="4" col14="5" col15="4" code="1">
+erreur<res>(6)</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="1" col14="5" nbOper="1" str="4">
+L'Ã©chec Ã  cette derniÃ¨re opÃ©ration repose sur un choix incorrect des valeurs</colonne16>
+<commentaire sol="3" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="5" col15="4" col16="1" col17="1" nbOper="1" str="4">
+</commentaire>
+</exercice>
+<exercice numTrace='3200'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3201'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3202'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3203'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3204'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3205'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3206'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3207'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3208'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Finalement <br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+<exercice numTrace='3209'>
+<enonce>Paul va à la boutique pour sacheter des vêtements pour un mariage . Il achète une veste en soie à 124 Euros et un pantalon . Le prix total est de 312 Euros .<br/>Au moment daller à la caisse , il voit une veste en lin quil trouve plus belle que la veste en soie et la prend à la place . Il paie finalement 5 euros de moins pour ses vêtements .<br/>Combien coûte la veste en lin ?</enonce>
+<reponse>Que soie <br/></reponse>
+<nom>B M</nom>
+<resolution> n'a pas rÃ©solu le problÃ¨me</resolution>
+<prenom col1="9">B</prenom>
+<nbOper nbOper="0" calImp="0" sexe="m" col1="9">zÃ©ro</nbOper>
+<colonne1 sexe="m" intitule="strategie" q="p" nbOper="0" code="9" col2="9" col16="9" type="a">
+absence</colonne1>
+<colonne14 sexe="m" intitule="nature de ce qui est calculÃ©" nbOper="0" str="9" code="9" q="p" col1="9" col2="9" col6="9" col15="9" col16="9" type="a">
+absence</colonne14>
+<colonne15 sexe="m" intitule="calcule du rÃ©sultat final" col14="9" code="9">
+absence </colonne15>
+<colonne17 sexe="m" intitule="rÃ©sultat du calcul final" nbOper="0" sol="4" 
+					   str="9" col14="9" col15="9" code="9">
+rÃ©sultat absent<res>()</res></colonne17>
+<colonne16 sexe="m" intitule="pertinence des donnÃ©es de l'opÃ©ration" code="9" col14="9" nbOper="0" str="9">
+pas d'opÃ©ration posÃ©e</colonne16>
+<commentaire sol="4" sexe="m" type="a" q="p" qi="0" 
+		col2="9" col3="9" col4="9"
+		col6="9" col7="9" col8="9"
+		col10="9" col11="9" col12="9"
+		col14="9" col15="9" col16="9" col17="9" nbOper="0" str="9">
+</commentaire>
+</exercice>
+</diagnostic>

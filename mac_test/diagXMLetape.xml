@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
-<?xml-stylesheet href="diag_etape.xsl" type="text/xsl"?>
+<?xml-stylesheet href="static/xsl/diag_etape.xsl" type="text/xsl"?>
 <diagnostic>
 <exercice numTrace='3966'>
 <enonce>jean a 8 ans , quel age aura t - il dans 1<br/>an ?</enonce>

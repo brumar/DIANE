@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<xsl:output encoding="iso-8859-1"/>
+	<xsl:output encoding="UTF-8"/>
 	<xsl:template match="diagnostic">
 				<xsl:apply-templates select="exercice"/>
 	</xsl:template>
 	<xsl:template match="exercice">						
 					<xsl:value-of select="nom"/>
 					<xsl:value-of select="resolution"/>.
-                    Cet élève a procédé de la manière suivante :
+                    Cet Ã©lÃ¨ve a procÃ©dÃ© de la maniÃ¨re suivante :
                     <xsl:apply-templates/>
 	</xsl:template>
 	<xsl:template match="enonce"/>
@@ -16,31 +16,31 @@
 	<xsl:template match="resolution"/>
 	<xsl:template match="nbOper">
 		<xsl:choose>
-			<xsl:when test="@nbOper>1">Sa résolution s'est faite en <xsl:value-of select="."/> calculs.</xsl:when>
-			<xsl:when test="@nbOper=1">Sa résolution s'est faite en <xsl:value-of select="."/> calcul.</xsl:when>
-			<xsl:when test="@nbOper=0">Il n'a pas posé d'opérations.</xsl:when>
+			<xsl:when test="@nbOper>1">Sa rÃ©solution s'est faite en <xsl:value-of select="."/> calculs.</xsl:when>
+			<xsl:when test="@nbOper=1">Sa rÃ©solution s'est faite en <xsl:value-of select="."/> calcul.</xsl:when>
+			<xsl:when test="@nbOper=0">Il n'a pas posÃ© d'opÃ©rations.</xsl:when>
 		</xsl:choose> 
 	</xsl:template>
 	<xsl:template match="colonne1">
 		<xsl:choose>
-			<xsl:when test="@code=1">Tout d'abord, cet élève a calculé la partie manquante, en faisant </xsl:when>
-			<xsl:when test="@code=2 and @type=&quot;e&quot; and @q=&quot;p&quot;">Tout d'abord, cet élève a calculé l'écart entre la valeur du tout initial (<xsl:value-of select="tout1"/>) et la valeur du tout final (<xsl:value-of select="tout2"/>). </xsl:when>
-			<xsl:when test="@code=2 and @type=&quot;e&quot; and @q=&quot;t&quot;">Tout d'abord, cet élève a calculé l'écart entre la valeur de la partie initial (<xsl:value-of select="partie1"/>) et la valeur du tout final (<xsl:value-of select="partie2"/>). </xsl:when>
-			<xsl:when test="@code=2 and @type=&quot;a&quot; and @q=&quot;p&quot;">Cet élève a calculé directement la solution en utilisant l'écart (<xsl:value-of select="valdiff"/>) entre la valeur de la partie initial (<xsl:value-of select="partie1"/>) et la valeur de la partie recherchée. </xsl:when>
-			<xsl:when test="@code=2 and @type=&quot;a&quot; and @q=&quot;t&quot;">Cet élève a calculé directement la solution en utilisant l'écart (<xsl:value-of select="valdiff"/>) entre la valeur du tout initial (<xsl:value-of select="tout1"/>) et la valeur de la partie recherchée. </xsl:when>
-			<xsl:when test="@code=3">Tout d'abord, cet élève a calculé la partie manquante, en faisant </xsl:when>
-			<xsl:when test="@code=4 and @nbOper>1">Tout d'abord, cet élève a fait </xsl:when>
-			<xsl:when test="@code=4"><!--Il a utilisé une <xsl:value-of select="@intitule"/><xsl:value-of select="."/>, --></xsl:when>
-			<xsl:when test="@code=5">Il a utilisé une stratégie non identifiée qui l'a </xsl:when>
-			<xsl:when test="@code=6">Il a effectué des calculs mentaux non identifiées. </xsl:when>
-			<xsl:when test="@code=7">Tout d'abord, cet élève a réalisé l'opération de comparaison, </xsl:when>
+			<xsl:when test="@code=1">Tout d'abord, cet Ã©lÃ¨ve a calculÃ© la partie manquante, en faisant </xsl:when>
+			<xsl:when test="@code=2 and @type=&quot;e&quot; and @q=&quot;p&quot;">Tout d'abord, cet Ã©lÃ¨ve a calculÃ© l'Ã©cart entre la valeur du tout initial (<xsl:value-of select="tout1"/>) et la valeur du tout final (<xsl:value-of select="tout2"/>). </xsl:when>
+			<xsl:when test="@code=2 and @type=&quot;e&quot; and @q=&quot;t&quot;">Tout d'abord, cet Ã©lÃ¨ve a calculÃ© l'Ã©cart entre la valeur de la partie initial (<xsl:value-of select="partie1"/>) et la valeur du tout final (<xsl:value-of select="partie2"/>). </xsl:when>
+			<xsl:when test="@code=2 and @type=&quot;a&quot; and @q=&quot;p&quot;">Cet Ã©lÃ¨ve a calculÃ© directement la solution en utilisant l'Ã©cart (<xsl:value-of select="valdiff"/>) entre la valeur de la partie initial (<xsl:value-of select="partie1"/>) et la valeur de la partie recherchÃ©e. </xsl:when>
+			<xsl:when test="@code=2 and @type=&quot;a&quot; and @q=&quot;t&quot;">Cet Ã©lÃ¨ve a calculÃ© directement la solution en utilisant l'Ã©cart (<xsl:value-of select="valdiff"/>) entre la valeur du tout initial (<xsl:value-of select="tout1"/>) et la valeur de la partie recherchÃ©e. </xsl:when>
+			<xsl:when test="@code=3">Tout d'abord, cet Ã©lÃ¨ve a calculÃ© la partie manquante, en faisant </xsl:when>
+			<xsl:when test="@code=4 and @nbOper>1">Tout d'abord, cet Ã©lÃ¨ve a fait </xsl:when>
+			<xsl:when test="@code=4"><!--Il a utilisÃ© une <xsl:value-of select="@intitule"/><xsl:value-of select="."/>, --></xsl:when>
+			<xsl:when test="@code=5">Il a utilisÃ© une stratÃ©gie non identifiÃ©e qui l'a </xsl:when>
+			<xsl:when test="@code=6">Il a effectuÃ© des calculs mentaux non identifiÃ©es. </xsl:when>
+			<xsl:when test="@code=7">Tout d'abord, cet Ã©lÃ¨ve a rÃ©alisÃ© l'opÃ©ration de comparaison, </xsl:when>
 			<xsl:otherwise/>
 		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="colonne2">
 		<xsl:choose>
-			<xsl:when test="@code='0'">le calcul de manière <xsl:value-of select="."/>.</xsl:when>
+			<xsl:when test="@code='0'">le calcul de maniÃ¨re <xsl:value-of select="."/>.</xsl:when>
 			<xsl:when test="@code='1' or @code='2' or @code='3' or @code='7'"> une <xsl:value-of select="."/><xsl:text>. </xsl:text></xsl:when>
 			<xsl:when test="@code=4">une <xsl:value-of select="."/>.</xsl:when>
 
@@ -57,8 +57,8 @@
 	
 	<xsl:template match="colonne3">
 		<xsl:choose>
-            <xsl:when test="@code=0 and @col2=4"> Le résultat de cette opération n'a pas de sens relativement à l'énoncé. </xsl:when>
-            <!-- <xsl:when test="@code=1">les données utilisées pour son opération sont <xsl:value-of select="."/>, </xsl:when>
+            <xsl:when test="@code=0 and @col2=4"> Le rÃ©sultat de cette opÃ©ration n'a pas de sens relativement Ã  l'Ã©noncÃ©. </xsl:when>
+            <!-- <xsl:when test="@code=1">les donnÃ©es utilisÃ©es pour son opÃ©ration sont <xsl:value-of select="."/>, </xsl:when>
             <xsl:when test="@code=9"></xsl:when>-->
         </xsl:choose>
 	</xsl:template>
@@ -66,38 +66,38 @@
 	<xsl:template match="colonne6">
 		
         <xsl:choose>
-			<xsl:when test="@code='0' and @nbOper=0">Il a réalisé l'opération de comparaison à partir de calculs mentaux</xsl:when>
-			<xsl:when test="@code='0'">Ensuite, il a réalisé l'opération de comparaison à partir de calculs mentaux</xsl:when>
+			<xsl:when test="@code='0' and @nbOper=0">Il a rÃ©alisÃ© l'opÃ©ration de comparaison Ã  partir de calculs mentaux</xsl:when>
+			<xsl:when test="@code='0'">Ensuite, il a rÃ©alisÃ© l'opÃ©ration de comparaison Ã  partir de calculs mentaux</xsl:when>
 			<xsl:when test="(@code='1' or @code='2' or @code='3' or @code='4' or @code='7') and (@str='7')">par une <xsl:value-of select="."/><xsl:text>, </xsl:text></xsl:when>
 		 <xsl:when test="@code='1' or @code='2' or @code='3' or @code='4' or @code='7'">
-				Ensuite, il a réalisé l'opération de comparaison, par  une <xsl:value-of select="."/><xsl:text>, </xsl:text>
+				Ensuite, il a rÃ©alisÃ© l'opÃ©ration de comparaison, par  une <xsl:value-of select="."/><xsl:text>, </xsl:text>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="colonne7">
 		<!-- <xsl:choose>
-            <xsl:when test="@code=0">les données utilisées pour son opération sont <xsl:value-of select="."/>, </xsl:when>
-            <xsl:when test="@code=1">les données utilisées pour son opération sont <xsl:value-of select="."/>, </xsl:when>
+            <xsl:when test="@code=0">les donnÃ©es utilisÃ©es pour son opÃ©ration sont <xsl:value-of select="."/>, </xsl:when>
+            <xsl:when test="@code=1">les donnÃ©es utilisÃ©es pour son opÃ©ration sont <xsl:value-of select="."/>, </xsl:when>
             <xsl:when test="@code=9"></xsl:when>
         </xsl:choose>-->
 	</xsl:template>
 	<xsl:template match="colonne8">
 		<xsl:choose>
-			<xsl:when test="@code='0'"> et il a trouvé un <xsl:value-of select="@intitule"/> <xsl:value-of select="."/>. </xsl:when>
+			<xsl:when test="@code='0'"> et il a trouvÃ© un <xsl:value-of select="@intitule"/> <xsl:value-of select="."/>. </xsl:when>
 			<xsl:when test="@code='1' or @code='2'"> il a fait une <xsl:value-of select="."/> de calcul. </xsl:when>
 			<xsl:when test="9"/>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="colonne10">
 		<xsl:choose>
-			<xsl:when test="@code='0'"> Pour le <xsl:value-of select="@intitule"/> il a utilisé un  calcul <xsl:value-of select="."/></xsl:when>
-			<xsl:when test="@code='1' or @code='2'"> Il a utilisé une <xsl:value-of select="."/><xsl:text>, </xsl:text></xsl:when>
+			<xsl:when test="@code='0'"> Pour le <xsl:value-of select="@intitule"/> il a utilisÃ© un  calcul <xsl:value-of select="."/></xsl:when>
+			<xsl:when test="@code='1' or @code='2'"> Il a utilisÃ© une <xsl:value-of select="."/><xsl:text>, </xsl:text></xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="colonne11"/>
 	<xsl:template match="colonne12">
 		<xsl:choose>
-			<xsl:when test="@code='0'"> et il a trouvé un <xsl:value-of select="@intitule"/>
+			<xsl:when test="@code='0'"> et il a trouvÃ© un <xsl:value-of select="@intitule"/>
 				<xsl:value-of select="."/>. </xsl:when>
 			<xsl:when test="@code='1' or @code='2'"> il a fait une <xsl:value-of select="."/> de calcul. </xsl:when>
 			<xsl:when test="9"/>
@@ -106,23 +106,23 @@
 	
 	<xsl:template match="colonne14">
 		<xsl:choose>
-			<xsl:when test="@code=0 and @nbOper=0 and @str=6">Le résultat donné n'a pas de sens relativement à l'énoncé.</xsl:when>
-			<xsl:when test="@code=0 and @nbOper=0 and @str=5">mené à une solution correcte à partir de calculs mentaux.</xsl:when>
+			<xsl:when test="@code=0 and @nbOper=0 and @str=6">Le rÃ©sultat donnÃ© n'a pas de sens relativement Ã  l'Ã©noncÃ©.</xsl:when>
+			<xsl:when test="@code=0 and @nbOper=0 and @str=5">menÃ© Ã  une solution correcte Ã  partir de calculs mentaux.</xsl:when>
 			<xsl:when test="@code=0">Pour le calcul final, il a fait un calcul <xsl:value-of select="."/>, </xsl:when>
-			<xsl:when test="@code=1 and @nbOper =1 and @str=4">Le calcul effectué correspond au calcul de la première partie manquante. Il a utilisé une </xsl:when>
-			<xsl:when test="@code=1 or @code =2">Pour le calcul final, qui correspond au calcul d'<xsl:value-of select="."/>. Il a utilisé une </xsl:when>
-			<xsl:when test="@code=3 and @col1=3 and @type =&quot;a&quot;  and @q = &quot;t&quot;">Pour le calcul final, l'élève a calculé directement la solution en utilisant l'écart (<xsl:value-of select="valdiff"/>) entre la valeur du tout initial (<xsl:value-of select="tout1"/>) et la valeur de la partie recherchée. Il a utilisé une </xsl:when>
-			<xsl:when test="@code=3 and @col1=3 and @type =&quot;a&quot;  and @q = &quot;p&quot;">Pour le calcul final, l'élève a calculé directement la solution en utilisant l'écart (<xsl:value-of select="valdiff"/>) entre la valeur de la partie initial (<xsl:value-of select="partie1"/>) et la valeur de la partie recherchée. Il a utilisé une </xsl:when>
-			<xsl:when test="@code=3 and @col15=0 and @type=&quot;a&quot;">Pour le calcul final, il correspond au calcul de la comaraison. Il a utilisé des calculs mentaux.</xsl:when>
-			<xsl:when test="@code=3"><xsl:value-of select="."/>Pour le calcul final, Il a utilisé une </xsl:when>
-			<xsl:when test="@code=4">Pour le calcul final, il utilise <xsl:value-of select="."/>. Il a utilisé une </xsl:when>
-			<xsl:when test="@code=41 and @q='p' and @str=1">Pour le calcul final, la question finale porte sur une partie. Il aurait donc fallu une opération de soustration, au lieu de l' </xsl:when>
-			<xsl:when test="@code=42 and @q='t' and @str=1">Pour le calcul final, la question finale porte sur un tout. ll aurait donc fallu une opération d'addition, au lieu de la </xsl:when>
-		    <xsl:when test="@code=51">Pour le calcul final, il a utilisé plusieurs opérations qui ne mènent pas à la solution. Dans son dernier calcul, il a fait une</xsl:when>
+			<xsl:when test="@code=1 and @nbOper =1 and @str=4">Le calcul effectuÃ© correspond au calcul de la premiÃ¨re partie manquante. Il a utilisÃ© une </xsl:when>
+			<xsl:when test="@code=1 or @code =2">Pour le calcul final, qui correspond au calcul d'<xsl:value-of select="."/>. Il a utilisÃ© une </xsl:when>
+			<xsl:when test="@code=3 and @col1=3 and @type =&quot;a&quot;  and @q = &quot;t&quot;">Pour le calcul final, l'Ã©lÃ¨ve a calculÃ© directement la solution en utilisant l'Ã©cart (<xsl:value-of select="valdiff"/>) entre la valeur du tout initial (<xsl:value-of select="tout1"/>) et la valeur de la partie recherchÃ©e. Il a utilisÃ© une </xsl:when>
+			<xsl:when test="@code=3 and @col1=3 and @type =&quot;a&quot;  and @q = &quot;p&quot;">Pour le calcul final, l'Ã©lÃ¨ve a calculÃ© directement la solution en utilisant l'Ã©cart (<xsl:value-of select="valdiff"/>) entre la valeur de la partie initial (<xsl:value-of select="partie1"/>) et la valeur de la partie recherchÃ©e. Il a utilisÃ© une </xsl:when>
+			<xsl:when test="@code=3 and @col15=0 and @type=&quot;a&quot;">Pour le calcul final, il correspond au calcul de la comaraison. Il a utilisÃ© des calculs mentaux.</xsl:when>
+			<xsl:when test="@code=3"><xsl:value-of select="."/>Pour le calcul final, Il a utilisÃ© une </xsl:when>
+			<xsl:when test="@code=4">Pour le calcul final, il utilise <xsl:value-of select="."/>. Il a utilisÃ© une </xsl:when>
+			<xsl:when test="@code=41 and @q='p' and @str=1">Pour le calcul final, la question finale porte sur une partie. Il aurait donc fallu une opÃ©ration de soustration, au lieu de l' </xsl:when>
+			<xsl:when test="@code=42 and @q='t' and @str=1">Pour le calcul final, la question finale porte sur un tout. ll aurait donc fallu une opÃ©ration d'addition, au lieu de la </xsl:when>
+		    <xsl:when test="@code=51">Pour le calcul final, il a utilisÃ© plusieurs opÃ©rations qui ne mÃ¨nent pas Ã  la solution. Dans son dernier calcul, il a fait une</xsl:when>
   
-		    <xsl:when test="@code=5 and @nbOper =1 and @str=4">Le calcul effectué est erroné. Il a utilisé une </xsl:when>
-		    <xsl:when test="@code=5 and @str=7">Pour le calcul final, il a utilsé une</xsl:when>
-		    <xsl:when test="@code=5 and @col15=8">Pour le calcul final, il a utilisé une opération non pertinente</xsl:when>
+		    <xsl:when test="@code=5 and @nbOper =1 and @str=4">Le calcul effectuÃ© est erronÃ©. Il a utilisÃ© une </xsl:when>
+		    <xsl:when test="@code=5 and @str=7">Pour le calcul final, il a utilsÃ© une</xsl:when>
+		    <xsl:when test="@code=5 and @col15=8">Pour le calcul final, il a utilisÃ© une opÃ©ration non pertinente</xsl:when>
 		    <xsl:when test="@code=5">Pour le calcul final, qui correspond <xsl:value-of select="."/>,</xsl:when>
 			<xsl:when test="@code=9"/>
 		</xsl:choose>
@@ -141,24 +141,24 @@
 	
 	<xsl:template match="colonne17">
 		<xsl:choose>
-			<xsl:when test="@code=0 and @sol=3 and @nbOper>1">Concernant cette opération, il n'a pas fait d'erreur de calcul <xsl:value-of select="./res"/>.</xsl:when>
+			<xsl:when test="@code=0 and @sol=3 and @nbOper>1">Concernant cette opÃ©ration, il n'a pas fait d'erreur de calcul <xsl:value-of select="./res"/>.</xsl:when>
 			<xsl:when test="@code=0 and @nbOper>1"> Il n'a pas fait d'erreur pour ce calcul<xsl:value-of select="./res"/>.</xsl:when>
-			<xsl:when test="@code=0 and @col14=0 and @col15=0"> qui mène à un resultat correct<xsl:value-of select="res"/></xsl:when>
+			<xsl:when test="@code=0 and @col14=0 and @col15=0"> qui mÃ¨ne Ã  un resultat correct<xsl:value-of select="res"/></xsl:when>
 			<xsl:when test="@code=0 and @nbOper=0"></xsl:when>
 			<xsl:when test="@code=0">  Il n'a pas fait d'erreur de calcul <xsl:value-of select="./res"/>.</xsl:when>
 			<xsl:when test="@code=1">  Il a commis une une petite erreur de calcul <xsl:value-of select="res"/>.</xsl:when>
 			<xsl:when test="@code=2">  Il a commis une erreur de calcul <xsl:value-of select="res"/>.</xsl:when>
-			<xsl:when test="@code=9 and @col14=0 and @col15=0"> qui mène à un resultat incorrect<xsl:value-of select="res"/></xsl:when>
+			<xsl:when test="@code=9 and @col14=0 and @col15=0"> qui mÃ¨ne Ã  un resultat incorrect<xsl:value-of select="res"/></xsl:when>
 			<xsl:when test="@code=9"/>
 		</xsl:choose>
 	</xsl:template>	
 	
 	<xsl:template match="colonne16">
 		<xsl:choose>
-			<xsl:when test="@code=0"> <!-- Les données utilisées pour l'opération finale sont<xsl:value-of select="."/>.--></xsl:when>
-			<xsl:when test="@code=1 and @nbOper=1 and @str=4 and @col14=1"> Les données utilisées sont pertinente pour le calcul de la première partie manquante, mais pas pour l'opération finale.</xsl:when>
-			<xsl:when test="@code=1 and @nbOper=1 and @str=4 and @col14=5"> Le résultat de cette opération n' a pas de sens relativement à l'énoncé.</xsl:when>
-			<xsl:when test="@code=1 and @col14=4 and @str=4"> Le résultat de cette opération n' a pas de sens relativement à l'énoncé.</xsl:when>
+			<xsl:when test="@code=0"> <!-- Les donnÃ©es utilisÃ©es pour l'opÃ©ration finale sont<xsl:value-of select="."/>.--></xsl:when>
+			<xsl:when test="@code=1 and @nbOper=1 and @str=4 and @col14=1"> Les donnÃ©es utilisÃ©es sont pertinente pour le calcul de la premiÃ¨re partie manquante, mais pas pour l'opÃ©ration finale.</xsl:when>
+			<xsl:when test="@code=1 and @nbOper=1 and @str=4 and @col14=5"> Le rÃ©sultat de cette opÃ©ration n' a pas de sens relativement Ã  l'Ã©noncÃ©.</xsl:when>
+			<xsl:when test="@code=1 and @col14=4 and @str=4"> Le rÃ©sultat de cette opÃ©ration n' a pas de sens relativement Ã  l'Ã©noncÃ©.</xsl:when>
 			<xsl:when test="@code=1 and @str=7"></xsl:when>			
 			<xsl:when test="@code=1"><xsl:value-of select="."/>. </xsl:when>
 			<xsl:when test="@code=2"><xsl:value-of select="."/>. </xsl:when>

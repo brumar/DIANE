@@ -17,7 +17,7 @@ $arguments = array(
 $result = xslt_process($xh, 'arg:/_xml', 'arg:/_xsl', NULL, $arguments);
 
 xslt_free($xh);
-$result=ereg_replace("<\?xml version=\"1.0\" encoding=\"iso-8859-1\"\?>","",$result);
+$result=ereg_replace("<\?xml version=\"1.0\" encoding=\"UTF-8\"\?>","",$result);
 $result=eregi_replace("/[\s| +|\f\n\r\t]/","",$result);
 
 print "$result";

@@ -59,9 +59,9 @@
 		<li><a href="formTracePDF.php">Télécharger le fichier de trace d'un élève en PDF</a></li>
 		<li>
 			<h5>Sortie en langage naturel</h5>
-			   <li><a href="../formDiag.php?type=e">Problèmes additifs complexes</a></li>
-			      <li> <a href="../formDiag.php?type=d">Problèmes de distributivité</a> </li>
-		          <li> <a href="../formDiag.php?type=etape">Problèmes &agrave; une  étape</a></li>
+			   <li><a href="formDiag.php?type=e">Problèmes additifs complexes</a></li>
+			      <li> <a href="formDiag.php?type=d">Problèmes de distributivité</a> </li>
+		          <li> <a href="formDiag.php?type=etape">Problèmes &agrave; une  étape</a></li>
 		   
 				</ul>
 			
