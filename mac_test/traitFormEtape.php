@@ -170,7 +170,7 @@
 		$result = mysql_query($Requete_SQL1) or die("Erreur d'Insertion dans la base : ". $Requete_SQL1 .'<br />'. mysql_error());
 ?>
 <?php
-header('Location: ../mac_test/affichage_etape.php');
+header('Location: affichage_etape.php');
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.0 //EN"> <html><head>
 <title>Traitement des problèmes à une étape</title></head><body>

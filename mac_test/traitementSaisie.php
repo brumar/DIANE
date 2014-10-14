@@ -131,9 +131,9 @@
 //echo $Requete_SQL1;exit();
 
 if($_POST['typePB']=="a")
-header('Location: ../mac_test/affichage_a.php');
+header('Location: affichage_a.php');
 else if($_POST['typePB']=="e")
-header('Location: ../mac_test/affichage_e.php'); 
+header('Location: affichage_e.php'); 
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.0 //EN"> <html><head>
 <title>Traitement Formulaire</title></head><body>

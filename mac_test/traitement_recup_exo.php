@@ -1,5 +1,5 @@
 <?php
-require_once('../mac_test/conn.php'); 
+require_once('conn.php'); 
 $id_session=session_id();//session en cours
 
 $numEleve_prec=$_GET["numEleve"];
@@ -67,7 +67,7 @@ for($i=1;$i<=$nbExo;$i++)
   else 
   {
 	$nbExo=$totalExo-$posExo+1; 	
-	$interface = "../mac_test/interfaceIE.php?lienRetour=oui&numSerie=".$numSerie."&nbExo=".$nbExo."&totalExo=".$totalExo."&numExo=".$posExo;
+	$interface = "interfaceIE.php?lienRetour=oui&numSerie=".$numSerie."&nbExo=".$nbExo."&totalExo=".$totalExo."&numExo=".$posExo;
 
   }
 	//echo($posExo.','.$nbExo.','.$totalExo);
