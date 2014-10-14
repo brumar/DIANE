@@ -68,7 +68,7 @@
       <td height="27"><h4><?php //echo($num); ?></h4><?php echo ("<a href=\"modif_enonce_etape.php?numExo=$num\">"); ?>Modifier</a></td>
 	  <td><?php echo($exo); ?></td>
 	  <td height="27"><?php echo($exercice); ?></td>
-            <td height="27"><?php echo ("<a href=\"#\" onClick=\"supprimer($num)\">"); ?><img src="../images/delete.png" width="24" height="24" alt="Supprimer" border="0"></a></td>
+            <td height="27"><?php echo ("<a href=\"#\" onClick=\"supprimer($num)\">"); ?><img src="static/images/delete.png" width="24" height="24" alt="Supprimer" border="0"></a></td>
     </tr>
     <?php
         } // Fin instruction while

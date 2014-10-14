@@ -63,7 +63,7 @@
     <tr> 
       <td height="27"><h4><?php //echo($num); ?></h4><?php echo ("<a href=\"modif_enonce.php?numExo=$num&typeExo=comparaison\">"); ?>Modifier</a></td>
 	  <td height="27"><?php echo($exo); ?></td>
-      <td height="27"><?php echo ("<a href=\"#\" onClick=\"supprimer($num)\">"); ?><img src="../images/delete.png" width="24" height="24" alt="Supprimer" border="0"></a></td>
+      <td height="27"><?php echo ("<a href=\"#\" onClick=\"supprimer($num)\">"); ?><img src="static/images/delete.png" width="24" height="24" alt="Supprimer" border="0"></a></td>
     </tr>
     <?php
         } // Fin instruction while
