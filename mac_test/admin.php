@@ -12,7 +12,7 @@
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>
 		<div style="width:400px;display:inline-block">
-				<a href="../index.html">Accueil</a> &nbsp;&nbsp;
+				<a href="index.html">Accueil</a> &nbsp;&nbsp;
 				<a href="eleve.html">Elève</a><br><br>
 				
 				<div class="form_description"></div>

@@ -11,7 +11,7 @@ require_once("conn.php");
 </head>
 <body>
 <p align="center">
-<a href="../index.html">Accueil</a> &nbsp;&nbsp;
+<a href="index.html">Accueil</a> &nbsp;&nbsp;
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
 <a href="eleve.html">Elève</a>
 </p>
