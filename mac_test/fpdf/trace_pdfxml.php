@@ -8,7 +8,7 @@ $pdf->AliasNbPages();
 //$pdf =new FPDF (); 
 	
 	$numEleve=trim($_POST["numEleve"]);
-	require_once("../mac_test/conn.php");
+	require_once("../conn.php");
 			$sql = "SELECT id FROM trace where numEleve=".$numEleve;
 			$result = mysql_query($sql) or die("Erreur de S&eacute;lection dans la base : ". $sql .'<br />'. mysql_error());
 	while($record = mysql_fetch_array($result))

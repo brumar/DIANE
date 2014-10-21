@@ -7,8 +7,8 @@
 <body>
 <p align="center">
 <a href="index.html">Accueil</a> &nbsp;&nbsp;
-<a href="mac_test/admin.php">Admin</a>&nbsp;&nbsp;
-<a href="mac_test/eleve.html">Elève</a>
+<a href="admin.php">Admin</a>&nbsp;&nbsp;
+<a href="eleve.html">Elève</a>
 </p>
 <?php 
 $type=$_GET["type"];

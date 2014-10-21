@@ -10,7 +10,7 @@
 <a href="admin.php">Admin</a>&nbsp;&nbsp;
 <a href="eleve.php">Elève</a>
 </p>
-<form action="../fpdf/trace_pdf2.php" method="post" target="_blank">
+<form action="fpdf/trace_pdf2.php" method="post" target="_blank">
   <h4 align="center">Choisissez un élève</h4>
   <p align="center"> 
     <?php 
