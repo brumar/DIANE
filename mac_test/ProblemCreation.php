@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Problème</title>
-<link rel="stylesheet" type="text/css" href="view.css" media="all">
-<script type="text/javascript" src="view.js"></script>
+<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
+<script type="text/javascript" src="static/js/view.js"></script>
 <script type="text/javascript">
 function submitmainform(element){
 
