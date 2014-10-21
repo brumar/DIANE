@@ -21,7 +21,7 @@ if (($_SESSION["terminer"])||($num=='')||($num==0))
 <head>
 <title>Interface</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<SCRIPT LANGUAGE=Javascript SRC="interface.js"> </SCRIPT>
+<SCRIPT LANGUAGE=Javascript SRC="static/js/interface.js"> </SCRIPT>
 </head>
 <body onload="masquer()">
 <h3 align="center"><font color="#0000CC"><?php print(strtoupper($_SESSION['prenom'])."   ".strtoupper($_SESSION['nom']));?></font></h3>

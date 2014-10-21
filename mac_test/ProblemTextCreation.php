@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
 <script type="text/javascript" src="static/js/view.js"></script>
 <script type="text/javascript" src="static/js/userscript.js"></script>
-<script type="text/javascript" src="scripts_enonce.js">
+<script type="text/javascript" src="static/js/scripts_enonce.js">
 </script>
 
 <?php 

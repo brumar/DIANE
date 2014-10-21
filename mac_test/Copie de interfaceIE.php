@@ -44,7 +44,7 @@ if (($_SESSION["terminer"])||($num=='')||($num==0))
 <head>
 <title>Interface IE</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<SCRIPT language=JavaScript src="interfaceIE.js"></script>
+<SCRIPT language=JavaScript src="static/js/interfaceIE.js"></script>
 <style type="text/css">
 <!--
 .champText {background-color: #EAEAEA;}

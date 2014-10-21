@@ -32,7 +32,7 @@ window.close();
 		position: absolute;
 	}
 </style>
-<script language="JavaScript" src="interfaceMac.js"></script>
+<script language="JavaScript" src="static/js/interfaceMac.js"></script>
 </head>
 <body onload="DivStatus(">
 <h3 align="center"><font color="#0000CC"><?php print(strtoupper($_SESSION['prenom'])."   ".strtoupper($_SESSION['nom']));?></font></h3>

@@ -99,7 +99,7 @@ if (($_SESSION["terminer"])||($num=='')||($num==0))
 <head>
 <title>DIANE</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<SCRIPT language="JavaScript" src="interfaceIE.js"></script>
+<SCRIPT language="JavaScript" src="static/js/interfaceIE.js"></script>
 <link rel="stylesheet" type="text/css" href="interfaceIE.css">
 </head>
 <body

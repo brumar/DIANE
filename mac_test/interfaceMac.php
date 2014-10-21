@@ -22,7 +22,7 @@ window.close();
 <head>
 <title>Interface</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script language="JavaScript" src="interfaceMac.js"></script>
+<script language="JavaScript" src="static/js/interfaceMac.js"></script>
 </head>
 <body onload="masquer();">
 <h3 align="center"><font color="#0000CC"><?php print(strtoupper($_SESSION['prenom'])."   ".strtoupper($_SESSION['nom']));?></font></h3>

@@ -2,7 +2,7 @@
 <head>
 <title>Formulaire d'inscription</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script language="JavaScript" src="formeleve.js"></script>
+<script language="JavaScript" src="static/js/formeleve.js"></script>
 </head>
 <body>
 <p align="center"><a href="eleve.html">Accueil</a></p>
