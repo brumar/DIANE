@@ -2,7 +2,7 @@
 
 function XMLexoDistrib() {
 	
-    require_once("../mac_test/conn.php");
+    require_once("../conn.php");
 	$requete = "select * from Distributivite";
 	$result = mysql_query($requete);
 	while($t=@mysql_fetch_array($result))

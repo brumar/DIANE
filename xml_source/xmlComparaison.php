@@ -1,7 +1,7 @@
 <?php
 function XMLexoComparaison() {
 	
-    require_once("../mac_test/conn.php");
+    require_once("../conn.php");
 	$requete = "select * from comparaison";
 	$result = mysql_query($requete);
 	$myXML="<exercicesComparaison>";

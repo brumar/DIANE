@@ -2,7 +2,7 @@
 
 function XMLexoEtape() {
 	
-    require_once("../mac_test/conn.php");
+    require_once("../conn.php");
 	$requete = "select * from etape";
 	$result = mysql_query($requete);
 	while($t=@mysql_fetch_array($result))
