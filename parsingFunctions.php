@@ -284,10 +284,10 @@ function createArray ($string){
 	$tab=explode(";",$string2);
 	return($tab);
 }
-$formulas=GetOperations("83+25=107  dadada 4*8=32");
+/* $formulas=GetOperations("83+25=107  dadada 4*8=32");
 foreach($formulas as $formula){
 var_dump(isRegularOperation($formula));
 if(isRegularOperation($formula)){
 	$richformulas=completeInformations($formula);
-}}
+}} */
 ?>
