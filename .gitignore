@@ -2,10 +2,6 @@
 # DIANE secret Files
 # =========================
 conn.php
-audio_comparaison_upload.php
-audio_comparaison.php
-audio_complement_upload.php
-audio_complement.php
 
 # Windows image file caches
 Thumbs.db
@@ -75,4 +71,3 @@ local.properties
 # =========================
 
 _notes/
-
