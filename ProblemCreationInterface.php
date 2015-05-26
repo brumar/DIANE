@@ -20,7 +20,7 @@
 		<label class="description" for="element_4">Ecriture d'un énoncé</label>	
 		<div>	<!-- <input id="property" type="button" name="prop" value="OK" onClick="parent.location='ProblemCreation.php'"/> -->
 		</div>
-		<a  href="TODO.php"><img src="static/images/pbm.png" heigth=40px width=52px style="cursor:hand;"></a>
+		<a  href="DirectProblemCreation.php"><img src="static/images/pbm.png" heigth=40px width=52px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide"><small>Choisissez cette option pour construire rapidement un nouveau problème</small></p>
 		</li>	</ul>	
 		
