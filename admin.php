@@ -37,10 +37,9 @@
 					
 						<h3>Séries d'exercices</h3>
 						
-							<li><a href="affEnonce-D2.php">Créer une série d'exercices</a></li>
-							<li><a href="supSerie.php">Supprimer une série d'exercices</a></li>
-							<li><a href="choixSerie.php">Choix des séries d'exercices</a></li>
-							<li><a href="affichage_e.php"></a></li>
+							<li><a href="createProblemSelection.php">Créer une série d'exercices</a></li>
+							<li><a href="deleteProblemSelection.php">Supprimer une série d'exercices</a></li>
+							<li><a href="promoteProblemSelection.php">Choix des séries d'exercices</a></li>
 					
 	
 				</ul>

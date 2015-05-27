@@ -23,10 +23,10 @@ mysql_close($BD_link);
 	
 	<div id="form_container">
 		<form id="form_470585" class="appnitro"  method="post" action="">
-		<p>Votre problème a bien été enregistré, <br>vous pouvez maintenant l'utiliser pour <a href="affEnonce-D2.php">
+		<p>Votre problème a bien été enregistré, <br>vous pouvez maintenant l'utiliser pour <a href="createProblemSelection.php">
 		l'inclure dans une nouvelle série d'exercices</a></p>
 		<a href="ProblemCreationInterface.php">Construire d'autres problèmes</a><br><br>
-		<a href="admin.php?">Retour</a>
+		<a href="admin.php">Retour</a>
 		</form>
 	</div>
 </body>

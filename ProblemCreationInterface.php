@@ -20,7 +20,7 @@
 		<label class="description" for="element_4">Ecriture d'un énoncé</label>	
 		<div>	<!-- <input id="property" type="button" name="prop" value="OK" onClick="parent.location='ProblemCreation.php'"/> -->
 		</div>
-		<a  href="TODO.php"><img src="static/images/pbm.png" heigth=40px width=52px style="cursor:hand;"></a>
+		<a  href="DirectProblemCreation.php"><img src="static/images/pbm.png" heigth=40px width=52px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide"><small>Choisissez cette option pour construire rapidement un nouveau problème</small></p>
 		</li>	</ul>	
 		
@@ -36,7 +36,7 @@
 		<div>
 			<!-- <input id="t" type="button" name="prop" value="OK" onClick="parent.location='affichage.php'"/>  -->
 		</div>
-		<a  href="affichage.php"><img src="static/images/template_modif.png" heigth=38px width=100px style="cursor:hand;"></a>
+		<a  href="copyATemplate.php"><img src="static/images/template_modif.png" heigth=38px width=100px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide_6"><small>Choisissez cette option pour construire un type de problème à partir d'un autre type de problème</small></p> 
 		</li>		<li id="li_7" >
 		<label class="description" for="element_7">Utiliser un template pour générer un problème </label>
