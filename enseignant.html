@@ -1,8 +1,16 @@
+<!DOCTYPE html>
+
 <html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="static/css/default.css" />
+		<title> DIANE enseignant </title>
+	</head>
+
 	<body>
-		<p align="center"> <a href="index.html">Accueil</a></p>    
-		<h3 align="center">Veuillez vous identifier pour continuer</h3>
-		<form method = post action = "enseignant.php">
+		<p> <a href="index.html">Accueil</a></p>    
+		<h3>Veuillez vous identifier pour continuer</h3>
+		<form method="post" action="enseignant.php">
 
 			<table border="0" align="center" cellspacing="0">
 				<tr>
@@ -20,5 +28,55 @@
 				</tr>
 			</table>
 		</form>
+		
+
+		<h3>Vous n'avez pas d'identifiant ?</h3>
+
+		<form method="post" action="inscription.php" onsubmit="return checkPass()">
+			 <div>
+                Prénom&nbsp;
+                <input type="text" name="reg_prenom" required="required"/>
+             </div>
+        	<div>
+        		Nom&nbsp;
+        		<input type="text" name="reg_nom" required="required"/>
+        	</div>
+        	<div>
+        		Adresse email&nbsp;
+        		<input type="email" name="reg_email" required="required"/>
+        	</div>
+        	<div>
+        		Choisissez un mot de passe&nbsp;
+        		<input type="password" name="password" id="pass1">
+        	</div>
+        	<div>
+        		Confirmer le mot de passe&nbsp;
+        		<input type="password" name="confirmPass" id="pass2">
+        	</div>
+        	<p>
+                <em>
+                    Un lien de confirmation va vous être envoyé sur cette adresse email.
+                </em>
+            </p>
+            <input type="submit" value="Submit" name="submitBtn" >S&#039;inscrire</input> <!--//onclick="this.disabled=true;" this.form.submit(); après true-->
+		</form>
+
+		<script type="text/javascript"> 
+
+		function checkPass() {
+			// TODO: VERIFIER que pass1 est au moins X caractères...
+		    var pass1 = document.getElementById("pass1").value;
+		    var pass2 = document.getElementById("pass2").value;
+		    var ok = true;
+		    if (pass1 != pass2) {
+		        alert("Passwords Do not match");
+		        document.getElementById("pass1").style.borderColor = "#E34234";
+		        document.getElementById("pass2").style.borderColor = "#E34234";
+		        ok = false;
+		    }
+		    return ok;
+		}		
+		</script>
+
 	</body>
 </html>

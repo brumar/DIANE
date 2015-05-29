@@ -17,6 +17,9 @@
       exit();
     } */
 
+
+
+
     // query the database to see if there is a record which matches
     $query = "select count(*) from enseignant where login = '$name' and pass = '$password'";
     $result = mysql_query( $query );
@@ -26,7 +29,7 @@
       exit();
     }
 
-    $count = mysql_result( $result, 0, 0 );
+    $count = mysql_result($result, 0, 0 );
     if ( $count > 0 )
     {
       header("Location: admin.php");
