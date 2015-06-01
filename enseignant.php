@@ -1,42 +1,61 @@
 <?php
- 	$name = $_POST['nom'];
-    $password = $_POST['pass'];
-     // connect to mysql
-    require_once("conn.php");
-	//$mysql = mysql_connect( 'sql.free.fr ', 'hakem.lkhider', 'kahina' );
-    /* if(!$mysql)
-    {
-      echo 'Vous ne pouvez vous connecter a la basse de donnée.';
-      exit;
-    }
-    // select the appropriate database
-    $mysql = mysql_select_db( 'hakem_lkhider' );
-    if(!$mysql)
-    {
-      echo 'vous ne pouvez entrer dans la base de donnée Projet.';
-      exit();
-    } */
+	header('Content-type: text/html; charset=utf-8');
+	session_start();
 
+	function count_BDD($SQL_req, $array_req, $b){
+		$r = $b->prepare($SQL_req);
+		if($r->execute($array_req)){
+			$tmp_stupid_variable = $r->fetch();
+			$count = $tmp_stupid_variable[0];
+			$r->closeCursor();
+			return($count);
+		}
+		else{
+			die();
+		}
+	}
 
+	if($_POST){
+		$login = $_POST['nom'];
+		$mdp = $_POST['pass'];
 
+		// Connexion mysql ($bdd)
+		require_once("conn_pdo.php");
 
-    // query the database to see if there is a record which matches
-    $query = "select count(*) from enseignant where login = '$name' and pass = '$password'";
-    $result = mysql_query( $query );
-    if(!$result)
-    {
-      echo 'la requète ne peut pas s\'executer.';
-      exit();
-    }
+		echo $login."<br/><br/>";
 
-    $count = mysql_result($result, 0, 0 );
-    if ( $count > 0 )
-    {
-      header("Location: admin.php");
-    }
-    else
-    {
-      echo " Vous n'avez pas d'autorisation pour visualiser cette page";
-    }
+		// 1) on regarde si le login existe dans "account"
+		$count = count_BDD('SELECT COUNT(*) FROM account WHERE login =?', array($login), $bdd);
+
+		if ($count == 1){  // 1a) le compte existe, on vérifie que le mot de passe est bon
+			$req2 = $bdd->prepare('SELECT * FROM account WHERE login =?');
+			if($req2->execute(array($login))) {
+				$data = $req2->fetch();
+				if(password_verify($mdp, $data['password'])){
+					echo "Bienvenu".$res2['prenom']. " ". $res2['nom'];
+					header("Location: admin.php");
+				}
+				else{
+					echo "Le mot de passe entré est incorrect, merci de réessayer.";
+				}
+				$req2->closeCursor();
+			}
+		}
+
+		else{ 
+			//le compte n'existe pas dans account
+			// 2) on regarde si le login existe dans "unvalidated account"
+			
+			$count2 = count_BDD('SELECT COUNT(*) FROM unvalidated_account WHERE login =?', array($login), $bdd);
+			
+			if($count2 == 1){ //il existe bien
+				echo "Votre compte n'a pas encore été validé. Merci de cliquer sur le lien de confirmation dans l'email que vous avez reçu, ou cliquez ici pour recevoir un nouvel email.";
+				// TODO : ENVOYER NOUVEL EMAIL DE CONFIRMATION
+			}
+			else{ //le compte n'existe pas => on propose de le créer
+				echo "Nous ne trouvons pas de compte à votre nom. Merci de vérifier que vous avez bien entré votre nom d'utilisateur, ou bien créez un nouveau compte.";
+			}			
+		}
+	}
 ?>
 

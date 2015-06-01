@@ -12,13 +12,13 @@
 		<h3>Veuillez vous identifier pour continuer</h3>
 		<form method="post" action="enseignant.php">
 
-			<table border="0" align="center" cellspacing="0">
+			<table cellspacing="0">
 				<tr>
-					<td align="right">Nom d'utilisateur &nbsp; &nbsp;</td>
+					<td>Nom d'utilisateur : &nbsp; &nbsp;</td>
 					<td> <input name = "nom" type = text id="nom"> </td>
 				</tr>
 				<tr>
-					<td align="right"> Mot de passe &nbsp; &nbsp; </td>
+					<td> Mot de passe :&nbsp; &nbsp; </td>
 					<td> <input name = "pass" type = password id="pass"> </td>
 				</tr>
 				<tr>
@@ -33,26 +33,51 @@
 		<h3>Vous n'avez pas d'identifiant ?</h3>
 
 		<form method="post" action="inscription.php" onsubmit="return checkPass()">
-			 <div>
-                Prénom&nbsp;
-                <input type="text" name="reg_prenom" required="required"/>
-             </div>
-        	<div>
-        		Nom&nbsp;
-        		<input type="text" name="reg_nom" required="required"/>
-        	</div>
-        	<div>
-        		Adresse email&nbsp;
-        		<input type="email" name="reg_email" required="required"/>
-        	</div>
-        	<div>
-        		Choisissez un mot de passe&nbsp;
-        		<input type="password" name="password" id="pass1">
-        	</div>
-        	<div>
-        		Confirmer le mot de passe&nbsp;
-        		<input type="password" name="confirmPass" id="pass2">
-        	</div>
+
+			<table>
+			<tr>
+			 	<td>
+                	Prénom :&nbsp; &nbsp;
+            	</td>
+            	<td>
+                	<input type="text" name="reg_prenom" required="required"/>
+                </td>
+            </tr>
+        	<tr>
+        		<td>
+        			Nom :&nbsp; &nbsp;
+        		</td>
+        		<td>
+        			<input type="text" name="reg_nom" required="required"/>
+        		</td>
+        	</tr>
+        	<tr>
+        		<td>
+        			Adresse email :&nbsp; &nbsp;
+        		</td>
+        		
+        		<td>
+        			<input type="email" name="reg_email" required="required"/>
+        		</td>
+        	</tr>
+        	<tr>
+        		<td>
+        			Choisissez un mot de passe :&nbsp; &nbsp;
+        		</td>
+        		
+        		<td>
+        			<input type="password" name="password" id="pass1">
+        		</td>
+        	</tr>
+        	<tr>
+        		<td>
+        			Confirmer le mot de passe :&nbsp; &nbsp;
+        		</td>
+        		<td>
+        			<input type="password" name="confirmPass" id="pass2">
+        		</td>
+        	</tr>
+        </table>
         	<p>
                 <em>
                     Un lien de confirmation va vous être envoyé sur cette adresse email.
