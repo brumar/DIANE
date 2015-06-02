@@ -863,3 +863,55 @@ background: #dedede;
 font-weight: bold;
 }
 
+
+/* 
+	Ajouts
+*/
+
+/*	gerer_series.php*/
+
+
+/*
+.serie_select, .seriee_see, .serie_delete, .serie_promote{
+	display:inline;
+}*/
+.serie_s{
+	width:900px;
+}
+.serie_text{
+	width:300px;
+	margin:0 0 5px 40px;
+	padding:10px;
+	border:1px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

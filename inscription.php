@@ -175,6 +175,7 @@
 	 
 	//...	
 	// Fermeture de la connexion à la BDD
+	unset($bdd);
 
 
 ?>
