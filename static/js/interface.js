@@ -77,12 +77,12 @@ function verifForm()
 	document.info.zonetexte.value = x;
 	if (document.info.zonetexte.value=='' )
 	{
-	alert('Veuillez saisir votre solution');
+		alert('Il faut écrire ta solution');
 	}
 	else
 	{
-	masquer();
-	document.info.submit();
+		masquer();
+		document.info.submit();
 	}
 }
 //**********************************fontion pour masquer les champs operande3 *******************************
@@ -91,28 +91,27 @@ function masquer()
 {
 if (document.info.R1[0].checked)
 	{
-	document.info.operande1.focus();
-	document.info.operation.value = '  ';
-	document.getElementById('zoneText').style.visibility = "hidden";
-	document.getElementById('bouton').style.visibility = "hidden";
-	document.getElementById('groupe1').style.visibility = "visible";
-	document.getElementById('groupe2').style.visibility = "hidden";
-	document.getElementById('groupe3').style.visibility = "hidden";
-	document.getElementById('efface').style.visibility = "hidden";
+		document.info.operande1.focus();
+		document.info.operation.value = '  ';
+		document.getElementById('zoneText').style.visibility = "hidden";
+		document.getElementById('bouton').style.visibility = "hidden";
+		document.getElementById('groupe1').style.visibility = "visible";
+		document.getElementById('groupe2').style.visibility = "hidden";
+		document.getElementById('groupe3').style.visibility = "hidden";
+		document.getElementById('efface').style.visibility = "hidden";
 
 	}
 else if (document.info.R1[1].checked)
 	{
-	
-	document.getElementById('zoneText').style.visibility = "visible";
-	document.getElementById('bouton').style.visibility = "visible";
-	document.info.operande3.focus();
-	document.getElementById('groupe1').style.visibility = "hidden";
-	document.getElementById('groupe2').style.visibility = "visible";
-	document.getElementById('groupe3').style.visibility = "visible";
-	document.getElementById('efface').style.visibility = "visible";
-	document.info.operation.value = '  ';
-	document.info.operation1.value = '  ';
+		document.getElementById('zoneText').style.visibility = "visible";
+		document.getElementById('bouton').style.visibility = "visible";
+		document.info.operande3.focus();
+		document.getElementById('groupe1').style.visibility = "hidden";
+		document.getElementById('groupe2').style.visibility = "visible";
+		document.getElementById('groupe3').style.visibility = "visible";
+		document.getElementById('efface').style.visibility = "visible";
+		document.info.operation.value = '  ';
+		document.info.operation1.value = '  ';
 	}
 }
 //***********************fontion qui limite les nombre apres la virgule ************************
@@ -215,7 +214,7 @@ function checkIt(evt) {
 	var charCode = (evt.which) ? evt.which : evt.keyCode
 	if ((charCode > 31 && (charCode < 48 || charCode > 57)) && (charCode != 44))
         {
-		status = "ce champ accepte que les entiers."
+		status = "Ce champ n'accepte que les nombres entiers."
 		return false
 	}
 	status = ""
@@ -329,7 +328,7 @@ if (document.info.R1[0].checked)
 	{
 	if ((document.info.operande1.value == "") || (document.info.operande2.value == "")|| (document.info.operation.value == "   "))
 	{
-		alert ("remplissez tous les champs\n avant de faire une operation");
+		alert ("Tu dois remplir tous les champs\n avant de faire une opération");
 		
 	}
 	var x =0;
@@ -345,7 +344,7 @@ if (document.info.R1[0].checked)
 			case " - " : conc = document.info.operande1.value.replace(',','.') + "-" + document.info.operande2.value.replace(',','.');
             			if (eval(conc) < 0)
 						{
-							alert ("tu as inverser ta soustraction\natention la prochaine fois");
+							alert ("Tu as inversé ta soustraction\nattention la prochaine fois");
 							y = document.info.operande1.value;
 							document.info.operande1.value = document.info.operande2.value;
 							document.info.operande2.value = y;
@@ -378,7 +377,7 @@ else if (document.info.R1[1].checked)
 	{
 	if ((document.info.operande1.value == "") || (document.info.operande2.value == "")||(document.info.operande3.value == ""))
 	{
-		alert ("remplissez tous les champs\n avant de faire un calcul");
+		alert ("Tu dois remplir tous les champs\n avant de faire un calcul");
 	}
 	var x =0;
 	switch(document.info.operation1.value)
@@ -523,8 +522,8 @@ document.info.zonetexte.value=document.info.zonetexte.value+x;
 //************************************************************************************
 function storeCaret (textEl)
 {
-if (textEl.createTextRange)
-textEl.caretPos = document.selection.createRange().duplicate();
+	if (textEl.createTextRange)
+		textEl.caretPos = document.selection.createRange().duplicate();
 }
 
 function insertAtCaret (textEl, text)
