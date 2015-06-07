@@ -3,8 +3,8 @@
 <title>DIANE</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<SCRIPT language="JavaScript" src="static/js/interfaceIE.js"></script>
-<link rel="stylesheet" type="text/css" href="static/css/interfaceIE.css">
+<SCRIPT language="JavaScript" src="static/js/interface.js"></script>
+<link rel="stylesheet" type="text/css" href="static/css/interface.css">
 </head>
 <body>
 
