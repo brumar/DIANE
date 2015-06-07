@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 
 <?php
+	$_mail_support = "admin@diane-eiah.fr";
 	//Ouvre la connexion avec la BDD
  	require_once("conn_pdo.php");
 
@@ -13,7 +14,6 @@
 			$data = $req->fetch();
 
 			if(urldecode($_GET['cle']) == $data['cle']) {
-				
 				$reqInsert = $bdd->prepare('INSERT INTO account(accountType, prenom, nom, email, login, password) VALUES(\'enseignant\', ?, ?, ?, ?, ?)');
 				
 				if($reqInsert->execute(array($data['prenom'], $data['nom'], $data['email'], $data['login'], $data['password']))){
@@ -24,11 +24,11 @@
 				}
 				$reqInsert->closeCursor();
 
-				echo "Bienvenu ".$data['prenom']. " ". $data['nom'].", votre compte a bien été créé. Cliquez ici pour vous connecter.";
+				echo "Bienvenu ".$data['prenom']. " ". $data['nom'].", votre compte a bien été créé sur DIANE. Votre nom d'utilisateur est ".$data['login'].". Cliquez <a href = \"enseignant.php\">ici</a> pour vous connecter à votre profil.";
 				//TODO CLIQUER
 			}
 			else{
-				echo "<br/><br/>zut";
+				echo "Il y a un soucis, votre compte a peut-être déjà été validé. Si ce n''est pas le cas, faites une nouvelle demande d'inscription, ou bien contactez le webmaster à l'adresse ".$_mail_support.".";
 			}
 		}
 		$req->closeCursor();
