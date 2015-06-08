@@ -24,8 +24,8 @@
 	*/
 
 
-	if($_POST){ //On vient d'arriver sur la page depuis profil_eleve => Initialisation de la série d'exercices dans des variables $_SESSION
-		if (isset($_POST['serie'])){
+	if($_POST){
+		if (isset($_POST['serie'])){ //On vient d'arriver sur la page depuis profil_eleve => Initialisation de la série d'exercices dans des variables $_SESSION
 			// On récupère tous les énoncés
 			$_SESSION['numSerie'] = $_POST['serie'];
 			$_SESSION['nbExo'] = 0; //VERIF
@@ -46,30 +46,93 @@
 			$req->closeCursor();			
 			$_SESSION['totalExo'] = count($_SESSION['allProblems']);
 		}
-		else{
-			//TODO gestion d'erreur pas de $_POST['serie']
+
+		else if (isset($_POST['zonetexte'])){ //On vient de cette même page // TODO : verif que c'est une condition infaillible
+
+				// $nbExo=$_POST['nbExo'];//On passe ça en $_SESSION
+				// $numExo=$_POST["numExo"]; //On passe ça en $_SESSION
+				//$nbExo--;
+				//$numExo++;
+
+				// $n=(int) $_SESSION['num']; //mmm
+				//$t=$_SESSION['type']; // type : c'est fini ..
+
+
+				$aujourdhui=getdate(); $mois=$aujourdhui['mon']; $jour=$aujourdhui['mday']; $annee=$aujourdhui['year'];
+				$heur=$aujourdhui['hours']; $minute=$aujourdhui['minutes']; $seconde=$aujourdhui['seconds'];
+				$date=$annee."-".$mois."-".$jour." ".$heur.":".$minute.":".$seconde;
+
+
+				/*
+					CREATE TABLE `trace` (
+					  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+					  `eleve` smallint(5) unsigned NOT NULL,
+					  `serie` int(10) unsigned NOT NULL,
+					  `ordreSerie` tinyint(2) unsigned NOT NULL, 
+					  `pbm` int(10) unsigned NOT NULL,
+					  `sas` tinytext,
+					  `zonetext` text,
+					  `actions` text NOT NULL,
+					  PRIMARY KEY (`id`)
+					) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+					ALTER TABLE `trace`
+					  ADD CONSTRAINT `trace_ibfk_1` FOREIGN KEY (`pbm`) REFERENCES `pbm` (`idPbm`),
+					  ADD CONSTRAINT `trace_ibfk_2` FOREIGN KEY (`eleve`) REFERENCES `eleve` (`numEleve`),
+					  ADD CONSTRAINT `trace_ibfk_3` FOREIGN KEY (`serie`) REFERENCES `serie` (`idSerie`);
+
+				*/
+				
+				$tmp = $_SESSION['allProblems'];
+				$id_probleme = $tmp[$_SESSION['nbExo']];
+
+				$req = $bdd->prepare("INSERT INTO trace(eleve, serie, ordreSerie, pbm, sas, zonetext, actions, datetime) VALUES (:eleve, :serie, :ordreSerie, :pbm, :sas, :zonetext, :actions, :datetime)");
+				$req->execute(array(
+						'eleve' => $_SESSION['numEleve'],
+						'serie' => $_SESSION['numSerie'],
+						'ordreSerie' => $_SESSION['nbExo'],
+						'pbm' => $id_probleme,
+						'sas' => $_POST['T1'],
+						'zonetext' => $_POST['zonetexte'], 
+						'actions' => $_POST['Trace'],
+						'datetime' => $date));
+
+
+		// Modifications à faire pour le nouveau problème
+
+				if($_SESSION['exEnCours']){
+					$_SESSION['nbExo'] = $_SESSION['nbExo']+1;
+					if ($_SESSION['nbExo'] >= $_SESSION['totalExo']){ // on a fini la liste d'exos..
+						$_SESSION['exEnCours'] = False; // TODO : est ce que je devrais pas plutôt libérer les variables (=> so that isset is false) ? SI complètement...
+						header("Location: profil_eleve.php"); // TODO : que faire quand la sessin est fini ??
+					}
+				}
+
+			/*
+			if(isset($_SESSION['exEnCours']) & isset($_SESSION['nbExo'])) { //On arrive à l'exo suivant
+			// TODO : FOIRE QUAND ON RECHARGE LA PAGE
+			// TODO : voir ce qui se passe quand on fait précédent ..
+				if($_SESSION['exEnCours']){
+					$_SESSION['nbExo'] = $_SESSION['nbExo']+1;
+					if ($_SESSION['nbExo'] >= $_SESSION['totalExo']){ // on a fini la liste d'exos..
+						$_SESSION['exEnCours'] = False; // TODO : est ce que je devrais pas plutôt libérer les variables (=> so that isset is false) ? SI complètement...
+						header("Location: profil_eleve.php"); // TODO : que faire quand la sessin est fini ??
+					}
+				}
+			}
+			//ELSE  
+			//TODO gestion d'erreur pas de $_POST
+			*/
 		}
 	}
 	else{
-		if(isset($_SESSION['exEnCours']) & isset($_SESSION['nbExo'])) { //On arrive à l'exo suivant
-		// TODO : FOIRE QUAND ON RECHARGE LA PAGE
-		// TODO : voir ce qui se passe quand on fait précédent ..
-			if($_SESSION['exEnCours']){
-				$_SESSION['nbExo'] = $_SESSION['nbExo']+1;
-				if ($_SESSION['nbExo'] >= $_SESSION['totalExo']){ // on a fini la liste d'exos..
-					$_SESSION['exEnCours'] = False; // TODO : est ce que je devrais pas plutôt libérer les variables (=> so that isset is false) ? SI complètement...
-					header("Location: profil_eleve.php"); // TODO : que faire quand la sessin est fini ??
-				}
-			}
-		}
-		//ELSE  
-			//TODO gestion d'erreur pas de $_POST
+		// NO POST => ERROR !
 	}
+	
 
 	$problems = $_SESSION['allProblems'];
 	$numSerie = $_SESSION['numSerie'];
 	$nbExo = $_SESSION['nbExo']; //! à ne pas confondre avec numExo (id de l'exo). nbExo est le numéro dans l'ordre
-	$questi = 0; //Y a t-il une question intermédiaire ?  TODO :  MAKE THIS RIGHT //Verif que y'a besoin de ça
 
 	// On récupère l'exercice à utiliser maintenant
 	$req = $bdd->prepare('SELECT * FROM pbm WHERE idPbm=?');
@@ -78,6 +141,7 @@
 		$enregistrement = $req->fetch();
 		$numExo = $enregistrement['idPbm'];
 		$enonce = $enregistrement['enonce'];
+		//$type Problem ???
 	}
 	else{
 		die("Erreur de Sélection du problème dans la base");
@@ -87,8 +151,6 @@
 	// Variable pour savoir si presence audio ou pas
 	$dirname = './audio/pbm_instancied/exo'.$numExo.'/';
 	$audio=is_dir($dirname);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -115,7 +177,7 @@
 		else if ($type=="pbm_instancied")
 		print("<form action=\"diag_general.php\" name=\"info\" method=\"post\" onsubmit=\"return verifForm()\">");*/ 
 		?>
-		<form action="diag_general.php" name="info" method="post" onsubmit="return verifForm()">
+		<form action="interface.php" name="info" method="post" onsubmit="return verifForm()">
 
 
 
@@ -245,7 +307,7 @@
 				while($file = readdir($dir)) {
 					if($file != '.' && $file != '..' && !is_dir($dirname.$file))
 					{
-						if(($questi==1)||(!preg_match("/QI/", $file)))//cette condition permet d'enlever la question intermédiaire si elle n'est pas demandée
+						if(!preg_match("/QI/", $file))//cette condition permet d'enlever la question intermédiaire si elle n'est pas demandée //MMM ça risque de ne plus marcher j'ai de toute façon viré $questi
 							{
 							//echo '<a href="'.$dirname.$file.'">'.$file.'</a>';
 							$filelist[] = $dirname.$file;
@@ -255,14 +317,14 @@
 				closedir($dir);
 				sort($filelist);
 
-				 foreach ($filelist as $key=>$value) {
-				$p1='<object data="dewplayer.swf" width="1" height="1" name="dewplayer" id="dewplayer'.$key.'"type="application/x-shockwave-flash">
-				<param name="movie" value="dewplayer.swf" />
-				<param name="flashvars" value="mp3=';
-				$p2='&javascript=on" />
-				<param name="wmode" value="transparent" />
-				</object>';  
-				echo ("$p1$value$p2");
+				foreach ($filelist as $key=>$value) {
+					$p1='<object data="dewplayer.swf" width="1" height="1" name="dewplayer" id="dewplayer'.$key.'"type="application/x-shockwave-flash">
+					<param name="movie" value="dewplayer.swf" />
+					<param name="flashvars" value="mp3=';
+					$p2='&javascript=on" />
+					<param name="wmode" value="transparent" />
+					</object>';  
+					echo ("$p1$value$p2");
 				}
 				echo('<table width="255" height="153" align="left">
 				  <tr valign="middle">
@@ -271,10 +333,10 @@
 				  <tr>
 				  <div id="lecteurs">');
 				foreach ($filelist as $key=>$value) {
-				$p1='<tr><td align="right" valign="bottom"><p>partie '.($key+1).'<p></td>
-					<td align="left" valign="top"><p><img style="cursor:pointer" id="player'.$key.'" src="static/images/play.png" />';
-				$p2='</td></tr>';  
-				   echo ("$p1$p2");
+					$p1='<tr><td align="right" valign="bottom"><p>partie '.($key+1).'<p></td>
+						<td align="left" valign="top"><p><img style="cursor:pointer" id="player'.$key.'" src="static/images/play.png" />';
+					$p2='</td></tr>';  
+					   echo ("$p1$p2");
 				}
 				echo('</div>
 				  </tr>
@@ -332,8 +394,6 @@
 			<input  name="Trace" type="hidden" id="formulaire">
 			<input name="oper1" type="hidden">
 			<input name="oper2" type="hidden">
-			<input name="nbExo"  value="<?php echo($nbExo);?>" type="hidden">
-			<input name="numExo"  value="<?php echo($numExo);?>" type="hidden">
 
 			<script>
 			/*******PARTIE PERMETTANT L ENREGISTREMENT DES ACTIONS********        DEBUT*/
