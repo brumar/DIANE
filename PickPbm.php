@@ -1,3 +1,10 @@
+<?php
+	header('Content-type: text/html; charset=utf-8');
+	session_start();
+	//faut vérif si la session est ouverte
+
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -42,11 +49,14 @@ foreach ($infos['clones'] as $clone_element){
 	if($type!="Nombre"){
 		
 		if($operation=="clone"){
-			$result = mysql_query("SELECT * FROM clone_$type");
-			$total=mysql_num_rows($result);
+			//$result = mysql_query("SELECT * FROM clone_$type");
+			$result = $bdd->query("SELECT * FROM clone_".$type);
+			$total=$result->rowCount();
 			$pick=rand(0,$total);
-			$result = mysql_query("SELECT * FROM clone_$type WHERE id=$pick");
-			$t=mysql_fetch_array($result);
+			//$result = mysql_query("SELECT * FROM clone_$type WHERE id=$pick");
+			$result = $bdd->query("SELECT * FROM clone_".$type." WHERE id=".$pick);
+			//$t=mysql_fetch_array($result);
+			$t=$result->fetch();
 			
 			$replacements["$search"]=$t[$type];}
 		else{
@@ -76,7 +86,6 @@ foreach($replacements as $key=>$value){
 }
 $htmlreplacements=base64_encode(serialize($replacements));
 //$text=htmlentities($text, ENT_QUOTES, 'UTF-8');
-mysql_close($BD_link);
 ?>
 
 <img id="top" src="static/images/top.png" alt="">
@@ -100,7 +109,9 @@ mysql_close($BD_link);
 		
 				<h3>Visualisation de l'énoncé tel qu'il sera vu par l'élève</h3>
 				<div id="viz" style="width:360px;padding:10px;margin:10px;border:1px solid black">
-					<?php if (isset($text)){echo(utf8_encode($text));}else{echo('<font color="grey"><small>aucun énoncé fourni</small></font>');}?>
+					<?php //if (isset($text)){echo(utf8_encode($text));}else{echo('<font color="grey"><small>aucun énoncé fourni</small></font>');}
+					if (isset($text)){echo(($text));}else{echo('<font color="grey"><small>aucun énoncé fourni</small></font>');}
+					?>
 				</div>
 				<input type="submit" value="valider" id="perso2"/>
 				<input type="hidden" name="id" value="<?php echo($id);?>" />

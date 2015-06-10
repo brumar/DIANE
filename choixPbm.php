@@ -1,3 +1,9 @@
+<?php
+  header('Content-type: text/html; charset=utf-8');
+  session_start();
+  //faut vérif si la session est ouverte
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,31 +21,32 @@
     <ul>
     <?php
     $self=$_SERVER['PHP_SELF'];
-    require_once("conn.php");
+    require_once("conn_pdo.php");
   
     if (isset($_GET['page'])){$page=$_GET['page'];}
     if (isset($_GET['total'])){ $total=$_GET['total'];}
   
   
 	$nb=6;
-	if(empty($page)) $page = 1;
-	if(empty($total)){ // nombre total de résultats
- 	$sql1 = "SELECT * FROM pbm_globalcontent";
- 	$total=mysql_num_rows(mysql_query($sql1));
- 	//$total = @mysql_result($p,"0","qte");
+  	if(empty($page)) $page = 1;
+  	if(empty($total)){ // nombre total de résultats
+   	$res = $bdd->query("SELECT * FROM pbm_template");
+   	$total = $res->rowCount();
+   	//$total = @mysql_result($p,"0","qte");
 	}
 
 	// on determine debut du limit
 	$debut = ($page - 1) * $nb;
 
-  $sql = "SELECT * FROM pbm_globalcontent order by id desc LIMIT $debut,$nb";
+  //$sql = "SELECT * FROM pbm_globalcontent order by id desc LIMIT $debut,$nb";
 
-  $result = mysql_query($sql) or die ("Requête incorrecte");
+  $result = $bdd->query("SELECT * FROM pbm_template order by id desc LIMIT ".$debut.", ".$nb);
+
   // = mysql_numrows($query);
   if ($result) { // Si il y'a des résultats
  // while ($rs = mysql_fetch_array($query)) {
  $t=0;
-  while ($enregistrement = mysql_fetch_assoc($result))
+  while ($enregistrement = $result->fetch())
 		{
 		  $text1 =  $enregistrement["Text_html"];
 		  $id= $enregistrement["id"];
@@ -71,8 +78,8 @@
  	   echo "<a href=\"$self?page=$i&total=$total\">$i</a>";
        if($i < $nbpages) echo " - ";
     }
-  mysql_free_result($result); // Libère la mémoire
-  mysql_close(); // Ferme la connexion
+  //mysql_free_result($result); // Libère la mémoire
+  $result->closeCursor();
  ?>
   </p>
   <p><a href="ProblemCreation.php">Créer un nouvel exercice</a></p>
