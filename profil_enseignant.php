@@ -1,6 +1,9 @@
 <?php
 	header('Content-type: text/html; charset=utf-8');
 	session_start();
+	if(!(isset($_SESSION['login']))) { //Peut être pas la bonne condition..
+		header("Location: enseignant.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +11,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Admin</title>
+		<title>Interface Enseignant</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
 		<script type="text/javascript" src="static/js/view.js"></script>
 	</head>

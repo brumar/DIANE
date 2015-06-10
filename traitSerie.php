@@ -699,7 +699,7 @@ $result = mysql_query($Requete_SQL) or die("Erreur d'Insertion dans la base : ".
 <body>
 <p align="center">
 <a href="index.html">Accueil</a> &nbsp;&nbsp;
-<a href="admin.php">Admin</a>&nbsp;&nbsp;
+<a href="profil_enseignant.php">Interface Enseignant</a>&nbsp;&nbsp;
 <a href="eleve.html">Eléve</a>
 </p>
 <p align="center">&nbsp;</p>

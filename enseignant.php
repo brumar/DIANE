@@ -32,7 +32,8 @@
 				if(password_verify($mdp, $data['password'])){
 					$_SESSION['login'] = $login;
 					$_SESSION['accountType'] = 'enseignant';
-					header("Location: admin.php");
+					$_SESSION['id'] = $data['idAccount'];
+					header("Location: profil_enseignant.php");
 				}
 				else{
 					echo "Le mot de passe entré est incorrect, merci de réessayer.";

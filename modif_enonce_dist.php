@@ -128,7 +128,7 @@ span {
 <body onload="cacher(0);">
 <p align="center">
 <a href="index.html">Accueil</a> &nbsp;&nbsp;
-<a href="admin.php">Admin</a>&nbsp;&nbsp;
+<a href="profil_enseignant.php">Interface Enseignant</a>&nbsp;&nbsp;
 <a href="eleve.html">Elève</a>
 </p>
 <form method="post" action="traitFormDist.php">

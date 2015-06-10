@@ -52,7 +52,7 @@ mysql_close($BD_link);
 <form id="form_470585" class="appnitro"  method="post" action="">
 <p>Votre série a bien été enregistré.</p>
 <a href="choixSerie-D2.php">La mettre au premier plan dès maintenant</a><br><br>
-<a href="admin.php">Retour</a>
+<a href="profil_enseignant.php">Retour</a>
 </form>
 </div>
 

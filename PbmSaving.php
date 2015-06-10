@@ -96,7 +96,7 @@ if ((isset($_POST['infos']))&&(!(empty($_POST['infos'])))){
 		<form id="form_470585" class="appnitro"  method="post" action="">
 		<p>Votre type de problème a bien été enregistré.</p>
 		<a href="PickPbm.php?id=<?php echo($index);?>">En faire une version utilisable dès maintenant</a><br><br>
-		<a href="admin.php">Retour</a>
+		<a href="profil_enseignant.php">Retour</a>
 		</form>
 	</div>
 	

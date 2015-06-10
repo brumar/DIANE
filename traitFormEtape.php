@@ -176,7 +176,7 @@ header('Location: affichage_etape.php');
 <title>Traitement des problèmes à une étape</title></head><body>
 <p align="center">
 <a href="index.html">Accueil</a> &nbsp;&nbsp;
-<a href="admin.php">Admin</a>&nbsp;&nbsp;
+<a href="profil_enseignant.php">Interface Enseignant</a>&nbsp;&nbsp;
 <a href="eleve.html">Elève</a>
 </p>
 <h3 align="center">L'énoncé est enregistré avec succès</h3>
