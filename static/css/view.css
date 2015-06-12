@@ -885,7 +885,15 @@ font-weight: bold;
 	border:1px solid black;
 }
 
-
+.problem_s{
+	width:900px;
+}
+.problem_text{
+	width:300px;
+	margin:0 0 5px 40px;
+	padding:10px;
+	border:1px solid black;
+}
 
 
 

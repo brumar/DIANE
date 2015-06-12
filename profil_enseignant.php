@@ -52,17 +52,10 @@
 							<li id="li_2" >
 							
 								<h3>Séries d'exercices</h3>
-								<a href="gerer_series.php">
-									<?php
-										if ($_SESSION['accountType'] == 'enseignant'){
-											echo "Créer ou sélectionner une série d'exercices";
-										}
-										else{
-											echo "Gérer les séries d'exercices";
-										}
-									?>
-								</a>
-							
+								<ul>
+								<li><a href="gerer_series.php">Gérer les séries d'exercices</a></li>
+								<li><a href="creer_serie.php">Créer une série d'exercices</a></li>
+								</ul>
 							</li>
 						</ul>
 					<div style="display:none">	
