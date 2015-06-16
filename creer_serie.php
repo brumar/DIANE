@@ -35,9 +35,10 @@
 		<title>Création d'une série</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css">
 		<script language="Javascript">
-			 function checkboxes()
+			function checkboxes()
 			{
 				var inputElems = document.getElementsByClassName("check_pbms");
+				//var inputElems = document.getElementsByName("check_pb");
 				var count = 0;
 
 				for (var i=0; i<inputElems.length; i++) {       
@@ -47,8 +48,28 @@
 				}
 				return(count);
 			}
+
+			function cleanString(str) {
+			    return String(str).replace(/</g, '&lt').replace(/>/g, '&gt').replace(/&/g, '&amp').replace(/"/g, '&quot').replace(/'/g, '&#039');
+			}
+
 			function verifSerie(){
+				var nomSerieInput = document.getElementById("element_999");
+				var nomSerieHidd = document.getElementById("f_nomSerie");
+				var commentaireSerieInput = document.getElementById("element_998");
+				var commentaireSerieHidd = document.getElementById("f_comSerie");;
+
+				if(nomSerieInput.value == ""){
+					alert("Merci de donner un nom pour la nouvelle série.");
+					return(false);
+				}
+				else{
+					commentaireSerieHidd.value = cleanString(commentaireSerieInput.value);
+					nomSerieHidd.value = cleanString(nomSerieInput.value);
+				}
+
 				var nb_check = checkboxes();
+
 				if (nb_check == 0){
 					alert("Il faut sélectionner au moins un problème.");
 					return(false);
@@ -60,6 +81,7 @@
 					return(true);
 				}
 			}
+
 		</script>
 	</head>
 
@@ -68,7 +90,7 @@
 		<div id="form_container">
 			<h1><a>Untitled Form</a></h1>
 			<h2>Création d'une nouvelle série de problèmes</h2>
-			<form action="ordonner_serie.php" method="post" class="appnitro" onsubmit ="return verifSerie()">
+			<form action="ordonner_serie.php" method="post" class="appnitro" onsubmit ="return verifSerie();">
 				<ul>
 					<li id="li_999" >
 						<label class="description" for="element_999">Nom de la nouvelle série </label>
@@ -81,7 +103,7 @@
 					<li id="li_998" >
 						<label class="description" for="element_998">Commentaire associée à la série </label>
 						<div>
-							<textarea id="textarea" name="comments" class="element textarea small"  ></textarea>
+							<textarea id="element_998" name="comments" class="element textarea small"></textarea>
 						</div><p class="guidelines" id="guide_998"><small>Vous pouvez décrire ici les caractéristiques de cette série d'exercices.</small></p> 
 					</li>
 
@@ -100,7 +122,7 @@
 				$vosExercices->execute(array($_SESSION['id']));
 				$vosExos = False; //flag, vaut vrai quand l'account connecté a créé des séries
 				if($vosExercices->rowCount()!=0){
-					echo"<h3>Vos séries d'exercices</h3>";
+					echo"<h3>Vos exercices</h3>";
 					$vosExos = True;
 
 					while ($enregistrement = $vosExercices->fetch())
@@ -133,6 +155,8 @@
 
 			?>
 			
+			<input type="hidden" name="nomSerie" value="" id="f_nomSerie">
+			<input type="hidden" name="commentaireSerie" value="" id="f_comSerie">
 			<input type="submit" value="Valider la sélection">
 			</form>
 	</div>

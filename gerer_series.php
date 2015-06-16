@@ -1,6 +1,8 @@
 <?php
 	header('Content-type: text/html; charset=utf-8');
 	session_start();
+	require_once("conn_pdo.php");
+
 	// on veut pouvoir :
 	/* 
 	- créer une session = choisir des séries
@@ -9,7 +11,66 @@
 	- ajouter
 	- voir les infos = code de la série, nombre d'exos, etc
 	*/
-	function displaySerie($enregistrement){ //,$count){ //TODO : ajouter $droits, etc
+
+	
+	define("RIGHTS_SUPPR", 0x1);
+	define("RIGHTS_PROMOTE", 0x2);
+
+	/*
+	function test_flags($flags) {
+	  if ($flags & FLAG_A) echo "A";
+	  if ($flags & FLAG_B) echo "B";
+	  if ($flags & FLAG_C) echo "C";
+	}
+	test_flags(FLAG_B | FLAG_C); */
+
+
+	if($_POST){
+		if(isset($_POST['idToSuppr'])){
+			if(is_numeric($_POST['idToSuppr'])){
+				$idToSuppr = (int)$_POST['idToSuppr'];
+				// On vérifie que l'account a le droit de supprimer la série en question //TODO : add admin rights
+
+				$req = $bdd->query('SELECT idCreator from serie WHERE idSerie = '.$idToSuppr);
+				$res = $req->fetch();
+				
+				if($_SESSION['id'] != $res['idCreator']){ // Ne devrait pas arriver dans une utilisation normale... J'ai l'impression que ça veut dire qu'il a forgé la requête POST
+					echo "Vous n'avez pas les droits pour supprimer cette série...";
+				}
+				else{
+					//Suppression des dépendances dans serie_pbm
+					$bdd->query('DELETE FROM pbm_serie where serie = '.$idToSuppr);
+
+					//Suppression de la série
+					$bdd->query('DELETE FROM serie where idSerie = '.$idToSuppr);
+				}
+
+				// if($res->fetch()){
+				// 	//echo $res."<br/>";
+				// 	echo $res['idCreator']."<br/>";
+				// }
+
+				// $req = $bdd->prepare('INSERT INTO pbm_template (constraints, public_notes, compteurs, Text_html, Text_brut, properties, private_notes, idCreator) VALUES (:constraints, :public_notes, :compteurs, :Text_html, :Text_brut, :properties, :private_notes, :idCreator)');
+				// $req->execute(array(
+				// 	'constraints' => $c,
+				// 	'public_notes' => $public,
+				// 	'compteurs' => $comp,
+				// 	'Text_html' => $html,
+				// 	'Text_brut' => $brut,
+				// 	'properties' => $prop,
+				// 	'private_notes' => $private,
+				// 	'idCreator' => $_SESSION['id']));
+
+				$req->closeCursor();
+		
+
+			}
+		}
+		
+		
+	}
+
+	function displaySerie($enregistrement, $rights = 0x0){ //,$count){ //TODO : ajouter $droits, etc
 		$limText=110;
 		$text1 = $enregistrement['nomSerie'];
 		$id= $enregistrement['idSerie'];
@@ -33,16 +94,19 @@
 				echo"</span>";
 
 
-				if(isset($_SESSION['typeAccount'])){
-					if($_SESSION['typeAccount']=='chercheur'){
-						echo "<span class=\"serie_delete\">";
-						echo "<a id=\"serie_delete".$id."\" href=\"s_del".$id.".php\"><img src=\"static/images/delete.png\" alt=\"supprimer cette série\"/></a>";
-						echo "</span>";
-						echo "<span class=\"serie_promote\">";
-						echo "<a id=\"serie_promote".$id."\" href=\"s_pro".$id.".php\"><img src=\"static/images/star.png\" alt=\"promouvoir cette série\"/></a>";
-						echo "</span>";
-					}
+				//if(isset($_SESSION['typeAccount'])){
+					//if($_SESSION['typeAccount']=='chercheur'){
+				if($rights & RIGHTS_SUPPR){
+					echo "<span class=\"serie_delete\">";
+					echo "<a id=\"serie_delete".$id."\" href=\"\" onclick=\"confirmSuppr(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cette série\"/></a>";
+					echo "</span>";
 				}
+				if($rights & RIGHTS_PROMOTE){
+					echo "<span class=\"serie_promote\">";
+					echo "<a id=\"serie_promote".$id."\" href=\"s_pro".$id.".php\"><img src=\"static/images/star.png\" alt=\"promouvoir cette série\"/></a>";
+					echo "</span>";
+				}
+				
 			echo"</div>";
 		echo"</li>";
 	}
@@ -54,13 +118,22 @@
 		<meta http-equiv="Content-Type" charset="utf-8">
 		<title>Séries de Problèmes</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css">
+		<script language = "JAVASCRIPT">
+			function confirmSuppr(idToSuppr){
+				if(confirm("Êtes vous sûr de vouloir supprimer cette série ? Les exercices eux-mêmes ne seront pas supprimés.")){
+					var idToSupprForm = document.getElementById("idToSupprForm");
+					idToSupprForm.value = idToSuppr;
+					document.forms["action_form"].submit();
+				}
+			}
+		</script>
 	</head>
 
 	<body id="main_body" >
 		<img id="top" src="static/images/top.png" alt="">
 		<div id="form_container">
 			<h1><a>Untitled Form</a></h1>
-			<form action="gerer_series.php" method="post" class="appnitro">
+			<form action="gerer_series.php" method="post" class="appnitro" id="action_form">
 
 			<h2>Gérer les séries</h2>
 			<?php
@@ -81,9 +154,7 @@
 					//$t=0;
 					while ($enregistrement = $vosSeries->fetch())
 					{
-						//$t++;
-						//displaySerie($enregistrement, $t);
-						displaySerie($enregistrement);
+						displaySerie($enregistrement, RIGHTS_SUPPR);
 					} 
 				} 
 				$vosSeries->closeCursor();
@@ -113,11 +184,11 @@
 				}
 				$autresSeries->closeCursor();
 				?>
-			</ul>
-			<p>
 
-			
-			</p>
+
+
+			<input type="hidden" id="idToSupprForm" name="idToSuppr" value="">
+			</form>
 	</div>
 
 
