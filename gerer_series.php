@@ -1,17 +1,14 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
+	require_once("verifSessionProf.php");
 	require_once("conn_pdo.php");
 
 	// on veut pouvoir :
 	/* 
-	- créer une session = choisir des séries
 	- modifier / supprimer (QUE POUR CHERCHEUR)
 	- promote problem (promote problem selection) : QUE POUR CHERCHEUR
 	- ajouter
 	- voir les infos = code de la série, nombre d'exos, etc
 	*/
-
 	
 	define("RIGHTS_SUPPR", 0x1);
 	define("RIGHTS_PROMOTE", 0x2);
@@ -74,6 +71,7 @@
 		$limText=110;
 		$text1 = $enregistrement['nomSerie'];
 		$id= $enregistrement['idSerie'];
+		$code = $enregistrement['code'];
 
 		if (strlen($text1) > $limText) 
 		{
@@ -83,16 +81,16 @@
 		//echo "<li id=\"li_".$count."\">";
 		echo "<li>";
 			echo "<div class=\"serie_s\">";
-				echo "<span class=\"serie_select\">";
-					echo "<input type=\"checkbox\" name=\"".$id."\" value=\"".$id."\"></input>";
-				echo "</span>";
 				echo "<span class=\"serie_text\">";
 					echo $text1;
+				echo"</span>";
+				echo "</span>";
+				echo "<span class=\"serie_code\">";
+					echo $code;
 				echo"</span>";
 				echo"<span class=\"serie_see\">";
 					echo"<a id=\"serie_see".$id."\" href=\"s_see".$id."\"><img src=\"static/images/loupe.gif\" alt=\"voir cette série\"/></a>";
 				echo"</span>";
-
 
 				//if(isset($_SESSION['typeAccount'])){
 					//if($_SESSION['typeAccount']=='chercheur'){
@@ -118,7 +116,7 @@
 		<meta http-equiv="Content-Type" charset="utf-8">
 		<title>Séries de Problèmes</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css">
-		<script language = "JAVASCRIPT">
+		<script type="text/javascript">
 			function confirmSuppr(idToSuppr){
 				if(confirm("Êtes vous sûr de vouloir supprimer cette série ? Les exercices eux-mêmes ne seront pas supprimés.")){
 					var idToSupprForm = document.getElementById("idToSupprForm");
@@ -130,6 +128,7 @@
 	</head>
 
 	<body id="main_body" >
+		<?php include("headerEnseignant.php"); ?>
 		<img id="top" src="static/images/top.png" alt="">
 		<div id="form_container">
 			<h1><a>Untitled Form</a></h1>

@@ -1,10 +1,17 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
+	require_once("verifSessionProf.php");
 	require_once("conn_pdo.php");
+	require_once("ListFunction.php");
 	
 	function generer_code(){
-		return "ABCDE";
+		$LEN_CODE = 5;
+		$string = "";
+		$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
+		srand((double)microtime()*1000000);
+		for($i=0; $i < $LEN_CODE; $i++) {
+			$string .= $chaine[rand()%strlen($chaine)];
+		}
+		return strtoupper($string);
 	}
 
 	$tab_id = [];
@@ -28,19 +35,38 @@
 	}
 
 	if(isset($_POST['check_pb'])){
-		
 		foreach($_POST['check_pb'] as $checked_id)
 		{
 			array_push($tab_id, $checked_id);
 		}
-
-		//TODO: Cas particulier s'il n'y a qu'un seul ID : directement créer la série !
+		if(count($tab_id)==1){//TODO: Cas particulier s'il n'y a qu'un seul ID : directement créer la série !
+			//$_SESSION['a'] = true;
+			$JS_redirect =true;
+			//header("Location: ordonner_serie.php");
+		}
+		else{
+			$JS_redirect = false;
+		}
+		
 	}
 
-
+	$serieCree = false;
 	if(isset($_POST['ordersForm'])){ // On enregistre dans la base de données et on redirige
-		
-		$gen_code = generer_code();
+		$keep_going = true;
+		$inc = 0;
+		while($keep_going){
+			$gen_code = generer_code();
+			if(!(exists_in_BDD('serie', 'code = ?', array($gen_code), $bdd))) {
+				$keep_going = false;
+			}
+			else{
+				$inc++;
+				if($inc>=1000){
+					die("Problème lors de la génération du code de la série.");
+				}
+			}
+		}
+
 		$maxReq = $bdd->query("SELECT MAX(ordrePres) FROM serie");
 		$maxOrdrePres = $maxReq->fetchColumn(); 
 		$ordrePres = $maxOrdrePres + 1;
@@ -76,9 +102,9 @@
 			$req->closeCursor();
 			//echo "<br/>New line. i=".$i.", idpbm=".$idpbms[$i].", idSerie=".$idNouvelleSerie.", ordre=".$orders[$i];
 		}
-
+		$serieCree = true;
 		//TODO : message de réussite...
-		header("Location: profil_enseignant.php");
+		//header("Location: profil_enseignant.php");
 	}
 
 
@@ -121,15 +147,77 @@
 		<meta http-equiv="Content-Type" charset="utf-8">
 		<title>Création d'une série</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css">
-		<script language="Javascript">
+	</head>
+
+	<body id="main_body" >
+		<?php include("headerEnseignant.php"); ?>
+		<img id="top" src="static/images/top.png" alt="">
+		<div id="form_container">
+			<h1><a>Untitled Form</a></h1>
+			<h2>Choix de l'ordre</h2>
+
+			<div id="ordonner_serie_panel1">
+				<p>Choisissez maintenant l'ordre dans lequel les exercices seront présentés à l'élève. </p>
+				<form action="ordonner_serie.php" method="post" class="appnitro" onsubmit="return verifOrder()" name="my_form">
+
+					<?php
+					require_once("conn_pdo.php");
+					foreach($tab_id as $idpb){
+						$req = $bdd->query("SELECT * FROM pbm WHERE idPbm = ".$idpb);
+						$pbmToOrder = $req->fetch();
+						displayToOrderProblem($pbmToOrder, count($tab_id));
+						$req->closeCursor();
+					}
+					
+					?>
+					<input type="hidden" name="thisNomSerie" value<?php echo "=\"".$thisNomS."\""; ?> >
+					<input type="hidden" name="thisCommentaireSerie" value<?php echo "=\"".$thisComS."\""; ?> >
+					<input type="hidden" value="" name="ordersForm" id="ordersForm">
+					<input type="hidden" value=<?php echo "\"".implode(",", $tab_id)."\"";?> name="idsForm" id="idsForm">
+					<input type="submit" value="Créer la série">
+				</form>
+			</div>
+
+			<div id="ordonner_serie_panel2">
+				<form action="ordonner_serie.php" method="post" class="appnitro" onsubmit="return false">
+					<p>Votre nouvelle série a bien été créée. Les élèves pourront y accéder en utilisant le code suivant : <em><?php if(isset($gen_code)){echo $gen_code;}?></em>. Vous pouvez retrouver ce code ainsi que les codes des autres séries sur la <a href="gerer_series.php">page de gestion des séries d'exercices</a>.</p>
+					<p>Cliquez <a href="profil_enseignant.php">ici pour revenir sur votre profil</a>, ou bien <a href="creer_serie.php">ici créer une nouvelle série d'exercices</a>.</p>
+				</form>
+			</div>
+	</div>
+
+
+		<img id="bottom" src="static/images/bottom.png" alt="">
+		<script type="text/javascript">
+			var panel1 = document.getElementById("ordonner_serie_panel1");
+			var panel2 = document.getElementById("ordonner_serie_panel2");
+			//var formOrdonner = document.getElementById("formOrdonner");
+			
+			window.onload=function(){
 			<?php
+			if($serieCree){
+				echo "panel1.style.display = 'none';";
+				echo "panel2.style.display = 'block';";
+			}
+			else{
+				echo "panel1.style.display = 'block';";
+				echo "panel2.style.display = 'none';";
+			}	
+
 			if($nameAlreadyTaken){
-				echo "window.onload=function(){";
+				echo "";
 				echo "alert(\"Ce nom de série existe déjà, merci de choisir un autre nom.\");";
 				echo "document.location.href=\"creer_serie.php\";";
-				echo "};";
+			}
+			else {
+				if(isset($JS_redirect)){
+					if($JS_redirect){
+						echo "document.my_form.submit();";
+					}
+				}
 			}
 			?>
+			};
 			function verifOrder(){
 				var inputElems = document.getElementsByClassName("order_pbms");
 
@@ -164,39 +252,7 @@
 					return(false);
 				}
 			}
-
-
 		</script>
-	</head>
-
-	<body id="main_body" >
-		<img id="top" src="static/images/top.png" alt="">
-		<div id="form_container">
-			<h1><a>Untitled Form</a></h1>
-			<h2>Choix de l'ordre</h2>
-			<p>Choisissez maintenant l'ordre dans lequel les exercices seront présentés à l'élève. </p>
-			<form action="ordonner_serie.php" method="post" class="appnitro" onsubmit="return verifOrder()">
-
-				<?php
-				require_once("conn_pdo.php");
-				foreach($tab_id as $idpb){
-					$req = $bdd->query("SELECT * FROM pbm WHERE idPbm = ".$idpb);
-					$pbmToOrder = $req->fetch();
-					displayToOrderProblem($pbmToOrder, count($tab_id));
-					$req->closeCursor();
-				}
-				
-				?>
-				<input type="hidden" name="thisNomSerie" value<?php echo "=\"".$thisNomS."\""; ?> >
-				<input type="hidden" name="thisCommentaireSerie" value<?php echo "=\"".$thisComS."\""; ?> >
-				<input type="hidden" value="" name="ordersForm" id="ordersForm">
-				<input type="hidden" value=<?php echo "\"".implode(",", $tab_id)."\"";?> name="idsForm" id="idsForm">
-				<input type="submit" value="Créer la série">
-			</form>
-	</div>
-
-
-		<img id="bottom" src="static/images/bottom.png" alt="">
 	</body>
 </html>
 
