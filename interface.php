@@ -1,35 +1,21 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
-
-	if(isset($_SESSION["numEleve"])){
-		$numEleve = $_SESSION["numEleve"];	
-	}
-	else{//Pas de session...
-		header("Location: eleve.php");
-	}
+	require_once("verifSessionEleve.php");
 	require_once("conn_pdo.php");
 
-	/* AVANT, il y avait :
-		$_SESSION["numSerie"]
-		$_SESSION["totalExo"]
-		$nbExo=(int)($_GET["nbExo"])
-		$numExo=(int)($_GET["numExo"]
-
-		$_SESSION["num"]
-		$_SESSION["type"]
-		$_SESSION["questi"]
-		$_SESSION["terminer"]
-		$nbExo
-	*/
-
-
 	if($_POST){
-		if (isset($_POST['serie'])){ //On vient d'arriver sur la page depuis profil_eleve => Initialisation de la série d'exercices dans des variables $_SESSION
-			// On récupère tous les énoncés
-			$_SESSION['numSerie'] = $_POST['serie'];
-			$_SESSION['nbExo'] = 0; //VERIF
-			$_SESSION['exEnCours'] = True;
+		//à terme : virer " or isset($_SESSION['eleve_anonyme']"
+		if (isset($_POST['serie']) or isset($_SESSION['eleve_anonyme'])){ //On vient d'arriver sur la page depuis profil_eleve => Initialisation de la série d'exercices dans des variables $_SESSION
+
+			// On créé le tableau passation
+    		$_SESSION['passation'] = array();
+    		if(isset($_SESSION['eleve_anonyme'])){ // A terme : virer cette option
+    			$_SESSION['passation']['numSerie'] = $_SESSION['eleve_anonyme'];
+    			unset($_SESSION['eleve_anonyme']);
+    		}
+    		else{
+				$_SESSION['passation']['numSerie'] = $_POST['serie'];
+			}
+			$_SESSION['passation']['nbExo'] = 1; //VERIF
 
 			$req = $bdd->prepare('SELECT pbm FROM pbm_serie WHERE serie =? ORDER BY ordre');
 			if($req->execute(array($_POST['serie']))) {
@@ -38,15 +24,15 @@
 				foreach($fetch_problems as $pb){
 					array_push($problems, $pb['pbm']);
 				}
-				$_SESSION['allProblems'] = $problems;
+				$_SESSION['passation']['allProblems'] = $problems;
 			}
 			else{
 				//TODO gestion erreur requête foire
 			}
 			$req->closeCursor();			
-			$_SESSION['totalExo'] = count($_SESSION['allProblems']);
+			$_SESSION['passation']['totalExo'] = count($_SESSION['passation']['allProblems']);
 		}
-
+		/*
 		else if (isset($_POST['zonetexte'])){ //On vient de cette même page // TODO : verif que c'est une condition infaillible
 
 				// $nbExo=$_POST['nbExo'];//On passe ça en $_SESSION
@@ -61,32 +47,12 @@
 				$aujourdhui=getdate(); $mois=$aujourdhui['mon']; $jour=$aujourdhui['mday']; $annee=$aujourdhui['year'];
 				$heur=$aujourdhui['hours']; $minute=$aujourdhui['minutes']; $seconde=$aujourdhui['seconds'];
 				$date=$annee."-".$mois."-".$jour." ".$heur.":".$minute.":".$seconde;
-
-
-				/*
-					CREATE TABLE `trace` (
-					  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-					  `eleve` smallint(5) unsigned NOT NULL,
-					  `serie` int(10) unsigned NOT NULL,
-					  `ordreSerie` tinyint(2) unsigned NOT NULL, 
-					  `pbm` int(10) unsigned NOT NULL,
-					  `sas` tinytext,
-					  `zonetext` text,
-					  `actions` text NOT NULL,
-					  PRIMARY KEY (`id`)
-					) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-					ALTER TABLE `trace`
-					  ADD CONSTRAINT `trace_ibfk_1` FOREIGN KEY (`pbm`) REFERENCES `pbm` (`idPbm`),
-					  ADD CONSTRAINT `trace_ibfk_2` FOREIGN KEY (`eleve`) REFERENCES `eleve` (`numEleve`),
-					  ADD CONSTRAINT `trace_ibfk_3` FOREIGN KEY (`serie`) REFERENCES `serie` (`idSerie`);
-
-				*/
 				
 				$tmp = $_SESSION['allProblems'];
 				$id_probleme = $tmp[$_SESSION['nbExo']];
 
-				$req = $bdd->prepare("INSERT INTO trace(eleve, serie, ordreSerie, pbm, sas, zonetext, actions, datetime) VALUES (:eleve, :serie, :ordreSerie, :pbm, :sas, :zonetext, :actions, :datetime)");
+				$req = $bdd->prepare("INSERT INTO trace(eleve, serie, ordreSerie, pbm, sas, zonetext, actions, datetime) 
+										VALUES (:eleve, :serie, :ordreSerie, :pbm, :sas, :zonetext, :actions, :datetime)");
 				$req->execute(array(
 						'eleve' => $_SESSION['numEleve'],
 						'serie' => $_SESSION['numSerie'],
@@ -107,6 +73,8 @@
 						header("Location: profil_eleve.php"); // TODO : que faire quand la sessin est fini ??
 					}
 				}
+			*/
+
 
 			/*
 			if(isset($_SESSION['exEnCours']) & isset($_SESSION['nbExo'])) { //On arrive à l'exo suivant
@@ -123,34 +91,37 @@
 			//ELSE  
 			//TODO gestion d'erreur pas de $_POST
 			*/
-		}
-	}
-	else{
-		// NO POST => ERROR !
+		//}
 	}
 	
+	// On vérifie que les variables de session existent, sinon on redirige
+	if(isset($_SESSION['passation'])){
+		$problems = $_SESSION['passation']['allProblems'];
+		$numSerie = $_SESSION['passation']['numSerie'];
+		$nbExo = $_SESSION['passation']['nbExo']; //! à ne pas confondre avec numExo (id de l'exo). nbExo est le numéro dans l'ordre
 
-	$problems = $_SESSION['allProblems'];
-	$numSerie = $_SESSION['numSerie'];
-	$nbExo = $_SESSION['nbExo']; //! à ne pas confondre avec numExo (id de l'exo). nbExo est le numéro dans l'ordre
+		// On récupère l'exercice à utiliser maintenant
+		$req = $bdd->prepare('SELECT * FROM pbm WHERE idPbm=?');
 
-	// On récupère l'exercice à utiliser maintenant
-	$req = $bdd->prepare('SELECT * FROM pbm WHERE idPbm=?');
+		if($req->execute(array($problems[$nbExo-1]))) { //On récupère l'id du problème et l'énoncé
+			$enregistrement = $req->fetch();
+			$numExo = $enregistrement['idPbm'];
+			$enonce = $enregistrement['enonce'];
+			//$type Problem ???
+		}
+		else{
+			die("Erreur de Sélection du problème dans la base");
+		}
+		$req->closeCursor();
 
-	if($req->execute(array($problems[$nbExo]))) { //On récupère l'id du problème et l'énoncé
-		$enregistrement = $req->fetch();
-		$numExo = $enregistrement['idPbm'];
-		$enonce = $enregistrement['enonce'];
-		//$type Problem ???
+		// Variable pour savoir si presence audio ou pas
+		$dirname = './audio/pbm_instancied/exo'.$numExo.'/';
+		$audio=is_dir($dirname);
 	}
-	else{
-		die("Erreur de Sélection du problème dans la base");
+	else{ //Pas de $_SESSION['passation']
+		header("Location: profil_eleve.php");
+		exit();
 	}
-	$req->closeCursor();
-
-	// Variable pour savoir si presence audio ou pas
-	$dirname = './audio/pbm_instancied/exo'.$numExo.'/';
-	$audio=is_dir($dirname);
 ?>
 
 <!DOCTYPE html>
@@ -162,25 +133,8 @@
 		<link rel="stylesheet" type="text/css" href="static/css/interface.css">
 	</head>
 	<body>
-
-		
-		<?php
-		/* //Quand on devait dispatcher tous les différents types d'exo
-		if ($type=="complement")
-		print("<form action=\"diag_e.php\" name=\"info\" method=\"post\" onsubmit=\" return verifForm()\">");
-		else if ($type=="comparaison")
-		print("<form action=\"diag_a.php\" name=\"info\" method=\"post\" onsubmit=\" return verifForm()\">");
-		else if ($type=="distributivite")
-		print("<form action=\"diag_d.php\" name=\"info\" method=\"post\" onsubmit=\" return verifForm()\">");
-		else if ($type=="etape")
-		print("<form action=\"diag_etape.php\" name=\"info\" method=\"post\" onsubmit=\"return verifForm()\">");
-		else if ($type=="pbm_instancied")
-		print("<form action=\"diag_general.php\" name=\"info\" method=\"post\" onsubmit=\"return verifForm()\">");*/ 
-		?>
-		<form action="interface.php" name="info" method="post" onsubmit="return verifForm()">
-
-
-
+	
+		<form action="createTrace.php" name="info" method="post" onsubmit="return verifForm()" autocomplete="off">
 			<table width="67%" align="center">
 			<tr><td colspan="2"><table width="100%"  border="0">
 			  <tr>
@@ -206,7 +160,7 @@
 						    
 						    <table width="97%" border="0" cellpadding="0" cellspacing="0">
 						    	<tr>
-						    		<td height="24" valign="top" class="aide">&nbsp;&nbsp; Exercice N°<?php echo ($_SESSION["totalExo"]-$nbExo+1); ?></td>
+						    		<td height="24" valign="top" class="aide">&nbsp;&nbsp; Exercice N°<?php echo ($nbExo); ?></td>
 					        	</tr>
 								  
 						    	<tr>
@@ -215,8 +169,10 @@
 						                  <tr>
 						                    <td>
 											<?php
+												//$enonce = nl2br($enonce);
 												for($piece = strtok($enonce, " "), $i=1, $id=0; $piece != "" ; $piece = strtok(" "))
 												{
+													// if($piece == "\n")
 													$id++;
 													$piece1 = $piece;
 													$piece = str_replace("\\","",$piece);
@@ -379,14 +335,16 @@
 			  </tr>
 			  <tr>
 			    <td align="center" class="aide"><?php 
-			    // Pas sûr que ce soit le bon nombre..
-			$reste = $nbExo-1;
-			if($reste > 1)
-			 echo ("Il te reste ".$reste." exercices");
-			else if($nbExo-1 == 1)
-			 echo ("Il te reste ".$reste." exercice");
-			else if($reste == 0)
-			 echo ("c'est le dernier exercice"); 
+			$reste = $_SESSION['passation']['totalExo']-$nbExo;
+			if($reste > 1){
+			 echo ("Il te reste ".$reste." exercices.");
+			}
+			else if($reste == 1){
+			 echo ("Il te reste ".$reste." exercice.");
+			}
+			else if($reste == 0){
+			 echo ("C'est le dernier exercice."); 
+			}
 			?>  
 			  <tr align="center">
 			    <td height="21" colspan="2" valign="top"><a href="javascript:;" onClick="abandonner();">Quitter </a></td>
@@ -396,6 +354,19 @@
 			<input name="oper2" type="hidden">
 
 			<script>
+			//On supprime l'effet du retour arrière
+			function suppressBackspace(evt) {
+			    evt = evt || window.event;
+			    var target = evt.target || evt.srcElement;
+
+			    if (evt.keyCode == 8 && !/input|textarea/i.test(target.nodeName)) {
+			        return false;
+			    }
+			}
+
+			document.onkeydown = suppressBackspace;
+			document.onkeypress = suppressBackspace;
+
 			/*******PARTIE PERMETTANT L ENREGISTREMENT DES ACTIONS********        DEBUT*/
 				
 				var formulaire = document.getElementById('formulaire');
@@ -452,8 +423,10 @@
 				formulaire.value=trace_utilisateur;
 			    });
 			}
-				 window.onload = function WindowLoad() {
+			
+			window.onload = function WindowLoad() {
 				 trace_utilisateur='';
+				 tester = 5;
 				 date_init=(new Date).getTime();
 			}
 			</script>
