@@ -169,18 +169,32 @@
 						                  <tr>
 						                    <td>
 											<?php
-												//$enonce = nl2br($enonce);
-												for($piece = strtok($enonce, " "), $i=1, $id=0; $piece != "" ; $piece = strtok(" "))
-												{
-													// if($piece == "\n")
-													$id++;
-													$piece1 = $piece;
-													$piece = str_replace("\\","",$piece);
-													if($piece1==".") $i=0;
-													print("<a href=\"javascript:;\" id=\"".$id."\" onClick=\"insererSas('".trim($piece1)." "."','".$i."');\" class=\"enonce\">".$piece."</a>"." ");
-													$i++;
+												$i=1;
+												$id=0;
+												$PUNCT_CHARS = "\n.?!;,\t\r\0\x0B";
+
+												foreach(explode("\n", $enonce) as $line){
+													foreach(explode(" ", $line) as $piece){
+														$id++;
+														$punctuation = strpbrk($piece, $PUNCT_CHARS);
+														if($punctuation){ // Il y a un ou plusieurs signes de ponctuation
+															$piece = trim($piece, $PUNCT_CHARS);
+															if($a= strpos($piece, "\n")){
+																print($a);
+															}
+															$punct = mb_substr($punctuation, 0, 1, 'utf-8');
+														}
+														else{
+															$punct="";
+														}
+
+														print("<a href=\"javascript:;\" id=\"".$id."\" onClick=\"insererSas('".$piece." "."','".$i."');\" class=\"enonce\">".$piece."</a>".$punct." ");
+														$i++;
+													}
+													echo("<br/>");
 												}
-												echo("<br>");
+
+
 											?>          
 											</td>
 						                  </tr>
