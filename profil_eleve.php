@@ -1,11 +1,6 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
-	//Require "verif session" serait peut être bien cool
+	require_once("verifSessionEleve.php");
 	require_once("conn_pdo.php");
-	if(!$_SESSION['numEleve']){
-		header("Location: eleve.php"); // TODO : il faut envoyer sur un truc ou y'a un message...
-	}
 ?>
 <!DOCTYPE html>
 

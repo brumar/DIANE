@@ -1,22 +1,32 @@
 <?php
 	header('Content-type: text/html; charset=utf-8');
 	session_start();
-
-	function count_BDD($SQL_req, $array_req, $b){
-		$r = $b->prepare($SQL_req);
-		if($r->execute($array_req)){
-			$tmp_variable = $r->fetch();
-			$count = $tmp_variable[0];
-			$r->closeCursor();
-			return($count);
-		}
-		else{
-			die();
-		}
-	}
+	require_once("ListFunction.php");
 	$inconnu = False; 
 
-	if($_POST){
+	if(isset($_POST['code'])){
+		require_once("conn_pdo.php");
+		$inputCode = strtoupper($_POST['code']);
+
+		$idSerie = get_value_BDD('idSerie', 'serie', 'code=?', array($inputCode), $bdd);
+		if($idSerie){
+			// Solution temporaire de gestion des "élèves anonymes" : on leur créé un nouveau profil avec les informations qu'ils donnent
+				$_SESSION['numEleve']=1;
+				$_SESSION['nom']=" ";
+			    $_SESSION['prenom']=" ";
+			    $_SESSION['eleve_anonyme_serie'] = $idSerie;
+
+				//$_SESSION['numSerie'] = $idSerie;
+				//$_SESSION['nbExo'] = 0;
+
+			header("Location: interface.php"); //INCOHERENCE : l'élève n'a pas encore de $_SESSION, et interface.php le kick. De plus interface.php n'attend pas ça.
+		}
+		else{
+			echo "Aucune série n'a ce code.";
+		}
+	}
+
+	if(isset($_POST['nom'])){
 
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
@@ -32,6 +42,7 @@
 			$req = $bdd->prepare('SELECT * FROM eleve WHERE nom =? AND prenom =?');
 	        if($req->execute(array($nom, $prenom))){
 				$enregistrement = $req->fetch();
+				session_unset();
 		        $_SESSION['numEleve']=$enregistrement['numEleve'];
 				$_SESSION['nom']=$enregistrement['nom'];
 			    $_SESSION['prenom']=$enregistrement['prenom'];
@@ -96,19 +107,31 @@
 
 		<p>
 			Bonjour et bienvenu sur DIANE ! Si ton enseignant t'as donné un 
-			code avec des lettres et des chiffres, il faut le rentrer ici :
+			code avec des lettres et des chiffres, il faut l'écrire ici :
 		</p>
+		<form name="form1" method="post" action="eleve.php" autocomplete="off">
+			<table>
+			<tr>
+				<td>
+					<input type="text" size="5" name="code">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" name="Submit" value="Aller">
+				</td>
+			</tr>
+			</table>
+		</form>
 
 		<p>
 			Sinon, si tu es déjà inscris sur DIANE, tu peux te connecter avec ton nom et ton prénom.
 			<?php if($inconnu){
-				echo "Je ne te trouve pas.";
+				echo "<br/><span class=\"error\">Je ne te trouve pas.</span>";
 			}
-			else{
-				echo "Pour te connecter, écris ton nom et ton prénom";
-			}?></p>
+			?></p>
 
-		<form name="form1" method="post" action="eleve.php">
+		<form name="form2" method="post" action="eleve.php">
 			<table border="0" align="center" cellspacing="0">
 				<!--DWLayoutTable-->
 				<tr>

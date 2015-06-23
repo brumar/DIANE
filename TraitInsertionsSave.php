@@ -1,7 +1,6 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
-	//faut vérif si la session est ouverte / Include
+	require_once("verifSessionProf.php");
+
 	$name=$_POST["element_999"];
 	$values=$_POST["element_998"];
 	$values=str_replace( ' ', '', $values);//suppression des espaces
@@ -36,6 +35,7 @@
 </head>
 
 <body id="main_body" >
+<?php include("headerEnseignant.php"); ?>
 <img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>

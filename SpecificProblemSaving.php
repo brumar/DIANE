@@ -1,9 +1,8 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
+	require_once("verifSessionProf.php");
 	$_default_type = 1;
-
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
 	</head>
 	<body>
-
+	<?php include("headerEnseignant.php"); ?>
 		<?php
 			require_once("conn_pdo.php");
 			if (isset($_POST['text'])){
@@ -47,7 +46,7 @@
 			
 			<div id="form_container">
 				<form id="form_470585" class="appnitro"  method="post" action="">
-				<p>Votre problème a bien été enregistré, <br>vous pouvez maintenant l'utiliser pour <a href="gerer_series.php">
+				<p>Votre problème a bien été enregistré, <br>vous pouvez maintenant l'utiliser pour <a href="creer_serie.php">
 				l'inclure dans une nouvelle série d'exercices</a></p>
 				<a href="ProblemCreationInterface.php">Construire d'autres problèmes</a><br><br>
 				<a href="profil_enseignant.php">Retour</a>

@@ -1,6 +1,5 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
+	require_once("verifSessionProf.php");
 
 	function displayProblem($enregistrement){
 		$limText=300;
@@ -86,6 +85,7 @@
 	</head>
 
 	<body id="main_body" >
+		<?php include("headerEnseignant.php"); ?>
 		<img id="top" src="static/images/top.png" alt="">
 		<div id="form_container">
 			<h1><a>Untitled Form</a></h1>

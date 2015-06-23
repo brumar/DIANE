@@ -1,5 +1,6 @@
-
 <?php
+	require_once("verifSessionProf.php");
+
 	//note : prend en entrée $id, ressort $infos et $infoshtml	
 	require_once("conn_pdo.php");
 	//mysql_query("SET NAMES UTF8");

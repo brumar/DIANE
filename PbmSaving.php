@@ -1,7 +1,5 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
-	//faut vérif si la session est ouverte / Include
+	require_once("verifSessionProf.php");
 	require_once("conn_pdo.php");
 
 	if ((isset($_POST['infos']))&&(!(empty($_POST['infos'])))){
@@ -123,24 +121,25 @@
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Creation de problème</title>
-<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
-</head>
-<body>
-<br><br>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Creation de problème</title>
+	<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
+	</head>
+	<body>
+		<?php include("headerEnseignant.php"); ?>
+		<br><br>
 
 
 
-<img id="top" src="static/images/top.png" alt="">
-	<div id="form_container">
-		<form id="form_470585" class="appnitro"  method="post" action="">
-		<p>Votre type de problème a bien été enregistré.</p>
-		<a href="PickPbm.php?id=<?php echo($index);?>">En faire une version utilisable dès maintenant</a><br><br>
-		<a href="profil_enseignant.php">Retour</a>
-		</form>
-	</div>
-	
-</body>
+		<img id="top" src="static/images/top.png" alt="">
+			<div id="form_container">
+				<form id="form_470585" class="appnitro"  method="post" action="">
+				<p>Votre type de problème a bien été enregistré.</p>
+				<a href="PickPbm.php?id=<?php echo($index);?>">En faire une version utilisable dès maintenant</a><br><br>
+				<a href="profil_enseignant.php">Retour</a>
+				</form>
+			</div>
+			
+	</body>
 </html>

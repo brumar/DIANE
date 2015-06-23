@@ -30,6 +30,7 @@
 			if($req2->execute(array($login))) {
 				$data = $req2->fetch();
 				if(password_verify($mdp, $data['password'])){
+					session_unset();
 					$_SESSION['login'] = $login;
 					$_SESSION['accountType'] = 'enseignant';
 					$_SESSION['id'] = $data['idAccount'];

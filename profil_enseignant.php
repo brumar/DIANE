@@ -1,9 +1,5 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
-	if(!(isset($_SESSION['login']))) { //Peut être pas la bonne condition..
-		header("Location: enseignant.php");
-	}
+	require_once("verifSessionProf.php");
 ?>
 
 <!DOCTYPE html>
@@ -16,13 +12,11 @@
 		<script type="text/javascript" src="static/js/view.js"></script>
 	</head>
 	<body id="main_body">
-			
-			<img id="top" src="static/images/top.png" alt="">
+		<?php include("headerEnseignant.php"); ?>
 			<div id="form_container">
 			<h1><a>Untitled Form</a></h1>
 				<div style="width:400px;display:inline-block">
-						<a href="index.html">Accueil</a> &nbsp;&nbsp;
-						<a href="eleve.html">Elève</a><br><br>
+
 						
 						<div class="form_description"></div>
 						<div class="form_description">
@@ -58,31 +52,27 @@
 								</ul>
 							</li>
 						</ul>
-					<div style="display:none">	
-						Fournir une lecture d'énoncé (documents audio)
-						<a href="audio_comparaison.php">Comparaison</a>&nbsp;|&nbsp; 
-						<a href="audio_complement.php">Complément</a>&nbsp;|&nbsp;
-						<a href="audio_distributivite.php">Distributivité</a> | 
-						<a href="audio_etape.php">Etape</a>
-					</div>
+						<div style="display:none">	
+							Fournir une lecture d'énoncé (documents audio)
+							<a href="audio_comparaison.php">Comparaison</a>&nbsp;|&nbsp; 
+							<a href="audio_complement.php">Complément</a>&nbsp;|&nbsp;
+							<a href="audio_distributivite.php">Distributivité</a> | 
+							<a href="audio_etape.php">Etape</a>
+						</div>
 						<ul>
 							<li id="li_3">
 							<h3>Résultats et analyses</h3>	
 							<h5> Analyse brute</h5>
-				<li>Télécharger le fichier de diagnostic au format tableur de <a href="doc_csv.php">tous les élèves</a> </li>
-				<li><a href="formTracePDF.php">Télécharger le fichier de trace d'un élève en PDF</a></li>
-				<li>
-					<h5>Sortie en langage naturel</h5>
-					   <li><a href="formDiag.php?type=e">Problèmes additifs complexes</a></li>
-					      <li> <a href="formDiag.php?type=d">Problèmes de distributivité</a> </li>
-				          <li> <a href="formDiag.php?type=etape">Problèmes &agrave; une  étape</a></li>
-				   
+							<li>Télécharger le fichier de diagnostic au format tableur de <a href="doc_csv.php">tous les élèves</a> </li>
+							<li><a href="formTracePDF.php">Télécharger le fichier de trace d'un élève en PDF</a></li>
+							<li>
+							<h5>Sortie en langage naturel</h5>
+						    <li><a href="formDiag.php?type=e">Problèmes additifs complexes</a></li>
+						      <li> <a href="formDiag.php?type=d">Problèmes de distributivité</a> </li>
+				          	<li> <a href="formDiag.php?type=etape">Problèmes &agrave; une  étape</a></li>
 						</ul>
-					
-			
-			  </form>
-
-		</div>
+				  </form>
+			</div>
 		<div  style="width:200px;display:inline-block;vertical-align:top">
 		<br><br><br><br><br><br>
 		<img src="static/images/pbm.png" width="50%"  height="50%">

@@ -1,3 +1,6 @@
+<?php
+	require_once("verifSessionProf.php");
+?>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,6 +14,7 @@
 	
 
 	<body id="main_body" >
+		<?php include("headerEnseignant.php"); ?>
 		<img id="top" src="static/images/top.png" alt="">
 		<div id="form_container">
 		<h1><a>Untitled Form</a></h1>

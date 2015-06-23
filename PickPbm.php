@@ -1,8 +1,5 @@
 <?php
-	header('Content-type: text/html; charset=utf-8');
-	session_start();
-	//faut vérif si la session est ouverte
-
+	require_once("verifSessionProf.php");
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -14,7 +11,7 @@
 <script type="text/javascript" src="static/js/view.js"></script>
 </head>
 <body id="main_body" >
-
+<?php include("headerEnseignant.php"); ?>
 <?php
 $id=0;
 if(isset($_GET['id'])){
