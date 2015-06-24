@@ -884,6 +884,13 @@ font-weight: bold;
 	padding:10px;
 	border:1px solid black;
 }
+.serie_code{
+	width:50px;
+	margin:0 0 5px 0px;
+	padding:10px;
+	border:1px solid black;
+	border-left: none
+}
 
 .problem_s{
 	width:900px;
@@ -895,8 +902,11 @@ font-weight: bold;
 	border:1px solid black;
 }
 
+/*  gestion_classe.php */
 
-
+#formulaire_creation_classe{
+	display:none;
+}
 
 
 

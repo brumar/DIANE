@@ -18,16 +18,13 @@
 				<div style="width:400px;display:inline-block">
 
 						
-						<div class="form_description"></div>
-						<div class="form_description">
+					<div class="form_description"></div>
+					<div class="form_description">
 						<h3>Interface Enseignant</h3>
-						</div>			
+					</div>			
 
-
-
-					<!-- Mon code...-->
-					<h3>Gérer votre classe</h3>
-					
+					<h3>Gérer vos classes</h3>
+					<a href="gestion_classe.php">Accéder à la gestion de vos classes</a>
 
 						
 					<form id="form_470585" class="appnitro"  method="post" action="">

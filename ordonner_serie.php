@@ -39,10 +39,8 @@
 		{
 			array_push($tab_id, $checked_id);
 		}
-		if(count($tab_id)==1){//TODO: Cas particulier s'il n'y a qu'un seul ID : directement créer la série !
-			//$_SESSION['a'] = true;
+		if(count($tab_id)==1){
 			$JS_redirect =true;
-			//header("Location: ordonner_serie.php");
 		}
 		else{
 			$JS_redirect = false;

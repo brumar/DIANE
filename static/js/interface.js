@@ -26,7 +26,7 @@ function addEvent(element, event, func) {
 /*******fonction pour quitter********/
 function abandonner()
 {
-	self.close();
+	document.location.href="profil_eleve.php";
 }
 
 /*******fonction qui annule la dernière action de la zone de texte********/
