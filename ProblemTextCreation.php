@@ -225,7 +225,7 @@
 			$virgule='';
 			$needVirgule=false;//variable permettant de mettre des virgules là ou c'est necessaire
 			
-			foreach($compteurs as $k=>$compteur ){
+			foreach($compteurs as $k=>$compteur){
 
 				if($needVirgule){$virgule=', ';}
 				$listes[]=$k;
@@ -309,7 +309,7 @@
 					$tabTemp["end"]=$PendClone;//on rajoute dans ce tableau les informations concernant la position du clone
 					$informations_clones[$c]=$tabTemp;//on récupère l'ensemble de ces informations dans un tableau général
 				}
-				print_r($informations_clones);
+				//print_r($informations_clones);
 			}
 			$text=cloner($informations_clones,$copieEnonce);//ON utilise ce tableau général pour cloner l'ensemble
 		}
@@ -402,9 +402,9 @@
 	*/
 	?>
 
-		<form name="form1" id="form1" class="appnitro" method="post" action="<?php echo($self); ?>">
+		<form name="form1" id="form1" class="appnitro" method="post"> <!-- action="<?php //echo($self); ?>" -->
 				<input name="action" type="hidden" value="ProblemCreation.php">
-				<h2>Enregistrez votre &eacutenonc&eacute </h2>
+				<h2>Ecrivez votre &eacutenonc&eacute </h2>
 							<h3>Zone d'écriture</h3>
 				<ul>
 					<li id="li_1" >
@@ -429,10 +429,10 @@
 						<h4>Général</h4>
 						<!--<input type="submit" value="PARSE ME"> -->
 						<input type="button" value="réinitialiser" id="reinit"/>
-						<input type="submit" value="visualisation" id="apperçu"/>
+						<input type="submit" value="visualisation" id="visualisation"/>
 						<input type="hidden" name="infos" value="<?php if (isset($infosHtmlProtected)){echo($infosHtmlProtected);}?>"/>
+						<input type="button" value="valider l'énoncé" id="validation_enonce" onclick="GoToProblemCreation();"/>
 						<br>
-						<input type="button" value="valider" id="apperçu" onclick="GoToProblemCreation();"/>
 					</div>
 					<div style="width:100px;vertical-align:top;margin:0 0 5px 40px">		
 						<h4>Insertions personalisées</h4>
@@ -450,23 +450,18 @@
 		<input type="hidden" name="enonce" > <!--     si l'utilisateur appuie sur envoyer, les données sont traitées avant d'envoyer les infos sur ProblemCreation.php -->
 
 		</form>	</div>
-					
-						
-						
+							
 					</div>
 				</ul>
 				
-
-
-		
-
 		
 					<h3>Visualisation</h3>
 					<div id="viz" style="width:360px;padding:10px;margin:10px;border:1px solid black">
 						<?php if (isset($text)){echo($text);}else{echo('<font color="grey"><small>aucun énoncé fourni</small></font>');}?>
 					</div>
-
 		</div>
+
+
 		</body>
 		
 		<!--
@@ -479,24 +474,27 @@
 		<?php
 		if(isset($infosHtmlProtected)){
 
-		echo('<script>document.formulaireEnvoi.infos.value="'.$infosHtmlProtected.'";</script>');
-	}
+			echo('<script>document.formulaireEnvoi.infos.value="'.$infosHtmlProtected.'";</script>');
+		}
 
 
-	if(isset($_POST['message'])){
-		$mess=$_POST['message'];
-		echo("<script>alert(\"$mess\");</script>");
-	}
+		if(isset($_POST['message'])){
+			$mess=$_POST['message'];
+			echo("<script>alert(\"".$mess."\");</script>");
+		}
 
 
 
 		// if (isset($text)){echo("apperçu du résultat<br>".$text);}
 		?>
 		</div>
-		<script>
 
 		
 		
+
+
+		<script type="text/javascript">
+
 		var Quest = document.getElementById('Quest');
 		
 		<?php echo($initcompteur);?>//contient quelque chose comme : var compteur={ "Quest" : 1, "Nombre" : 1, "Variable" : 1, "homme" : 1,"femme" : 1}
@@ -543,19 +541,20 @@
 		
 		var reinit=document.getElementById("reinit");
 		addEvent(reinit, 'click', function(e) {
-		document.getElementById("textarea").value="";
-		compteur = { "Quest" : 1, "Nombre" : 1, "Variable" : 1, "homme" : 1,"femme" : 1};
-		document.getElementById("viz").innerHTML="";
-		
-		for(var t in compteur){
-			element=document.getElementById(t);	
+			document.getElementById("textarea").value="";
+			compteur = { "Quest" : 1, "Nombre" : 1, "Variable" : 1, "homme" : 1,"femme" : 1};
+			document.getElementById("viz").innerHTML="";
 			
-			var id=element.id;
-			
-			var name_compteur="IDcompteur_"+id;
-			alert(name_compteur);
-			document.formulaireEnvoi[name_compteur].value=1;}
-				});
+			for(var t in compteur){
+				element=document.getElementById(t);	
+				
+				var id=element.id;
+				
+				var name_compteur="IDcompteur_"+id;
+				//alert(name_compteur);
+				document.formulaireEnvoi[name_compteur].value=1;
+			}
+		});
 		
 		
 		</script>

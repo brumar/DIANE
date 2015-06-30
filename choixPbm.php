@@ -47,16 +47,23 @@
 				$t=0;
 				while ($enregistrement = $result->fetch())
 				{
+					$template_description = $enregistrement["public_notes"];
 					$text1 =  $enregistrement["Text_html"];
 					$id= $enregistrement["id"];
 					?>
 					<li id="li_<?php echo($t);$t++;?>">
-					<div style="width:350px;display:inline-block;margin:0 0 5px 40px;padding:10px;border:1px solid black"> 
-					<?php echo( $text1); ?>
-					</div>
-					<div style="width:70px;display:inline-block;margin:0 0 5px 40px">
-					<input type="button" value="utiliser ce modèle" id="Quest" onClick="parent.location='PickPbm.php?id=<?php echo($id);?>'"/>
-					</div></li>
+						<div>
+							<span class="template_description">
+							<?php echo $template_description;?>
+							</span>
+						</div>
+						<div style="width:350px;display:inline-block;margin:0 0 5px 40px;padding:10px;border:1px solid black"> 
+							<?php echo( $text1); ?>
+						</div>
+						<div style="width:70px;display:inline-block;margin:0 0 5px 40px">
+							<input type="button" value="utiliser ce modèle" id="Quest" onClick="parent.location='PickPbm.php?id=<?php echo($id);?>'"/>
+						</div>
+					</li>
 					<?php
 					} // Fin instruction while
 

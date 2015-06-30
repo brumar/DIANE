@@ -1,6 +1,7 @@
 <?php
 	require_once("verifSessionProf.php");
 	require_once("conn_pdo.php");
+	require_once("ListFunction.php");
 
 	// on veut pouvoir :
 	/* 
@@ -10,9 +11,7 @@
 	- voir les infos = code de la série, nombre d'exos, etc
 	*/
 	
-	define("RIGHTS_SUPPR", 0x1);
-	define("RIGHTS_PROMOTE", 0x2);
-
+	
 	/*
 	function test_flags($flags) {
 	  if ($flags & FLAG_A) echo "A";
@@ -42,32 +41,26 @@
 					$bdd->query('DELETE FROM serie where idSerie = '.$idToSuppr);
 				}
 
-				// if($res->fetch()){
-				// 	//echo $res."<br/>";
-				// 	echo $res['idCreator']."<br/>";
-				// }
-
-				// $req = $bdd->prepare('INSERT INTO pbm_template (constraints, public_notes, compteurs, Text_html, Text_brut, properties, private_notes, idCreator) VALUES (:constraints, :public_notes, :compteurs, :Text_html, :Text_brut, :properties, :private_notes, :idCreator)');
-				// $req->execute(array(
-				// 	'constraints' => $c,
-				// 	'public_notes' => $public,
-				// 	'compteurs' => $comp,
-				// 	'Text_html' => $html,
-				// 	'Text_brut' => $brut,
-				// 	'properties' => $prop,
-				// 	'private_notes' => $private,
-				// 	'idCreator' => $_SESSION['id']));
-
 				$req->closeCursor();
-		
-
 			}
 		}
-		
-		
+
+		if(isset($_POST['idToSee'])) {
+			if(is_numeric($_POST['idToSee'])){
+				$_SESSION['idToSee'] = (int)$_POST['idToSee'];
+
+				// $req = $bdd->query('SELECT pbm from pbm_serie WHERE serie = '.$idToSee);
+				// while ($res = $req->fetch();
+			}
+		}
+	}
+	else{
+		if(isset($_SESSION['idToSee'])){
+			unset($_SESSION['idToSee']);
+		}
 	}
 
-	function displaySerie($enregistrement, $rights = 0x0){ //,$count){ //TODO : ajouter $droits, etc
+	function displaySerie($enregistrement, $b, $rights = 0x0){ //,$count){ //TODO : ajouter $droits, etc
 		$limText=110;
 		$text1 = $enregistrement['nomSerie'];
 		$id= $enregistrement['idSerie'];
@@ -89,25 +82,40 @@
 					echo $code;
 				echo"</span>";
 				echo"<span class=\"serie_see\">";
-					echo"<a id=\"serie_see".$id."\" href=\"s_see".$id."\"><img src=\"static/images/loupe.gif\" alt=\"voir cette série\"/></a>";
+					echo"<a id=\"serie_see".$id."\" href=\"\" onclick=\"visualizeSerie(".$id.");return false;\"><img src=\"static/images/loupe.gif\" alt=\"voir cette série\"/></a>";
 				echo"</span>";
 
 				//if(isset($_SESSION['typeAccount'])){
 					//if($_SESSION['typeAccount']=='chercheur'){
-				if($rights & RIGHTS_SUPPR){
+				if($rights & SERIE_RIGHTS_SUPPR){
 					echo "<span class=\"serie_delete\">";
 					echo "<a id=\"serie_delete".$id."\" href=\"\" onclick=\"confirmSuppr(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cette série\"/></a>";
 					echo "</span>";
 				}
-				if($rights & RIGHTS_PROMOTE){
+				if($rights & SERIE_RIGHTS_PROMOTE){
 					echo "<span class=\"serie_promote\">";
 					echo "<a id=\"serie_promote".$id."\" href=\"s_pro".$id.".php\"><img src=\"static/images/star.png\" alt=\"promouvoir cette série\"/></a>";
 					echo "</span>";
 				}
-				
+
 			echo"</div>";
 		echo"</li>";
+
+		if(isset($_SESSION['idToSee'])){
+			if($id == $_SESSION['idToSee']){
+				$req = $b->query('SELECT pbm from pbm_serie WHERE serie = '.$_SESSION['idToSee']);
+
+				while ($pbm = $req->fetch()){
+					$exercice = $b->prepare("SELECT * FROM pbm WHERE idPbm = ?");
+					$exercice->execute(array($pbm['pbm']));
+					displayProblem($exercice->fetch());
+					$exercice->closeCursor();
+				}
+			}
+		}
 	}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -124,6 +132,12 @@
 					document.forms["action_form"].submit();
 				}
 			}
+
+			function visualizeSerie(idToSee){
+				var idToSeeForm = document.getElementById("idToSeeForm");
+				idToSeeForm.value = idToSee;
+				document.forms["action_form"].submit();
+			}
 		</script>
 	</head>
 
@@ -135,6 +149,7 @@
 			<form action="gerer_series.php" method="post" class="appnitro" id="action_form">
 
 			<h2>Gérer les séries</h2>
+			<p>Sur cette page, vous pouvez explorer les séries d'exercices existantes, et si besoin, supprimer celles que vous avez créées.</p>
 			<?php
 				// TODO : il me faut un if(isset($_SESSION)) qui englobe tout !
 				require_once("conn_pdo.php");
@@ -153,7 +168,7 @@
 					//$t=0;
 					while ($enregistrement = $vosSeries->fetch())
 					{
-						displaySerie($enregistrement, RIGHTS_SUPPR);
+						displaySerie($enregistrement, $bdd, SERIE_RIGHTS_SUPPR);
 					} 
 				} 
 				$vosSeries->closeCursor();
@@ -175,7 +190,7 @@
 					$t=0;
 					while ($enregistrement = $autresSeries->fetch())
 					{
-						displaySerie($enregistrement);
+						displaySerie($enregistrement, $bdd);
 					} // Fin instruction while
 
 				} else { // Pas de résultat trouvé
@@ -184,8 +199,7 @@
 				$autresSeries->closeCursor();
 				?>
 
-
-
+			<input type="hidden" id="idToSeeForm" name="idToSee" value="">
 			<input type="hidden" id="idToSupprForm" name="idToSuppr" value="">
 			</form>
 	</div>
@@ -194,5 +208,3 @@
 		<img id="bottom" src="static/images/bottom.png" alt="">
 	</body>
 </html>
-
-

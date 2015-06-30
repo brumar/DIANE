@@ -4,9 +4,9 @@
 	require_once("ListFunction.php");
 	
 	function generer_code(){
-		$LEN_CODE = 5;
+		$LEN_CODE = 3; //$LEN_CODE = 5;
 		$string = "";
-		$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
+		$chaine = "abcdefghijklmnpqrstuvwxy"; //$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
 		srand((double)microtime()*1000000);
 		for($i=0; $i < $LEN_CODE; $i++) {
 			$string .= $chaine[rand()%strlen($chaine)];
