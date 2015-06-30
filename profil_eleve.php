@@ -1,6 +1,19 @@
 <?php
 	require_once("verifSessionEleve.php");
 	require_once("conn_pdo.php");
+	require_once("ListFunction.php");
+
+
+//'untouched','opened','finishedOnce','finishedMultipleTimes'
+
+	// On vérifie d'abord si l'élève a des "devoirs", si son maître ou sa maîtresse lui a assigné
+	if(exists_in_BDD("serie_eleve", "idEleve = ?", array($_SESSION['numEleve']), $bdd)){
+		$exercices_a_faire = true;
+	}
+	else{
+		$exercices_a_faire = false;
+	}
+
 ?>
 <!DOCTYPE html>
 
@@ -9,7 +22,7 @@
 	<head>
 		<title>DIANE - élève</title>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-		<link rel="stylesheet" href="static/css/default.css" />
+		<link rel="stylesheet" href="static/css/view.css" />
 		<script language="javascript"> 
 			function redirectJS(idSerie){
 				var c = document.getElementById('choix_serie');
@@ -22,16 +35,35 @@
 	<body>
 		<div>
 			<?php 
-				echo "Bonjour ".$_SESSION['prenom']." ".$_SESSION['nom']. "!<br/>";
+				echo "Bonjour ".$_SESSION['prenom']."!<br/>";// ".$_SESSION['nom']. "!<br/>";
 				echo "Choisis une série de problèmes :<br/>";?>
 
 			<div>
 				<?php
-				if($rep = $bdd->query('SELECT nomSerie, idSerie FROM serie ORDER BY ordrePres')){
-					while ($r = $rep->fetch()){
-						echo "<input type=\"button\" class=\"serie_choice\" value=\"".$r['nomSerie']."\""." onclick=\"redirectJS(".$r['idSerie'].")\"/><br/>";
+				if($exercices_a_faire){
+					$req = $bdd->prepare('SELECT idSerie, statut FROM serie_eleve WHERE idEleve = ?');
+					if($req->execute(array($_SESSION['numEleve']))){
+						while ($r = $req->fetch()){
+							$nomSerie = get_value_BDD("nomSerie", "serie", "idSerie = ?", array($r['idSerie']), $bdd);
+							if(($r['statut'] =='untouched') || ($r['statut'] =='opened')){
+								echo "<input type=\"button\" class=\"serie_choice serie_to_do\" value=\"".$nomSerie."\""." onclick=\"redirectJS(".$r['idSerie'].")\"/><br/>";
+							}
+							else{
+								echo "<input type=\"button\" class=\"serie_choice serie_done\" value=\"".$nomSerie."\""." onclick=\"redirectJS(".$r['idSerie'].")\"/><span class=\"done_indication\">Tu as déjà fini cette série d'exercices</span><br/>";	
+							}
+						}
 					}
+
+					$req->closeCursor();
+
 				}
+				// else{
+				// 	if($rep = $bdd->query('SELECT nomSerie, idSerie FROM serie ORDER BY ordrePres')){
+				// 		while ($r = $rep->fetch()){
+				// 			echo "<input type=\"button\" class=\"serie_choice\" value=\"".$r['nomSerie']."\""." onclick=\"redirectJS(".$r['idSerie'].")\"/><br/>";
+				// 		}
+				// 	}
+				// }
 			?>
 			<form action="interface.php" method="post" id="form_choix_serie">
 				<input type="hidden" id="choix_serie" name="serie" value="-1">
