@@ -46,16 +46,28 @@ foreach ($infos['clones'] as $clone_element){
 	if($type!="Nombre"){
 		
 		if($operation=="clone"){
-			//$result = mysql_query("SELECT * FROM clone_$type");
-			$result = $bdd->query("SELECT * FROM clone_".$type);
-			$total=$result->rowCount();
-			$pick=rand(0,$total);
-			//$result = mysql_query("SELECT * FROM clone_$type WHERE id=$pick");
-			$result = $bdd->query("SELECT * FROM clone_".$type." WHERE id=".$pick);
-			//$t=mysql_fetch_array($result);
-			$t=$result->fetch();
+
+			if($type== "homme" || $type=="femme"){
+				$result = $bdd->query("SELECT * FROM clone_".$type." ORDER BY RAND() LIMIT 1");
+				$t=$result->fetch();
+				
+				$replacements["$search"]=$t[$type];
+			}
+
+			else{ //Type personnalisé
+				$req = $bdd->prepare("SELECT * FROM lists WHERE type = ? AND name = ?");
+				$result = $req->execute(array("insertions", $type));
+
+				$l = $req->fetch();
+				$list = explode("||", $l['values']);
+				$pick=rand(0,count($list)-1);
+
+				$replacements["$search"]=$list[$pick];
+
+			}
 			
-			$replacements["$search"]=$t[$type];}
+		}
+
 		else{
 			$replacements["$search"]=$expression;
 		}
@@ -63,6 +75,7 @@ foreach ($infos['clones'] as $clone_element){
 	}
 	else {
 		if($operation=="clone"){
+			//TODO : HERe, contraintes numériques
 			$pick=rand(3,20);
 			$replacements["<<$brut>>"]=$pick;
 			}
