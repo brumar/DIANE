@@ -1,30 +1,6 @@
 <?php
 	require_once("verifSessionProf.php");
-
-	function displayProblem($enregistrement){
-		$limText=300;
-		$enonce = $enregistrement['enonce'];
-		$id= $enregistrement['idPbm'];
-
-		if (strlen($enonce) > $limText) 
-		{
-			$enonce=substr($enonce, 0, $limText).'[...]';
-		}
-
-		echo "<li>";
-			echo "<div class=\"problem_s\">";
-				echo "<span class=\"problem_select\">";
-					echo "<input type=\"checkbox\" class=\"check_pbms\" name=\"check_pb[]\" value=\"".$id."\"></input>";
-				echo "</span>";
-				echo "<span class=\"problem_text\">";
-					echo $enonce;
-				echo"</span>";
-
-			echo"</div>";
-		echo"</li>";
-
-	}
-
+	require_once("ListFunction.php");
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +25,7 @@
 			}
 
 			function cleanString(str) {
-			    return String(str).replace(/</g, '&lt').replace(/>/g, '&gt').replace(/&/g, '&amp').replace(/"/g, '&quot').replace(/'/g, '&#039');
+			    return String(str).replace(/</g, '&lt').replace(/>/g, '&gt').replace(/"/g, '&quot').replace(/'/g, '&#039');
 			}
 
 			function verifSerie(){
@@ -127,7 +103,7 @@
 
 					while ($enregistrement = $vosExercices->fetch())
 					{
-						displayProblem($enregistrement);
+						displayProblem($enregistrement, FLAG_PBMS_CHECKBOX);
 					} 
 				} 
 				$vosExercices->closeCursor();
@@ -145,7 +121,7 @@
 					$t=0;
 					while ($enregistrement = $autresExos->fetch())
 					{
-						displayProblem($enregistrement);
+						displayProblem($enregistrement, FLAG_PBMS_CHECKBOX);
 					} // Fin instruction while
 
 				} else { // Pas de résultat trouvé

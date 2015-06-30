@@ -1,6 +1,7 @@
 <?php
 	require_once("verifSessionEleve.php");
 	require_once("conn_pdo.php");
+	require_once("ListFunction.php");
 
 	if($_POST){
 		//à terme : virer " or isset($_SESSION['eleve_anonyme']"
@@ -14,6 +15,9 @@
     		}
     		else{
 				$_SESSION['passation']['numSerie'] = $_POST['serie'];
+				if(get_value_BDD('statut', 'serie_eleve', '(idEleve = ? AND idSerie = ?)', array($_SESSION['numEleve'], $_POST['serie']), $bdd) == "untouched"){
+					update_value_BDD('serie_eleve', 'statut = "opened"', 'idEleve = ? AND idSerie = ?', array($_SESSION['numEleve'], $_POST['serie']), $bdd);
+				}
 			}
 			$_SESSION['passation']['nbExo'] = 1; //VERIF
 

@@ -1,6 +1,8 @@
 <?php
+	require_once("verifSessionEleve.php");
 	require_once("conn_pdo.php");
-	session_start();
+	require_once("ListFunction.php");
+	
 	if (isset($_POST['zonetexte'])){
 		$aujourdhui=getdate(); $mois=$aujourdhui['mon']; $jour=$aujourdhui['mday']; $annee=$aujourdhui['year'];
 		$heur=$aujourdhui['hours']; $minute=$aujourdhui['minutes']; $seconde=$aujourdhui['seconds'];
@@ -26,6 +28,14 @@
 		// On passe à l'exercice suivant/vérifie si la série est terminée
 		$_SESSION['passation']['nbExo'] = $_SESSION['passation']['nbExo']+1;
 		if ($_SESSION['passation']['nbExo'] > $_SESSION['passation']['totalExo']){ // Tous les exercices ont été résolus
+			if(get_value_BDD('statut', 'serie_eleve', '(idEleve = ? AND idSerie = ?)', array($_SESSION['numEleve'], $_SESSION['passation']['numSerie']), $bdd) == "opened"){
+				update_value_BDD('serie_eleve', 'statut = "finishedOnce"', 'idEleve = ? AND idSerie = ?', array($_SESSION['numEleve'], $_SESSION['passation']['numSerie']), $bdd);
+			}
+			else{
+				if(get_value_BDD('statut', 'serie_eleve', '(idEleve = ? AND idSerie = ?)', array($_SESSION['numEleve'], $_SESSION['passation']['numSerie']), $bdd) == "finishedOnce"){
+					update_value_BDD('serie_eleve', 'statut = "finishedMultipleTimes"', 'idEleve = ? AND idSerie = ?', array($_SESSION['numEleve'], $_SESSION['passation']['numSerie']), $bdd);
+				}
+			}
 			unset($_SESSION['passation']);
 			header("Location: profil_eleve.php"); // TODO : mieux rediriger quand la session est finie
 		}
