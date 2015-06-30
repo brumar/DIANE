@@ -31,8 +31,6 @@
 		// On vérifie maintenant que la série existe. 
 		if(exists_in_BDD("serie", "idSerie = ?", array($_POST['serie']), $bdd)){
 			//Si la série existe bien, on donne à chaque élève de la classe l'exercice à faire. On récupère tous les élèves.
-
-
 	
 			$req = $bdd->query("SELECT idEleve FROM classe_eleve WHERE idClasse=".$classe);
 			while ($eleve = $req->fetch()){
@@ -57,11 +55,12 @@
 			exit();
 		}
 		//Si on arrive ici, tout s'est bien passé
-		$className = get_value_BDD("nom", "classe", "idClasse =?", array($_POST['classe']), $bdd);
+		$className = get_value_BDD("nom", "classe", "idClasse =?", array($classe), $bdd);
 
 		if(!($pbm_encountered)){
 			$_SESSION['feedback_assignExercices'] = "C'est enregistré, vos élèves de la classe ".$className." verront cette série d'exercices quand ils se connecteront.";
 		}
 	}
+
 	header("Location: gestion_classe.php");
 ?>

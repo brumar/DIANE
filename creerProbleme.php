@@ -3,7 +3,7 @@
 	$default_pbm_type = 1; //TODO : gérer les types de problèmes
 
 
-	if(isset($_SESSION['login'])) {
+	if(isset($_SESSION['id'])) {
 
 		//if (isset($_POST['replacements'])){$replacements=$_POST['replacements'];}
 		//$sql = "INSERT INTO pbm_instancied (numero, idpbm,text, replacements) VALUES (NULL, '$idpbm', '$text', '$replacements');";

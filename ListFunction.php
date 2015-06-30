@@ -1,4 +1,7 @@
 <?php
+
+// Fonctions pour les listes
+
 function loadList($type,$name){
 	$t=array();
 	require_once('conn_pdo.php');
@@ -92,5 +95,79 @@ function get_value_BDD($key, $table, $where, $array_req, $b){
 	}
 }
 
+function update_value_BDD($table, $set, $where, $array_req, $b){
+	$SQL_req = 'UPDATE '.$table.' SET '.$set.' WHERE '.$where;
+	$r = $b->prepare($SQL_req);
+	if($r->execute($array_req)){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+
+// Fonctions d'affichages. 
+
+
+
+	
+	/*
+	function test_flags($flags) {
+	  if ($flags & FLAG_A) echo "A";
+	  if ($flags & FLAG_B) echo "B";
+	  if ($flags & FLAG_C) echo "C";
+	}
+	test_flags(FLAG_B | FLAG_C); */
+
+
+// Flags pour les droits sur les séries
+define("SERIE_RIGHTS_SUPPR", 0x1);
+define("SERIE_RIGHTS_PROMOTE", 0x2);
+
+
+define("FLAG_PBMS_CHECKBOX", 0x1);
+define("FLAG_PBMS_SUPPR", 0x2);
+// Flags sur les features de display problems
+
+function displayProblem($enregistrement, $flags = 0){
+/*
+	Utilisée par :
+		- creer_serie.php (avec les checkboxes)
+		- gerer_series.php. (sans les checkboxes)
+		- gerer_exercices.php
+*/
+
+		$limText=300;
+		$enonce = $enregistrement['enonce'];
+		$id= $enregistrement['idPbm'];
+		$visible = $enregistrement['visible'];
+
+		if($visible){
+			if (strlen($enonce) > $limText) 
+			{
+				$enonce=substr($enonce, 0, $limText).'[...]';
+			}
+
+			echo "<li>";
+				echo "<div class=\"problem_s\">";
+					echo "<span class=\"problem_select\">";
+					if ($flags & FLAG_PBMS_CHECKBOX){
+						echo "<input type=\"checkbox\" class=\"check_pbms\" name=\"check_pb[]\" value=\"".$id."\"></input>";
+					}
+					echo "</span>";
+					echo "<span class=\"problem_text\">";
+						echo $enonce;
+					echo"</span>";
+					if($flags & FLAG_PBMS_SUPPR){
+						echo "<span class=\"pbm_delete\">";
+						echo "<a id=\"pbm_delete".$id."\" href=\"\" onclick=\"confirmSupprPbm(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cet exercice\"/></a>";
+						echo "</span>";
+					}
+
+				echo"</div>";
+			echo"</li>";
+		}
+	}
 
 ?>

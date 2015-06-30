@@ -908,22 +908,44 @@ font-weight: bold;
 	display:none;
 }
 
+#formulaire_ajout_eleve{
+	display:none;
+}
+
+.add_student_span{
+	display:inline;
+}
+
+
+/* eleve.php */
+
+#form_birthday_eleve{
+	display:none;
+}
+
+/* profil_eleve.php */
+
+
+.serie_to_do{
+
+}
+
+.serie_done{
+	background-color: green;
+}
+
+
+/* parametres.php */
+.inputformEmail{
+	width: 250px;
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* ProblemTextCreation.php */
+.validation_enonce{
+	margin:auto;
+}
 
 
 
