@@ -17,7 +17,7 @@
 				<form id="form_470585" class="appnitro"  method="post" action="">
 				<p>Votre problème a bien été enregistré, <br>vous pouvez maintenant l'utiliser pour <a href="creer_serie.php">
 				l'inclure dans une nouvelle série d'exercices</a></p>
-				<a href="ProblemCreationInterface.php">Construire d'autres problèmes</a><br><br>
+				<a href="creation_exercice.php">Construire d'autres problèmes</a><br><br>
 				<a href="profil_enseignant.php">Retour</a>
 				</form>
 			</div>

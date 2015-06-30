@@ -33,12 +33,8 @@
 						<ul>
 							<li id="li_1">
 								<h3>Problèmes</h3>
-								<a href="ProblemCreationInterface.php">Créer un nouveau problème</a><br>
-								<div style="display:none">
-									<a href="formsaisie.html">Additifs complexes</a><br>
-									<a href="formDist.html">Distributivité</a><br>
-									<a href="formEtape.html">Une Etape</a><br>
-								</div>
+								<a href="gerer_exercices.php"><?php if($_SESSION['accountType'] == 'chercheur'){echo "Gérer";}else{echo "Voir";} ?> les exercices</a><br>
+								<a href="creation_exercice.php">Créer un nouvel exercice</a><br>
 							</li>
 							<li id="li_2" >
 							
