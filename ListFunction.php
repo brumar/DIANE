@@ -108,9 +108,6 @@ function update_value_BDD($table, $set, $where, $array_req, $b){
 
 
 // Fonctions d'affichages. 
-
-
-
 	
 	/*
 	function test_flags($flags) {
@@ -138,36 +135,77 @@ function displayProblem($enregistrement, $flags = 0){
 		- gerer_exercices.php
 */
 
-		$limText=300;
-		$enonce = $enregistrement['enonce'];
-		$id= $enregistrement['idPbm'];
-		$visible = $enregistrement['visible'];
+	$limText=300;
+	$enonce = $enregistrement['enonce'];
+	$id= $enregistrement['idPbm'];
+	$visible = $enregistrement['visible'];
 
-		if($visible){
-			if (strlen($enonce) > $limText) 
-			{
-				$enonce=substr($enonce, 0, $limText).'[...]';
-			}
-
-			echo "<li>";
-				echo "<div class=\"problem_s\">";
-					echo "<span class=\"problem_select\">";
-					if ($flags & FLAG_PBMS_CHECKBOX){
-						echo "<input type=\"checkbox\" class=\"check_pbms\" name=\"check_pb[]\" value=\"".$id."\"></input>";
-					}
-					echo "</span>";
-					echo "<span class=\"problem_text\">";
-						echo $enonce;
-					echo"</span>";
-					if($flags & FLAG_PBMS_SUPPR){
-						echo "<span class=\"pbm_delete\">";
-						echo "<a id=\"pbm_delete".$id."\" href=\"\" onclick=\"confirmSupprPbm(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cet exercice\"/></a>";
-						echo "</span>";
-					}
-
-				echo"</div>";
-			echo"</li>";
+	if($visible){
+		if (strlen($enonce) > $limText) 
+		{
+			$enonce=substr($enonce, 0, $limText).'[...]';
 		}
+
+		echo "<li>";
+			echo "<div class=\"problem_s\">";
+				echo "<span class=\"problem_select\">";
+				if ($flags & FLAG_PBMS_CHECKBOX){
+					echo "<input type=\"checkbox\" class=\"check_pbms\" name=\"check_pb[]\" value=\"".$id."\"></input>";
+				}
+				echo "</span>";
+				echo "<span class=\"problem_text\">";
+					echo $enonce;
+				echo"</span>";
+				if($flags & FLAG_PBMS_SUPPR){
+					echo "<span class=\"pbm_delete\">";
+					echo "<a id=\"pbm_delete".$id."\" href=\"\" onclick=\"confirmSupprPbm(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cet exercice\"/></a>";
+					echo "</span>";
+				}
+
+			echo"</div>";
+		echo"</li>";
 	}
+}
+
+function creerSessionPassation($idEleve, $serie, $b, $type_passation){ 
+/*
+	Cette fonction créé les variables SESSION relatives à la passation d'une série d'exercices
+	
+	Utilisé par :
+		- interface.php 
+
+	Variables input :
+		- $idEleve
+		- $serie : id de la série d'exercices
+	 	- $b : la connexion à la base de données
+		- $type_passation : indique comment l'élève s'est connecté à sa sesssion, 
+			soit en entrant un code ($type_passation = "CODE"), soit en entrant ses, nom et prénom ($type_passation = "NOM")
+*/
+
+	$_SESSION['passation'] = array();
+	$_SESSION['passation']['numSerie'] = $serie;
+
+	if(get_value_BDD('statut', 'serie_eleve', '(idEleve = ? AND idSerie = ?)', array($idEleve, $serie), $b) == "untouched"){
+		update_value_BDD('serie_eleve', 'statut = "opened"', 'idEleve = ? AND idSerie = ?', array($idEleve, $serie), $b);
+	}
+
+	$_SESSION['passation']['nbExo'] = 1; //VERIF
+
+	$req = $b->prepare('SELECT pbm FROM pbm_serie WHERE serie =? ORDER BY ordre');
+	if($req->execute(array($serie))) {
+		$problems = array();
+		$fetch_problems = $req->fetchAll(); // $problems contient maintenant les id des problèmes de la série
+		foreach($fetch_problems as $pb){
+			array_push($problems, $pb['pbm']);
+		}
+		$_SESSION['passation']['allProblems'] = $problems;
+	}
+	else{
+		//TODO gestion erreur requête foire
+	}
+	$req->closeCursor();			
+	$_SESSION['passation']['totalExo'] = count($_SESSION['passation']['allProblems']);
+}
+
 
 ?>

@@ -923,6 +923,10 @@ font-weight: bold;
 	display:none;
 }
 
+#formCodeSelection{
+	text-align: center;
+}
+
 /* profil_eleve.php */
 
 

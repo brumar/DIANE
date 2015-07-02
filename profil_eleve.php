@@ -3,9 +3,6 @@
 	require_once("conn_pdo.php");
 	require_once("ListFunction.php");
 
-
-//'untouched','opened','finishedOnce','finishedMultipleTimes'
-
 	// On vérifie d'abord si l'élève a des "devoirs", si son maître ou sa maîtresse lui a assigné
 	if(exists_in_BDD("serie_eleve", "idEleve = ?", array($_SESSION['numEleve']), $bdd)){
 		$exercices_a_faire = true;

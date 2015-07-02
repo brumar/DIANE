@@ -2,51 +2,43 @@
 	header('Content-type: text/html; charset=utf-8');
 	session_start();
 	require_once("ListFunction.php");
+	require_once("conn_pdo.php");
 	$inconnu = False; 
 	$noms_mois = array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
 	$choosePupil = False;
 
 
 	function displayPupil($enregistrement){
-		echo '<li class="displayPupil">';
+		echo '<p class="displayPupil">';
 		$space = " ";
-		$nomEleve = ucfirst($enregistrement['prenom']).$space.ucfirst($enregistrement['nom']);
+		$nomEleve = trim(ucfirst($enregistrement['prenom'])).$space.trim(ucfirst($enregistrement['nom']));
 		$buttonText = $nomEleve.", ". strtoupper($enregistrement['classe']).", ".$enregistrement['ecole'];
 		//echo '<input name="buttonPupil[]" type="button" value ="'.$buttonText.'" onclick=selectPupil('.$enregistrement['numEleve'].','.(string)$nomEleve.')";>';
-		echo '<input name="buttonPupil[]" type="button" value ="'.$buttonText.'" onclick=selectPupil('.$enregistrement['numEleve'].',"'.$nomEleve.'");><br/>';
-		echo '</li>';
+		echo "<input name=\"buttonPupil[]\" type=\"button\" value =\"".$buttonText."\" onclick=\"selectPupil(".$enregistrement['numEleve'].",&quot;".$enregistrement['prenom']."&quot;);\"/><br/>";
+		echo '</p>';
 	}
 
-	if(isset($_POST['code'])){
-		require_once("conn_pdo.php");
-		$inputCode = strtoupper($_POST['code']);
-
-		$idSerie = get_value_BDD('idSerie', 'serie', 'code=?', array($inputCode), $bdd);
-		if($idSerie){
+	if(isset($_SESSION['choosePupil'])){ //Feedback from code_selection.php
+		if($_SESSION['choosePupil']['choice']){
 			$choosePupil = True;
-			// Solution temporaire de gestion des "élèves anonymes" : on leur créé un nouveau profil avec les informations qu'ils donnent
-				// $_SESSION['numEleve']=1;
-				// $_SESSION['nom']=" ";
-			 //    $_SESSION['prenom']=" ";
-			 //    $_SESSION['eleve_anonyme_serie'] = $idSerie;
-				//$_SESSION['numSerie'] = $idSerie;
-				//$_SESSION['nbExo'] = 0;
-				// header("Location: interface.php"); //INCOHERENCE : l'élève n'a pas encore de $_SESSION, et interface.php le kick. De plus interface.php n'attend pas ça.
-
-			// On affiche la liste des élèves a qui cette série a été assignée
+			$idSerie = $_SESSION['choosePupil']['idSerie'];
+			$_SESSION['chosenSerie'] = $idSerie;
 		}
 		else{
-			echo "Aucune série n'a été trouvée avec ce code.";
+			echo "Aucune série n'a été trouvée avec ce code."; //TODO: régler ça mieux
 		}
+		unset($_SESSION['choosePupil']);
 	}
 
-	if(isset($_POST['nom'])){
+	if(isset($_SESSION['wrongBirthday'])){ // Feedback from verifBirthday.php
+		echo "La date d'anniversaire choisie n'est pas la bonne.";
+		unset($_SESSION['wrongBirthday']);
+	}
+
+	if(isset($_POST['nom'])){ //TODO : à faire dans une autre page aussi
 
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
-
-		// Connexion mysql ($bdd)
-		require_once("conn_pdo.php");
 
 		// 1) on regarde si le nom et le prénom existent dans "account"
 		$count = count_BDD('SELECT COUNT(*) FROM eleve WHERE nom =? AND prenom =?', array($nom, $prenom), $bdd);
@@ -126,29 +118,19 @@
 			echo '<p>';
 			echo '	Bonjour et bienvenu sur DIANE ! Si ton enseignant t\'as donné un code avec des lettres et des chiffres, il faut l\'écrire ici :';
 			echo '</p>';
-			echo '<form name="form1" method="post" action="eleve.php" autocomplete="off">';
-			echo '	<table>';
-			echo '	<tr>';
-			echo '		<td>';
-			echo '			<input type="text" size="5" name="code">';
-			echo '		</td>';
-			echo '	</tr>';
-			echo '	<tr>';
-			echo '		<td>';
-			echo '			<input type="submit" name="Submit" value="Aller">';
-			echo '		</td>';
-			echo '	</tr>';
-			echo '	</table>';
+			echo '<form name="form1" id="formCodeSelection" method="post" action="code_selection.php" autocomplete="off">';
+			echo '	 <p><input type="text" size="5" name="code"></p>';
+			echo '	 <input type="submit" name="Submit" value="Aller">';
 			echo '</form>';
 		}
-		else{
-
+		else{ //(=> $choosePupil == True)
+			echo '<p>Choisis ton nom dans la liste :</p>';
 			echo '<ul id="list_pupils">';
 
 			$req = $bdd->prepare("SELECT idEleve FROM serie_eleve WHERE idSerie = ?");
 			$req->execute(array($idSerie));
 
-			// IL faut un rowcount, et faire quelque chose si c'est trop élevé...
+			// TODO: IL faut un rowcount, et faire quelque chose si c'est trop élevé...
 
 			while ($enregistrement = $req->fetch()){
 				$current_pupil = $enregistrement['idEleve'];
@@ -163,8 +145,8 @@
 		}
 		?>
 
-		<form name="form_birthday" id="form_birthday_eleve" methode="post" action="verifBirthday.php">
-			<p>Bonjour <span id="nomEleveFormBirthday"></span>, choisis maintenant le jour et le mois de ta naissance.</p>
+		<form name="form_birthday" id="form_birthday_eleve" method="post" action="verifBirthday.php">
+			<p>Bonjour <span id="nomEleveFormBirthday"></span>, choisis maintenant le jour et le mois de ta naissance pour te connecter.</p>
 			
 			<label for="day_birthday">Jour</label>
 			<select name = "day_birthday">
@@ -184,18 +166,20 @@
 				?>
 			</select>
 			<br/>
+			<input type="hidden" name="idPupilHidden" id="idPupilHidden">
 			<input type="submit" value="Continuer">
 		</form>
 
 
-		<p>
-			Sinon, si ton maître ou ta maîtresse t'as inscrit(e) sur DIANE, tu peux te connecter avec ton nom et ton prénom.
-			<?php if($inconnu){
-				echo "<br/><span class=\"error\">Je ne te trouve pas.</span>";
-			}
-			?></p>
+		
 
-		<form name="form2" method="post" action="eleve.php">
+		<form name="form2" method="post" id="formNomPrenom" action="eleve.php">
+			<p>
+				Sinon, si ton maître ou ta maîtresse t'as inscrit(e) sur DIANE, tu peux te connecter avec ton nom et ton prénom.
+				<?php if($inconnu){
+					echo "<br/><span class=\"error\">Je ne te trouve pas.</span>";
+				}
+			?></p>
 			<table border="0" align="center" cellspacing="0">
 				<!--DWLayoutTable-->
 				<tr>
@@ -216,12 +200,22 @@
 		</form>
 
 		<script type="text/javascript">
+
 			selectPupil= function(idPupil, namePupil){
 				var nomEleveFormBirthday = document.getElementById("nomEleveFormBirthday");
 				nomEleveFormBirthday.innerText = namePupil;
 				var form_birthday = document.getElementById("form_birthday_eleve");
 				form_birthday.style.display = "block";
+				form_idPupilHidden = document.getElementById("idPupilHidden");
+				form_idPupilHidden.value = idPupil;
 			}
+
+			<?php
+			if($choosePupil){
+				echo 'var formNomPrenom = document.getElementById("formNomPrenom");';
+				echo 'formNomPrenom.style.display = "none";';
+			}
+			?>
 		</script>
 	</body>
 </html>

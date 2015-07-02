@@ -4,98 +4,10 @@
 	require_once("ListFunction.php");
 
 	if($_POST){
-		//à terme : virer " or isset($_SESSION['eleve_anonyme']"
-		if (isset($_POST['serie']) or isset($_SESSION['eleve_anonyme'])){ //On vient d'arriver sur la page depuis profil_eleve => Initialisation de la série d'exercices dans des variables $_SESSION
-
-			// On créé le tableau passation
-    		$_SESSION['passation'] = array();
-    		if(isset($_SESSION['eleve_anonyme'])){ // A terme : virer cette option
-    			$_SESSION['passation']['numSerie'] = $_SESSION['eleve_anonyme'];
-    			unset($_SESSION['eleve_anonyme']);
-    		}
-    		else{
-				$_SESSION['passation']['numSerie'] = $_POST['serie'];
-				if(get_value_BDD('statut', 'serie_eleve', '(idEleve = ? AND idSerie = ?)', array($_SESSION['numEleve'], $_POST['serie']), $bdd) == "untouched"){
-					update_value_BDD('serie_eleve', 'statut = "opened"', 'idEleve = ? AND idSerie = ?', array($_SESSION['numEleve'], $_POST['serie']), $bdd);
-				}
-			}
-			$_SESSION['passation']['nbExo'] = 1; //VERIF
-
-			$req = $bdd->prepare('SELECT pbm FROM pbm_serie WHERE serie =? ORDER BY ordre');
-			if($req->execute(array($_POST['serie']))) {
-				$problems = array();
-				$fetch_problems = $req->fetchAll(); // $problems contient maintenant les id des problèmes de la série
-				foreach($fetch_problems as $pb){
-					array_push($problems, $pb['pbm']);
-				}
-				$_SESSION['passation']['allProblems'] = $problems;
-			}
-			else{
-				//TODO gestion erreur requête foire
-			}
-			$req->closeCursor();			
-			$_SESSION['passation']['totalExo'] = count($_SESSION['passation']['allProblems']);
+		if (isset($_POST['serie'])){ //On vient d'arriver sur la page depuis profil_eleve => Initialisation de la série d'exercices dans des variables $_SESSION
+			// On créé les variables de session $_SESSION['passation']
+			creerSessionPassation($_SESSION['numEleve'], $_POST['serie'], $bdd, "NOM"); 
 		}
-		/*
-		else if (isset($_POST['zonetexte'])){ //On vient de cette même page // TODO : verif que c'est une condition infaillible
-
-				// $nbExo=$_POST['nbExo'];//On passe ça en $_SESSION
-				// $numExo=$_POST["numExo"]; //On passe ça en $_SESSION
-				//$nbExo--;
-				//$numExo++;
-
-				// $n=(int) $_SESSION['num']; //mmm
-				//$t=$_SESSION['type']; // type : c'est fini ..
-
-
-				$aujourdhui=getdate(); $mois=$aujourdhui['mon']; $jour=$aujourdhui['mday']; $annee=$aujourdhui['year'];
-				$heur=$aujourdhui['hours']; $minute=$aujourdhui['minutes']; $seconde=$aujourdhui['seconds'];
-				$date=$annee."-".$mois."-".$jour." ".$heur.":".$minute.":".$seconde;
-				
-				$tmp = $_SESSION['allProblems'];
-				$id_probleme = $tmp[$_SESSION['nbExo']];
-
-				$req = $bdd->prepare("INSERT INTO trace(eleve, serie, ordreSerie, pbm, sas, zonetext, actions, datetime) 
-										VALUES (:eleve, :serie, :ordreSerie, :pbm, :sas, :zonetext, :actions, :datetime)");
-				$req->execute(array(
-						'eleve' => $_SESSION['numEleve'],
-						'serie' => $_SESSION['numSerie'],
-						'ordreSerie' => $_SESSION['nbExo'],
-						'pbm' => $id_probleme,
-						'sas' => $_POST['T1'],
-						'zonetext' => $_POST['zonetexte'], 
-						'actions' => $_POST['Trace'],
-						'datetime' => $date));
-
-
-		// Modifications à faire pour le nouveau problème
-
-				if($_SESSION['exEnCours']){
-					$_SESSION['nbExo'] = $_SESSION['nbExo']+1;
-					if ($_SESSION['nbExo'] >= $_SESSION['totalExo']){ // on a fini la liste d'exos..
-						$_SESSION['exEnCours'] = False; // TODO : est ce que je devrais pas plutôt libérer les variables (=> so that isset is false) ? SI complètement...
-						header("Location: profil_eleve.php"); // TODO : que faire quand la sessin est fini ??
-					}
-				}
-			*/
-
-
-			/*
-			if(isset($_SESSION['exEnCours']) & isset($_SESSION['nbExo'])) { //On arrive à l'exo suivant
-			// TODO : FOIRE QUAND ON RECHARGE LA PAGE
-			// TODO : voir ce qui se passe quand on fait précédent ..
-				if($_SESSION['exEnCours']){
-					$_SESSION['nbExo'] = $_SESSION['nbExo']+1;
-					if ($_SESSION['nbExo'] >= $_SESSION['totalExo']){ // on a fini la liste d'exos..
-						$_SESSION['exEnCours'] = False; // TODO : est ce que je devrais pas plutôt libérer les variables (=> so that isset is false) ? SI complètement...
-						header("Location: profil_eleve.php"); // TODO : que faire quand la sessin est fini ??
-					}
-				}
-			}
-			//ELSE  
-			//TODO gestion d'erreur pas de $_POST
-			*/
-		//}
 	}
 	
 	// On vérifie que les variables de session existent, sinon on redirige
