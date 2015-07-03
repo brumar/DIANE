@@ -6,7 +6,7 @@
 	function generer_code(){
 		$LEN_CODE = 3; //$LEN_CODE = 5;
 		$string = "";
-		$chaine = "abcdefghijklmnpqrstuvwxy"; //$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
+		$chaine = "bcdfghjklmnpqrstvwxy0123456789"; //$chaine = "abcdefghijklmnpqrstuvwxy"; //$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
 		srand((double)microtime()*1000000);
 		for($i=0; $i < $LEN_CODE; $i++) {
 			$string .= $chaine[rand()%strlen($chaine)];
@@ -65,6 +65,7 @@
 			}
 		}
 
+
 		$maxReq = $bdd->query("SELECT MAX(ordrePres) FROM serie");
 		$maxOrdrePres = $maxReq->fetchColumn(); 
 		$ordrePres = $maxOrdrePres + 1;
@@ -98,11 +99,8 @@
 				'ordre' => $orders[$i]));
 			// TODO : rajouter un if{req ok}-else{on vire l'entrée de la bdd serie...}
 			$req->closeCursor();
-			//echo "<br/>New line. i=".$i.", idpbm=".$idpbms[$i].", idSerie=".$idNouvelleSerie.", ordre=".$orders[$i];
 		}
 		$serieCree = true;
-		//TODO : message de réussite...
-		//header("Location: profil_enseignant.php");
 	}
 
 
@@ -210,6 +208,8 @@
 			else {
 				if(isset($JS_redirect)){
 					if($JS_redirect){
+						echo 'var ordersForm = document.getElementById("ordersForm");';
+						echo 'ordersForm.value = [1];';
 						echo "document.my_form.submit();";
 					}
 				}

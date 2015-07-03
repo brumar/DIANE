@@ -20,30 +20,13 @@
 	}
 	test_flags(FLAG_B | FLAG_C); */
 
+	if(isset($_SESSION['feedbackSuppr'])){
+		$feedbackSuppr = $_SESSION['feedbackSuppr'];
+		unset($_SESSION['feedbackSuppr']);
+	}
 
 	if($_POST){
-		if(isset($_POST['idToSuppr'])){
-			if(is_numeric($_POST['idToSuppr'])){
-				$idToSuppr = (int)$_POST['idToSuppr'];
-				// On vérifie que l'account a le droit de supprimer la série en question //TODO : add admin rights
-
-				$req = $bdd->query('SELECT idCreator from serie WHERE idSerie = '.$idToSuppr);
-				$res = $req->fetch();
-				
-				if($_SESSION['id'] != $res['idCreator']){ // Ne devrait pas arriver dans une utilisation normale... J'ai l'impression que ça veut dire qu'il a forgé la requête POST
-					echo "Vous n'avez pas les droits pour supprimer cette série...";
-				}
-				else{
-					//Suppression des dépendances dans serie_pbm
-					$bdd->query('DELETE FROM pbm_serie where serie = '.$idToSuppr);
-
-					//Suppression de la série
-					$bdd->query('DELETE FROM serie where idSerie = '.$idToSuppr);
-				}
-
-				$req->closeCursor();
-			}
-		}
+		
 
 		if(isset($_POST['idToSee'])) {
 			if(is_numeric($_POST['idToSee'])){
@@ -126,10 +109,10 @@
 		<link rel="stylesheet" type="text/css" href="static/css/view.css">
 		<script type="text/javascript">
 			function confirmSuppr(idToSuppr){
-				if(confirm("Êtes vous sûr de vouloir supprimer cette série ? Les exercices eux-mêmes ne seront pas supprimés.")){
+				if(confirm("Êtes vous sûr de vouloir supprimer cette série ? Les exercices eux-mêmes ne seront pas supprimés. Si la série est utilisée par des professeurs ou bien a été assigné à des élèves, elle ne pourra pas être supprimée.")){
 					var idToSupprForm = document.getElementById("idToSupprForm");
 					idToSupprForm.value = idToSuppr;
-					document.forms["action_form"].submit();
+					document.forms["supprSerieForm"].submit();
 				}
 			}
 
@@ -147,6 +130,12 @@
 		<div id="form_container">
 			<h1><a>Untitled Form</a></h1>
 			<form action="gerer_series.php" method="post" class="appnitro" id="action_form">
+
+			<?php 
+			if(isset($feedbackSuppr)){
+				echo '<p>'.$feedbackSuppr.'</p>'; 
+				}
+			?>
 
 			<h2>Gérer les séries</h2>
 			<p>Sur cette page, vous pouvez explorer les séries d'exercices existantes, et si besoin, supprimer celles que vous avez créées.</p>
@@ -190,7 +179,7 @@
 					$t=0;
 					while ($enregistrement = $autresSeries->fetch())
 					{
-						displaySerie($enregistrement, $bdd);
+						displaySerie($enregistrement, $bdd, 0);
 					} // Fin instruction while
 
 				} else { // Pas de résultat trouvé
@@ -200,8 +189,12 @@
 				?>
 
 			<input type="hidden" id="idToSeeForm" name="idToSee" value="">
-			<input type="hidden" id="idToSupprForm" name="idToSuppr" value="">
 			</form>
+
+			<form action="supprSerie.php" method="post" class="appnitro" id="supprSerieForm">
+				<input type="hidden" id="idToSupprForm" name="idToSuppr" value="">
+			</form>
+			
 	</div>
 
 
