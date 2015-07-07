@@ -32,11 +32,11 @@
 
 		// 	echo"</div>";
 		// echo"</li>";
-		echo "<br/><br/>";
+
+		echo "<p>";
 		echo"Votre classe : ";
 		echo $enregistrement['nom'];
-		echo "<br/><br/>";
-
+		echo "</p>";
 	}
 ?>
 
@@ -62,6 +62,10 @@
 						unset($_SESSION['feedback_assignExercices']);
 					}
 
+					if(isset($_SESSION['feedback_create_class'])){
+						echo '<p id=feedbackCreateClass>'.$_SESSION['feedback_create_class'].'</p>';
+						unset($_SESSION['feedback_create_class']);
+					}					
 
 					$vosClasses = $bdd->prepare("SELECT * FROM classe WHERE idCreator = ?");
 					$vosClasses->execute(array($_SESSION['id']));

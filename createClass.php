@@ -1,6 +1,6 @@
 <?php
 	require_once("verifSessionProf.php");
-
+	//$_SESSION['feedback_create_class'] = 
 
 	function format_birthday_date($dateString){
 		// Either "JJ/MM/AAAA" or "AAAA-MM-JJ" are acceptable. We seek to convert to AAAA-MM-JJ if it's not already the case		
@@ -8,7 +8,8 @@
 		if (strpos($dateString, '/') !== FALSE){
 			$temp = explode("/", $dateString);
 			if(count($temp)!=3){ //TODO: Fix that with try/catch...
-				echo"Un bug s'est produit.";
+				$_SESSION['feedback_create_class'] = "Un bug s'est produit, une des dates n'était pas au bon format. La classe n'a pas été créée.";
+				header("Location: gestion_classe.php");
 				exit();
 			}
 			else{
@@ -92,57 +93,71 @@
 		require_once("conn_pdo.php");
 
 		// Création de la classe
+		try {
+			$req = $bdd->prepare("INSERT INTO classe VALUES(:idClasse, :niveau, :nomEcole, :ville, :remarques, :idCreator, :nom)");
+			$req->execute(array(
+				'idClasse' => '',
+				'niveau' => $_SESSION['class_form']['niveau'],
+				'nomEcole' => $_SESSION['class_form']['nom_ecole'],
+				'ville' => $_SESSION['class_form']['ville'],
+				'remarques' => $_SESSION['class_form']['remarques'],
+				'idCreator' => $_SESSION['id'],
+				'nom' => $_SESSION['class_form']['nom_classe']));
+				//TODO : gestion d'erreurs...
 
-		$req = $bdd->prepare("INSERT INTO classe VALUES(:idClasse, :niveau, :nomEcole, :ville, :remarques, :idCreator, :nom)");
-		$req->execute(array(
-			'idClasse' => '',
-			'niveau' => $_SESSION['class_form']['niveau'],
-			'nomEcole' => $_SESSION['class_form']['nom_ecole'],
-			'ville' => $_SESSION['class_form']['ville'],
-			'remarques' => $_SESSION['class_form']['remarques'],
-			'idCreator' => $_SESSION['id'],
-			'nom' => $_SESSION['class_form']['nom_classe']));
-			//TODO : gestion d'erreurs...
+			$idNouvelleClasse = $bdd->lastInsertId();
+			$req->closeCursor();
+		}
+		catch(Exception $e){
+			$_SESSION['feedback_create_class'] = "Erreur lors de la création de la classe dans la base de données : ".$e;
+			header("Location: gestion_classe.php");
+			exit();
+		}
 
-		$idNouvelleClasse = $bdd->lastInsertId();
-		$req->closeCursor();
 
 		// Création des comptes pour chaque élève et du lien élève-classe
 
-		$aujourdhui=getdate(); $mois=$aujourdhui['mon']; $jour=$aujourdhui['mday']; $annee=$aujourdhui['year'];
-		$heur=$aujourdhui['hours']; $minute=$aujourdhui['minutes']; $seconde=$aujourdhui['seconds'];
-		$date=$annee."-".$mois."-".$jour." ".$heur.":".$minute.":".$seconde;
+		try {
+			$aujourdhui=getdate(); $mois=$aujourdhui['mon']; $jour=$aujourdhui['mday']; $annee=$aujourdhui['year'];
+			$heur=$aujourdhui['hours']; $minute=$aujourdhui['minutes']; $seconde=$aujourdhui['seconds'];
+			$date=$annee."-".$mois."-".$jour." ".$heur.":".$minute.":".$seconde;
 
-		foreach($students as $eleve){
+			foreach($students as $eleve){
 
-			$req = $bdd->prepare("INSERT INTO eleve VALUES(:numEleve, :nom, :prenom, :dateNais, :classe, :numClasse, :ecole, :ville, :sexe, :dateIns, :remarque)");
-			$req->execute(array(
-				'numEleve' => '',
-				'nom' => $eleve["nom"],
-				'prenom' => $eleve["prenom"],
-				'dateNais' => $eleve["date_naissance"],
-				'classe' => strtolower($_SESSION['class_form']['niveau']),
-				'numClasse' => $idNouvelleClasse,
-				'ecole' => $_SESSION['class_form']['nom_ecole'],
-				'ville' =>  $_SESSION['class_form']['ville'],
-				'sexe' => $eleve["sexe"],
-				'dateIns' => $date,
-				'remarque' => $eleve["remarque"]));
+				$req = $bdd->prepare("INSERT INTO eleve VALUES(:numEleve, :nom, :prenom, :dateNais, :classe, :numClasse, :ecole, :ville, :sexe, :dateIns, :remarque)");
+				$req->execute(array(
+					'numEleve' => '',
+					'nom' => $eleve["nom"],
+					'prenom' => $eleve["prenom"],
+					'dateNais' => $eleve["date_naissance"],
+					'classe' => strtolower($_SESSION['class_form']['niveau']),
+					'numClasse' => $idNouvelleClasse,
+					'ecole' => $_SESSION['class_form']['nom_ecole'],
+					'ville' =>  $_SESSION['class_form']['ville'],
+					'sexe' => $eleve["sexe"],
+					'dateIns' => $date,
+					'remarque' => $eleve["remarque"]));
 
-			$idNouvelEleve = $bdd->lastInsertId();
-			$req->closeCursor();
+				$idNouvelEleve = $bdd->lastInsertId();
+				$req->closeCursor();
 
-			$req = $bdd->prepare("INSERT INTO classe_eleve VALUES(:idEleve, :idClasse)");
-			$req->execute(array(
-				'idEleve' => $idNouvelEleve,
-				'idClasse' => $idNouvelleClasse));
-			$req->closeCursor();
+				$req = $bdd->prepare("INSERT INTO classe_eleve VALUES(:idEleve, :idClasse)");
+				$req->execute(array(
+					'idEleve' => $idNouvelEleve,
+					'idClasse' => $idNouvelleClasse));
+				$req->closeCursor();
+			}
 
 		}
+		catch(Exception $e){
+			$_SESSION['feedback_create_class'] = "Erreur lors de la création des élèves dans la base de données : ".$e;
+			header("Location: gestion_classe.php");
+			exit();
+		}
 
+		$_SESSION['feedback_create_class'] = "La classe s'est correctement enregistrée.";
 		unset($_SESSION['class_form']);
 		// TODO :  SI TOUT MARCHE, UNSET ($_SESSION['class_form'])
 	}
-
 	header("Location: gestion_classe.php");
 ?>
