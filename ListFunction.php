@@ -2,38 +2,28 @@
 
 // Fonctions pour les listes
 
-function loadList($type,$name){
+function loadList($type, $b){
 	$t=array();
-	require_once('conn_pdo.php');
 
-	$req = $bdd->prepare("SELECT * FROM lists where type=? and name=?");
-	$res = $req->execute(array($type, $name));
-	while ($tab = $res->fetch()) {
-		$t=explode("||",utf8_encode($tab['values']));
+	$req = $b->prepare("SELECT * FROM properties where type=?");
+	$res = $req->execute(array($type));
+	$t = array();
+	while ($tab = $req->fetch()) {
+		array_push($t, $tab["name"]);
 	}
 	$req->closeCursor();
 	return $t;
 }
 
-function newList($type,$name,$values){
-	require_once('conn_pdo.php');
-	$req = $bdd->prepare(" INSERT INTO `lists` (`type`, `name`, `values`) VALUES (?, ?, ?)");
-	$res = $req->execute(array($type, $name, $values));
-	$req->closeCursor();
-}
 
-function updateList($type,$name,$new){
-	require_once('conn_pdo.php');
-	$old=loadList($type,$name);
-	$delta=array_diff($new,$old);
-	if(!(empty($delta))){
-		$update=array_merge($old,$delta);
-		$StringUpdate=implode("||",$update);
-		//echo($StringUpdate);
-		$req = $bdd->prepare("UPDATE `lists` SET `values`=? WHERE `type`=? and `name`=?");
-		$req->execute(array($StringUpdate, $type, $name));
-		$req->closeCursor();
-	}
+function updateList($type, $new, $b){
+	foreach($new as $new_property){
+		if(!(exists_in_BDD('properties', 'name = ?', array($new_property), $b))){
+			$req = $b->prepare('INSERT INTO properties(name, tri_prof, type, idCreator) VALUES(?, ?, ?, ?)');
+			$req->execute(array($new_property, 'FALSE', 'problem', $_SESSION['id']));
+			$req->closeCursor();
+		}
+	}		
 }
 
 

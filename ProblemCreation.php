@@ -1,5 +1,7 @@
 <?php
 	require_once("verifSessionProf.php");
+	require_once("conn_pdo.php");
+	require_once("ListFunction.php");
 ?>
 
 
@@ -57,8 +59,8 @@
 	
 		//$infos["temp"]["CurrentAnswer"]
 		$infos['properties']=$TabProperties;
-		include("ListFunction.php");
-		updateList('property','pbm',$_POST["properties"]);//si la liste de propriétés contient des éléments nouveaux, alors on rajoute ces éléments
+		
+		updateList('problem', $_POST["properties"],$bdd);//si la liste de propriétés contient des éléments nouveaux, alors on rajoute ces éléments
 		
 		//echo("here properties");
 		//print_r($infos['properties']);

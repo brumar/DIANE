@@ -1,119 +1,104 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Questions</title>
-<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
-<script type="text/javascript" src="static/js/view.js"></script>
-<script type="text/javascript" src="static/js/userscript.js"></script>
-
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Questions</title>
+	<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
+	<script type="text/javascript" src="static/js/view.js"></script>
+	<script type="text/javascript" src="static/js/userscript.js"></script>
 </head>
 <body id="main_body" >
 
-<?php 
-
-
-
-if (isset($_POST["infos"])){
-	
-	$infos=unserialize(base64_decode($_POST["infos"]));
-	
-	if (isset($_POST["properties"])){
-		$currentQ=$infos['temp']['currentQuestion'];
-		$currentA=$infos['temp']['CurrentAnswer'];
-		$infos['Qinfos']["properties"][$currentQ][$currentA]=$_POST["properties"];
-		include("ListFunction.php");
-		//print_r($_POST["properties"])
-		updateList('property','answer',$_POST["properties"]);//si la liste de propriétés contient des éléments nouveaux, alors on rajoute ces éléments 
-		//print_r($infos['Qinfos']['description'][$currentQ][$currentA]["properties"]);
-	}
-	$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
-	if (isset($infos['html'])){$text=$infos['html'];}
-	if (isset($infos['variable'])){$variable=$infos['variable'];}
-	if (isset($infos['keywords'])){$keywords=$infos['keywords'];}
-	if (isset($infos['comments'])){$comments=$infos['comments'];}
-	if(isset($_POST['currentQuestion'])){$current=$_POST['currentQuestion'];$question=$infos['questions'][$current][3][0];}
-	if(isset($infos['temp']['currentQuestion'])){$current=$infos['temp']['currentQuestion'];$question=$infos['questions'][$current][3][0];}
-	
-	
-	//echo("aaaaaaaaaa$current")	;
-}
+	<?php 
+		if (isset($_POST["infos"])){
+			
+			$infos=unserialize(base64_decode($_POST["infos"]));
+			
+			if (isset($_POST["properties"])){
+				$currentQ=$infos['temp']['currentQuestion'];
+				$currentA=$infos['temp']['CurrentAnswer'];
+				$infos['Qinfos']["properties"][$currentQ][$currentA]=$_POST["properties"];
+				include("ListFunction.php");
+				//print_r($_POST["properties"])
+				updateList('property','answer',$_POST["properties"]);//si la liste de propriétés contient des éléments nouveaux, alors on rajoute ces éléments 
+				//print_r($infos['Qinfos']['description'][$currentQ][$currentA]["properties"]);
+			}
+			$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
+			if (isset($infos['html'])){$text=$infos['html'];}
+			if (isset($infos['variable'])){$variable=$infos['variable'];}
+			if (isset($infos['keywords'])){$keywords=$infos['keywords'];}
+			if (isset($infos['comments'])){$comments=$infos['comments'];}
+			if(isset($_POST['currentQuestion'])){$current=$_POST['currentQuestion'];$question=$infos['questions'][$current][3][0];}
+			if(isset($infos['temp']['currentQuestion'])){$current=$infos['temp']['currentQuestion'];$question=$infos['questions'][$current][3][0];}
+			
+			
+			//echo("aaaaaaaaaa$current")	;
+		}
 	?>
 
 	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	
-	
 		<h1><a>Untitled Form</a></h1>
 		<h3>Enoncé</h3>
 		<div style="width:360px;padding:10px;margin:10px;border:1px solid black">
-				<?php if (isset($text)){echo($text);}else{echo('<font color="grey"><small>aucun énoncé fourni</small></font>');}?>
-			</div><h3>Question : </h3>
-			<?php if(isset($question)){echo($question);}?>
+			<?php if (isset($text)){echo($text);}else{echo('<font color="grey"><small>aucun énoncé fourni</small></font>');}?>
+		</div><h3>Question : </h3>
+		<?php if(isset($question)){echo($question);}?>
 		<form id="form_470585" name="mainform" class="appnitro"  method="post" action="<?php echo(basename($_SERVER['REQUEST_URI']));?>" name="formulaire">
-					<input type="hidden" name="clickedProp" value="">
-					<input type="hidden" name="infos" value="">
-					
-					
-					<div class="form_description">				
+			<input type="hidden" name="clickedProp" value="">
+			<input type="hidden" name="infos" value="">
+			
+			<div class="form_description">				
 		
+				<h2>Decrivez les réponses attendues à votre question</h2>
+				<!-- <p>This is your form description. Click here to edit.</p> -->
+			</div>						
+			<ul>
 		
-			<h2>Decrivez les réponses attendues à votre question</h2>
-			<!-- <p>This is your form description. Click here to edit.</p> -->
-		</div>						
-			<ul >
+				<label class="description" for="element_3">Réponses attendues </label>
 		
-		<label class="description" for="element_3">Réponses attendues </label>
-		
-		<div id="questBlock">
-			<div class="question" id="quest0">	
+				<div id="questBlock">
+					<div class="question" id="quest0">	
 						<li id="li_1" >
-					<label class="description" for="element_1">variable <br><small>Laisser vide si la réponse est qualitative</small><br><small>Mettre une relation si la variable est issue d'un calcul</small>
-					
-					</label>
-					<div>
-						<input id="element_1" name="element_1" class="element text large" type="text" maxlength="255" value="<?php if (isset($variable)){echo($variable);}?>"/> 
-					</div><p class="guidelines" id="guide_1"><small>Exemples : <br>Nombre1<br>Nombre1+Nombre2<br>Nombre1-Nombre2 </small></p> 
-					
-					
-					</li><li id="li_2" >
-					<label class="description" for="element_2">mots clefs associés à cette variable </label>
-					<div>
-						<input id="element_2" name="element_2" class="element text large" type="text" maxlength="255" value="<?php if (isset($keywords)){echo($keywords);}?>"/> 
-					</div><p class="guidelines" id="guide_2"><small>Exemples : billes, perdue, Anna </small></p> 
-				</li>
-				<li id="li_3" >
-					
-					<label class="description" for="element_3">commentaire associé à ce type de réponse attendue</label>
-					<div>
-						<textarea id="element_3" name="element_3" class="element textarea small"><?php if (isset($comments)){echo($comments);}?></textarea> 
-					</div><p class="guidelines" id="guide_3"><small>ce paragraphe sera affiché dans le diagnostic lorsque ce type de réponse aura été détecte.</small></p> 
-				</li>
-								<li id="li_12" >	
-					<input type="button"  value="associer à des propriétés" onClick="accessProperties(this);">
-				</li><br>
-				<li id="li_11" >	
-					<img id="bla" src="del.png" style="cursor: pointer; cursor: hand;" onClick="supress(this);">
-					<br>
-					<span style="display:inline">supprimer ce type de réponse attendue</span>
-				</li>
+							<label class="description" for="element_1">variable <br><small>Laisser vide si la réponse est qualitative</small><br><small>Mettre une relation si la variable est issue d'un calcul</small>
+							</label>
+							<div>
+								<input id="element_1" name="element_1" class="element text large" type="text" maxlength="255" value="<?php if (isset($variable)){echo($variable);}?>"/> 
+							</div><p class="guidelines" id="guide_1"><small>Exemples : <br>Nombre1<br>Nombre1+Nombre2<br>Nombre1-Nombre2 </small></p> 
+						</li>
+						<li id="li_2" >
+							<label class="description" for="element_2">mots clefs associés à cette variable </label>
+							<div>
+								<input id="element_2" name="element_2" class="element text large" type="text" maxlength="255" value="<?php if (isset($keywords)){echo($keywords);}?>"/> 
+							</div><p class="guidelines" id="guide_2"><small>Exemples : billes, perdue, Anna </small></p> 
+						</li>
+						<li id="li_3" >
+							<label class="description" for="element_3">commentaire associé à ce type de réponse attendue</label>
+							<div>
+								<textarea id="element_3" name="element_3" class="element textarea small"><?php if (isset($comments)){echo($comments);}?></textarea> 
+							</div><p class="guidelines" id="guide_3"><small>ce paragraphe sera affiché dans le diagnostic lorsque ce type de réponse aura été détecte.</small></p> 
+						</li>
+						<li id="li_12" >	
+							<input type="button"  value="associer à des propriétés" onClick="accessProperties(this);">
+						</li><br>
+						<li id="li_11" >	
+							<img id="bla" src="del.png" style="cursor: pointer; cursor: hand;" onClick="supress(this);">
+							<br>
+							<span style="display:inline">supprimer ce type de réponse attendue</span>
+						</li>
 			
-			</div>
-			<span id="writeplace"></span>
-			
-				<img align="middle" src="static/images/add.png" style="cursor: pointer; cursor: hand;" onClick="PlusFields();"><span>Ajouter un type de réponse attendue</span>
-					
-		</div>	
-			</li>
-			
-					<li class="buttons">
-			    <input type="hidden" name="form_id" value="470585" />
-			    <input type="button"  value="tester" onClick="AnswerTest();">
-				<input id="saveForm" class="button_text" type="submit" name="envoi" value="valider" />
-		</li>
+					</div>
+						<span id="writeplace"></span>
+						<img align="middle" src="static/images/add.png" style="cursor: pointer; cursor: hand;" onClick="PlusFields();"><span>Ajouter un type de réponse attendue</span>					
+				</div>	
+
+				<li class="buttons">
+				    <input type="hidden" name="form_id" value="470585" />
+				    <input type="button"  value="tester" onClick="AnswerTest();">
+					<input id="saveForm" class="button_text" type="submit" name="envoi" value="valider" />
+				</li>
 			</ul>
-			
 		</form>	
 		<div id="footer">
 			Generated by <a href="http://www.phpform.org">pForm</a>

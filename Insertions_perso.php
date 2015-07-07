@@ -36,12 +36,12 @@
 				document.form2text.message.value=message;
 				document.form2text.TabExtras.value=implodeMessage;	
 
-				alert(message);
+				//alert(message);
 			}
 
 
 			function modify_list(idList){
-				alert(idList);
+				//alert(idList);
 			}
 
 			if (typeof String.prototype.trim != 'function') { // detect native implementation

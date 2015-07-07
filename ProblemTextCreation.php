@@ -205,9 +205,15 @@
 
 	if(isset($_POST['infos'])){
 
+		
+
 		$infos=$_POST['infos'];
 		$infos=unserialize(base64_decode($infos));
 		$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
+
+		//var_dump($infos);
+
+
 		$textBrut='';
 		if(isset($infos['texteBrut'])){
 			$textBrut=$infos['texteBrut'];}
@@ -219,14 +225,19 @@
 
 		if(isset($infos['compteurs'])){
 	//print_r($infos['compteurs']);
-			$compteurs=$infos['compteurs'];
+			if(!(is_array($infos['compteurs']))) {
+				$compteurs=unserialize($infos['compteurs']);
+			}
+			else{
+				$compteurs=$infos['compteurs'];
+			}
+
 			$listes=array();
 			$initcompteur='var compteur = { ';
 			$virgule='';
 			$needVirgule=false;//variable permettant de mettre des virgules là ou c'est necessaire
 			
 			foreach($compteurs as $k=>$compteur){
-
 				if($needVirgule){$virgule=', ';}
 				$listes[]=$k;
 				$initcompteur.=$virgule.'"'.$k.'" : ';
@@ -480,7 +491,7 @@
 
 		if(isset($_POST['message'])){
 			$mess=$_POST['message'];
-			echo("<script>alert(\"".$mess."\");</script>");
+			// echo("<script>alert(\"".$mess."\");</script>");
 		}
 
 

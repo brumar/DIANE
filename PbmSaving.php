@@ -105,7 +105,7 @@
 					//print_r($infos['Qinfos']["properties"]);
 					if(isset($infos['Qinfos']["properties"][$i][$a])){$properties=implode('|||',$infos['Qinfos']["properties"][$i][$a]);}
 					
-					$req = $bdd-> prepare("INSERT INTO pbm_questions (idQuestion, Number, variable, keywords, comments, properties) VALUES (:idQuestion, :Number, :variable, :keywords, :comments, :properties)");
+					$req = $bdd-> prepare("INSERT INTO pbm_expectedanswers (idQuestion, Number, variable, keywords, comments, properties) VALUES (:idQuestion, :Number, :variable, :keywords, :comments, :properties)");
 					$req->execute(array(
 						'idQuestion' => $idQuestion, 
 						'Number' => $number, 
@@ -115,12 +115,11 @@
 						'properties' => $properties));
 				}	
 			}
-		}
-		
+		}	
 	}
 ?>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Creation de problème</title>
@@ -128,10 +127,7 @@
 	</head>
 	<body>
 		<?php include("headerEnseignant.php"); ?>
-		<br><br>
-
-
-
+		<br/>
 		<img id="top" src="static/images/top.png" alt="">
 			<div id="form_container">
 				<form id="form_470585" class="appnitro"  method="post" action="">
