@@ -7,8 +7,9 @@
 		unset($_SESSION['class_form']); //Pour le moment c'est très mal géré donc autant supprimer
 	}
 
-	$n_visible = 3;
-	$n_max_student = 99;
+	$n_visible = 30;
+	$_SESSION['n_max_student'] = 99;
+	$n_max_student = $_SESSION['n_max_student'];
 
 	function displayClasse($enregistrement){
 		// $limText=300;
@@ -168,7 +169,7 @@
 
 				<input type="button" value = "Ajouter une classe" onclick="showFormClass();"> 
 
-				<form action="createClass.php" display="none" method="post" class="appnitro" id="formulaire_creation_classe" onsubmit ="return verifClassForm();">
+				<form action="createClass.php" display="none" method="post" id="formulaire_creation_classe" onsubmit ="return verifClassForm();">
 					<ul>
 						<li id="li_999" >
 							<label class="description" for="element_999">Nom de la nouvelle classe</label>
@@ -229,43 +230,54 @@
 						</ul>
 
 						<h3>Elèves</h3>
-						<ul>
+						<p>Rentrez maintenant les informations concernant les élèves. La colonne "Remarque particulière" peut être utilisée pour indiquer toute situation particulière de l'élève qui soit pertinente à prendre en compte pour évaluer ses résultats.</p>
+						<table>
+							<tr>
+								<th></th>
+								<th>Prénom</th>
+								<th>Nom</th>
+								<th>Date de naissance</th>
+								<th>Sexe</th>
+								<th>Remarque Particulière</th>
+							</tr>
 						<?php
 							$invis = "";
-							for($i = 1; $i<$n_max_student; $i++){
+							for($i = 1; $i<=$n_max_student; $i++){
 								if($i>$n_visible){
 									$invis = ' style="display:none"';
 								}
-								echo "<li id=li_add_student_form_".$i.$invis.">";
-									echo "<div class=\"add_student_form\">";
-										echo '<label class="label_add_student_form" for="add_student_firstname_'.$i.'">Prénom</label>';
-										echo '<span class="add_student_span">';
-											echo '<input id="add_student_firstname_'.$i.'" name="add_student_firstname[]" class="element text" type="text">';
-										echo '</span>';
+								echo "<tr id=add_student_form".$i.$invis.">";
+									echo '<td class="add_student_td">';
+										echo $i;
+									echo '</td>';
+									echo '<td class="add_student_td">';
+										echo '<input id="add_student_firstname_'.$i.'" name="add_student_firstname[]" class="element text" type="text">';
+									echo '</td>';
 
-										echo '<label class="label_add_student_form" for="add_student_name_'.$i.'">Nom</label>';
-										echo '<span class="add_student_span">';
-											echo '<input id="add_student_name_'.$i.'" name="add_student_name[]" class="element text" type="text">';
-										echo '</span>';
+									echo '<td class="add_student_td">';
+										echo '<input id="add_student_name_'.$i.'" name="add_student_name[]" class="element text" type="text">';
+									echo '</td>';
 
-										echo '<label class="label_add_student_form" for="add_student_birthday_'.$i.'">Date de naissance</label>';
-										echo '<span class="add_student_span">';
-											echo '<input id="add_student_birthday_'.$i.'" name="add_student_birthday[]" type="date">';
-										echo '</span>';
+									echo '<td class="add_student_td">';
+										echo '<input id="add_student_birthday_'.$i.'" name="add_student_birthday[]" type="date">';
+									echo '</td>';
 
-										echo '<label class="label_add_student_form" for="add_student_sex_'.$i.'">Sexe</label>';
-										echo '<span class="add_student_span">';
-											echo '<select id="add_student_sex_'.$i.'" name="add_student_sex[]">';
-												echo '<option value="f">Fille</option>';
-												echo '<option value="m">Garçon</option>';
-											echo '</select>';
-										echo '</span>';
+									echo '<td class="add_student_td">';
+										echo '<select id="add_student_sex_'.$i.'" name="add_student_sex[]">';
+											echo '<option value="x">x</option>';
+											echo '<option value="f">Fille</option>';
+											echo '<option value="m">Garçon</option>';
+										echo '</select>';
+									echo '</td>';
 
-									echo"</div>";
-								echo"</li>";
+									echo '<td class="add_student_td">';
+										echo '<input id="add_student_remark_'.$i.'" name="add_student_remark[]" class="element text" type="text">';
+									echo '</td>';
+
+								echo"</tr>";
 							}
 							?>
-						</ul>
+						</table>
 						<input type="button" value="Élève Supplémentaire" id="button_add_student" onclick="showOneMoreStudent();">
 						<input type="submit" value="Créer la classe">
 				</form>
@@ -280,24 +292,57 @@
 			function showFormClass(){
 				class_form = document.getElementById("formulaire_creation_classe");
 				class_form.style.display = 'block';
-				add_student_form = document.getElementById("formulaire_ajout_eleve");
-				add_student_form.style.display = 'block';
+				// add_student_form = document.getElementById("formulaire_ajout_eleve");
+				// add_student_form.style.display = 'block';
 			}
 
 			function verifClassForm(){
-				// f_nom_classe = document.getElementById("f_nom_classe");
-				// f_niveau = document.getElementById("f_nivea");
-				// f_nom_ecole = document.getElementById("f_nom_ecole");
-				// f_ville = document.getElementById("f_ville");
-				// f_remarques = document.getElementById("f_remarques");
-				// f_eleves = document.getElementById("f_eleves");
+				f_nom_classe = document.getElementById("f_nom_classe");
+				f_niveau = document.getElementById("f_niveau");
+				f_nom_ecole = document.getElementById("f_nom_ecole");
+				f_ville = document.getElementById("f_ville");
+				f_remarques = document.getElementById("f_remarques");
 
-				// if(verifEleves(f_eleves.value)){
-				// 	return true;
-				// }
-				
-				return false;
+				f_student_firstname = document.getElementsByName("add_student_firstname[]");
+				f_student_name = document.getElementsByName("add_student_name[]");
+				f_student_birthday = document.getElementsByName("add_student_birthday[]");
+				f_student_sex = document.getElementsByName("add_student_sex[]");
+				f_student_remark = document.getElementsByName("add_student_remark[]");
+
+				var verif_i = 0;
+				var n_student = 0;
+				var sex_indetermined_warning = false;
+
+				while(verif_i < <?php echo $n_max_student;?>){
+
+					if (((f_student_firstname[verif_i]).value != "") && ((f_student_name[verif_i]).value != "")){					
+						if(checkDateValidityOrReturnDate(f_student_birthday[verif_i].value)){ //2001-01-12
+							n_student++;
+						}
+						else{
+							alert("La date à la ligne "+String(verif_i+1)+" n'est pas au bon format.");
+							return false;
+						}
+						
+						if(f_student_sex[verif_i].value == "x"){
+							sex_indetermined_warning = true;
+						}
+					}
+					verif_i++;
+				}
+				if(n_student == 0){
+					alert("Il faut rentrer au moins un élève pour créer une classe.");
+					return false;
+				}
+
+				// Sexe indéterminé : on demande un "confirm" mais on laisse passer le x sinon
+				if(sex_indetermined_warning){
+					return confirm("Le sexe de certains élèves n'est pas déterminé. Voulez vous créer la classe de "+n_student+" élèves malgré tout ?");
+				}
+
+				return confirm("Vous vous appretez à créer une classe avec "+n_student+" élèves.");
 			}
+
 
 			function removeBlankLines(lines){
 				
@@ -310,51 +355,86 @@
 				return(linesWithoutBlankLines);
 			}
 
-			function checkDateValidityOrReturnDate(dateString){
-				var regDate=/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
-				var values=dateString.match(regDate);
-				if(!values){
-					return false;
-				}
-				return values;
+			function isNumeric(n) {
+ 				return !isNaN(parseFloat(n)) && isFinite(n);
 			}
 
-			function verifEleves(string){
-			    if (!string) {
-			        alert("Rentrez des élèves");
-			        return false;
-			    }
-				var table=string.split("\n");
-				table2=removeBlankLines(table);
-				for (i = 0; i < table2.length; i++) {
-					var eleve=table2[i].split(";");
-					if(eleve.length!=4){
-						alert("à la ligne "+(i+1)+" le format n'est pas celui attendu");
+			function checkDateValidityOrReturnDate(dateString){
+				// Cette fonction accepte 2 formats de date : AAAA-JJ-MM et JJ/MM/AAAA
+
+				var regDate=/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
+
+				if(dateString.indexOf('-') === -1) { //NO DASH => is there a "/"
+
+					if(dateString.indexOf('/') === -1){ // No slash either
 						return false;
 					}
-					if((eleve[0]).trim()==""||(eleve[1]).trim()==""){
-						alert("à la ligne "+(i+1)+" problème avec le nom/prénom");
-						return false;
-					}
-					var dateString=checkDateValidityOrReturnDate(eleve[2]);
-					if(!dateString){
-						alert("La date à la ligne "+(i+1)+" n'est pas sous le format JJ/MM/AAAA");
-						return false;
-					}
-					if( ((eleve[3]).trim()!="m") && ((eleve[3]).trim()!="f") ) {
-						alert("à la ligne "+(i+1)+" problème avec le sexe");
-						return false;
+					else {
+						var values=dateString.match(regDate);
+						if(!values){
+							return false;
+						}
+						return values;
 					}
 				}
-				return confirm(" Vous vous appretez à créer une classe avec "+i+" élèves");
+				else{ //There are dashes
+					var date_AAAA_JJ_MM = dateString;
+					var tab_date = date_AAAA_JJ_MM.split("-");
+					if(tab_date.length == 3){
+						var aaaa = tab_date[0];
+						var mm = tab_date[1];
+						var dd = tab_date[2];
+
+						var date_with_slashes = dd+"/"+mm+"/"+aaaa;
+						var values=date_with_slashes.match(regDate);
+						if(!values){
+							return false;
+						}
+						return values;
+					}
+					else{
+						return false;
+					}			
+				}
 			}
+			
+
+			// function verifEleves(string){ //Plus valable
+			//     if (!string) {
+			//         alert("Rentrez des élèves");
+			//         return false;
+			//     }
+			// 	var table=string.split("\n");
+			// 	table2=removeBlankLines(table);
+			// 	for (i = 0; i < table2.length; i++) {
+			// 		var eleve=table2[i].split(";");
+			// 		if(eleve.length!=4){
+			// 			alert("à la ligne "+(i+1)+" le format n'est pas celui attendu");
+			// 			return false;
+			// 		}
+			// 		if((eleve[0]).trim()==""||(eleve[1]).trim()==""){
+			// 			alert("à la ligne "+(i+1)+" problème avec le nom/prénom");
+			// 			return false;
+			// 		}
+			// 		var dateString=checkDateValidityOrReturnDate(eleve[2]);
+			// 		if(!dateString){
+			// 			alert("La date à la ligne "+(i+1)+" n'est pas sous le format JJ/MM/AAAA");
+			// 			return false;
+			// 		}
+			// 		if( ((eleve[3]).trim()!="m") && ((eleve[3]).trim()!="f") ) {
+			// 			alert("à la ligne "+(i+1)+" problème avec le sexe");
+			// 			return false;
+			// 		}
+			// 	}
+			// 	return confirm(" Vous vous appretez à créer une classe avec "+i+" élèves");
+			// }
 
 			function showOneMoreStudent(){
 				if(n_eleves_actuels <<?php echo $n_max_student;?>){
 					n_eleves_actuels++;
-					var id_name = String("li_add_student_form_").concat(n_eleves_actuels);
+					var id_name = String("add_student_form").concat(n_eleves_actuels);
 					var newElem = document.getElementById(id_name);
-					newElem.style.display ="block";
+					newElem.style.display ="table-row";
 				}
 				else{
 					alert("Vous avez atteint le nombre maximum d'élèves affichés. Si votre classe comprend plus de "+<?php echo $n_max_student;?>+" élèves, merci de former plusieurs classes.");
