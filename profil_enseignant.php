@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="static/js/view.js"></script>
 	</head>
 	<body id="main_body">
-		<?php include("headerEnseignant.php"); ?>
+		<?php require_once("headerEnseignant.php"); ?>
 			<div id="form_container">
 			<h1><a>Untitled Form</a></h1>
 				<div style="width:400px;display:inline-block">

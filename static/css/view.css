@@ -915,7 +915,9 @@ font-weight: bold;
 .add_student_span{
 	display:inline;
 }
-
+.label_add_student_form{
+	display: inline-block;
+}
 
 /* eleve.php */
 

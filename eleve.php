@@ -5,7 +5,7 @@
 	require_once("conn_pdo.php");
 	$inconnu = False; 
 	$noms_mois = array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
-	$choosePupil = False;
+	
 
 
 	function displayPupil($enregistrement){
@@ -18,6 +18,7 @@
 		echo '</p>';
 	}
 
+	$choosePupil = False;
 	if(isset($_SESSION['choosePupil'])){ //Feedback from code_selection.php
 		if($_SESSION['choosePupil']['choice']){
 			$choosePupil = True;
@@ -25,7 +26,8 @@
 			$_SESSION['chosenSerie'] = $idSerie;
 		}
 		else{
-			echo "Aucune série n'a été trouvée avec ce code."; //TODO: régler ça mieux
+			$feedback_choosePupil = "Aucune série n'a été trouvée avec ce code."; 
+			//echo "Aucune série n'a été trouvée avec ce code."; //TODO: régler ça mieux
 		}
 		unset($_SESSION['choosePupil']);
 	}
@@ -111,9 +113,16 @@
 		<link rel="stylesheet" href="static/css/view.css" />
 	</head>
 	<body>
+		<?php require_once("headerEleve.php"); ?>
 
 
 		<?php
+		if(isset($feedback_choosePupil)){
+			echo '<p>';
+			echo $feedback_choosePupil;
+			echo '</p>';
+		}
+
 		if(!($choosePupil)){
 			echo '<p>';
 			echo '	Bonjour et bienvenu sur DIANE ! Si ton enseignant t\'as donné un code avec des lettres et des chiffres, il faut l\'écrire ici :';
@@ -124,13 +133,23 @@
 			echo '</form>';
 		}
 		else{ //(=> $choosePupil == True)
-			echo '<p>Choisis ton nom dans la liste :</p>';
-			echo '<ul id="list_pupils">';
 
 			$req = $bdd->prepare("SELECT idEleve FROM serie_eleve WHERE idSerie = ?");
 			$req->execute(array($idSerie));
 
 			// TODO: IL faut un rowcount, et faire quelque chose si c'est trop élevé...
+
+			$nb_eleves = $req->rowCount();
+
+			if($nb_eleves == 0){
+				echo '<p>Cette série d\'exercices existe, mais aucun élève ne doit la faire.</p>';
+				echo '<input type= "button" value="Revenir" onclick="getBackToEleve()"/>';
+			}
+
+			else{ 
+				echo '<p>Choisis ton nom dans la liste :</p>';
+				echo '<ul id="list_pupils">';
+			}
 
 			while ($enregistrement = $req->fetch()){
 				$current_pupil = $enregistrement['idEleve'];
@@ -200,7 +219,9 @@
 		</form>
 
 		<script type="text/javascript">
-
+			getBackToEleve = function(){
+				location.href = "eleve.php";
+			}
 			selectPupil= function(idPupil, namePupil){
 				var nomEleveFormBirthday = document.getElementById("nomEleveFormBirthday");
 				nomEleveFormBirthday.innerText = namePupil;
