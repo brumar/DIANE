@@ -50,7 +50,7 @@
 				//echo("question : $currentQ  réponse : $currentA");
 				//print_r($previouslist);
 				break;
-			case "ProblemCreation.php" :
+			case "creation_template.php" :
 				$previouslist=isset($infos['properties']) ? $infos['properties'] : null;
 				$name="pbm";
 				break;

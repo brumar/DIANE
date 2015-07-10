@@ -86,8 +86,8 @@
 			$result->closeCursor();
 			?>
 			</p>
-			<p><a href="ProblemCreation.php">Créer un nouvel exercice</a></p>
-			<p><a href="ProblemCreation.php">Retour</a></p>
+			<p><a href="creation_template.php">Créer un nouvel exercice</a></p>
+			<p><a href="creation_template.php">Retour</a></p>
 			</div>
 
 		</form>

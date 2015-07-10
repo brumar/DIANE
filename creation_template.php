@@ -2,22 +2,42 @@
 	require_once("verifSessionProf.php");
 	require_once("conn_pdo.php");
 	require_once("ListFunction.php");
+
+	function checkNumericConstraints($constraints, $numbers){
+		//On vérifie que les contraintes numériques sont bien écrites et qu'elles sont 
+		// satisfaites avec les valeurs par défaut du problème avant de valider
+		if($constraints == ""){ //Pas de contrainte
+			return true;
+		}
+		if(!($c = parseNumericConstraints($constraints))){
+			return false;
+		}
+		else{
+			foreach($c as $constraint){
+				if(!($constraint->isSatisfied($numbers))){
+					return false;
+				}
+			}
+		}
+		return true;
+
+	}
 ?>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Problème</title>
+		<title>Création de template</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
 		<script type="text/javascript" src="static/js/view.js"></script>
 		<script type="text/javascript">
 			function submitmainform(element){
 
-			document.mainform.currentQuestion.value=(element.parentNode.id);
-			//alert(document.mainform.currentQuestion.value);
-			document.mainform.submit();
+				document.mainform.currentQuestion.value=(element.parentNode.id);
+				//alert(document.mainform.currentQuestion.value);
+				document.mainform.submit();
 				
 			}
 
@@ -32,10 +52,9 @@
 		</script>
 	</head>
 	<body id="main_body" >
-	<?php include("headerEnseignant.php"); ?>
+	<?php require_once("headerEnseignant.php"); ?>
 	<?php 
 
-	$self=$_SERVER['PHP_SELF'];
 	$constraints='';
 	$public='';
 	$private='';
@@ -79,13 +98,13 @@
 	<div id="form_container">
 	
 		<h1><a>Untitled Form</a></h1>
-		<form name="realform" method="post"><input type="hidden"  name="infos"/>
+		<form name="realform" method="post"><input type="hidden" name="infos"/>
 		<input type="hidden" name="sender" value="<?php echo(basename($_SERVER['REQUEST_URI']));?>"/>				
 		<input type="hidden" name="type" value="Problem"/>
 		<input type="hidden"  name="currentQuestion"/>
 		<input type="hidden"  name="target"/>
 		</form>
-		<form id="form_470585" class="appnitro" name="mainform" method="post" action="ProblemCreation.php">
+		<form id="form_470585" class="appnitro" name="mainform" method="post" action="creation_template.php">
 				
 					<div class="form_description">
 					<h2>Creation d'énoncé</h2>
@@ -147,9 +166,9 @@
 			    <div id="property">
 			    	<input id="property" type="button" name="prop" value="propriétés de ce problème" onclick="submitmainform(this);"/>
 			    </div>
-			    <div id="upload">
+			    <!-- <div id="upload">
 			    	<input id="upload" type="button" name="audio" value="ajouter de l'audio au problème" onclick="submitmainform(this);"/>
-			    </div>
+			    </div> -->
 			    <div id="validate">
 				<input id="saveForm" class="button_text" type="button" name="sub" value="Enregistrer" onclick="submitmainform(this);" /></div>
 		</li>
@@ -157,80 +176,97 @@
 		</form>	
 	</div>
 	<img id="bottom" src="static/images/bottom.png" alt="">
-	<?php if (isset($_POST['currentQuestion'])){//l'utilisateur a appuyé sur un bouton
 	
-	$c=$_POST['currentQuestion'];
-	$infos=$_POST['infos'];//par voie de fait $_POST infos existe, mais il peut être vide
-	$infos=unserialize(base64_decode($infos));
-	if(empty($infos)){
-	$infos=array();
-}
-	$tempText='';
-	if(isset($infos['html'])){$tempText=($infos['html']);}else{$tempText="pas d'enoncé fourni pour le moment";}
-	//$tempText=base64_encode($tempText);
-	$target=base64_encode('<h3>enonce</h3><div style="width:360px;padding:10px;margin:10px;border:1px solid black;display:inline-block">'.$tempText.'</div>');
-	$infos['constraints']=$_POST['element_5'];
-	$infos['public']=$_POST['element_6'];
-	$infos['private']=$_POST['element_7'];
-	//actualisation de $infos
-	$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
-	//$test=unserialize($infosHtmlProtected);
-	
-	//2 cas se présentent, soit l'utilisateur a cliqué sur 'editer' soit il a cliqué sur 'propriétés
-	//echo($c);
-	//echo($tempText);
-	//$target="<h3>enonce</h3><div style=\"width:360px\;padding:10px\;margin:10px\;border:1px solid black\;display:inline-block\"> dada </div><br>";
-	switch ($c) {
-		case 'text':
-			echo("<script type=\"text/javascript\">
-			document.realform.action=\"ProblemTextCreation.php\";
-			document.realform.infos.value=\"$infosHtmlProtected\";
-			document.realform.submit();
-			</script>");
-			break;
-		case 'property':
 
-			echo("<script type=\"text/javascript\">
-			document.realform.action=\"properties.php\";
-			document.realform.infos.value=\"$infosHtmlProtected\";
-			document.realform.target.value=\"$target\";
-			document.realform.submit();
-			</script>");
-			break;
-		case 'upload':
-			echo("<script type=\"text/javascript\">
-			document.realform.action=\"upload.php\";
-			document.realform.infos.value=\"$infosHtmlProtected\";
-			document.realform.submit();
-			</script>");
-			break;
-		case 'validate':
-			echo("aaaaaaaaaa");
-			echo("<script type=\"text/javascript\">
-			document.realform.action=\"PbmSaving.php\";
-			document.realform.infos.value=\"$infosHtmlProtected\";
-			document.realform.submit();
-			</script>");
-			break;
-			default:
-			echo("<script type=\"text/javascript\">
-			document.realform.action=\"QuestionCreation.php\";
-			document.realform.infos.value=\"$infosHtmlProtected\";
-			document.realform.currentQuestion.value=\"$c\";
-			document.realform.submit();
-				</script>");
-	}
-	
-}	
+	<?php 
+
+		if (isset($_POST['currentQuestion'])){//l'utilisateur a appuyé sur un bouton
 		
-	
-	
-	//$text=$infos['html'];
-	//$SerializedHtmlprotectedInfo=htmlspecialchars(serialize($infos));
+			$c =$_POST['currentQuestion'];
+			$infos=$_POST['infos'];//par voie de fait $_POST infos existe, mais il peut être vide
+			$infos=unserialize(base64_decode($infos));
+			if(empty($infos)){
+				$infos=array();
+			}
+			$tempText='';
+			if(isset($infos['html'])){$tempText=($infos['html']);}else{$tempText="pas d'enoncé fourni pour le moment";}
+			//$tempText=base64_encode($tempText);
+			$target=base64_encode('<h3>enonce</h3><div style="width:360px;padding:10px;margin:10px;border:1px solid black;display:inline-block">'.$tempText.'</div>');
+			$infos['constraints']=$_POST['element_5'];
+			$infos['public']=$_POST['element_6'];
+			$infos['private']=$_POST['element_7'];
+			//actualisation de $infos
+			$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
+			//$test=unserialize($infosHtmlProtected);
+			
+			//2 cas se présentent, soit l'utilisateur a cliqué sur 'editer' soit il a cliqué sur 'propriétés
+			//echo($c);
+			//echo($tempText);
+			//$target="<h3>enonce</h3><div style=\"width:360px\;padding:10px\;margin:10px\;border:1px solid black\;display:inline-block\"> dada </div><br>";
+			switch ($c) {
+				case 'text':
+					echo("<script type=\"text/javascript\">
+					document.realform.action=\"ProblemTextCreation.php\";
+					document.realform.infos.value=\"$infosHtmlProtected\";
+					document.realform.submit();
+					</script>");
+					break;
+				case 'property':
+
+					echo("<script type=\"text/javascript\">
+					document.realform.action=\"properties.php\";
+					document.realform.infos.value=\"$infosHtmlProtected\";
+					document.realform.target.value=\"$target\";
+					document.realform.submit();
+					</script>");
+					break;
+				case 'upload':
+					echo("<script type=\"text/javascript\">
+					document.realform.action=\"upload.php\";
+					document.realform.infos.value=\"$infosHtmlProtected\";
+					document.realform.submit();
+					</script>");
+					break;
+				case 'validate':
+
+					//print_r($_SESSION['pbm_text_creation_infoclones']); //TODO : Passage $_SESSION...
+				 	
+				 	$tabNombres = array();
+				 	foreach($infos['clones'] as $clone){
+				 		//clone est un tableau de tableau, on veut "Nombre" dans $clone[1][0]. 
+				 		// On a l'id du Nombre dans $clone[2][0] et on récup la valeur par défaut dans $clone[3][0]
+				 		if($clone[1][0]=="Nombre"){
+				 			$index = "Nombre".(string)$clone[2][0];
+				 			$tabNombres[$index] = (int)$clone[3][0];
+				 		}
+
+				 	}
+				 	//var_dump($tabNombres);
+					
+					if(checkNumericConstraints($infos['constraints'], $infos['compteurs'])){
+						// echo("<script type=\"text/javascript\">
+						// document.realform.action=\"PbmSaving.php\";
+						// document.realform.infos.value=\"$infosHtmlProtected\";
+						// document.realform.submit();
+						// </script>");
+
+						alertPHP("Les contraintes ont l'air d'être ok");
+					}
+					else{
+						alertPHP("Vos contraintes numériques ne suivent pas le bon format, ou bien ne sont pas respectées par vos paramètres par défaut");
+					}
+					break;
+					default:
+					echo("<script type=\"text/javascript\">
+					document.realform.action=\"QuestionCreation.php\";
+					document.realform.infos.value=\"$infosHtmlProtected\";
+					document.realform.currentQuestion.value=\"$c\";
+					document.realform.submit();
+						</script>");
+			}
 		
-
-
+		}	
+	
 	?>
-	
 	</body>
 </html>

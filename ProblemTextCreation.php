@@ -414,8 +414,8 @@
 	?>
 
 		<form name="form1" id="form1" class="appnitro" method="post"> <!-- action="<?php //echo($self); ?>" -->
-				<input name="action" type="hidden" value="ProblemCreation.php">
-				<h2>Ecrivez votre &eacutenonc&eacute </h2>
+				<input name="action" type="hidden" value="creation_template.php">
+				<h2>Ecrivez votre énoncé </h2>
 							<h3>Zone d'écriture</h3>
 				<ul>
 					<li id="li_1" >
@@ -456,9 +456,9 @@
 
 		<form  id="form2" name="formulaireEnvoi" method="post" action="ProblemTextCreation.php"><!-- isset($EnonceINFOS) -->
 		<input type="hidden" name="infos" >
-		<input type="hidden" name="action" value="ProblemCreation.php">
+		<input type="hidden" name="action" value="creation_template.php">
 		<input type="hidden" name="envoi" value="true" >
-		<input type="hidden" name="enonce" > <!--     si l'utilisateur appuie sur envoyer, les données sont traitées avant d'envoyer les infos sur ProblemCreation.php -->
+		<input type="hidden" name="enonce" > <!--     si l'utilisateur appuie sur envoyer, les données sont traitées avant d'envoyer les infos sur creation_template.php -->
 
 		</form>	</div>
 							

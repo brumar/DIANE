@@ -2,9 +2,9 @@
 	require_once("verifSessionProf.php");
 	$_default_type = 1;
 	require_once("conn_pdo.php");
-	if (isset($_POST['text'])){
+	if (isset($_POST['enonce'])){
 
-		$enonce=$_POST['text'];
+		$enonce=$_POST['enonce'];
 
 		if (isset($_POST['type'])){
 			$type = $_POST['type'];
@@ -18,15 +18,20 @@
 			$replacements=$_POST['replacements'];
 		} else{$replacements = NULL;}
 
-		$req = $bdd->prepare('INSERT INTO pbm (enonce, type, idCreator, idTemplate, replacements) VALUES (:enonce, :type, :idCreator, :idTemplate, :replacements)');
+		$req = $bdd->prepare('INSERT INTO pbm (enonce, type, idCreator, idTemplate, replacements, visible) VALUES (:enonce, :type, :idCreator, :idTemplate, :replacements, :visible)');
 		$req->execute(array(
 			'enonce' => $enonce,
 			'type' => $type,
 			'idCreator' => $_SESSION['id'],
 			'idTemplate' => $idTemplate,
-			'replacements' => $replacements));
+			'replacements' => $replacements,
+			'visible' => true));
 
 		$req->closeCursor();
+		header("Location: enregistrement.php");
 	}
-	header("Location: enregistrement.php");
+	else{
+		header("Location: ecriture_enonce.php");
+	}
+	
 ?>

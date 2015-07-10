@@ -122,7 +122,7 @@
 			<input type="hidden" name="infos" value="HereTheInformations"/>
 			<input type="hidden" name="sender" value="<?php echo(basename($_SERVER['REQUEST_URI']));?>"/>				
 		</form>
-		<form id="form_pbm_creation"  method="post" action="ProblemCreation.php" name="form2pbmcreation">
+		<form id="form_pbm_creation"  method="post" action="creation_template.php" name="form2pbmcreation">
 			<input type="hidden" name="infos" value="HereTheInformations"/>			
 		</form>
 			
