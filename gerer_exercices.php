@@ -45,12 +45,12 @@
 			
 			<?php
 			echo $feedback;
-			if($_SESSION['accountType'] == 'chercheur'){
-				$rights = FLAG_PBMS_SUPPR; 
-			}
-			else{
-				$rights = 0;
-			}
+			// if($_SESSION['accountType'] == 'chercheur'){
+			// 	$rights = FLAG_PBMS_SUPPR; 
+			// }
+			// else{
+			// 	$rights = 0;
+			// }
 
 			$vosExercices = $bdd->prepare("SELECT * FROM pbm WHERE idCreator = ? ORDER BY idPbm");
 			$vosExercices->execute(array($_SESSION['id']));
@@ -61,7 +61,7 @@
 
 				while ($enregistrement = $vosExercices->fetch())
 				{
-					displayProblem($enregistrement, $rights);
+					displayProblem($enregistrement, FLAG_PBMS_SUPPR);
 				} 
 			} 
 			$vosExercices->closeCursor();			
@@ -79,7 +79,7 @@
 			{ // Si il y'a des résultats
 				while ($enregistrement = $autresExercices->fetch())
 				{
-					displayProblem($enregistrement, $rights);
+					displayProblem($enregistrement, 0);
 				} // Fin instruction while
 
 			} else { // Pas de résultat trouvé

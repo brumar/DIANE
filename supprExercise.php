@@ -22,6 +22,10 @@
 						$bdd->query('UPDATE pbm SET visible = "false" WHERE idPbm = '.$idToSuppr);
 						$_SESSION['feedback_supprExercise']= "Le problème a déjà été résolu au moins une fois. Par conséquent, il n'a été que masqué, et pas réellement supprimé. Ainsi, les données ne sont pas perdues, et les élèves peuvent toujours passer ce problème s'il leur a été assigné.";
 					}
+					elseif(exists_in_BDD('pbm_serie', 'pbm =?', array($idToSuppr), $bdd)) {
+						$bdd->query('UPDATE pbm SET visible = "false" WHERE idPbm = '.$idToSuppr);
+						$_SESSION['feedback_supprExercise']= "Le problème est inclus dans une série. Par conséquent, il n'a été que masqué, et pas réellement supprimé. Ainsi, les données ne sont pas perdues, et les élèves peuvent toujours passer ce problème s'il leur a été assigné.";
+					}
 					else{
 						// Suppression du problème
 						$bdd->query('DELETE FROM pbm where idPbm = '.$idToSuppr);

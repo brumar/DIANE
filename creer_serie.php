@@ -1,6 +1,7 @@
 <?php
 	require_once("verifSessionProf.php");
 	require_once("ListFunction.php");
+	require_once("conn_pdo.php");
 ?>
 
 <!DOCTYPE html>
@@ -9,55 +10,6 @@
 		<meta http-equiv="Content-Type" charset="utf-8">
 		<title>Création d'une série</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css">
-		<script language="Javascript">
-			function checkboxes()
-			{
-				var inputElems = document.getElementsByClassName("check_pbms");
-				//var inputElems = document.getElementsByName("check_pb");
-				var count = 0;
-
-				for (var i=0; i<inputElems.length; i++) {       
-					if (inputElems[i].type == "checkbox" && inputElems[i].checked == true){
-					count++;
-					}
-				}
-				return(count);
-			}
-
-			function cleanString(str) {
-			    return String(str).replace(/</g, '&lt').replace(/>/g, '&gt').replace(/"/g, '&quot').replace(/'/g, '&#039');
-			}
-
-			function verifSerie(){
-				var nomSerieInput = document.getElementById("element_999");
-				var nomSerieHidd = document.getElementById("f_nomSerie");
-				var commentaireSerieInput = document.getElementById("element_998");
-				var commentaireSerieHidd = document.getElementById("f_comSerie");;
-
-				if(nomSerieInput.value == ""){
-					alert("Merci de donner un nom pour la nouvelle série.");
-					return(false);
-				}
-				else{
-					commentaireSerieHidd.value = cleanString(commentaireSerieInput.value);
-					nomSerieHidd.value = cleanString(nomSerieInput.value);
-				}
-
-				var nb_check = checkboxes();
-
-				if (nb_check == 0){
-					alert("Il faut sélectionner au moins un problème.");
-					return(false);
-				}
-				else if (nb_check == 1){
-					return(confirm("Vous n'avez sélectionné qu'un seul problème, êtes vous sûr de vouloir créer une série ne contenant qu'un problème ?"));
-				}
-				else{
-					return(true);
-				}
-			}
-
-		</script>
 	</head>
 
 	<body id="main_body" >
@@ -89,8 +41,22 @@
 			<h2>Sélection des exercices</h2>
 			<p>Sélectionnez tous les exercices que vous souhaitez inclure dans votre nouvelle série.</p>
 
+			<div>
+				Montrer les exercices qui ont la propriété :
+				<select name="sort_property" id="sort_property" onchange="propertySort()">
+					<option value="none">...</option>
+					<?php
+						// $exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');
+					$exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');
+						foreach($exoProperties->fetchall() as $property){
+							echo "<option value =\"".$property['name']."\">".$property['name']."</option>";
+						}
+
+					?>
+				</select>
+			</div>
 			<?php
-				require_once("conn_pdo.php");
+				
 				
 				// Exercices crées par l'id en session
 
@@ -139,6 +105,62 @@
 
 
 		<img id="bottom" src="static/images/bottom.png" alt="">
+		<script type="text/javascript">
+			function checkboxes()
+			{
+				var inputElems = document.getElementsByClassName("check_pbms");
+				//var inputElems = document.getElementsByName("check_pb");
+				var count = 0;
+
+				for (var i=0; i<inputElems.length; i++) {       
+					if (inputElems[i].type == "checkbox" && inputElems[i].checked == true){
+					count++;
+					}
+				}
+				return(count);
+			}
+
+			function cleanString(str) {
+			    return String(str).replace(/</g, '&lt').replace(/>/g, '&gt').replace(/"/g, '&quot').replace(/'/g, '&#039');
+			}
+
+			function verifSerie(){
+				var nomSerieInput = document.getElementById("element_999");
+				var nomSerieHidd = document.getElementById("f_nomSerie");
+				var commentaireSerieInput = document.getElementById("element_998");
+				var commentaireSerieHidd = document.getElementById("f_comSerie");;
+
+				if(nomSerieInput.value == ""){
+					alert("Merci de donner un nom pour la nouvelle série.");
+					return(false);
+				}
+				else{
+					commentaireSerieHidd.value = cleanString(commentaireSerieInput.value);
+					nomSerieHidd.value = cleanString(nomSerieInput.value);
+				}
+
+				var nb_check = checkboxes();
+
+				if (nb_check == 0){
+					alert("Il faut sélectionner au moins un problème.");
+					return(false);
+				}
+				else if (nb_check == 1){
+					return(confirm("Vous n'avez sélectionné qu'un seul problème, êtes vous sûr de vouloir créer une série ne contenant qu'un problème ?"));
+				}
+				else{
+					return(true);
+				}
+			}
+
+			function propertySort(){
+				// Recharge la page pour déclencher le tri par la propriété sélectionné  
+				var select_property = document.getElementById("sort_property");
+				select_property.value
+
+			}
+
+		</script>
 	</body>
 </html>
 

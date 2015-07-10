@@ -3,8 +3,8 @@
 ?>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Créer un énoncé</title>
@@ -67,7 +67,7 @@
 	}
 	function findClone($type){
 		if($type=="Nombre"){
-			return rand(0,20);
+			return rand(1,20);
 		}
 		else{
 			return "exemplaire".$type;
@@ -322,6 +322,7 @@
 				}
 				//print_r($informations_clones);
 			}
+
 			$text=cloner($informations_clones,$copieEnonce);//ON utilise ce tableau général pour cloner l'ensemble
 		}
 		if(!$erreur){//même fonctionnement que predemment
@@ -371,6 +372,10 @@
 		$infos['questions']=$informations_questions;
 		$infos['texteBrut']=$enonce;
 		$infos['clones']=$informations_clones;
+		
+		// Surcouche Timothée. Il faudrait vraiment remplacer tous les $infos['xxx'] par des variables $_SESSION...
+		$_SESSION['pbm_text_creation_infoclones'] = $informations_clones;
+
 		$SerializedEnonceINFOS=base64_encode(serialize($infos));
 		
 		if(isset($_POST['envoi'])){
