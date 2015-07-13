@@ -108,7 +108,7 @@
 		
 
 
-			<form name="form2text" action="ProblemTextCreation.php" method="post" class="appnitro">
+			<form name="form2text" action="enonce_template.php" method="post" class="appnitro">
 				<input type=submit name="modif" value="valider">
 				<input type=hidden name="message" value="">
 				<input type=hidden name="TabExtras" value="">

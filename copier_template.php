@@ -1,9 +1,13 @@
 <?php
 	require_once("verifSessionProf.php");
+	require_once("ListFunction.php");
+	require_once("conn_pdo.php");
+
+	$self=$_SERVER['PHP_SELF'];
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Creation de problème</title>
@@ -19,14 +23,9 @@
 			<form action="selection.php" method="post" class="appnitro">
 				<ul>
 				<?php
-				include("ListFunction.php");
-
-				$self=$_SERVER['PHP_SELF'];
-				require_once("conn_pdo.php");
-
+				
 				if (isset($_GET['page'])){$page=$_GET['page'];}
 				if (isset($_GET['total'])){ $total=$_GET['total'];}
-
 
 				$nb=6;
 				if(empty($page)) $page = 1;
@@ -41,36 +40,27 @@
 
 				// on determine debut du limit
 				$debut = ($page - 1) * $nb;
-
-				// $sql = "SELECT * FROM pbm_globalcontent order by id desc LIMIT $debut,$nb";
-				//$result = mysql_query($sql) or die ("Requête incorrecte");
-
 				$result = $bdd->query("SELECT * FROM pbm_template order by id desc LIMIT $debut,$nb");
-				//$result = $req->execute(array($debut,$nb));
-				
-				// = mysql_numrows($query);
-				if ($result) { // Si il y'a des résultats
-				// while ($rs = mysql_fetch_array($query)) {
-				$t=0;
-				while ($enregistrement = $result->fetch())
-				{
-				$text1 =  $enregistrement["Text_html"];
-				$id= $enregistrement["id"];
-				?>
-				<li id="li_<?php echo($t);$t++;?>">
-				<div style="width:350px;display:inline-block;margin:0 0 5px 40px;padding:10px;border:1px solid black"> 
-				<?php echo( $text1); ?>
-				</div>
-				<div style="width:70px;display:inline-block;margin:0 0 5px 40px">
-				<input type="button" value="copier ce modèle" id="Quest" onClick="parent.location='openPbm.php?id=<?php echo($id);?>'"/>
-				</div></li>
-				<?php
-				} // Fin instruction while
 
-				} else { // Pas de résultat trouvé
-
-				echo "Pas de résultat";
-
+				if($result){ // Si il y'a des résultats
+					$t=0;
+					while ($enregistrement = $result->fetch())
+					{
+						$text1 =  $enregistrement["Text_html"];
+						$id= $enregistrement["id"];
+						?>
+						<li id="li_<?php echo($t);$t++;?>">
+						<div style="width:350px;display:inline-block;margin:0 0 5px 40px;padding:10px;border:1px solid black"> 
+						<?php echo( $text1); ?>
+						</div>
+						<div style="width:70px;display:inline-block;margin:0 0 5px 40px">
+						<input type="button" value="copier ce modèle" id="Quest" onClick="parent.location='openPbm.php?id=<?php echo($id);?>'"/>
+						</div></li>
+						<?php
+					} // Fin instruction while
+				} 
+				else{ // Pas de résultat trouvé
+					echo "Pas de résultat";
 				}
 				?></ul>
 				<p>
@@ -90,7 +80,7 @@
 				?>
 				</p>
 				<p><a href="creation_template.php">Créer un nouvel exercice</a></p>
-				<p><a href="creation_template.php">Retour</a></p>
+				<p><a href="profil_enseignant.php">Retour</a></p>
 			</form>
 		</div>
 

@@ -62,6 +62,6 @@ function GoToInsertion(){
 }
 function GoToProblemCreation(){
 	document.formulaireEnvoi.enonce.value=document.getElementById('textarea').value;
-	document.formulaireEnvoi.action.value="ProblemCreation.php";
+	document.formulaireEnvoi.action.value="creation_template.php";
 	document.formulaireEnvoi.submit();
 }

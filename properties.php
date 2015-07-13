@@ -2,6 +2,37 @@
 	require_once("verifSessionProf.php");
 	require_once("ListFunction.php");
 	require_once("conn_pdo.php");
+
+	if (isset($_SESSION['sender'])){
+		switch ($_SESSION['sender']){
+			case "creer_question.php" : // propriété des réponses
+				
+				$currentQ=$infos['temp']['currentQuestion'];
+				$currentA=$infos['temp']['CurrentAnswer'];
+				//$tp=$infos['Qinfos']['properties'][$currentQ][$currentA];
+				//if(isset($_POST["properties"])){$tp["properties"]=$_POST["properties"];}
+				$previouslist=isset($_SESSION['infos']['Qinfos']['properties'][$currentQ][$currentA]) ? $_SESSION['infos']['Qinfos']['properties'][$currentQ][$currentA] : null;//on selectionne le tableau des propriétés déjà enregistrées pour ce problème	
+				//echo("question : $currentQ  réponse : $currentA");
+				//print_r($previouslist);
+				$options=loadList('question', $bdd);	
+
+				break;
+			case "creation_template.php" : // propriétés des problèmes
+				$previouslist=isset($_SESSION['infos']['properties']) ? $_SESSION['infos']['properties'] : null;
+				$options=loadList('problem', $bdd);	
+				break;
+		}
+		//print_r($previouslist);
+	
+		//$infos['properties']=$TabProperties;
+
+		$p2='" >';
+		$p3='</option>';		
+	}
+	else{ //Si on n'était pas sur creer_question ni sur creation_template avant, on redirige
+		header("Location: profil_enseignant.php");
+		exit();
+	}
 ?>
 
 <!DOCTYPE html>
@@ -25,59 +56,20 @@
 		</script>
 	</head>
 	<body id="main_body" >
-		<?php 
-		include("headerEnseignant.php");
-	
-		if (isset($_POST["target"])){
-		//echo($_POST["type"]);
-		}
-
-		$name='';
-		if (isset($_POST["sender"])){
-
-			$infos= unserialize(base64_decode($_POST["infos"]));
-
-			$sender=$_POST["sender"];
-			
-			switch ($sender){
-			case "QuestionCreation.php" :
-				$name="answer";
-				$currentQ=$infos['temp']['currentQuestion'];
-				$currentA=$infos['temp']['CurrentAnswer'];
-				//$tp=$infos['Qinfos']['properties'][$currentQ][$currentA];
-				//if(isset($_POST["properties"])){$tp["properties"]=$_POST["properties"];}
-				$previouslist=isset($infos['Qinfos']['properties'][$currentQ][$currentA]) ? $infos['Qinfos']['properties'][$currentQ][$currentA] : null;//on selectionne le tableau des propriétés déjà enregistrées pour ce problème	
-				//echo("question : $currentQ  réponse : $currentA");
-				//print_r($previouslist);
-				break;
-			case "creation_template.php" :
-				$previouslist=isset($infos['properties']) ? $infos['properties'] : null;
-				$name="pbm";
-				break;
-			}
-			//print_r($previouslist);
-		
-			//$infos['properties']=$TabProperties;
-
-		$options=loadList('problem', $bdd);	
-		$p2='" >';
-		$p3='</option>';
-		
-	}
-	?>
+		<?php include("headerEnseignant.php"); ?>
 
 
 		<img id="top" src="static/images/top.png" alt="">
 		<div id="form_container">
 		
 			<h1><a>Untitled Form</a></h1>
-			<form id="form_470585" class="appnitro"  method="post" action="<?php if (isset($_POST["sender"])){echo($_POST["sender"]); }?>">
+			<form id="form_470585" class="appnitro"  method="post" action="<?php if (isset($_SESSION["sender"])){echo($_SESSION["sender"]); }?>">
 				<div class="form_description">
 					<h2>Modifications des propriétés</h2>
 					
 						<?php 
-							if (isset($_POST["target"])){
-								echo(base64_decode($_POST["target"]));
+							if (isset($_SESSION["target"])){
+								echo(base64_decode($_SESSION["target"]));
 							}
 						?>
 					
@@ -107,7 +99,6 @@
 					</li>
 					<li class="buttons">
 					    <input type="hidden" name="form_id" value="470585" />
-					    <input type="hidden" name="infos" value="<?php if (isset($_POST["infos"])){echo(htmlspecialchars($_POST["infos"])); }?>"/>
 						<input id="saveForm" class="button_text" type="submit" name="submit" value="OK" />
 					</li>
 				</ul>

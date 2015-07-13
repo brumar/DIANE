@@ -2,10 +2,9 @@
 	require_once("verifSessionProf.php");
 	require_once("conn_pdo.php");
 
-	if ((isset($_POST['infos']))&&(!(empty($_POST['infos'])))){
+	if ((isset($_SESSION['infos']))&&(!(empty($_SESSION['infos'])))){
 		
-		$infos=$_POST['infos'];
-		$infos=unserialize(base64_decode($infos));
+		$infos=$_SESSION['infos'];
 		//********MISE A JOUT DE PBM_TEMPLATE******DEBUT
 		/*
 		$c = (!isset($infos["constraints"])) ? '' : mysql_real_escape_string($infos["constraints"]);
@@ -90,7 +89,7 @@
 				'compteur' => $compteur, 
 				'brut' => $brut));
 
-		//FIN TABLEAU QUESTIONS
+			//FIN TABLEAU QUESTIONS
 			$idQuestion = $bdd->lastInsertId();//recup de l'idQuestion
 			$req->closeCursor();
 
@@ -103,7 +102,9 @@
 					$comments = $answer["comments"];
 					$properties="";
 					//print_r($infos['Qinfos']["properties"]);
-					if(isset($infos['Qinfos']["properties"][$i][$a])){$properties=implode('|||',$infos['Qinfos']["properties"][$i][$a]);}
+					if(isset($infos['Qinfos']["properties"][$i][$a])){
+						$properties=implode('|||',$infos['Qinfos']["properties"][$i][$a]);
+					}
 					
 					$req = $bdd-> prepare("INSERT INTO pbm_expectedanswers (idQuestion, Number, variable, keywords, comments, properties) VALUES (:idQuestion, :Number, :variable, :keywords, :comments, :properties)");
 					$req->execute(array(
@@ -115,27 +116,12 @@
 						'properties' => $properties));
 				}	
 			}
-		}	
+		}
+		$_SESSION['flagTemplateSaving'] = true;
+		$_SESSION['templateIdIndex'] = $index;
+		header("Location: enregistrement.php");
+	}
+	else{
+		header("Location: profil_enseignant.php");
 	}
 ?>
-<!DOCTYPE HTML>
-<html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Creation de problème</title>
-	<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
-	</head>
-	<body>
-		<?php include("headerEnseignant.php"); ?>
-		<br/>
-		<img id="top" src="static/images/top.png" alt="">
-			<div id="form_container">
-				<form id="form_470585" class="appnitro"  method="post" action="">
-				<p>Votre type de problème a bien été enregistré.</p>
-				<a href="PickPbm.php?id=<?php echo($index);?>">En faire une version utilisable dès maintenant</a><br><br>
-				<a href="profil_enseignant.php">Retour</a>
-				</form>
-			</div>
-			
-	</body>
-</html>

@@ -426,31 +426,211 @@ function parseNumericConstraints($string){
 	foreach(explode(";",$string) as $constraint){
 		$constraint = str_replace(" ", "", $constraint); // On supprime tous les espaces de la string
 		$constraint = trim($constraint);
-		$comparison_operator = findComparisonOperator($constraint);
-		if($comparison_operator){
-			$tmp = explode($comparison_operator, $constraint);
-			if(count($tmp)==2){
-				if(!($left = evalExpression($tmp[0]))) {
-					return null;
+		if ($constraint != ""){
+			$comparison_operator = findComparisonOperator($constraint);
+			if($comparison_operator){
+				$tmp = explode($comparison_operator, $constraint);
+				if(count($tmp)==2){
+					if(!($left = evalExpression($tmp[0]))) {
+						return null;
+					}
+					if(!($right = evalExpression($tmp[1]))) {
+						return null;
+					}
 				}
-				if(!($right = evalExpression($tmp[1]))) {
+				else{ // L'opérateur de comparaison est présent deux fois
 					return null;
 				}
 			}
-			else{ // L'opérateur de comparaison est présent deux fois
+			else{ // Pas d'opérateur de comparaison
 				return null;
 			}
+			$constraints[] = new Constraint($left, $right, $comparison_operator);
 		}
-		else{ // Pas d'opérateur de comparaison
-			return null;
-		}
-
-		$constraints[] = new Constraint($left, $right, $comparison_operator);
 	}
 	return $constraints;
 }
 
 
+function checkNumericConstraints($numConstraints, $numbers){
+	//On vérifie que les contraintes numériques sont bien écrites et qu'elles sont 
+	// satisfaites avec les valeurs par défaut du problème avant de valider
+	if($numConstraints == ""){ //Pas de contrainte
+		return 'OK';
+	}
+	if(!($c = parseNumericConstraints($numConstraints))){
+		return 'parseError';
+	}
+	else{
+		foreach($c as $constraint){
+			if(!($constraint->isSatisfied($numbers))){
+				return 'satisfactionError';
+			}
+		}
+	}
+	return 'OK';
+
+}
+
+
+
+//--------------------------------------------------------------------------------------------------------------------
+//								  Fonctions utilisées par ProblemTextCreation.php
+//--------------------------------------------------------------------------------------------------------------------
+
+
+
+function js_str($s) //functions to turn php array into js array
+	{
+		return '"' . addcslashes($s, "\0..\37\"\\") . '"';
+	}
+
+	function js_array($array)
+	{
+		$temp = array_map('js_str', $array);
+		return '[' . implode(',', $temp) . ']';
+	}
+	function cloner($informations_clones,$copieEnonce){
+		$defaultValue=true;
+		$liste_clones_parcourus=array();
+		foreach ($informations_clones as $i => $infoClone){//on effectue un double parcours pour identifier les répétitions
+			$listeRepetition=array();
+			$listeRepetition[]=$infoClone;
+			$type=$infoClone[1][0];
+			//echo($i." pour ".$type."<br>");
+			if(!in_array($type,$liste_clones_parcourus)){//on verifie que le clône n'est pas déjà traité
+				$liste_clones_parcourus[] = $type;
+				//on construit un tableau qui va contenir les répétitions
+				for ($j = $i+1; $j <= count($informations_clones)-1; $j++) {//on effectue un double parcours pour identifier les doubles
+					$infoClone2=$informations_clones[$j];
+					$typeClone2=$infoClone2[1][0];
+					if($typeClone2==$type){
+						if($infoClone[2][0]==$infoClone2[2][0]){
+							//echo("same number");
+							$listeRepetition[]=$infoClone2;
+						}
+						else{
+							$clone=findClone($type);
+
+							//echo("replaceByClone[".$copieEnonce.",".$clone.",".$infoClone[0][0]."]<br>");
+							$copieEnonce=replaceByClone($copieEnonce,$clone,$infoClone2);//si le clone n'a pas le même numéro on effectue le remplacement tout de suite
+							
+						}
+					}
+				}
+				$clone=findClone($type);//on utilise le même clone pour les clones avec le même numero, cette liste contient au moins infoClone
+				foreach ($listeRepetition as $i => $infoClone){
+					//echo("replaceByClone[".$copieEnonce.",".$clone.",".$infoClone[0][0]."]<br>");
+					$copieEnonce=replaceByClone($copieEnonce,$clone,$infoClone);
+					
+				}		
+			}
+		}
+		//$r=htmlspecialchars($copieEnonce);
+		//echo($r);
+		return($copieEnonce);
+	}
+	function findClone($type){
+		if($type=="Nombre"){
+			return rand(1,20);
+		}
+		else{
+			return "exemplaire".$type;
+		}
+	}
+
+	function getInformations($content,$erreur){
+		//echo($content);
+		$pattern= '#(^[a-zA-Zéèàç_]*)\(([0-9]*)\)=(.*)#';//les parenthèses capturantes récupèrent l'essentiel de informations de l'élément
+		$c=preg_match_all($pattern,$content, $Inf);
+		if($c==0){
+			echo("erreur : '".$content."' n'est pas reconnu");//permet de vérifier que l'interieur du clone est syntaxiquement correct
+			$erreur=$content."' n'est pas reconnu";
+			return null;
+		}
+		//echo($Inf[3][0]);
+		return($Inf);
+	}
+
+
+	function replaceByClone($copieEnonce,$clone,$infoClone){
+		//echo($clone." par ");
+
+		$rep="<<".$infoClone[0][0].">>";
+		//$r=htmlspecialchars($rep);
+		//echo($r."<br>");
+		
+		
+		//$r=htmlspecialchars($copieEnonce);
+		$r=htmlspecialchars($copieEnonce);
+		$htmlpart='<font color="grey">'.$infoClone[3][0].'</font><font color="blue"> ('.$infoClone[1][0].$infoClone[2][0].')</font>';//<span style="color:green;">';('.$infoClone[3][0]
+		$copieEnonce=str_replace($rep,$htmlpart,$copieEnonce);
+		//echo($r);
+		return($copieEnonce);
+		//echo($copieEnonce);
+	}
+
+	function soulignerQuestions($informations_questions,$copieEnonce){
+		//print_r($informations_questions);
+		//$rep="[[".$informations_questions[0][0]."]]";
+		$element1="[[".str_replace($informations_questions[3][0],'',$informations_questions[0][0]);
+		//echo($element1);//à remplacer par <br><u><i>
+		$replacement_1="<br><u><i>";
+		$element2="]]";//à remplacer par </i></u>
+		$replacement_2="</i></u>";
+		//$r=htmlspecialchars($copieEnonce);
+		//$htmlpart='<br><u><i>'.$informations_questions[3][0].'</i></u>';//font><font color="blue"> ('.$infoClone[1][0].$infoClone[2][0].')</font>';//<span style="color:green;">';('.$infoClone[3][0]
+		$copieEnonce=str_replace($element1,$replacement_1,$copieEnonce);
+		$copieEnonce=str_replace($element2,$replacement_2,$copieEnonce);
+		//echo($r);
+		return($copieEnonce);	
+	}
+	                         
+	function SyntaxicVerification($tStart,$tEnd,$start,$end,$tIntrus,$intrus){
+		$erreur=false;
+		if((count($tStart))!=(count($tEnd))){
+			$mess="erreur : pas autant de caractere ' ".$start." ' que de caractère ' ".$end." '";
+			$erreur=true;
+			$mess=htmlspecialchars($mess);
+			echo($mess."<br>");
+			return false;
+			//print($mess);
+			}
+			else{
+				foreach ($tStart as $c => $positionStart){
+					$positionEnd=$tEnd[$c];//permet de connaitre la position du prochain caractère fermant correspondant
+					foreach ($tIntrus as $i => $positionIntru){
+						if(($positionIntru>$positionStart)&&($positionIntru<$positionEnd)){
+							$postru=strval($positionIntru);
+							$mess="Erreur : ' ".$intrus." ' entre ' ".$start." ' et ' ".$end." ' à la position ".$postru;
+							$erreur=true;
+							$mess=htmlspecialchars($mess);
+							echo($mess."<br>");
+						}
+					}
+
+				}
+			}
+		return $erreur;
+	}
+
+	function search_expression($separateur,$expression){
+		$SepPositions=array();
+		$k=0;
+		$tab= str_split($expression);
+		foreach ($tab as $key => $c){
+			if($c==$separateur){
+				if((!empty($tab[$key+1]))&&($tab[$key+1]==$separateur)){
+					//$message=$separateur.'  @  '.$key;
+					//echo($message);
+					//echo('<br>');
+					$SepPositions[$k]=$key;
+					$k++;
+				}
+			}
+		}
+		return $SepPositions;
+	}
 
 
 
