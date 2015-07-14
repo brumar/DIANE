@@ -61,7 +61,7 @@
 							<?php echo( $text1); ?>
 						</div>
 						<div style="width:70px;display:inline-block;margin:0 0 5px 40px">
-							<input type="button" value="utiliser ce modèle" id="Quest" onClick="parent.location='PickPbm.php?id=<?php echo($id);?>'"/>
+							<input type="button" value="utiliser ce modèle" id="Quest" onClick="parent.location='generer_probleme.php?id=<?php echo($id);?>'"/>
 						</div>
 					</li>
 					<?php

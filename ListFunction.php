@@ -264,6 +264,81 @@ class Constraint{
 	function tprint(){
 		echo $this->l->eprint()." ".$this->op." ".$this->r->eprint();
 	}
+
+	function isEquality(){
+		return $this->op=="=";
+	}
+
+	function isSimpleEquality(){
+		return ( ($this->op=="=") 
+			&& ( ($this->l->isType("variable")&&$this->r->isType("value")) || ($this->l->isType("value")&&$this->r->isType("variable")) ) );
+	}
+	
+	function isSimpleInequality(){
+		return( ( ($this->op=="<") || ($this->op==">") || ($this->op=="<=") || ($this->op==">=") )
+			&& ( ($this->l->isType("variable")&&$this->r->isType("value")) || ($this->l->isType("value")&&$this->r->isType("variable")) ) );
+	}
+
+	function getVariable(){ //Returns a variable name
+		if($this->l->isType("variable")){return $this->l->getContent();}
+		elseif($this->r->isType("variable")){return $this->r->getContent();}
+		else{return null;}
+	}
+	function getValue(){ //Returns a variable name
+		if($this->l->isType("value")){return $this->l->getContent();}
+		elseif($this->r->isType("value")){return $this->r->getContent();}
+		else{return null;}
+	}
+
+	function getOp(){
+		return $this->op;
+	}
+
+	function minOrMaxValue(){
+		// Return "max" or "min", and the maximum or minimum value for simpleInequalities. 
+		if($this->l->isType("variable")){
+			assert($this->r->isType("value"));
+			switch($this->op){
+				case "<":
+					return array("max", $this->r->getContent()-1);
+					break;
+				case ">":
+					return array("min", $this->r->getContent()+1);
+					break;
+				case ">=":
+					return array("min", $this->r->getContent());
+					break;
+				case "<=":
+					return array("max", $this->r->getContent());
+					break;
+				default:
+					return null;
+			}
+		} 
+		elseif($this->r->isType("variable")){
+			assert($this->l->isType("value"));
+			switch($this->op){
+				case "<":
+					return array("min", $this->l->getContent()+1);
+					break;
+				case ">":
+					return array("max", $this->l->getContent()-1);
+					break;
+				case ">=":
+					return array("max", $this->l->getContent());
+					break;
+				case "<=":
+					return array("min", $this->l->getContent());
+					break;
+				default:
+					return null;
+			}
+		}
+		else{
+			return null;
+		}  
+	}
+
 }
 
 
@@ -348,6 +423,14 @@ class Expression{
 			}
 			return $concat;
 		}
+	}
+
+	function isType($type){
+		return ($this->type == $type);
+	}
+
+	function getContent(){
+		return ($this->contenu);
 	}
 }
 
@@ -455,6 +538,11 @@ function parseNumericConstraints($string){
 function checkNumericConstraints($numConstraints, $numbers){
 	//On vérifie que les contraintes numériques sont bien écrites et qu'elles sont 
 	// satisfaites avec les valeurs par défaut du problème avant de valider
+	// Utilisée dans creation_template.php
+
+	// -$numConstraints : les contraintes, non parsées
+	// -$numbers : les nombres par défauts, dans un tableau au format accepté par isSatisfied (array("Nombre1"=>3, "Nombre2"=>2, ...) )
+
 	if($numConstraints == ""){ //Pas de contrainte
 		return 'OK';
 	}
@@ -469,10 +557,116 @@ function checkNumericConstraints($numConstraints, $numbers){
 		}
 	}
 	return 'OK';
-
 }
 
 
+
+function evalConstraints($numConstraints, $numbers){
+	// check aussi si les contraintes sont satisfaites, mais avec des contraintes déjà parsées
+	// Utilisée par "generateNumbersWithConstraints" (appelée par generer_probleme.php)
+	foreach($numConstraints as $constraint){
+		if(!($constraint->isSatisfied($numbers))){
+			return false;
+		}
+	}
+	return true;
+}
+
+function generateNumbersWithConstraints($numConstraints, $n){
+
+	
+	/* --------------------------------------------------------
+	 	Version 1 : naïve, mais fonctionne
+	 	// Améliorations à faire : 
+		// - pour toutes les contraintes "=", on les attribue et on les oublie
+		// - On utilise pas rand(1,20), mais on évalue un min et un max pour chaque Nombre.
+	
+	--------------------------------------------------------*/
+	// $c = parseNumericConstraints($numConstraints);
+	// $trial_n = 1;
+	// $MAX_TRIAL = 5000;
+	// while($trial_n <= $MAX_TRIAL){
+	// 	$ret = [];
+	// 	foreach($n as $numb){
+	// 		$ret[$numb]=rand(1,20);
+	// 	}
+	// 	if(evalConstraints($c, $ret)){
+	// 		return($ret);	
+	// 	}
+	// 	$trial_n+=1;
+	// }
+	// return null;
+
+
+
+	/* --------------------------------------------------------
+	 	Version 2 : on gère les contraintes d'égalité "="
+	--------------------------------------------------------*/
+
+
+	$allConstraints = parseNumericConstraints($numConstraints);
+
+	// Le tableau fixed_ret contient les valeurs fixées par des contraintes d'égalité
+	$fixed_ret = [];
+	$DEFAULT_MIN = 3;
+	$DEFAULT_MAX = 20;
+	
+
+	$randomPick = []; // Numbers that shouldn't be picked randomly
+	$min = [];
+	$max = [];
+	foreach($n as $numb){
+		$randomPick[$numb] = true;
+		$min[$numb] = $DEFAULT_MIN;
+		$max[$numb] = $DEFAULT_MAX;
+	}
+
+
+	foreach($allConstraints as $c){
+		if($c->isEquality()){
+			if($c->isSimpleEquality()){
+				$varNumber = $c->getVariable();
+				$var = "Nombre".$varNumber;
+				$val = $c->getValue();
+				$fixed_ret[$var] = $val;
+				$randomPick[$var] = false;
+			}
+			// else{ // Create dependencies between variables. Pas l'air évident du tout...
+
+			// }
+		}
+		elseif($c->isSimpleInequality()){
+			if($tabRet = $c->minOrMaxValue()){
+				
+				$varNumber = $c->getVariable();
+				$var = "Nombre".$varNumber;
+
+				if($tabRet[0]=="min"){
+					$min[$var] = $tabRet[1];
+				}
+				else{
+					$max[$var] = $tabRet[1];
+				}
+			}
+		}
+	}
+
+	$trial_n = 1;
+	$MAX_TRIAL = 5000;
+	while($trial_n <= $MAX_TRIAL){
+		$ret = $fixed_ret;
+		foreach($n as $numb){
+			if($randomPick[$numb]){
+				$ret[$numb]=rand($min[$numb], $max[$numb]);	
+			}
+		}
+		if(evalConstraints($allConstraints, $ret)){
+			return($ret);	
+		}
+		$trial_n+=1;
+	}
+	return null;
+}
 
 //--------------------------------------------------------------------------------------------------------------------
 //								  Fonctions utilisées par ProblemTextCreation.php
@@ -639,7 +833,7 @@ function js_str($s) //functions to turn php array into js array
 //								  Fonctions qui utilisent javascript en PHP...
 //--------------------------------------------------------------------------------------------------------------------
 
-function alertPHP($message){
+function alertPHP($message){ // Très sale, utile que pour débuger vite fait dans certaines situations
 	echo "<script type=\"text/javascript\">
 		window.onload=function(){
 		alert(\"".$message."\");

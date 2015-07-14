@@ -58,7 +58,7 @@
 			<div><!-- <input id="pt" type="button" name="prop" value="OK" onClick="parent.location='choix_template.php'"/>-->
 			</div> 
 			<a  href="choix_template.php"><img src="static/images/template_instanciate.png" heigth=80px width=50px style="cursor:hand;"></a>
-			<p class="guidelines" id="guide_6"><small>Cette étape est obligatoire pour finaliser la construction d'un énoncé. </small></p> 
+			<p class="guidelines" id="guide_6"><small>Générer un problème à partir d'un modèle (ou template). Permet un diagnostic des réponses de l'élève. </small></p> 
 		</li>		</ul>
 		</form>	
 	

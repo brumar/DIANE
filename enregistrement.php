@@ -43,7 +43,7 @@
 					} else{?>
 						<form id="form_470585" class="appnitro"  method="post" action="">
 						<p>Votre type de problème a bien été enregistré.</p>
-						<a href="PickPbm.php?id=<?php echo($templateId);?>">En faire une version utilisable dès maintenant</a><br><br>
+						<a href="generer_probleme.php?id=<?php echo($templateId);?>">En faire une version utilisable dès maintenant</a><br><br>
 						<a href="profil_enseignant.php">Retour</a>
 						</form>
 
