@@ -48,6 +48,24 @@
 		<title>Gestion de classe</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
 		<script type="text/javascript" src="static/js/view.js"></script>
+		<script>
+			function showRemarqPartic(){
+				var showRemarqParticId = document.getElementById("showRemarqParticId");
+				if(showRemarqParticId.checked){
+					var elemsRemarqPartic = document.getElementsByClassName("remarq_partic");
+
+					for (var index = 0; index < elemsRemarqPartic.length; ++index) {
+						elemsRemarqPartic[index].style.display="inline-block";
+					}
+				}
+				else{
+					var elemsRemarqPartic = document.getElementsByClassName("remarq_partic");
+					for (var index = 0; index < elemsRemarqPartic.length; ++index) {
+						elemsRemarqPartic[index].style.display="none";
+					}
+				}
+			}
+			</script>
 	</head>
 	<body id="main_body">
 		<?php include("headerEnseignant.php"); ?>
@@ -219,7 +237,7 @@
 						<li id="li_995">
 							<label class="description" for="element_995">Remarques</label>
 							<textarea id="f_remarques" name="remarques" rows="4" cols="50"><?php if(isset($_SESSION['class_form'])){echo $_SESSION['class_form']['remarques']."\"";}?></textarea>
-							<p class="guidelines" id="guide_995"><small>Si vous avez des remarques particulières concernant votre classe, indiquez-les ici </small></p> 
+							<p class="guidelines" id="guide_995"><small>Si vous avez des remarques particulières concernant certains élèves, indiquez-les ici </small></p> 
 						</li>
 						<!--
 						<li id="li_994">
@@ -234,7 +252,10 @@
 						</ul>
 
 						<h3>Elèves</h3>
-						<p>Rentrez maintenant les informations concernant les élèves. La colonne "Remarque particulière" peut être utilisée pour indiquer toute situation particulière de l'élève qui soit pertinente à prendre en compte pour évaluer ses résultats.</p>
+						<p>Rentrez maintenant les informations concernant les élèves. Si vous souhaitez indiquer toute situation particulière de l'élève qui soit pertinente à prendre en compte pour évaluer ses résultats, vous pouvez ajouter une colonne "Remarque individuelle" :</p>
+						<!-- <input type="" -->
+						<input type="checkbox" name="choix_remarq_partic" id="showRemarqParticId" value="1" onchange="showRemarqPartic();"> <label for="choix_remarq_partic">Faire apparaître la colonne "remarque individuelle"</label>
+
 						<table>
 							<tr>
 								<th></th>
@@ -242,7 +263,7 @@
 								<th>Nom</th>
 								<th>Date de naissance</th>
 								<th>Sexe</th>
-								<th>Remarque Particulière</th>
+								<th class="remarq_partic">Remarque Individuelle</th>
 							</tr>
 						<?php
 							$invis = "";
@@ -275,7 +296,7 @@
 									echo '</td>';
 
 									echo '<td class="add_student_td">';
-										echo '<input id="add_student_remark_'.$i.'" name="add_student_remark[]" class="element text" type="text">';
+										echo '<input id="add_student_remark_'.$i.'" name="add_student_remark[]" class="element text remarq_partic" type="text">';
 									echo '</td>';
 
 								echo"</tr>";
@@ -445,13 +466,9 @@
 				}
 			}
 
+			
 		</script>
 	</body>
 </html>
-
-
-
-
-
 
 

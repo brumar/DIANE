@@ -919,6 +919,13 @@ font-weight: bold;
 	display: inline-block;
 }
 
+
+.remarq_partic{
+	display:none;
+}
+
+
+
 /* eleve.php */
 
 #form_birthday_eleve{
@@ -952,7 +959,6 @@ font-weight: bold;
 .validation_enonce{
 	margin:auto;
 }
-
 
 
 

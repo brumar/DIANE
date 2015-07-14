@@ -39,7 +39,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Untitled Form</title>
+		<title>Propriétés</title>
 		<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
 		<script type="text/javascript" src="static/js/view.js"></script>
 		<script type="text/javascript">
