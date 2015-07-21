@@ -239,7 +239,7 @@ function creerSessionPassation($idEleve, $serie, $b, $type_passation){
 
 
 function findComparisonOperator($string){
-	$operators_2char = array("<=", ">=");
+	$operators_2char = array("<=", ">=", "!=");
 	foreach($operators_2char as $op){
 		if (strpos($string, $op) !== false){
 			return $op;
@@ -283,6 +283,9 @@ class Constraint{
 				break;
 			case "<=":
 				return (int)($this->l->evaluate($args) <= $this->r->evaluate($args));
+				break;
+			case "!=":
+				return (int)($this->l->evaluate($args) != $this->r->evaluate($args));
 				break;
 			default:
 				return null;
@@ -467,7 +470,7 @@ function evalExpression($string){
 	
 	// Tout d'abord, on refuse l'expression si elle contient un caractère interdit
 
-	$forbiddenChars = array("/", "-", "*", "=", "<", ">", ">=", "<=");
+	$forbiddenChars = array("/", "-", "*", "=", "<", ">", ">=", "<=", "!=");
 	foreach($forbiddenChars as $ch){
 		if (strpos($string, $ch) !== false){
 			return null;

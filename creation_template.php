@@ -75,7 +75,7 @@
 							exit();
 							break;
 						case 'satisfactionError':
-							$_SESSION['feedback_constraints'] = "Vos contraintes numériques ne sont pas respectées par vos paramètres par défaut.";
+							$_SESSION['feedback_constraints'] = "Vos contraintes numériques ne sont pas respectées par les nombres par défaut.";
 							header("Location: creation_template.php");
 							exit();
 							break;

@@ -5,17 +5,6 @@
 	if ((isset($_SESSION['infos']))&&(!(empty($_SESSION['infos'])))){
 		
 		$infos=$_SESSION['infos'];
-		//********MISE A JOUT DE PBM_TEMPLATE******DEBUT
-		/*
-		$c = (!isset($infos["constraints"])) ? '' : mysql_real_escape_string($infos["constraints"]);
-		$prop = (!isset($infos["properties"])) ? '' : mysql_real_escape_string(implode('|||',$infos["properties"]));
-		$comp = (!isset($infos["compteurs"])) ? '' : mysql_real_escape_string(serialize($infos["compteurs"]));
-		$html = (!isset($infos["html"])) ? '' : mysql_real_escape_string($infos["html"]);
-		$brut = (!isset($infos["texteBrut"])) ? '' : mysql_real_escape_string($infos["texteBrut"]);
-		$private = (!isset($infos["private"])) ? '' : mysql_real_escape_string($infos["private"]);
-		$public = (!isset($infos["public"])) ? '' : mysql_real_escape_string($infos["public"]);
-		*/
-		//echo($brut);
 
 		$c = (!isset($infos["constraints"])) ? '' : $infos["constraints"];
 		$prop = (!isset($infos["properties"])) ? '' : implode('|||',$infos["properties"]);
