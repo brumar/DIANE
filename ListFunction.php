@@ -121,7 +121,7 @@ define("FLAG_PBMS_CHECKBOX", 0x1);
 define("FLAG_PBMS_SUPPR", 0x2);
 // Flags sur les features de display problems
 
-function displayProblem($enregistrement, $flags = 0){
+function displayProblem($enregistrement, $flags = 0, $bdd = null){
 /*
 	Utilisée par :
 		- creer_serie.php (avec les checkboxes)
@@ -133,6 +133,25 @@ function displayProblem($enregistrement, $flags = 0){
 	$enonce = $enregistrement['enonce'];
 	$id= $enregistrement['idPbm'];
 	$visible = $enregistrement['visible'];
+	$template = $enregistrement['idTemplate'];
+
+	$listPropertiesId = null;
+	if($bdd != null){
+		$req = $bdd->prepare('SELECT properties FROM pbm_template WHERE id = ?');
+		$req->execute(array($template));
+		$properties = $req->fetchColumn();
+		$req->closeCursor();
+
+		if($properties != null){
+			$prop_names = explode("|||", $properties);
+
+			foreach($prop_names as $name){
+				$propId = get_value_BDD('id', 'properties', 'name=?', array($name), $bdd);
+				$listPropertiesId[] = $propId;
+			}
+		}
+	}
+	
 
 	if($visible){
 		if (strlen($enonce) > $limText) 
@@ -140,14 +159,23 @@ function displayProblem($enregistrement, $flags = 0){
 			$enonce=substr($enonce, 0, $limText).'[...]';
 		}
 
-		echo "<li>";
+
+		echo "<li class=\"pbmDisplayed";
+		if($listPropertiesId != null){
+			foreach($listPropertiesId as $propId){
+				echo " t_".(string)$propId;
+			}
+		}
+		echo '">';
+
 			echo "<div class=\"problem_s\">";
 				echo "<span class=\"problem_select\">";
 				if ($flags & FLAG_PBMS_CHECKBOX){
 					echo "<input type=\"checkbox\" class=\"check_pbms\" name=\"check_pb[]\" value=\"".$id."\"></input>";
 				}
 				echo "</span>";
-				echo "<span class=\"problem_text\">";
+					echo "<span class=\"problem_text\">";
+
 					echo $enonce;
 				echo"</span>";
 				if($flags & FLAG_PBMS_SUPPR){

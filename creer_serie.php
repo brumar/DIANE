@@ -36,7 +36,30 @@
 					</li>
 
 				</ul>		
+		
+
+
+
+
+			<!--Ici l'idée était d'afficher que les bons. En fait je vais cacher les mauvais.
+			 <div>
 				
+					$allExos = $bdd->query("SELECT * FROM pbm ORDER BY idPbm");
+					if($allExos->rowCount()!=0){
+						echo "<ul>";
+						while ($enregistrement = $allExos->fetch())
+						{
+							echo '<li class = "hidden_"'..'>';
+
+								//echo "<a id=\"".$id."\" href=\"\" onclick=\"confirmSupprPbm(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cet exercice\"/></a>";
+
+							echo "</li>";
+						} 
+						echo "</ul>";
+					}
+					$allExos->closeCursor();
+
+			</div>		 -->		
 			
 			<h2>Sélection des exercices</h2>
 			<p>Sélectionnez tous les exercices que vous souhaitez inclure dans votre nouvelle série.</p>
@@ -47,9 +70,16 @@
 					<option value="none">...</option>
 					<?php
 						// $exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');
-					$exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');
+
+						if($_SESSION['accountType'] == "enseignant"){
+							$exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');	
+						}
+						elseif($_SESSION['accountType'] == "chercheur"){
+							$exoProperties = $bdd->query('SELECT id, name FROM properties ORDER BY id');
+						}
+						
 						foreach($exoProperties->fetchall() as $property){
-							echo "<option value =\"".$property['name']."\">".$property['name']."</option>";
+							echo "<option value =\"".$property['id']."\">".$property['name']."</option>";
 						}
 
 					?>
@@ -60,7 +90,7 @@
 				
 				// Exercices crées par l'id en session
 
-				$vosExercices = $bdd->prepare("SELECT * FROM pbm WHERE idCreator = ? ORDER BY idPbm");
+				$vosExercices = $bdd->prepare("SELECT * FROM pbm WHERE idCreator = ? ORDER BY idPbm DESC");
 				$vosExercices->execute(array($_SESSION['id']));
 				$vosExos = False; //flag, vaut vrai quand l'account connecté a créé des séries
 				if($vosExercices->rowCount()!=0){
@@ -69,25 +99,25 @@
 
 					while ($enregistrement = $vosExercices->fetch())
 					{
-						displayProblem($enregistrement, FLAG_PBMS_CHECKBOX);
+						displayProblem($enregistrement, FLAG_PBMS_CHECKBOX, $bdd);
 					} 
 				} 
 				$vosExercices->closeCursor();
 				
 				if($vosExos){
 					echo"<h3>Autres exercices</h3>";
-					$autresExos = $bdd->prepare("SELECT * FROM pbm WHERE idCreator <> ? ORDER BY idPbm");
+					$autresExos = $bdd->prepare("SELECT * FROM pbm WHERE idCreator <> ? ORDER BY idPbm DESC");
 					$autresExos->execute(array($_SESSION['id']));
 				}
 				else{
-					$autresExos = $bdd->query('SELECT * FROM pbm ORDER BY idPbm'); //try - catch ?
+					$autresExos = $bdd->query('SELECT * FROM pbm ORDER BY idPbm DESC'); //try - catch ?
 				}
 				if ($autresExos->rowCount()!=0) 
 				{ // Si il y'a des résultats
 					$t=0;
 					while ($enregistrement = $autresExos->fetch())
 					{
-						displayProblem($enregistrement, FLAG_PBMS_CHECKBOX);
+						displayProblem($enregistrement, FLAG_PBMS_CHECKBOX, $bdd);
 					} // Fin instruction while
 
 				} else { // Pas de résultat trouvé
@@ -155,9 +185,38 @@
 
 			function propertySort(){
 				// Recharge la page pour déclencher le tri par la propriété sélectionné  
-				var select_property = document.getElementById("sort_property");
-				select_property.value
+				var sort_property = document.getElementById("sort_property");				
+				var problemsDisplayed = document.getElementsByClassName('pbmDisplayed');
 
+
+				if(sort_property.value == "none"){
+					for (index = 0; index < problemsDisplayed.length; ++index) {
+						problemsDisplayed[index].style.display = "block";
+					}
+				}
+				else{
+					for (index = 0; index < problemsDisplayed.length; ++index) {
+
+						var all_class = (problemsDisplayed[index]).className;
+						var lookFor = "t_"+String(sort_property.value);
+						
+						if (all_class.indexOf(lookFor) > -1){
+							problemsDisplayed[index].style.display = "block";
+						}
+						else{
+							problemsDisplayed[index].style.display = "none";	
+						}
+					}
+				}
+
+
+				//alert(sort_property.value);
+
+
+				//TODO: On ne veut pas recharger la page pour trier => il faut chopper toutes les properties de tous les problèmes avant
+
+
+				// Un problème n'a de propriété que s'il a un template. => on choppe idTemplate dans pbm, puis les properties de pbm_template. PROBLEME : ce sont que les noms, aps els id...
 			}
 
 		</script>
