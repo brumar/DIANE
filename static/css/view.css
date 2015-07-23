@@ -1,3 +1,5 @@
+
+
 body
 {
 	background:#CDDCEC;
@@ -919,6 +921,17 @@ font-weight: bold;
 	display: inline-block;
 }
 
+.classe{
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+.Class_see{
+	background-color:#CCC;
+}
+.Class_see:hover{
+	cursor: pointer;
+	background-color:#EEE;
+}
 
 .remarq_partic{
 	display:none;

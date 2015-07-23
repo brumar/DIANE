@@ -1,42 +1,163 @@
 <?php
 	require_once("verifSessionProf.php");
 	require_once("conn_pdo.php");
+	require_once("ListFunction.php");
 	
 
-	if(isset($_SESSION['class_form'])){
-		unset($_SESSION['class_form']); //Pour le moment c'est très mal géré donc autant supprimer
+	if($_POST){
+		if(isset($_POST['classToSee'])) {
+			if(is_numeric($_POST['classToSee'])){
+				$_SESSION['classToSee'] = (int)$_POST['classToSee'];
+
+				// $req = $bdd->query('SELECT pbm from pbm_serie WHERE serie = '.$classToSee);
+				// while ($res = $req->fetch();
+			}
+		}
+	}
+	else{
+		if(isset($_SESSION['classToSee'])){
+			unset($_SESSION['classToSee']); // VERIF///
+		}
 	}
 
 	$n_visible = 30;
 	$_SESSION['n_max_student'] = 99;
 	$n_max_student = $_SESSION['n_max_student'];
 
-	function displayClasse($enregistrement){
-		// $limText=300;
-		// $enonce = $enregistrement['enonce'];
-		// $id= $enregistrement['idPbm'];
+	function displayEleve($enregistrement, $devoirsEleve = null, $b){
+		echo "<tr>";
+		echo "<td>".$enregistrement['prenom']."</td><td>".$enregistrement['nom']."</td>";
 
-		// if (strlen($enonce) > $limText) 
+		echo "<td>";
+		if($devoirsEleve !=null){
+			$first_line =true;
+			foreach($devoirsEleve as $serieAFaire){
+				if($first_line){
+					$first_line=false;
+				}
+				else{
+					echo"<br/>";
+				}
+				$serie_name = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($serieAFaire['idSerie']), $b);
+				$serie_statut="";
+				$clickable = false;
+				switch((string)$serieAFaire['statut']){ //'untouched','opened','finishedOnce','finishedMultipleTimes'
+					case "untouched":
+						$serie_statut = "Pas touché";
+						$clickable = false;
+						break;
+					case "opened":
+						$serie_statut = "Ouvert mais pas terminé";
+						$clickable = false;
+						break;
+					case "finishedOnce":
+						$serie_statut = "Fini une fois";
+						$clickable = true;
+						break;
+					case "finishedMultipleTimes":
+						$serie_statut = "Fini plus d'une fois";
+						$clickable = true;
+						break;
+					default:
+						$serie_statut = "Pas déterminé";
+						$clickable = false;
+						break;
+				}
+
+				if($clickable){
+					echo "<a href=\"javascript:;\" onclick=\"clickSerieEleve(".(string)$serieAFaire['idSerie'].",".(string)$enregistrement['numEleve'].")\">";
+				}
+				echo $serie_name." : ".$serie_statut;
+				if($clickable){
+					echo "</a>";
+				}
+			}
+			
+		}
+		else{
+			echo "Aucun devoirs";
+		}
+		echo "</td>";
+		echo "</tr>";
+	}
+
+	function displayClasse($enregistrement, $b){
+		// $limText=110;
+		// $text1 = $enregistrement['nomSerie'];
+		// $id= $enregistrement['idSerie'];
+		// $code = $enregistrement['code'];
+
+		// if (strlen($text1) > $limText) 
 		// {
-		// 	$enonce=substr($enonce, 0, $limText).'[...]';
+		// 	$text1=substr($text1, 0, $limText).'[...]';
 		// }
 
+		// //echo "<li id=\"li_".$count."\">";
 		// echo "<li>";
-		// 	echo "<div class=\"problem_s\">";
-		// 		echo "<span class=\"problem_select\">";
-		// 			echo "<input type=\"checkbox\" class=\"check_pbms\" name=\"check_pb[]\" value=\"".$id."\"></input>";
-		// 		echo "</span>";
-		// 		echo "<span class=\"problem_text\">";
-		// 			echo $enonce;
+		// 	echo "<div class=\"serie_s\">";
+		// 		echo "<span class=\"serie_text\">";
+		// 			echo $text1;
 		// 		echo"</span>";
+		// 		echo "</span>";
+		// 		echo "<span class=\"serie_code\">";
+		// 			echo $code;
+		// 		echo"</span>";
+		// 		echo"<span class=\"serie_see\">";
+		// 			echo"<a id=\"serie_see".$id."\" href=\"\" onclick=\"visualizeSerie(".$id.");return false;\"><img src=\"static/images/loupe.gif\" alt=\"voir cette série\"/></a>";
+		// 		echo"</span>";
+
+		// 		//if(isset($_SESSION['typeAccount'])){
+		// 			//if($_SESSION['typeAccount']=='chercheur'){
+		// 		if($rights & SERIE_RIGHTS_SUPPR){
+		// 			echo "<span class=\"serie_delete\">";
+		// 			echo "<a id=\"serie_delete".$id."\" href=\"\" onclick=\"confirmSuppr(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cette série\"/></a>";
+		// 			echo "</span>";
+		// 		}
+		// 		if($rights & SERIE_RIGHTS_PROMOTE){
+		// 			echo "<span class=\"serie_promote\">";
+		// 			echo "<a id=\"serie_promote".$id."\" href=\"s_pro".$id.".php\"><img src=\"static/images/star.png\" alt=\"promouvoir cette série\"/></a>";
+		// 			echo "</span>";
+		// 		}
 
 		// 	echo"</div>";
 		// echo"</li>";
 
-		echo "<p>";
-		echo"Votre classe : ";
-		echo $enregistrement['nom'];
-		echo "</p>";
+		$idClass = $enregistrement['idClasse'];
+
+		// echo '<div class="classe">'.$enregistrement['nom'];
+		// echo '<span class="Class_see">';
+		// echo '<a id="Class_see"'.$idClass.'href="" onclick="visualizeClass(&quot;'.$idClass.'&quot;);return false;"><img src="static/images/loupe.gif" alt="voir cette série"/></a>';
+		// echo '</span>';
+		// echo '</div>';
+		
+		echo '<div class="classe">';
+		echo '<a class="Class_see" id="Class_see"'.$idClass.'href="" onclick="visualizeClass(&quot;'.$idClass.'&quot;);return false;">'.$enregistrement['nom'].'</a>';
+		echo '</div>';
+
+		if(isset($_SESSION['classToSee'])){
+			if($idClass == $_SESSION['classToSee']){
+
+				echo "<table>";
+				echo "<tr><th colspan = \"2\">Eleve</th><th>Devoirs</th></tr>";
+
+				$req = $b->query('SELECT idEleve from classe_eleve WHERE idClasse = '.$idClass);
+				while ($fetchEleve = $req->fetch()){
+
+					$devoirs = $b->prepare("SELECT idSerie, statut FROM serie_eleve WHERE idEleve =?");
+					$devoirs->execute(array($fetchEleve['idEleve']));
+					// Faut récupérer Nom_serie.
+
+					$eleve = $b->prepare("SELECT * FROM eleve WHERE numEleve = ?");
+					$eleve->execute(array($fetchEleve['idEleve']));
+
+					displayEleve($eleve->fetch(), $devoirs->fetchAll(), $b);
+					$devoirs->closeCursor();
+					$eleve->closeCursor();
+				}
+				$req->closeCursor();
+				echo "</table>";
+			}
+		}		
 	}
 ?>
 
@@ -65,6 +186,7 @@
 					}
 				}
 			}
+
 			</script>
 	</head>
 	<body id="main_body">
@@ -87,21 +209,24 @@
 
 					$vosClasses = $bdd->prepare("SELECT * FROM classe WHERE idCreator = ?");
 					$vosClasses->execute(array($_SESSION['id']));
-					$vosClassesFlag = False; //flag, vaut vrai quand l'account connecté a créé des séries
 					$n_classes = $vosClasses->rowCount();
 					if($n_classes > 0){
-						$vosSeriesFlag = True;
 						if($n_classes == 1){
 							echo"<h3>Votre classe</h3>";
 						}
 						else{
 							echo"<h3>Vos classes</h3>";
 						}
+
+						echo '<form action="gestion_classe.php" method="post" class="appnitro" id="action_form">';
 						
 						while ($enregistrement = $vosClasses->fetch())
 						{
-							displayClasse($enregistrement);
+							displayClasse($enregistrement, $bdd);
 						} 
+
+						echo '<input type="hidden" id="idClassToSee" name="classToSee" value="">';
+						echo '</form>';
 					}
 					else{
 						echo "Vous n'avez actuellement aucune classe.";
@@ -196,7 +321,7 @@
 						<li id="li_999" >
 							<label class="description" for="element_999">Nom de la nouvelle classe</label>
 							<div>
-								<input id="f_nom_classe" name="nom_classe" class="element text large" type="text" maxlength="30" required <?php if(isset($_SESSION['class_form'])){echo "value=\"".$_SESSION['class_form']['nom_classe']."\"";}?>> 
+								<input id="f_nom_classe" name="nom_classe" class="element text large" type="text" maxlength="30" required> 
 							</div>
 							<p class="guidelines" id="guide_999"><small>Vous pouvez ici nommer votre classe </small></p> 
 						</li>
@@ -224,26 +349,26 @@
 
 						<li id="li_997">
 							<label class="description" for="element_997">Nom de l'école</label>
-							<input id="f_nom_ecole" type="text" name="nom_ecole" class="element text large" maxlength="50" required <?php if(isset($_SESSION['class_form'])){echo "value=\"".$_SESSION['class_form']['nom_ecole']."\"";}?>>
+							<input id="f_nom_ecole" type="text" name="nom_ecole" class="element text large" maxlength="50" required>
 							<p class="guidelines" id="guide_997"><small>Merci d'indiquer le nom de l'école </small></p> 
 						</li>
 
 						<li id="li_996">
 							<label class="description" for="element_996">Ville</label>
-							<input id="f_ville" type="text" name="ville" class="element text large" maxlength="50" required <?php if(isset($_SESSION['class_form'])){echo "value=\"".$_SESSION['class_form']['ville']."\"";}?>>
+							<input id="f_ville" type="text" name="ville" class="element text large" maxlength="50" required>
 							<p class="guidelines" id="guide_996"><small>Merci d'indiquer la ville où se situe l'école </small></p> 
 						</li>
 
 						<li id="li_995">
 							<label class="description" for="element_995">Remarques</label>
-							<textarea id="f_remarques" name="remarques" rows="4" cols="50"><?php if(isset($_SESSION['class_form'])){echo $_SESSION['class_form']['remarques']."\"";}?></textarea>
+							<textarea id="f_remarques" name="remarques" rows="4" cols="50"></textarea>
 							<p class="guidelines" id="guide_995"><small>Si vous avez des remarques particulières concernant certains élèves, indiquez-les ici </small></p> 
 						</li>
 						<!--
 						<li id="li_994">
 							<label class="description" for="element_994">Élèves</label>
 							<p>Il vous faudra suivre un format spécifique pour rentrer les élèves. Sur chaque ligne, il faut mettre le prénom, le nom, la date de naissance au format JJ/MM/AAAA, et le sexe ("f" ou "m") séparés par des points virgules</p>
-							<textarea id="f_eleves" name="eleves" rows="20" cols="50" placeholder="prénom_élève_1;nom_élève_1;date_naissance_élève_1;sexe"><?php if(isset($_SESSION['class_form'])){echo $_SESSION['class_form']['eleves']."\"";}?></textarea>
+							<textarea id="f_eleves" name="eleves" rows="20" cols="50" placeholder="prénom_élève_1;nom_élève_1;date_naissance_élève_1;sexe"></textarea>
 							<p class="guidelines" id="guide_994"><small>Mettez les prénoms, noms et date de naissance de tous vos élèves en suivant le format "prenom;nom;JJ/MM/AAAA;sexe"</small></p> 
 						</li>
 						-->
@@ -453,7 +578,9 @@
 			// 	}
 			// 	return confirm(" Vous vous appretez à créer une classe avec "+i+" élèves");
 			// }
-
+			function clickSerieEleve(serie, eleve){
+				alert(serie + " "+ eleve);
+			}
 			function showOneMoreStudent(){
 				if(n_eleves_actuels <<?php echo $n_max_student;?>){
 					n_eleves_actuels++;
@@ -465,8 +592,13 @@
 					alert("Vous avez atteint le nombre maximum d'élèves affichés. Si votre classe comprend plus de "+<?php echo $n_max_student;?>+" élèves, merci de former plusieurs classes.");
 				}
 			}
-
 			
+			var classToSeeForm = document.getElementById('idClassToSee');
+			function visualizeClass(idClasse){
+				classToSeeForm.value=idClasse;
+				document.forms["action_form"].submit();
+			}
+
 		</script>
 	</body>
 </html>
