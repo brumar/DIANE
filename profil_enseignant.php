@@ -55,14 +55,8 @@
 						<ul>
 							<li id="li_3">
 							<h3>Résultats et analyses</h3>	
-							<h5> Analyse brute</h5>
-							<li>Télécharger le fichier de diagnostic au format tableur de <a href="doc_csv.php">tous les élèves</a> </li>
-							<li><a href="formTracePDF.php">Télécharger le fichier de trace d'un élève en PDF</a></li>
-							<li>
-							<h5>Sortie en langage naturel</h5>
-						    <li><a href="formDiag.php?type=e">Problèmes additifs complexes</a></li>
-						      <li> <a href="formDiag.php?type=d">Problèmes de distributivité</a> </li>
-				          	<li> <a href="formDiag.php?type=etape">Problèmes &agrave; une  étape</a></li>
+							
+							</li>
 						</ul>
 				  </form>
 			</div>

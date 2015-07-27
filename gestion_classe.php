@@ -8,11 +8,15 @@
 		if(isset($_POST['classToSee'])) {
 			if(is_numeric($_POST['classToSee'])){
 				$_SESSION['classToSee'] = (int)$_POST['classToSee'];
-
-				// $req = $bdd->query('SELECT pbm from pbm_serie WHERE serie = '.$classToSee);
-				// while ($res = $req->fetch();
+				$_SESSION['just_redirected_gestion_classe'] = true;
+				header("Location: " . $_SERVER['REQUEST_URI']);
+				exit();
 			}
 		}
+	}
+
+	if(isset($_SESSION['just_redirected_gestion_classe'])){
+		unset($_SESSION['just_redirected_gestion_classe']);
 	}
 	else{
 		if(isset($_SESSION['classToSee'])){
@@ -137,6 +141,7 @@
 		if(isset($_SESSION['classToSee'])){
 			if($idClass == $_SESSION['classToSee']){
 
+				echo "<div class= display_classe>";
 				echo "<table>";
 				echo "<tr><th colspan = \"2\">Eleve</th><th>Devoirs</th></tr>";
 
@@ -156,6 +161,26 @@
 				}
 				$req->closeCursor();
 				echo "</table>";
+				echo "Voir les résultats de toute la classe pour la série :";
+
+				//On récupère toutes les séries utilisées pour cette classe
+				$class_series = array();
+				$eleves2 = $b->query('SELECT idEleve FROM classe_eleve WHERE idClasse = '.$idClass);
+				while($eleve = $eleves2->fetch()){
+					$series3 = $b->query('SELECT idSerie FROM serie_eleve WHERE idEleve ='.$eleve['idEleve']);
+					while($ser = $series3->fetch()){
+						if(!(in_array($ser['idSerie'], $class_series))){
+							$class_series[] = $ser['idSerie'];
+						}
+					}
+				}
+
+				foreach($class_series as $serieForClass){
+					//get_value_BDD($key, $table, $where, $array_req, $b)
+					$nameSerie = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($serieForClass), $b);
+					echo "<button onclick=\"clickSerieClasse(".(string)$serieForClass.",".(string)$idClass.");return false;\">".$nameSerie."</button>";
+				}
+				echo "</div>";
 			}
 		}		
 	}
@@ -427,9 +452,17 @@
 								echo"</tr>";
 							}
 							?>
+
 						</table>
 						<input type="button" value="Élève Supplémentaire" id="button_add_student" onclick="showOneMoreStudent();">
 						<input type="submit" value="Créer la classe">
+				</form>
+
+				<form action="analyse.php" display="none" method="post" id="formulaire_analyse_reponseEleve">
+					<input type = "hidden" id="fanalyse_demande" name="fanalyse_demande" value = "">
+					<input type = "hidden" id="fanalyse_numSerie" name="fanalyse_numSerie" value = "">
+					<input type = "hidden" id="fanalyse_numEleve" name="fanalyse_numEleve" value = "">
+					<input type = "hidden" id="fanalyse_numClasse" name="fanalyse_numClasse" value = "">
 				</form>
 
 				</div>
@@ -549,38 +582,35 @@
 			}
 			
 
-			// function verifEleves(string){ //Plus valable
-			//     if (!string) {
-			//         alert("Rentrez des élèves");
-			//         return false;
-			//     }
-			// 	var table=string.split("\n");
-			// 	table2=removeBlankLines(table);
-			// 	for (i = 0; i < table2.length; i++) {
-			// 		var eleve=table2[i].split(";");
-			// 		if(eleve.length!=4){
-			// 			alert("à la ligne "+(i+1)+" le format n'est pas celui attendu");
-			// 			return false;
-			// 		}
-			// 		if((eleve[0]).trim()==""||(eleve[1]).trim()==""){
-			// 			alert("à la ligne "+(i+1)+" problème avec le nom/prénom");
-			// 			return false;
-			// 		}
-			// 		var dateString=checkDateValidityOrReturnDate(eleve[2]);
-			// 		if(!dateString){
-			// 			alert("La date à la ligne "+(i+1)+" n'est pas sous le format JJ/MM/AAAA");
-			// 			return false;
-			// 		}
-			// 		if( ((eleve[3]).trim()!="m") && ((eleve[3]).trim()!="f") ) {
-			// 			alert("à la ligne "+(i+1)+" problème avec le sexe");
-			// 			return false;
-			// 		}
-			// 	}
-			// 	return confirm(" Vous vous appretez à créer une classe avec "+i+" élèves");
-			// }
 			function clickSerieEleve(serie, eleve){
-				alert(serie + " "+ eleve);
+				//alert(serie + " "+ eleve);
+				formulaire_analyse_reponseEleve = document.getElementById("formulaire_analyse_reponseEleve");
+				fanalyse_demande = document.getElementById("fanalyse_demande");
+				fanalyse_numSerie = document.getElementById("fanalyse_numSerie");
+				fanalyse_numEleve = document.getElementById("fanalyse_numEleve");
+
+				fanalyse_demande.value = "eleve_serie";
+				fanalyse_numSerie.value = serie;
+				fanalyse_numEleve.value = eleve;
+
+				formulaire_analyse_reponseEleve.submit();
 			}
+
+			function clickSerieClasse(serie, classe){
+
+				formulaire_analyse_reponseEleve = document.getElementById("formulaire_analyse_reponseEleve");
+				fanalyse_demande = document.getElementById("fanalyse_demande");
+				fanalyse_numSerie = document.getElementById("fanalyse_numSerie");
+				fanalyse_numClasse = document.getElementById("fanalyse_numClasse");
+
+				fanalyse_demande.value = "classe_serie";
+				fanalyse_numSerie.value = serie;
+				fanalyse_numClasse.value = classe;
+
+				formulaire_analyse_reponseEleve.submit();
+			}
+
+
 			function showOneMoreStudent(){
 				if(n_eleves_actuels <<?php echo $n_max_student;?>){
 					n_eleves_actuels++;

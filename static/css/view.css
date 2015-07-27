@@ -937,7 +937,10 @@ font-weight: bold;
 	display:none;
 }
 
-
+.display_classe{
+	background-color:#EEE;
+	margin:20px;
+}
 
 /* eleve.php */
 
@@ -975,7 +978,27 @@ font-weight: bold;
 
 
 
+/*analyse.php*/
+.solved_pbm{
+	display:inline-block;
+	margin:10px;
+}
+.solved_pbm_enonce{
+	width:450px;
+}
+.solved_pbm_reponse{
 
+}
+
+
+table{
+	border-collapse: collapse;
+	border: solid black 1px;
+}
+
+td, th, tr{
+	border: solid black 1px;
+}
 
 
 

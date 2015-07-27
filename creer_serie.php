@@ -67,7 +67,7 @@
 			<div>
 				Montrer les exercices qui ont la propriété :
 				<select name="sort_property" id="sort_property" onchange="propertySort()">
-					<option value="none">...</option>
+					<option value="none">Tous les problèmes</option>
 					<?php
 						// $exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');
 
@@ -86,8 +86,7 @@
 				</select>
 			</div>
 			<?php
-				
-				
+
 				// Exercices crées par l'id en session
 
 				$vosExercices = $bdd->prepare("SELECT * FROM pbm WHERE idCreator = ? ORDER BY idPbm DESC");
@@ -184,7 +183,6 @@
 			}
 
 			function propertySort(){
-				// Recharge la page pour déclencher le tri par la propriété sélectionné  
 				var sort_property = document.getElementById("sort_property");				
 				var problemsDisplayed = document.getElementsByClassName('pbmDisplayed');
 
@@ -208,15 +206,6 @@
 						}
 					}
 				}
-
-
-				//alert(sort_property.value);
-
-
-				//TODO: On ne veut pas recharger la page pour trier => il faut chopper toutes les properties de tous les problèmes avant
-
-
-				// Un problème n'a de propriété que s'il a un template. => on choppe idTemplate dans pbm, puis les properties de pbm_template. PROBLEME : ce sont que les noms, aps els id...
 			}
 
 		</script>
