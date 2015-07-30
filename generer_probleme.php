@@ -127,6 +127,18 @@
 	$htmlreplacements=base64_encode(serialize($replacements));
 	//$text=htmlentities($text, ENT_QUOTES, 'UTF-8');
 
+	//var_dump(htmlentities(print_r($replacements, true)));
+	// var_dump(unserialize(base64_decode($htmlreplacements)));
+
+	// <input type="hidden" name="id" value="<?php echo($id);" />
+	// 	<input type="hidden" name="replacements" value="<?php echo($htmlreplacements);" />
+	// 	<input type="hidden" name="enonce" value="<?php echo(htmlspecialchars($text));>" />
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -144,7 +156,7 @@
 		<div id="form_container">
 		
 			<h1><a>Untitled Form</a></h1>
-					<form id="form_470585" class="appnitro" name="mainform" method="post" action="SpecificProblemSaving.php" onclick=>
+					<form id="form_470585" class="appnitro" name="mainform" method="post" action="SpecificProblemSaving.php">
 						<div class="form_description">
 						<h2>Creation d'un problème</h2>
 						

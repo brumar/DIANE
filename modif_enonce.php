@@ -166,7 +166,7 @@ span {
 
 <body>
 <p align="center">
-<a href="index.html">Accueil</a> &nbsp;&nbsp;
+<a href="index.php">Accueil</a> &nbsp;&nbsp;
 <a href="profil_enseignant.php">Interface Enseignant</a>&nbsp;&nbsp;
 <a href="eleve.html">El&egrave;ve</a>
 </p>

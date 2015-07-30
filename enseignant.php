@@ -69,7 +69,7 @@
 	</head>
 
 	<body>
-		<p> <a href="index.html">Accueil</a></p>    
+		<p> <a href="index.php">Accueil</a></p>    
 		<h3>Veuillez vous identifier pour continuer</h3>
 		<form method="post" action="enseignant.php">
 

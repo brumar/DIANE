@@ -25,7 +25,7 @@
 				}
 				$reqInsert->closeCursor();
 
-				echo "Bienvenu ".$data['prenom']. " ". $data['nom'].", votre compte a bien été créé sur DIANE. Pour vous connecter, votre adresse mail ".$data['email']." vous sera demandée. Cliquez <a href = \"enseignant.php\">ici</a> pour vous connecter à votre profil.";
+				echo "Bienvenu ".ucfirst($data['prenom']). " ". ucfirst($data['nom']).", votre compte a bien été créé sur DIANE. Pour vous connecter, votre adresse mail ".$data['email']." vous sera demandée. Cliquez <a href = \"enseignant.php\">ici</a> pour vous connecter à votre profil.";
 				//TODO CLIQUER
 			}
 			else{
@@ -49,15 +49,13 @@
  			echo "Un compte a déjà été créé avec cette adresse email. Si vous rencontrez des problèmes pour créer votre compte, vous pouvez contacter le webmaster à l'adresse ".$_mail_support.".";  //TODO : "Si vous avez perdu votre mot de passe pour vous connecter à DIANE, vous pouvez cliquer ici pour vous renvoyer un mot de passe"
  		}
 
- 		
-
  		else {
 			$key = bin2hex(openssl_random_pseudo_bytes(32));
 		
 			
 			// Envoi du mail de confirmation
 			
-			/*
+			
 			$sujet = "Activer votre compte sur DIANE" ;
 
 			// Le lien d'activation est composé de l'email et de la clé(cle)
@@ -67,14 +65,51 @@
 			ou copier/coller dans votre navigateur internet.
 
 			 
-			http://www.diane-eiah.com/activation.php?email='.urlencode($email).'&cle='.urlencode($key).'
+			http://www.diane.cestpascon.fr/inscription.php?email='.urlencode($email).'&cle='.urlencode($key).'
 			 
 			 
 			---------------
 			Ceci est un mail automatique, Merci de ne pas y répondre.';
 
+			$to = $email;
+
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+			$headers .= 'From: DIANE EIAH <noreply@diane-eiah.fr>' . "\r\n";
 
 
+	        
+	        if (exists_in_BDD('unvalidated_account', 'email = ?', array($email), $bdd)){
+	        	echo "Votre compte existe mais il n'a pas encore été validé."; //Un nouvel email de confirmation vient de vous être envoyé.";
+	        	//TODO : find what to do
+	        }
+
+	        if(mail($to, $subject, $message, $headers)) {
+		        $req = $bdd->prepare('INSERT INTO unvalidated_account(accountType, prenom, nom, email, password, cle) VALUES(:accountType, :prenom, :nom, :email, :password, :cle)');   
+		     	$req->execute(array(
+					'accountType' => 'enseignant',
+					'prenom' => $prenom,
+					'nom' => $nom,
+					'email' => $email,
+					'password' => $hashed_password,
+					'cle' => $key
+					));
+				$req->closeCursor();
+				
+			    echo "Votre compte a été créé, mais il doit encore être confirmé. Vous allez recevoir un email avec un lien de confirmation.";
+		    }
+		    else{
+		    	echo 'L\'email n\'a pas pu être envoyé.';
+		    }
+		}
+	}
+	 
+	// Fermeture de la connexion à la BDD
+	unset($bdd);
+
+
+
+	/*
 			require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 	        $mail = new PHPmailer(); 
 
@@ -159,31 +194,6 @@
 	        $mail->SmtpClose(); 
 	        unset($mail); 
 	        */
-
-	        if (exists_in_BDD('unvalidated_account', 'email = ?', array($email), $bdd)){
-	        	echo "Votre compte existe mais il n'a pas encore été validé."; //Un nouvel email de confirmation vient de vous être envoyé.";
-	        	//TODO : find what to do
-	        }
-
-	        else {
-		        $req = $bdd->prepare('INSERT INTO unvalidated_account(accountType, prenom, nom, email, password, cle) VALUES(:accountType, :prenom, :nom, :email, :password, :cle)');   
-		     	$req->execute(array(
-					'accountType' => 'enseignant',
-					'prenom' => $prenom,
-					'nom' => $nom,
-					'email' => $email,
-					'password' => $hashed_password,
-					'cle' => $key
-					));
-				$req->closeCursor();
-				
-		        echo "Votre compte a été créé, mais il doit encore être confirmé. Vous allez recevoir un email avec un lien de confirmation.";
-	    	}
-		}
-	}
-	 
-	// Fermeture de la connexion à la BDD
-	unset($bdd);
 ?>
 
 <html>

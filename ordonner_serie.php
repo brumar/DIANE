@@ -70,15 +70,18 @@
 		$maxOrdrePres = $maxReq->fetchColumn(); 
 		$ordrePres = $maxOrdrePres + 1;
 
+		$visib = "searchersOnly";
+
 		//Mise à jour de la table "serie"
-		$req = $bdd->prepare("INSERT INTO serie VALUES(:idSerie, :nomSerie, :commentaire, :ordrePres, :code, :idCreator)");
+		$req = $bdd->prepare("INSERT INTO serie VALUES(:idSerie, :nomSerie, :commentaire, :ordrePres, :code, :idCreator, :visibilite)");
 		$req->execute(array(
 			'idSerie' => '',
 			'nomSerie' => $_POST['thisNomSerie'],
 			'commentaire' => $_POST['thisCommentaireSerie'],
 			'ordrePres' => $ordrePres,
 			'code' => $gen_code,
-			'idCreator' => $_SESSION['id']));
+			'idCreator' => $_SESSION['id'],
+			'visibilite' => $visib));
 
 		$idNouvelleSerie = $bdd->lastInsertId();
 		$req->closeCursor();

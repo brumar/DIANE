@@ -486,8 +486,8 @@ function evalExpression($string){
 		// Dans ce cas, je veux que expression renvoie : type = "addition", contenu = array(types, contenus)
 		$regex_variable =  '#^n(ombre)?[1-9]$#i';
 		$tmp = explode("+", $string);
-		$typeTab = [];
-		$contentTab = [];
+		$typeTab = array();
+		$contentTab = array();
 		foreach($tmp as $elem){
 			if(!($elem)) {
 				return null;
@@ -617,7 +617,7 @@ function generateNumbersWithConstraints($numConstraints, $n){
 	// $trial_n = 1;
 	// $MAX_TRIAL = 5000;
 	// while($trial_n <= $MAX_TRIAL){
-	// 	$ret = [];
+	// 	$ret = array();
 	// 	foreach($n as $numb){
 	// 		$ret[$numb]=rand(1,20);
 	// 	}
@@ -638,14 +638,14 @@ function generateNumbersWithConstraints($numConstraints, $n){
 	$allConstraints = parseNumericConstraints($numConstraints);
 
 	// Le tableau fixed_ret contient les valeurs fixées par des contraintes d'égalité
-	$fixed_ret = [];
+	$fixed_ret = array();
 	$DEFAULT_MIN = 3;
 	$DEFAULT_MAX = 20;
 	
 
-	$randomPick = []; // Numbers that shouldn't be picked randomly
-	$min = [];
-	$max = [];
+	$randomPick = array(); // Numbers that shouldn't be picked randomly
+	$min = array();
+	$max = array();
 	foreach($n as $numb){
 		$randomPick[$numb] = true;
 		$min[$numb] = $DEFAULT_MIN;

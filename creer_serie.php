@@ -29,7 +29,7 @@
 					</li>
 
 					<li id="li_998" >
-						<label class="description" for="element_998">Commentaire associée à la série </label>
+						<label class="description" for="element_998">Commentaire associé à la série </label>
 						<div>
 							<textarea id="element_998" name="comments" class="element textarea small"></textarea>
 						</div><p class="guidelines" id="guide_998"><small>Vous pouvez décrire ici les caractéristiques de cette série d'exercices.</small></p> 

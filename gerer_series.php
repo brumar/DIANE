@@ -45,20 +45,17 @@
 
 	function displaySerie($enregistrement, $b, $rights = 0x0){ //,$count){ //TODO : ajouter $droits, etc
 		$limText=110;
-		$text1 = $enregistrement['nomSerie'];
+		$nomSerie = $enregistrement['nomSerie'];
 		$id= $enregistrement['idSerie'];
 		$code = $enregistrement['code'];
+		$commentaire = $enregistrement['commentaire'];
 
-		if (strlen($text1) > $limText) 
-		{
-			$text1=substr($text1, 0, $limText).'[...]';
-		}
 
 		//echo "<li id=\"li_".$count."\">";
 		echo "<li>";
 			echo "<div class=\"serie_s\">";
 				echo "<span class=\"serie_text\">";
-					echo $text1;
+					echo "<em>".$nomSerie."</em><br><br>".$commentaire;
 				echo"</span>";
 				echo "</span>";
 				echo "<span class=\"serie_code\">";

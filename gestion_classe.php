@@ -110,8 +110,8 @@
 		// 			echo"<a id=\"serie_see".$id."\" href=\"\" onclick=\"visualizeSerie(".$id.");return false;\"><img src=\"static/images/loupe.gif\" alt=\"voir cette série\"/></a>";
 		// 		echo"</span>";
 
-		// 		//if(isset($_SESSION['typeAccount'])){
-		// 			//if($_SESSION['typeAccount']=='chercheur'){
+		// 		//if(isset($_SESSION['accountType'])){
+		// 			//if($_SESSION['accountType']=='chercheur'){
 		// 		if($rights & SERIE_RIGHTS_SUPPR){
 		// 			echo "<span class=\"serie_delete\">";
 		// 			echo "<a id=\"serie_delete".$id."\" href=\"\" onclick=\"confirmSuppr(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cette série\"/></a>";
@@ -262,6 +262,7 @@
 
 
 				<?php
+					//TODO : mettre cette partie directement dans les classes
 					if($n_classes >0){
 						if($n_classes == 1){
 							echo "<h3>Assigner une série d'exercices à votre classe</h3>";
@@ -295,10 +296,10 @@
 
 								<li id="li_992" >
 									<label class="description" for="element_992">Choix de la série</label>
+
 									<div>
 										<select id="f2_serie" name="serie">
 										<?php
-
 											$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? ORDER BY ordrePres");
 											$vosSeries->execute(array($_SESSION['id']));
 											while ($enregistrement = $vosSeries->fetch()){
@@ -313,10 +314,10 @@
 												echo '<option value="'.$enregistrement['idSerie'].'">'.$enregistrement['nomSerie'].'</option>';
 											}
 											$autresSeries->closeCursor();
-
 										?>
 										</select>
 									</div>
+
 									<p class="guidelines" id="guide_992"><small>Choisissez la série d'exercices que votre classe doit réaliser </small></p> 
 								</li>
 

@@ -45,19 +45,25 @@
 								</ul>
 							</li>
 						</ul>
-						<div style="display:none">	
+						<!-- <div style="display:none">	
 							Fournir une lecture d'énoncé (documents audio)
 							<a href="audio_comparaison.php">Comparaison</a>&nbsp;|&nbsp; 
 							<a href="audio_complement.php">Complément</a>&nbsp;|&nbsp;
 							<a href="audio_distributivite.php">Distributivité</a> | 
 							<a href="audio_etape.php">Etape</a>
-						</div>
-						<ul>
-							<li id="li_3">
-							<h3>Résultats et analyses</h3>	
-							
-							</li>
-						</ul>
+						</div> -->
+
+						<?php if($_SESSION['accountType'] == 'chercheur'){?>
+							<ul>
+								<li id="li_3">
+								<h3>Résultats et analyses</h3>	
+									<ul>
+										<li><a href="diagnostic.php">Diagnostiquer</a></li>
+									</ul>
+								</li>
+							</ul>
+						<?php }?>
+						
 				  </form>
 			</div>
 		<div  style="width:200px;display:inline-block;vertical-align:top">

@@ -71,7 +71,7 @@ header('Location: affichage_d.php');
 <!doctype html public "-//W3C//DTD HTML 4.0 //EN"> <html><head>
 <title>Traitement Formulaire</title></head><body>
 <p align="center">
-<a href="index.html">Accueil</a> &nbsp;&nbsp;
+<a href="index.php">Accueil</a> &nbsp;&nbsp;
 <a href="profil_enseignant.php">Interface Enseignant</a>&nbsp;&nbsp;
 <a href="eleve.html">Elève</a>
 </p>
