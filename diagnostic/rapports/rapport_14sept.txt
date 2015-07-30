@@ -1,0 +1,27 @@
+Mes conclusions du weekend
+
+J'ai reflechi sur la maniere de generer la formule complete a partir de plusieurs formules simples potentiellement parsemees ou integralement constituees de resultats calcules de tete.
+
+Au depart j'ai envisage un remplacement simple. On prend la derniere formule, on remplace les resultats a l'interieur au fur et a mesure jusqu'a ne plus avoir que des nombres donnes dans l'ennonce.
+Je me suis vite rendue compte des faits suivants, contraintes indispensables a respecter pour que les problemes soient analysables par le programme :
+- Les nombres de l'ennonce doivent etre tous differents
+- Les nombres de l'ennonce doivent etre differents de tous les resultats intermediaires possibles
+- Les resultats intermediaires doivent etre tous differents (meme ceux qui ne menent pas au resultat final (necessaire en cas d'erreur))
+Il sera donc necessaire d'implementer un algorithme pour verifier les valeurs numeriques des ennonces afin de s'assurer que les resultats seront interpretables.
+
+Ma deuxieme constatation, c'est qu'en cas de calcul mental, la prediction devient hasardeuse :
+1- Dans le cas ou l'enfant donne uniquement le resultat sur un probleme relativement complexe, que sa reponse soit correcte ou pas, il est impossible de savoir comment exactement il est parvenu au resultat.
+Par exemple j'ai tente de resoudre un probleme que Bruno m'a donne, et mon raisonnement etait en trois operations ((N2 - N1) + (N1 - N3)), tandis que le calcul optimal en compte une seule (N2 - N3). On trouve le bon resultat dans les deux cas, mais il y a une grosse difference de raisonnement.
+2- Dans le cas ou l'enfant calcule une valeur intermediaire de tete, il est possible de la retrouver avec une marge d'erreur tolerable, mais cela reste une interpretation potentiellement biaisee dans certains cas particuliers.
+
+La methode que je compte employer pour le traitement des reponses ou le calcul est indique :
+Pour chaque formule
+- On regarde si on connait les nombres
+- Si on connait tous les nombres
+	- on remplace par N1, N2... etc (notation pour les nombres de l'ennonce)
+	  ou par des chaines generees prealablement (resultats precedents) ex: "N1 - N2"
+- Si y'en a qu'on connait pas
+	- Mini brute force search (profondeur 1 ou 2 operations max)
+
+Structure de donnees a employer : table cles/valeurs
+Les chaines type "N1 - N2" sont indexees selon leur resultat dans le calcul de l'eleve afin de pouvoir etre utilisees lorsque l'on a besoin de remplacer ces resultats dans des calculs posterieurs.

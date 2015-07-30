@@ -6,7 +6,7 @@
 
 <body>
 <p align="center">
-<a href="index.html">Accueil</a> &nbsp;&nbsp;
+<a href="index.php">Accueil</a> &nbsp;&nbsp;
 <a href="enseignant.php">Enseignant</a>&nbsp;&nbsp;
 <a href="eleve.php">Elève</a>
 </p>

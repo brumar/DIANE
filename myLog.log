@@ -1,0 +1,363 @@
+INFO - ******NOUVELLE ANALYSE*******
+INFO - ******ID=noID*******
+INFO - analyse de : 5 - 3 = 2
+, language: french, Thu Jul 18:31
+INFO - nombres :  
+INFO - Array
+(
+    [0] => 5
+    [1] => 4
+)
+
+INFO - answer after replacements :  5 - 3 = 2
+
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 5
+    [1] => 4
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 9
+    [1] => 1
+)
+
+INFO - final answer  found :
+INFO - 2
+INFO - formulas detected : 
+INFO - Array
+(
+    [0] => 5 - 3 = 2
+)
+
+INFO - analyse of this formula : 5 - 3 = 2
+INFO - number of unkwowns numbers in the formula (1 is the simplest case) 
+INFO - 2
+INFO - we try to detect mental calculations
+INFO - After the mental computation investigation, we count the number of remaining unkwowns (1 is the simplest case) 
+INFO - 2
+INFO - interpretation process of the current formula has failed at this point
+INFO - NO FORMULA EXPLAINS THE NUMBER GIVEN AS AN ANSWER
+INFO - ******NOUVELLE ANALYSE*******
+INFO - ******ID=noID*******
+INFO - analyse de : 20 - 15 = 5
+Il y a 5 géants, language: french, Thu Jul 18:31
+INFO - nombres :  
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+)
+
+INFO - answer after replacements :  20 - 15 = 5
+Il y a 5 géants
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 35
+    [1] => 5
+)
+
+INFO - final answer  found :
+INFO - 5
+INFO - formulas detected : 
+INFO - Array
+(
+    [0] => 20 - 15 = 5
+)
+
+INFO - analyse of this formula : 20 - 15 = 5
+INFO - number of unkwowns numbers in the formula (1 is the simplest case) 
+INFO - 1
+INFO - more precise investigation of the formula 20 - 15 = 5
+INFO - numbers found : 
+INFO - Array
+(
+    [0] => 20
+    [1] => 15
+    [2] => 5
+)
+
+INFO - signe de l'op�ration : 
+INFO -  - 
+INFO - try to find operation type
+INFO - Formule : 20 - 15 = 5
+INFO - Type d'operation : substraction 
+INFO - Type de resolution : operation simple 
+INFO - Expression : n2 - n1
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+    [2] => 5
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 35
+    [1] => 5
+    [2] => 20
+    [3] => 10
+    [4] => 25
+    [5] => 15
+)
+
+INFO - final formula is 20 - 15 = 5 
+INFO - then the summary formula is : n2 - n1 
+INFO - ******NOUVELLE ANALYSE*******
+INFO - ******ID=noID*******
+INFO - analyse de : 5 - 3 = 2
+, language: french, Thu Jul 18:31
+INFO - nombres :  
+INFO - Array
+(
+    [0] => 5
+    [1] => 4
+)
+
+INFO - answer after replacements :  5 - 3 = 2
+
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 5
+    [1] => 4
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 9
+    [1] => 1
+)
+
+INFO - final answer  found :
+INFO - 2
+INFO - formulas detected : 
+INFO - Array
+(
+    [0] => 5 - 3 = 2
+)
+
+INFO - analyse of this formula : 5 - 3 = 2
+INFO - number of unkwowns numbers in the formula (1 is the simplest case) 
+INFO - 2
+INFO - we try to detect mental calculations
+INFO - After the mental computation investigation, we count the number of remaining unkwowns (1 is the simplest case) 
+INFO - 2
+INFO - interpretation process of the current formula has failed at this point
+INFO - NO FORMULA EXPLAINS THE NUMBER GIVEN AS AN ANSWER
+INFO - ******NOUVELLE ANALYSE*******
+INFO - ******ID=noID*******
+INFO - analyse de : 20 - 15 = 5
+Il y a 5 géants, language: french, Thu Jul 18:31
+INFO - nombres :  
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+)
+
+INFO - answer after replacements :  20 - 15 = 5
+Il y a 5 géants
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 35
+    [1] => 5
+)
+
+INFO - final answer  found :
+INFO - 5
+INFO - formulas detected : 
+INFO - Array
+(
+    [0] => 20 - 15 = 5
+)
+
+INFO - analyse of this formula : 20 - 15 = 5
+INFO - number of unkwowns numbers in the formula (1 is the simplest case) 
+INFO - 1
+INFO - more precise investigation of the formula 20 - 15 = 5
+INFO - numbers found : 
+INFO - Array
+(
+    [0] => 20
+    [1] => 15
+    [2] => 5
+)
+
+INFO - signe de l'op�ration : 
+INFO -  - 
+INFO - try to find operation type
+INFO - Formule : 20 - 15 = 5
+INFO - Type d'operation : substraction 
+INFO - Type de resolution : operation simple 
+INFO - Expression : n2 - n1
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+    [2] => 5
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 35
+    [1] => 5
+    [2] => 20
+    [3] => 10
+    [4] => 25
+    [5] => 15
+)
+
+INFO - final formula is 20 - 15 = 5 
+INFO - then the summary formula is : n2 - n1 
+INFO - ******NOUVELLE ANALYSE*******
+INFO - ******ID=noID*******
+INFO - analyse de : 5 - 3 = 2
+, language: french, Thu Jul 18:31
+INFO - nombres :  
+INFO - Array
+(
+    [0] => 5
+    [1] => 4
+)
+
+INFO - answer after replacements :  5 - 3 = 2
+
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 5
+    [1] => 4
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 9
+    [1] => 1
+)
+
+INFO - final answer  found :
+INFO - 2
+INFO - formulas detected : 
+INFO - Array
+(
+    [0] => 5 - 3 = 2
+)
+
+INFO - analyse of this formula : 5 - 3 = 2
+INFO - number of unkwowns numbers in the formula (1 is the simplest case) 
+INFO - 2
+INFO - we try to detect mental calculations
+INFO - After the mental computation investigation, we count the number of remaining unkwowns (1 is the simplest case) 
+INFO - 2
+INFO - interpretation process of the current formula has failed at this point
+INFO - NO FORMULA EXPLAINS THE NUMBER GIVEN AS AN ANSWER
+INFO - ******NOUVELLE ANALYSE*******
+INFO - ******ID=noID*******
+INFO - analyse de : 20 - 15 = 5
+Il y a 5 géants, language: french, Thu Jul 18:31
+INFO - nombres :  
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+)
+
+INFO - answer after replacements :  20 - 15 = 5
+Il y a 5 géants
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 35
+    [1] => 5
+)
+
+INFO - final answer  found :
+INFO - 5
+INFO - formulas detected : 
+INFO - Array
+(
+    [0] => 20 - 15 = 5
+)
+
+INFO - analyse of this formula : 20 - 15 = 5
+INFO - number of unkwowns numbers in the formula (1 is the simplest case) 
+INFO - 1
+INFO - more precise investigation of the formula 20 - 15 = 5
+INFO - numbers found : 
+INFO - Array
+(
+    [0] => 20
+    [1] => 15
+    [2] => 5
+)
+
+INFO - signe de l'op�ration : 
+INFO -  - 
+INFO - try to find operation type
+INFO - Formule : 20 - 15 = 5
+INFO - Type d'operation : substraction 
+INFO - Type de resolution : operation simple 
+INFO - Expression : n2 - n1
+INFO - updating mentally available numbers
+INFO - this is done on the basis of direct availables numbers
+INFO - Array
+(
+    [0] => 15
+    [1] => 20
+    [2] => 5
+)
+
+INFO - availableMentalNumbers :
+INFO - Array
+(
+    [0] => 35
+    [1] => 5
+    [2] => 20
+    [3] => 10
+    [4] => 25
+    [5] => 15
+)
+
+INFO - final formula is 20 - 15 = 5 
+INFO - then the summary formula is : n2 - n1 

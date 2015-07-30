@@ -1,0 +1,14 @@
+En effet, pour le choix des nombres dans les problèmes complexes nous nous posons de nombreuses contraintes pour éviter les problèmes que tu pointes.
+Outre la "diagnosticabilité" des réponses, on veut aussi éviter que certaines opérations soient trop faciles ou trop difficiles, donc ça limite énormément.
+Si tu veux en savoir plus, je peux esayer retrouver les mails échangés avec Jean-François Richard sur le sujet, ainsi sur une classe Java qui génère des triplets de nombres pour les problèmes complexes.
+En tout cas les 3 contraintes fondamentales que tu pointes (sauf grosse erreur de notre part) sont respectées par l'ensemble des problèmes avec lequel tu travailleras.
+>"Il sera donc necessaire d'implementer un algorithme pour verifier les valeurs numeriques des ennonces afin de s'assurer que les resultats seront interpretables."
+C'est une très bonne idée je pense !
+
+Je ne sais pas si les "anciens problèmes" respectent ces contraintes, probablement pas tous. Mais normalement il ne devrait pas y avoir deux possibilités d'opérations mentales qui conduisent au même résultat. En tout cas, pour continuer ta réflexion, je pense qu'on ne trouve une opération mentale que lorsque un et un seul calcul à partir des nombres de l'énoncé puisse expliquer l'introduction d'un nouveau nombre dans la réponse. A un moment il était question de considérer les erreurs de calculs (opération mentale avec une faute +/- 1) mais comme cela a été laissé de coté pour éviter de faire des erreurs de diagnostic, à raison IMO.
+
+Ton algo me semble très pertinent. Comme dit précédemment, je pense que profondeur 1 pour les opérations mentales est préférable.
+Sauf si j'ai mal compris quelque chose, il serait bien de remplacer avec les parenthèses ("(N1-N2)").
+Peut-être que sur la structure de donnée que tu proposes, cela peut être interessant de noter aussi le type d'opération. Ainsi, si l'opération N1-N2 est une addition à trou, et que N1 réapparait ensuite dans le calcul suivant, on peut suggérer une erreur dîte "rmi".
+
+En ce qui concerne la création de la formule complète, on peut prendre le résultat final ( = nombre seul donné à la fin de la réponse) ou le calcul final si il n'y a pas de résultat final et fonctionner de manière récursive (avec ton tableau) pour réécrire la formule finale.
