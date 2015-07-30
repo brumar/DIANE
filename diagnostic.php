@@ -5,7 +5,8 @@
 	require_once("diagnostic/class.answer.php");
 
 	if(isset($_POST['serieToDiagnose'])){
-		$download_zip = false;
+		$download_zip = true; // does the client download the zip (dataP) ?
+		$suppress_files = true; //  does the server suppress the files after the download ,
 		$verbose = false;
 		$log = "";
 
@@ -25,7 +26,6 @@
 				WHERE `serie` = '.$idSerie;
 		$req = $bdd->query($sql);
 
-
 		$existing_traces = array();
 
 		$t_AnswersPbm = "";
@@ -33,7 +33,6 @@
 		$t_PropertiesAnswers = "";
 		$t_PropertiesProblem = "";
 		$t_Sessions = "";
-
 
 		$header_AnswersPbm = "idAnswers;idPbm\n";
 		$header_AnswersSession = "idAnswerSubject;idSession;idPbm;idAnswer\n";
@@ -75,35 +74,41 @@
 				}
 				
 				// Maintenant qu'on a les nombres du problème, on instancie la classe "answer"
-				$answer = new Answer($t['zonetext'], $numbers_problem);
+				$answer = new Answer($t['zonetext'], $numbers_problem, $t['id']);
 				$answer->process();
+
+				// On teste si la trace a déjà été analysée
+				if(exists_in_BDD('answer', 'idTrace=?', array($t['id']), $bdd)){
+					$idAnswer = get_value_BDD('id', 'answer', 'idTrace=?', array($t['id']), $bdd);
+				}
+				else{
+					$idAnswer = $answer->export($bdd);
+				}
 				
 				$idPbm = $t['pbm'];
-
-				$idAnswer = 1; // idAnswers et idAnswer sont la même chose...
 				$idAnswerSubject = $count_answers; // PAS SUR
-
 				$idSession = $t['eleve']; // Plus ou moins comme "idSubject... au final"
-				$idPropertiesAnswer = 5;
-				$idPropertiesProblem = 6;
 
 				$subject = $t['eleve'];
 
 				$t_AnswersPbm .= (string)$idAnswer.";".(string)$idPbm."\n"; //$idAnswers avec un "s" dans le fichier...
 				$t_AnswersSession .= (string)$idAnswerSubject.";".(string)$idSession.";".(string)$idPbm.";".(string)$idAnswer."\n";
 
-				// Pour les properties, il y a plusieurs lignes par suejt
-				$t_PropertiesAnswers .= (string)$idPropertiesAnswer.";".(string)$idAnswer."\n";
+				// Pour les properties, il y a plusieurs lignes par sujet
+				$tabPropertiesAnswer = explode("|||", $t['properties']);
+				foreach($tabPropertiesAnswer as $propertyAnswer){
+					$t_PropertiesAnswers .= (string)$propertyAnswer.";".(string)$idAnswer."\n";	
+				}
+				
+				$idPropertiesProblem = 6;
 				$t_PropertiesProblem .= (string)$idPropertiesProblem.";".(string)$idPbm."\n";
 
 				$t_Sessions .= (string)$idSession.";".(string)$subject."\n";
-
 
 				$count_answers++;
 			}
 		}
 		$req->closeCursor();
-
 
 		if($download_zip){
 
@@ -148,7 +153,6 @@
 				$zip->addFile($directory_name."/Sessions.csv", "Sessions.csv");
 				$zip->close();
 		    }
-		    
 
 		    // On renomme maintenant (si on le fait à la création du zip, le zip ne se forme pas bien :/)
 		    rename($zip_name, $dataP_name); 
@@ -159,11 +163,14 @@
 
 			unlink($dataP_name);
 
-			// header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
-			// header('Content-Disposition: attachment; filename='.$zip_name); //Nom du fichier.
-			// header('Content-Length: '.filesize($zip_name)); //Taille du fichier.
-			
-			// readfile($zip_name);
+			if($suppress_files){
+				unlink($directory_name."/AnswersPbm.csv");
+				unlink($directory_name."/AnswersSession.csv");
+				unlink($directory_name."/PropertiesAnswers.csv");
+				unlink($directory_name."/PropertiesProblem.csv");
+				unlink($directory_name."/Sessions.csv");
+				rmdir($directory_name);
+			}
 
 		}
 		if($verbose){

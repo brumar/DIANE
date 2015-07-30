@@ -49,12 +49,13 @@ class	Answer
 	private $voidAnswer=False;//TODO: gérer cet attribut
 	public $anomalies=[];// very likely to be useless (superseded by the anomaly manager class).
 	public $NumberOfNumbers;// the number of numbers in the formula, if it's usefull I don't remember it
-		
+
 	static $tabReplacements;
 	
+	//TIM
+	public $idTrace;
 
-
-	public function	Answer($str, $nbs_problem,$verbose=False,$langage="french",$id="noID",
+	public function	Answer($str, $nbs_problem, $idTrace = null, $verbose=False,$langage="french",$id="noID",
 			$policy=[DecPol::lastComputed,DecPol::afterEqual,DecPol::computed,DecPol::problem])
 	//priorityList=["LastComputed","afterEqual","computed,"problem"]
 	{
@@ -71,7 +72,7 @@ class	Answer
 		$this->simpl_fors_obj=[];
 		$this->id=$id;
 		$this->policy=$policy;
-		
+		$this->idTrace = $idTrace;
 		$this->langage=$langage; //TODO an enum would be better
 
 
@@ -268,7 +269,7 @@ class	Answer
 		$this->availableMentalNumbers=$availableMentalNumbers;	
 	}
 
-	function	find_simpl_for()
+	function find_simpl_for()
 	/*
 	 * Find all the formula under the form a [sign] b=c like a+b=c
 	 * instanciate simpl_formulas which keed these formula under string representation
@@ -633,6 +634,36 @@ class	Answer
 			}
 			$this->str=$temp;
 			$this->logger->info("answer after replacements :  $this->str");
+	}
+
+	public function export($bdd){ // ajouter un param : IDTRACE
+		// Input : $bdd, a database connexion
+		// Il faudrait appeler chaque $simpl_fors_obj ! (et les exporter à ce moment)
+		$request = $bdd->prepare('INSERT INTO answer VALUES(:id, :interpretable, :statut, :idFormuleFinale, :idTrace, :nbFormules, :confianceDiag, :reponseReparee, :proprietes, :commentaire, :nbNombres)');
+
+		$tabReq = array(
+						"id" => null,
+						"interpretable" => (int)!($this->ininterpretable),
+						"statut" => null,
+						"idFormuleFinale" => (int)$this->reverseIndexLastFormula,
+						"idTrace" => $this->idTrace,
+						"nbFormules" => (int)$this->formulaCount,
+						"confianceDiag" => null,
+						"reponseReparee" => (string)$this->str,
+						"proprietes" => null,
+						"commentaire" => null,
+						"nbNombres" => $this->NumberOfNumbers
+					);
+
+		if($request->execute($tabReq)){
+			$this->logger->info("Export went well :) !");
+			return $bdd->lastInsertId();
+		}
+		else{
+			$this->logger->info("Export went wrong :( !");
+			return null;
+		}
+
 	}	
 	
 }
