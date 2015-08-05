@@ -169,6 +169,7 @@
 				unlink($directory_name."/PropertiesAnswers.csv");
 				unlink($directory_name."/PropertiesProblem.csv");
 				unlink($directory_name."/Sessions.csv");
+				unlink("myLog.log");
 				rmdir($directory_name);
 			}
 

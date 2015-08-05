@@ -7,14 +7,15 @@
 		switch ($_SESSION['sender']){
 			case "creer_question.php" : // propriété des réponses
 				
-				$currentQ=$infos['temp']['currentQuestion'];
-				$currentA=$infos['temp']['CurrentAnswer'];
+				$currentQ=$_SESSION['infos']['currentQuestion'];
+
+				$currentA=$_SESSION['infos']['temp']['CurrentAnswer'];
 				//$tp=$infos['Qinfos']['properties'][$currentQ][$currentA];
 				//if(isset($_POST["properties"])){$tp["properties"]=$_POST["properties"];}
 				$previouslist=isset($_SESSION['infos']['Qinfos']['properties'][$currentQ][$currentA]) ? $_SESSION['infos']['Qinfos']['properties'][$currentQ][$currentA] : null;//on selectionne le tableau des propriétés déjà enregistrées pour ce problème	
 				//echo("question : $currentQ  réponse : $currentA");
 				//print_r($previouslist);
-				$options=loadList('question', $bdd);	
+				$options=loadList('answer', $bdd);	
 
 				break;
 			case "creation_template.php" : // propriétés des problèmes

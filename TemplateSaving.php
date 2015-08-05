@@ -61,7 +61,7 @@
 		//********MISE A JOUT DE PBM_ELEMENTS******FIN
 		
 		
-		//********MISE A JOUT DE PBM_questions******DEBUT
+		//********MISE A JOUT DE PBM_questions et pbm_expectedanswers******DEBUT
 		
 		foreach ($infos['questions'] as $i => $question_element){
 			$type = $question_element[1][0];
@@ -94,15 +94,31 @@
 					if(isset($infos['Qinfos']["properties"][$i][$a])){
 						$properties=implode('|||',$infos['Qinfos']["properties"][$i][$a]);
 					}
+
+					if(isset($answer["good_answer"])){
+						if($answer["good_answer"] == "oui"){
+							$good_answer = true;
+						}
+						else if($answer["good_answer"] == "non"){
+							$good_answer = false;
+						}
+						else{
+							$good_answer = null;
+						}
+					}
+					else{
+						$good_answer = null;
+					}
 					
-					$req = $bdd-> prepare("INSERT INTO pbm_expectedanswers (idQuestion, Number, variable, keywords, comments, properties) VALUES (:idQuestion, :Number, :variable, :keywords, :comments, :properties)");
+					$req = $bdd-> prepare("INSERT INTO pbm_expectedanswers (idQuestion, Number, variable, keywords, comments, properties, goodAnswer) VALUES (:idQuestion, :Number, :variable, :keywords, :comments, :properties, :goodAnswer)");
 					$req->execute(array(
 						'idQuestion' => $idQuestion, 
 						'Number' => $number, 
 						'variable' => $variable, 
 						'keywords' => $keywords, 
 						'comments' => $comments, 
-						'properties' => $properties));
+						'properties' => $properties,
+						'goodAnswer' => $good_answer));
 				}	
 			}
 		}

@@ -20,9 +20,9 @@ function loadList($type, $b){
 
 function updateList($type, $new, $b){
 	foreach($new as $new_property){
-		if(!(exists_in_BDD('properties', 'name = ?', array($new_property), $b))){
+		if(!(exists_in_BDD('properties', 'name = ? AND type=?', array($new_property, $type), $b))){
 			$req = $b->prepare('INSERT INTO properties(name, tri_prof, type, idCreator) VALUES(?, ?, ?, ?)');
-			$req->execute(array($new_property, 'FALSE', 'problem', $_SESSION['id']));
+			$req->execute(array($new_property, 'FALSE', $type, $_SESSION['id']));
 			$req->closeCursor();
 		}
 	}		

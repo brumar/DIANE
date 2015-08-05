@@ -82,6 +82,7 @@
 					}
 					break;
 				case 'edit':
+					$_SESSION['infos']['currentQuestion'] = $_POST['questionChosed'];
 					header("Location: creer_question.php");
 					exit();
 			}
@@ -98,6 +99,14 @@
 		<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
 		<script type="text/javascript" src="static/js/view.js"></script>
 		<script type="text/javascript">
+
+			function submitquestion(number){
+				questionChosed = document.getElementById("questionChosedId");
+				questionChosed.value = number;
+				buttonPressed = document.getElementById("buttonPressedId");
+				buttonPressed.value = "edit";
+				document.mainform.submit();
+			}
 			function submitmainform(action){
 				buttonPressed = document.getElementById("buttonPressedId");
 				buttonPressed.value = action;
@@ -173,7 +182,8 @@
 			</div><br>
 
 					<input type="hidden" name="buttonPressed" id="buttonPressedId">
-					 <input type="button" value="Editer" id="editEnonce" onclick="submitmainform(&quot;text&quot;);"/>
+					<input type="hidden" name="questionChosed" id="questionChosedId">
+					<input type="button" value="Editer" id="editEnonce" onclick="submitmainform(&quot;text&quot;);"/>
 			<!--  	<input type="hidden" name="TexteBrut" value="<?php // if (isset($infos['texteBrut'])){echo($infos['texteBrut']);}?>"/>	-->	
 				
 			
@@ -182,27 +192,27 @@
 			
 
 
-			<!--  IL faudra gérer les propriétés des questions à un moment
+			<!--  IL faudra gérer les propriétés des questions à un moment-->
 			<ul>	
 				<h3>Questions détectées</h3>
 					<?php 
-					/*
-					$compteurQuestion=0;
-					while (isset($_SESSION['infos']['questions'][$compteurQuestion][3][0])){
-					
-					echo(htmlspecialchars($_SESSION['infos']['questions'][$compteurQuestion][3][0]));
-					echo('  <span id='.$compteurQuestion.'><input type="button" value="associer des propriétés à cette question" id="edit" onclick="submitmainform(&quot;edit&quot;);"/></span><br><br>');
-					$compteurQuestion++;
-					}
-					if($compteurQuestion==0){
-						echo('<font color="grey"><small>Aucune question detectée, éditez votre énoncé pour faire apparaître une question</small></font>');
-					}
-					
-					if(!(isset($text))){
-						echo('<font color="grey"><small>Entrez un énoncé d\'abord</small></font><br><br>');
-					}*/
+
+						$compteurQuestion=0;
+						while (isset($_SESSION['infos']['questions'][$compteurQuestion][3][0])){
+						
+						echo(htmlspecialchars($_SESSION['infos']['questions'][$compteurQuestion][3][0]));
+						echo('  <span id='.$compteurQuestion.'><input type="button" value="associer des propriétés à cette question" id="edit" onclick="submitquestion(&quot;'.$compteurQuestion.'&quot;);"/></span><br><br>');
+						$compteurQuestion++;
+						}
+						if($compteurQuestion==0){
+							echo('<font color="grey"><small>Aucune question detectée, éditez votre énoncé pour faire apparaître une question</small></font>');
+						}
+						
+						if(!(isset($text))){
+							echo('<font color="grey"><small>Entrez un énoncé d\'abord</small></font><br><br>');
+						}
 					?>
-			</ul> -->
+			</ul> 
 
 
 		<ul>		<li id="li_5" >

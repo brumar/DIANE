@@ -43,7 +43,7 @@
 			echo '<p class="guidelines" id="guide_5"><small>Choisissez cette option pour construire un type de problème à partir de 0</small></p>';
 			echo '</li>';
 			echo '<li id="li_6" >';
-			echo '<label class="description" for="element_6">Partir d\'un template existant pour créer un nouvea template</label>';
+			echo '<label class="description" for="element_6">Partir d\'un template existant pour créer un nouveau template</label>';
 			echo '<div>';
 			echo '<!-- <input id="t" type="button" name="prop" value="OK" onClick="parent.location=\'affichage.php\'"/>  -->';
 			echo '</div>';

@@ -1,36 +1,33 @@
 <?php
 	require_once("verifSessionProf.php");
+	require_once("ListFunction.php");
+	require_once("conn_pdo.php");
 
 	// sert quand on clique sur "associer des propriétés". Faudrait sans doute mettre cette ligne ailleurs pour que ce soit plus propre...
-	$_SESSION['sender'] = basename($_SERVER['REQUEST_URI']); 
+	$_SESSION['sender'] = basename($_SERVER['REQUEST_URI']); 	
 	
-	//if (isset($_POST["infos"])){
-	//	$infos=unserialize(base64_decode($_POST["infos"]));
-	if (isset($_SESSION["infos"])){ // TODO : pas sûr que ce soit la bonne condition...
+	if (isset($_SESSION['infos']['currentQuestion'])){ 
 		
-		if (isset($_POST["properties"])){
-			$currentQ=$_SESSION['infos']['temp']['currentQuestion'];
-			$currentA=$_SESSION['infos']['temp']['CurrentAnswer'];
-			$_SESSION['infos']['Qinfos']["properties"][$currentQ][$currentA]=$_POST["properties"];
-			require_once("ListFunction.php");
+		$current=$_SESSION['infos']['currentQuestion'];
+		$question=htmlentities($_SESSION['infos']['questions'][$current][3][0]);
 
-			updateList('property','answer',$_POST["properties"]);//si la liste de propriétés contient des éléments nouveaux, alors on rajoute ces éléments 
-			//print_r($infos['Qinfos']['description'][$currentQ][$currentA]["properties"]);
+		if (isset($_POST["properties"])){ // On revient de properties.php
+			updateList('answer', $_POST["properties"], $bdd);//si la liste de propriétés contient des éléments nouveaux, alors on rajoute ces éléments 
+
+
+			$currentAnswer=$_SESSION['infos']['temp']['CurrentAnswer'];
+			$_SESSION['infos']['Qinfos']["properties"][$current][$currentAnswer]=$_POST["properties"]; // Do I need that ?
 		}
 
 		if (isset($_SESSION['infos']['html'])){$text=$_SESSION['infos']['html'];}
 		if (isset($_SESSION['infos']['variable'])){$variable=$_SESSION['infos']['variable'];}
 		if (isset($_SESSION['infos']['keywords'])){$keywords=$_SESSION['infos']['keywords'];}
 		if (isset($_SESSION['infos']['comments'])){$comments=$_SESSION['infos']['comments'];}
-		if(isset($_POST['currentQuestion'])){
-			$current=$_POST['currentQuestion'];
-			$question=$_SESSION['infos']['questions'][$current][3][0];
-		}
-		if(isset($_SESSION['infos']['temp']['currentQuestion'])){
-			$current=$_SESSION['infos']['temp']['currentQuestion'];
-			$question=$_SESSION['infos']['questions'][$current][3][0];
-		}
-		
+		if (isset($_SESSION['infos']['good_answer'])){$good_answers=$_SESSION['infos']['good_answer'];}		
+	}
+	else{ // TODO : verifier que c'est ça...
+		header("Location: creation_template.php");
+		exit();
 	}
 
 ?>
@@ -44,7 +41,7 @@
 	<script type="text/javascript" src="static/js/userscript.js"></script>
 </head>
 <body id="main_body" >
-
+	<?php include("headerEnseignant.php"); ?>
 	<img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	
@@ -87,12 +84,40 @@
 								<textarea id="element_3" name="element_3" class="element textarea small"><?php if (isset($comments)){echo($comments);}?></textarea> 
 							</div><p class="guidelines" id="guide_3"><small>ce paragraphe sera affiché dans le diagnostic lorsque ce type de réponse aura été détecte.</small></p> 
 						</li>
+						<li id="li_4" >	Est-ce une bonne réponse ?
+							<?php 
+								if(isset($good_answers)){
+									echo $good_answers;
+									if($good_answers=="oui"){
+										?>
+										<input type="radio" name="bonne_reponse" id="bonne_reponse_oui" checked value="oui">Oui
+										<input type="radio" name="bonne_reponse" id="bonne_reponse_non" value="non">Non
+										<?php
+									}
+									else if($good_answers=="non"){
+										?>
+										<input type="radio" name="bonne_reponse" id="bonne_reponse_oui" value="oui">Oui
+										<input type="radio" name="bonne_reponse" id="bonne_reponse_non" checked value="non">Non
+										<?php
+									}
+									else{?>
+										<input type="radio" name="bonne_reponse" id="bonne_reponse_oui" value="oui">Oui
+										<input type="radio" name="bonne_reponse" id="bonne_reponse_non" value="non">Non
+										<?php
+									}
+								}
+								else{?>
+									<input type="radio" name="bonne_reponse" id="bonne_reponse_oui" value="oui">Oui
+									<input type="radio" name="bonne_reponse" id="bonne_reponse_non" value="non">Non
+								<?php
+								}?>
+							
+						</li>
 						<li id="li_12" >	
 							<input type="button"  value="associer à des propriétés" onClick="accessProperties(this);">
 						</li><br>
 						<li id="li_11" >	
-							<img id="bla" src="del.png" style="cursor: pointer; cursor: hand;" onClick="supress(this);">
-							<br>
+							<img id="del_property" src="static/images/del.png" style="cursor: pointer; cursor: hand; float:left;" onClick="supress(this);">
 							<span style="display:inline">supprimer ce type de réponse attendue</span>
 						</li>
 			
@@ -103,14 +128,12 @@
 
 				<li class="buttons">
 				    <input type="hidden" name="form_id" value="470585" />
-				    <input type="button"  value="tester" onClick="AnswerTest();">
+				    <!-- <input type="button"  value="tester" onClick="AnswerTest();"> -->
 					<input id="saveForm" class="button_text" type="submit" name="envoi" value="valider" />
 				</li>
 			</ul>
 		</form>	
-		<div id="footer">
-			Generated by <a href="http://www.phpform.org">pForm</a>
-		</div>
+		
 	</div>
 	<img id="bottom" src="static/images/bottom.png" alt="">
 		<form id="form0" name="form0" action="properties.php" method="post">
@@ -123,10 +146,12 @@
 			<input type="hidden" name="infos" value="HereTheInformations"/>			
 			<input type="hidden" name="type" value="Answers"/>
 		</form>
-				<form id="form_prop"  method="post" action="AnswerTester.php" name="form2tester">
+		
+		<!-- <form id="form_prop"  method="post" action="AnswerTester.php" name="form2tester">
 			<input type="hidden" name="target" value="HereAtarget"/>
 			<input type="hidden" name="infos" value="HereTheInformations"/>			
-		</form>
+		</form> -->
+
 		<form id="form_pbm_creation"  method="post" action="creation_template.php" name="form2pbmcreation">
 			<input type="hidden" name="infos" value="HereTheInformations"/>			
 		</form>
@@ -134,35 +159,12 @@
 
 	
 	<?php 
-	/*
 
-$infos="";
-$infosHtmlProtected="";
-
-
-if (isset($_POST["infos"])){
-	
-	$infos=unserialize(base64_decode($_POST["infos"]));
-	$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
-	
-	if (isset($infos['variable'])){$variable=$infos['variable'];}
-	if (isset($infos['keywords'])){$keywords=$infos['keywords'];}
-	if (isset($infos['comments'])){$comments=$infos['comments'];}
-	}*/
-
-	if (isset($_POST['properties'])){
-
-		$currentQuestion=$_SESSION['infos']['temp']['currentQuestion'];
-		$TabProperties=$_POST['properties'];
-		$currentAnswer=$_SESSION['infos']['temp']['CurrentAnswer'];
-		$_SESSION['infos']['Qinfos']['properties'][$currentQuestion][$currentAnswer]=$TabProperties;
-
-		//print_r($infos['Qinfos']['properties'][$currentQuestion][$currentAnswer]);
 		//on parcourt les réponses attendues
-		//attention il faut certainement prendre la valeur numérique de $current
-		if(isset($_SESSION['infos']['Qinfos']['description'][$currentQuestion])){
+
+		if(isset($_SESSION['infos']['Qinfos']['description'][$current])){
 				
-			$tab=$_SESSION['infos']['Qinfos']['description'][$currentQuestion];
+			$tab=$_SESSION['infos']['Qinfos']['description'][$current];
 
 			foreach ($tab as $q => $Rattendue ){
 				$formcounter=$q;
@@ -171,20 +173,21 @@ if (isset($_POST["infos"])){
 				$v=$Rattendue['variable'];
 				$m=$Rattendue['keywords'];
 				$c=$Rattendue['comments'];
+
+				$ga = $Rattendue['good_answer'];
+
 				echo("<script type=\"text/javascript\">
 						document.mainform.element_1$formcounter.value=\"$v\";
 						document.mainform.element_2$formcounter.value=\"$m\";
 						document.mainform.element_3$formcounter.value=\"$c\";
+						document.mainform.bonne_reponse$formcounter.value=\"$ga\";
 						</script>");
 			}
-		
 		}
-		// echo("<script type=\"text/javascript\">
-		// document.mainform.infos.value=\"$infosHtmlProtected\";
-		// </script>");
-	}
-
+			
 	
+
+
 if (isset($_POST['clickedProp'])){//SI ENVOI FORMULAIRE (propriétés ou submit)
 
 	//********************Actualisation de $INFOS DEBUT
@@ -192,12 +195,13 @@ if (isset($_POST['clickedProp'])){//SI ENVOI FORMULAIRE (propriétés ou submit)
 	$c="";
 	$compteur=0;
 	$Qinfo=array();
-	$currentQuestion=$_SESSION['infos']['temp']['currentQuestion'];
+	$currentQuestion=$_SESSION['infos']['currentQuestion'];
 	while(isset($_POST["element_1$c"])){
 		$a=array();
 		$a['variable']=$_POST["element_1$c"];
 		$a['keywords']=$_POST["element_2$c"];
 		$a['comments']=$_POST["element_3$c"];
+		$a['good_answer']=$_POST["bonne_reponse$c"];
 		$Qinfo[$compteur]=$a;	
 		$compteur++;
 		$c=$compteur;	
@@ -246,12 +250,8 @@ if (isset($_POST['clickedProp'])){//SI ENVOI FORMULAIRE (propriétés ou submit)
 	}
 	else{//SI L'utilisateur n'a pas appuyé sur "propriétés", cela implique qu'il a appuyé sur envoyer
 
-		//print_r($infos['Qinfos']['properties']);
 		//on submit alors le formulaire contenant $info, qu'on envoie à problemCreation
-		// echo("<script type=\"text/javascript\">
-		// 	document.form2pbmcreation.infos.value=\"$infosHtmlProtected\";
-		// 	document.form2pbmcreation.submit();	
-		// 		</script>");
+		
 		echo("<script type=\"text/javascript\">
 			document.form2pbmcreation.submit();	
 				</script>");
@@ -260,69 +260,69 @@ if (isset($_POST['clickedProp'])){//SI ENVOI FORMULAIRE (propriétés ou submit)
 }
 
 
-if(isset($_POST['currentQuestion'])){
+// if(isset($_POST['currentQuestion'])){
 	
-		//Si on accede à cette page autrement que par l'envoi d'un formulaire cela implique
-		//Qu'on y arrive par la page de création d'énoncé ce qui implique qu'on doit recontruire cette page
-		//En suivant les données prises dans $Infos
+// 		//Si on accede à cette page autrement que par l'envoi d'un formulaire cela implique
+// 		//Qu'on y arrive par la page de création d'énoncé ce qui implique qu'on doit recontruire cette page
+// 		//En suivant les données prises dans $Infos
 	
-	$current=$_POST['currentQuestion'];//on récupère l'index de la question courante par le biais de 'currentQuestion'
-	$_SESSION['infos']['temp']['currentQuestion']=$current;// On place cette information dans $Infos
+// 	$current=$_POST['currentQuestion'];//on récupère l'index de la question courante par le biais de 'currentQuestion'
+// 	$_SESSION['infos']['temp']['currentQuestion']=$current;// On place cette information dans $Infos
 
 	
-	//on parcourt les réponses attendues
-	//attention il faut certainement prendre la valeur numérique de $current
-	if(isset($_SESSION['infos']['Qinfos']['description'][$current])){
-		$tab=$_SESSION['infos']['Qinfos']['description'][$current];
+// 	//on parcourt les réponses attendues
+// 	//attention il faut certainement prendre la valeur numérique de $current
+// 	if(isset($_SESSION['infos']['Qinfos']['description'][$current])){
+// 		$tab=$_SESSION['infos']['Qinfos']['description'][$current];
 		
-		foreach ($tab as $q => $Rattendue ){
-			$formcounter=$q;
-			if($formcounter==0){$formcounter="";}
-			if($q!=0){echo("<script type=\"text/javascript\">PlusFields();</script>");}
-			$v=$Rattendue['variable'];
-			$m=$Rattendue['keywords'];
-			$c=$Rattendue['comments'];
-			echo("<script type=\"text/javascript\">
-					document.mainform.element_1$formcounter.value=\"$v\";
-					document.mainform.element_2$formcounter.value=\"$m\";
-					document.mainform.element_3$formcounter.value=\"$c\";
-					</script>
-					");	
-		}
+// 		foreach ($tab as $q => $Rattendue ){
+// 			$formcounter=$q;
+// 			if($formcounter==0){$formcounter="";}
+// 			if($q!=0){echo("<script type=\"text/javascript\">PlusFields();</script>");}
+// 			$v=$Rattendue['variable'];
+// 			$m=$Rattendue['keywords'];
+// 			$c=$Rattendue['comments'];
+// 			echo("<script type=\"text/javascript\">
+// 					document.mainform.element_1$formcounter.value=\"$v\";
+// 					document.mainform.element_2$formcounter.value=\"$m\";
+// 					document.mainform.element_3$formcounter.value=\"$c\";
+// 					</script>
+// 					");	
+// 		}
 	
-	}
-	// echo("<script type=\"text/javascript\">
-	// document.mainform.infos.value=\"$infosHtmlProtected\";
-	// </script>");
+// 	}
+// 	// echo("<script type=\"text/javascript\">
+// 	// document.mainform.infos.value=\"$infosHtmlProtected\";
+// 	// </script>");
 	
-}
+// }
 
 
-if(isset($_POST['AnswerTester'])){//on accede à cette page par le biais de l'answer tester
-	$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
-	if(isset($_SESSION['infos']['Qinfos']['description'][$current])){
-		$tab=$_SESSION['infos']['Qinfos']['description'][$current];
-		foreach ($tab as $q => $Rattendue ){
-			$formcounter=$q;
-			if($formcounter==0){$formcounter="";}
-			if($q!=0){echo("<script type=\"text/javascript\">PlusFields();</script>");}
-			$v=$Rattendue['variable'];
-			$m=$Rattendue['keywords'];
-			$c=$Rattendue['comments'];
-			echo("<script type=\"text/javascript\">
-					document.mainform.element_1$formcounter.value=\"$v\";
-					document.mainform.element_2$formcounter.value=\"$m\";
-					document.mainform.element_3$formcounter.value=\"$c\";
-					</script>
-					");
-		}
+// if(isset($_POST['AnswerTester'])){//on accede à cette page par le biais de l'answer tester
+// 	$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
+// 	if(isset($_SESSION['infos']['Qinfos']['description'][$current])){
+// 		$tab=$_SESSION['infos']['Qinfos']['description'][$current];
+// 		foreach ($tab as $q => $Rattendue ){
+// 			$formcounter=$q;
+// 			if($formcounter==0){$formcounter="";}
+// 			if($q!=0){echo("<script type=\"text/javascript\">PlusFields();</script>");}
+// 			$v=$Rattendue['variable'];
+// 			$m=$Rattendue['keywords'];
+// 			$c=$Rattendue['comments'];
+// 			echo("<script type=\"text/javascript\">
+// 					document.mainform.element_1$formcounter.value=\"$v\";
+// 					document.mainform.element_2$formcounter.value=\"$m\";
+// 					document.mainform.element_3$formcounter.value=\"$c\";
+// 					</script>
+// 					");
+// 		}
 
-	}
-	// echo("<script type=\"text/javascript\">
-	// 		document.mainform.infos.value=\"$infosHtmlProtected\";
-	// 		</script>");
+// 	}
+// 	// echo("<script type=\"text/javascript\">
+// 	// 		document.mainform.infos.value=\"$infosHtmlProtected\";
+// 	// 		</script>");
 
-}
+// }
 
 
 
