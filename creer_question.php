@@ -23,7 +23,8 @@
 		if (isset($_SESSION['infos']['variable'])){$variable=$_SESSION['infos']['variable'];}
 		if (isset($_SESSION['infos']['keywords'])){$keywords=$_SESSION['infos']['keywords'];}
 		if (isset($_SESSION['infos']['comments'])){$comments=$_SESSION['infos']['comments'];}
-		if (isset($_SESSION['infos']['good_answer'])){$good_answers=$_SESSION['infos']['good_answer'];}		
+		if (isset($_SESSION['infos']['good_answer'])){$good_answers=$_SESSION['infos']['good_answer'];}
+		if (isset($_SESSION['infos']['intermediary_computation'])){$intermediary_computation=$_SESSION['infos']['intermediary_computation'];}
 	}
 	else{ // TODO : verifier que c'est ça...
 		header("Location: creation_template.php");
@@ -87,7 +88,6 @@
 						<li id="li_4" >	Est-ce une bonne réponse ?
 							<?php 
 								if(isset($good_answers)){
-									echo $good_answers;
 									if($good_answers=="oui"){
 										?>
 										<input type="radio" name="bonne_reponse" id="bonne_reponse_oui" checked value="oui">Oui
@@ -111,7 +111,34 @@
 									<input type="radio" name="bonne_reponse" id="bonne_reponse_non" value="non">Non
 								<?php
 								}?>
-							
+						</li>
+						
+						<li id="li_4" >	Est-ce un calcul intermédiaire ?
+							<?php 
+								if(isset($intermediary_computation)){
+									if($intermediary_computation=="oui"){
+										?>
+										<input type="radio" name="calcul_interm" id="calcul_interm_oui" checked value="oui">Oui
+										<input type="radio" name="calcul_interm" id="calcul_interm_non" value="non">Non
+										<?php
+									}
+									else if($intermediary_computation=="non"){
+										?>
+										<input type="radio" name="calcul_interm" id="calcul_interm_oui" value="oui">Oui
+										<input type="radio" name="calcul_interm" id="calcul_interm_non" checked value="non">Non
+										<?php
+									}
+									else{?>
+										<input type="radio" name="calcul_interm" id="calcul_interm_oui" value="oui">Oui
+										<input type="radio" name="calcul_interm" id="calcul_interm_non" value="non">Non
+										<?php
+									}
+								}
+								else{?>
+									<input type="radio" name="calcul_interm" id="calcul_interm_oui" value="oui">Oui
+									<input type="radio" name="calcul_interm" id="calcul_interm_non" value="non">Non
+								<?php
+								}?>
 						</li>
 						<li id="li_12" >	
 							<input type="button"  value="associer à des propriétés" onClick="accessProperties(this);">
@@ -175,12 +202,14 @@
 				$c=$Rattendue['comments'];
 
 				$ga = $Rattendue['good_answer'];
+				$ca = $Rattendue['intermediary_computation'];
 
 				echo("<script type=\"text/javascript\">
 						document.mainform.element_1$formcounter.value=\"$v\";
 						document.mainform.element_2$formcounter.value=\"$m\";
 						document.mainform.element_3$formcounter.value=\"$c\";
 						document.mainform.bonne_reponse$formcounter.value=\"$ga\";
+						document.mainform.calcul_interm$formcounter.value=\"$ca\";
 						</script>");
 			}
 		}
@@ -202,6 +231,7 @@ if (isset($_POST['clickedProp'])){//SI ENVOI FORMULAIRE (propriétés ou submit)
 		$a['keywords']=$_POST["element_2$c"];
 		$a['comments']=$_POST["element_3$c"];
 		$a['good_answer']=$_POST["bonne_reponse$c"];
+		$a['intermediary_computation']=$_POST["calcul_interm$c"];
 		$Qinfo[$compteur]=$a;	
 		$compteur++;
 		$c=$compteur;	

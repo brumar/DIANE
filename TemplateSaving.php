@@ -109,8 +109,23 @@
 					else{
 						$good_answer = null;
 					}
+
+					if(isset($answer["intermediary_computation"])){
+						if($answer["intermediary_computation"] == "oui"){
+							$intermComput = true;
+						}
+						else if($answer["good_answer"] == "non"){
+							$intermComput = false;
+						}
+						else{
+							$intermComput = null;
+						}
+					}
+					else{
+						$intermComput = null;
+					}
 					
-					$req = $bdd-> prepare("INSERT INTO pbm_expectedanswers (idQuestion, Number, variable, keywords, comments, properties, goodAnswer) VALUES (:idQuestion, :Number, :variable, :keywords, :comments, :properties, :goodAnswer)");
+					$req = $bdd-> prepare("INSERT INTO pbm_expectedanswers (idQuestion, Number, variable, keywords, comments, properties, goodAnswer, intermComput) VALUES (:idQuestion, :Number, :variable, :keywords, :comments, :properties, :goodAnswer, :intermComput)");
 					$req->execute(array(
 						'idQuestion' => $idQuestion, 
 						'Number' => $number, 
@@ -118,7 +133,8 @@
 						'keywords' => $keywords, 
 						'comments' => $comments, 
 						'properties' => $properties,
-						'goodAnswer' => $good_answer));
+						'goodAnswer' => $good_answer,
+						'intermComput' => $intermComput));
 				}	
 			}
 		}
