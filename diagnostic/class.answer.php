@@ -664,7 +664,24 @@ class	Answer
 			return null;
 		}
 
-	}	
+	}
+
+	public function exportFormulas($bdd, $idAnswer){
+		foreach($this->simpl_fors_obj as $formula){
+			$formula->export($bdd, $idAnswer);
+		}
+	}
+
+	public function get_finalFormula(){
+
+		if(isset($this->finalFormula->formul)){
+			return $this->finalFormula->formul;
+		}
+		else{
+			return null;
+		}
+	
+	}
 	
 }
 

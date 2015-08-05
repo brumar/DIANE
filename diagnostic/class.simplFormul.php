@@ -19,17 +19,17 @@ class	SimplFormul
 	public $result;//--Résultat
 	public $formul;//--Symbolique
 	public $logger;
-	public $operands=[];
+	public $operands=array();
 	
 	public $simplFors;
 	public $nbProblem;
 
 	public $lastElementAfterEqualSign;
 	public $lastElementComputed;
-	public $numberReliabilityScore=[];
-	public $possibleAnomalies=[];
+	public $numberReliabilityScore=array();
+	public $possibleAnomalies=array();
 
-	public function		SimplFormul($str, $nbs_problem, $simpl_fors,$logger,$pol,$lastElementComputed="",$lastElementAfterEqualSign="",$lastForm)
+	public function	SimplFormul($str, $nbs_problem, $simpl_fors,$logger,$pol,$lastElementComputed="",$lastElementAfterEqualSign="",$lastForm)
 	{
 		$this->lastForm=$lastForm;
 		$this->rmi=False;
@@ -379,6 +379,51 @@ class	SimplFormul
 				else
 					$this->miscalc = abs((int)$this->nbs[2] - (int)$this->nbs[0] + (int)$this->nbs[1]);
 		}
+	}
+
+	public function export($bdd, $idAnswer){
+
+		// public	$str;//--Brut
+		// public	$op_typ;//--Type //Type_d_Operation::
+		// public	$resol_typ;//--Forme // Type_de_Resolution::
+		// public $result;//--Résultat
+		// public $formul;//--Symbolique
+
+		
+		// Variables pas gérées
+
+		// public  $lastForm;
+		// public  $policy;
+ 		// public	$nbs; // MMMM je sais pas trop
+		// public  $rmi; // juste mis à false...
+		// public	$miscalc;//--Erreurs de calcul  // Jamais computed
+		// public $operands=array(); // MMmm
+		// public $simplFors; // Vient d'answer
+		// public $nbProblem; // Vient d'answer
+		// public $lastElementAfterEqualSign;
+		// public $lastElementComputed;
+		// public $numberReliabilityScore=array();
+		// public $possibleAnomalies=array();
+
+		$request = $bdd->prepare('INSERT INTO formule VALUES(:id, :idAnswer, :brut, :op_typ, :resol_typ, :result, :formul)');
+
+		$tabReq = array(
+						"id" => null,
+						"idAnswer" => $idAnswer,
+						"brut" => $this->str, 
+						"op_typ" => $this->op_typ, 
+						"resol_typ" => $this->resol_typ,
+						"result" => $this->result,
+						"formul" => $this->formul
+					);
+
+		if($request->execute($tabReq)){
+			return $bdd->lastInsertId();
+		}
+		else{
+			return null;
+		}
+
 	}
 
 

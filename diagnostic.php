@@ -5,9 +5,10 @@
 	require_once("diagnostic/class.answer.php");
 
 	if(isset($_POST['serieToDiagnose'])){
-		$download_zip = true; // does the client download the zip (dataP) ?
+		$download_zip = false; // does the client download the zip (dataP) ?
 		$suppress_files = true; //  does the server suppress the files after the download ,
 		$verbose = false;
+		$expectedAnswer_analysis = true;
 		$log = "";
 
 		$idSerie = $_POST['serieToDiagnose'];
@@ -44,6 +45,7 @@
 		$regexNombreX = '#<<Nombre\(([0-9]+)\)=([0-9]+)>>#';
 
 		while($t = $req->fetch()){
+			// $t contient la jointure complexe entre trace, pbm et pb_template
 
 			// ATTENTION : il faut prendre en compte uniquement la première fois qu'un élève a rempli la série si jamais il l'a passée plusieurs fois
 			// => On retient "eleve - ordreSerie", et on vérifie que ce n'est pas inclus
@@ -56,9 +58,10 @@
 			else{
 				$existing_traces[] = $new_trace;
 
+				// ********************* Récupération des nombres du problème *********************
+
 				$replacements = $t['replacements'];
 				assert($replacements != null); // TODO : gérer par try catch...
- 
 				$readable_replacements = unserialize(base64_decode($replacements)); // echo "<br><br>".print_r(htmlentities(print_r($readable_replacements,true)),1)."<br><br>";
 				$t_brut = $t['Text_brut'];
 
@@ -73,7 +76,9 @@
 					$numbers_problem[$n] = "n".(string)$matches[1][$i];
 				}
 				
-				// Maintenant qu'on a les nombres du problème, on instancie la classe "answer"
+
+				// ********************* Instanciation de la classe Answer et export *********************
+
 				$answer = new Answer($t['zonetext'], $numbers_problem, $t['id']);
 				$answer->process();
 
@@ -83,12 +88,56 @@
 				}
 				else{
 					$idAnswer = $answer->export($bdd);
+					$answer->exportFormulas($bdd, $idAnswer);
 				}
-				
-				$idPbm = $t['pbm'];
-				$idAnswerSubject = $count_answers; // PAS SUR
-				$idSession = $t['eleve']; // Plus ou moins comme "idSubject... au final"
 
+
+				// ********************* Comparaison avec les réponses attendues *********************
+
+				if($expectedAnswer_analysis){
+					// Gros problème : pour l'instant on ne gère que les cas où il y a une seule question... 
+					$n_question = count_BDD('SELECT COUNT(*) FROM pbm_questions WHERE idTemplate=?', array($t['idTemplate']), $bdd);
+
+					if($n_question == 1){
+						$idQuestion = get_value_BDD('id', 'pbm_questions', 'idTemplate=?', array($t['idTemplate']), $bdd);
+
+						echo "<br>idQuest:". $idQuestion."<br>";
+						// On récupère les expected_answers
+						$expectedAnswers = $bdd->query('SELECT * FROM pbm_expectedAnswers WHERE idQuestion ='.$idQuestion);
+
+						// 1) On compare la version symbolique de la formule avec les expected_answers
+						// On veut comparer fetch()['variable'] avec $lastFormula['formul']...
+						$formule_reponse = trim($answer->get_finalFormula());
+						$formule_reponse = str_replace(' ', '', $formule_reponse);
+
+						//echo "form_rep : ".$formule_reponse."<br>";
+
+						while($expAns = $expectedAnswers->fetch()){
+							$toCompare = preg_replace("#[a-zA-Z]+([0-9]+)#", "n$1", str_replace(' ', '', $expAns['variable']));
+
+							//echo "to_comp : ".$toCompare."<br>";
+
+							if($formule_reponse == $toCompare){
+								$log.= "Réponse attendue détectée<br>";
+							}
+						}
+
+						
+
+						// 2) On cherche les mots clés
+
+					}
+					else{
+						$log.= "Il y a 0 ou plus qu'une question -> pas géré pour le moment<br>";
+					}
+				}
+
+
+				
+				// Récupération des données pour l'export pour STAR
+				$idPbm = $t['pbm'];
+				$idAnswerSubject = $count_answers; // Pas sûr...
+				$idSession = $t['eleve']; // Plus ou moins comme "idSubject... au final"
 				$subject = $t['eleve'];
 
 				$t_AnswersPbm .= (string)$idAnswer.";".(string)$idPbm."\n"; //$idAnswers avec un "s" dans le fichier...
@@ -110,10 +159,11 @@
 		}
 		$req->closeCursor();
 
+
+
 		if($download_zip){
 
 			$directory_name = "diagnostic/diagnostics/".(string)$_SESSION['id']."_".(string)(time());
-
 			mkdir($directory_name);
 
 			$f_AnswersPbm = fopen($directory_name."/AnswersPbm.csv", "w");
@@ -174,7 +224,7 @@
 			}
 
 		}
-		if($verbose){
+		if($verbose){ // Faudrait clairement faire l'echo autre part
 			echo $log;
 		}
 
