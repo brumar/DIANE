@@ -3,13 +3,16 @@
 	require_once("conn_pdo.php");
 	require_once("ListFunction.php");
 	require_once("diagnostic/class.answer.php");
+	require_once("diagnostic/parsingFunctions.php");
+
+	$verbose = true;
+	$download_zip = false; // does the client download the zip (dataP) ?
+	$suppress_files = true; //  does the server suppress the files after the download ,	
+	$expectedAnswer_analysis = true;
+	$log = "";
 
 	if(isset($_POST['serieToDiagnose'])){
-		$download_zip = false; // does the client download the zip (dataP) ?
-		$suppress_files = true; //  does the server suppress the files after the download ,
-		$verbose = false;
-		$expectedAnswer_analysis = true;
-		$log = "";
+		
 
 		$idSerie = $_POST['serieToDiagnose'];
 
@@ -101,38 +104,111 @@
 					if($n_question == 1){
 						$idQuestion = get_value_BDD('id', 'pbm_questions', 'idTemplate=?', array($t['idTemplate']), $bdd);
 
-						echo "<br>idQuest:". $idQuestion."<br>";
+						//echo "<br>idQuest:". $idQuestion."<br>";
 						// On récupère les expected_answers
 						$expectedAnswers = $bdd->query('SELECT * FROM pbm_expectedAnswers WHERE idQuestion ='.$idQuestion);
 
-						// 1) On compare la version symbolique de la formule avec les expected_answers
+
+					// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
+					// 1) On compare la version symbolique de la formule avec les expected_answers
+					// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
+
 						// On veut comparer fetch()['variable'] avec $lastFormula['formul']...
 						$formule_reponse = trim($answer->get_finalFormula());
 						$formule_reponse = str_replace(' ', '', $formule_reponse);
+						$log.= "form_rep : ".$formule_reponse."<br>";
 
-						//echo "form_rep : ".$formule_reponse."<br>";
+						$formula_found = false;
+						$propertiesAnswer = array();
+						$goodAnswer = null;
+
+						$allWordsArrays = array(); // Tous les mots clés pour chaque expected answer
+						$foundFormulasWordsArrays = array(); // Les mots clés pour les expected answers dont la formule est détectée
 
 						while($expAns = $expectedAnswers->fetch()){
+							// On remplace les noms de variables par "n + numéro", et on supprime les espaces
 							$toCompare = preg_replace("#[a-zA-Z]+([0-9]+)#", "n$1", str_replace(' ', '', $expAns['variable']));
-
-							//echo "to_comp : ".$toCompare."<br>";
+							$log .= "to_comp : ".$toCompare."<br>";
 
 							if($formule_reponse == $toCompare){
-								$log.= "Réponse attendue détectée<br>";
+								$log.= "Réponse attendue détectée : ".$formule_reponse."<br>";
+								$log.= "Propriétés de cette réponse : ".(string)$expAns['properties']."<br>";
+								$log.= "Bonne réponse : ".(string)$expAns['goodAnswer']."<br>";
+								$log.= "Calcul intemédiaire : ".(string)$expAns['intermComput']."<br>";
+
+								$propertiesAnswer = explode("|||",$expAns['properties']);
+								$goodAnswer = $expAns['goodAnswer'];
+								//$foundFormulasWordsArrays[$expAns['id']] = explode(",", $expAns['keywords']);
+								$foundFormulasWordsArrays[] = array("id"=> $expAns['id'], "words"=> explode(",", $expAns['keywords']));
+								$formula_found = true;
 							}
+							
+							// Surement il faudra un peu améliorer le prétraitement, explode ça a l'air de laisser des caractères qui devraient pas être pris en compte
+							//$wordsArrays[$expAns['id']] = explode(",", $expAns['keywords']); //ça parait mieux pour récupérer l'id de la réponse par PickBest
+							$wordsArrays[] = array("id" => $expAns['id'], "words" => explode(",", $expAns['keywords'])); //ça parait mieux pour récupérer l'id de la réponse par PickBest
+							//$wordsArrays[] = explode(",", $expAns['keywords']); //sans la clé dans l'array
 						}
 
-						
+						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
+						// 2) On cherche les mots clés des expected answers
+						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
 
-						// 2) On cherche les mots clés
+						/*
+							// Policy "on observe toutes les formules à la recherche des mots clés"
+							if($verbose){
+								$logPickBest = "<br>Log PickBest :-<br>";
+							}
+							else{
+								$logPickBest = null;
+							}
+							$a = PickBest($t['zonetext'], $wordsArrays, $logPickBest);
+
+
+							// Policy "on n'étudie que les formules qui correspondent à une formule de calcul"
+							if($verbose){
+								$logPickBestF .= "<br>Log PickBest pour les foundFormulas :-<br>";
+							}
+							else{
+								$logPickBestF = null;
+							}
+							$b = PickBest($t['zonetext'], $foundFormulasWordsArrays, $logPickBestF);
+						*/
+
+
+						// Politique actuelle : si on a trouvé au moins une formule, on regarde les mots clés de cha
+						if($verbose){
+							$logPickBest = "<br>Log PickBest :-<br>";
+						}
+						else{
+							$logPickBest = null;
+						}
+
+						$logPickBest  = null; //A VIRER PLUS TARD..
+
+						if($formula_found){
+							$interpretation = PickBest($t['zonetext'], $foundFormulasWordsArrays, $logPickBest);
+							//peut être faudra différencier entre "1" et plus ?
+						}
+						else{
+							$interpretation = PickBest($t['zonetext'], $wordsArrays, $logPickBest);
+						}
+
+
+
+						$log .= "<br><br>Une interprétation a été choisie :".print_r($interpretation, true);
+						$log .= "<br>IdExpectedAnswer =".(string)$interpretation['id'];
+						$log .= "<br>Note obtenue : ".(string)$interpretation['eval'];
+
+						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
+						// 3) il faudrait vérifier si le résultat final est bon même si la formule est pas trouvée..
+						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
+
 
 					}
 					else{
-						$log.= "Il y a 0 ou plus qu'une question -> pas géré pour le moment<br>";
+						$log.= "Il y a 0 ou plus qu'une question dans ce template -> cela n'est pas géré pour le moment...<br>";
 					}
 				}
-
-
 				
 				// Récupération des données pour l'export pour STAR
 				$idPbm = $t['pbm'];
@@ -144,13 +220,15 @@
 				$t_AnswersSession .= (string)$idAnswerSubject.";".(string)$idSession.";".(string)$idPbm.";".(string)$idAnswer."\n";
 
 				// Pour les properties, il y a plusieurs lignes par sujet
-				$tabPropertiesAnswer = explode("|||", $t['properties']);
-				foreach($tabPropertiesAnswer as $propertyAnswer){
+				//$tabPropertiesAnswer = explode("|||", $t['properties']);
+				foreach($propertiesAnswer as $propertyAnswer){
 					$t_PropertiesAnswers .= (string)$propertyAnswer.";".(string)$idAnswer."\n";	
 				}
-				
-				$idPropertiesProblem = 6;
-				$t_PropertiesProblem .= (string)$idPropertiesProblem.";".(string)$idPbm."\n";
+
+				$tabPropertiesProblem = explode("|||", $t['properties']);
+				foreach($tabPropertiesProblem as $propertyProblem){
+					$t_PropertiesProblem .= (string)$propertyProblem.";".(string)$idPbm."\n";	
+				}
 
 				$t_Sessions .= (string)$idSession.";".(string)$subject."\n";
 
@@ -158,8 +236,6 @@
 			}
 		}
 		$req->closeCursor();
-
-
 
 		if($download_zip){
 
@@ -224,9 +300,7 @@
 			}
 
 		}
-		if($verbose){ // Faudrait clairement faire l'echo autre part
-			echo $log;
-		}
+		
 
 	}
 	
@@ -272,6 +346,19 @@
 				<form id="form_diagnostic" method="post" action="diagnostic.php">
 					<input type="hidden" value="" name="serieToDiagnose" id="serieToDiagnose">
 				</form>
+
+
+				<div id="feedback">
+					<p>
+					<?php
+						if($verbose){ // Faudrait clairement faire l'echo autre part
+							echo $log;
+							if(isset($logPickBest)){echo $logPickBest;}
+						}
+						?>
+					</p>
+				</div>
+
 			</div>
 
 		<img id="bottom" src="static/images/bottom.png" alt="">
