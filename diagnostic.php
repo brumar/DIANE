@@ -5,6 +5,39 @@
 	require_once("diagnostic/class.answer.php");
 	require_once("diagnostic/parsingFunctions.php");
 
+
+	function replace_clones($words, $replacements, $clones){
+		// Remplace les clones dans les mots clés recherchés
+
+		// print_r($words);
+		// echo "<br><br>";
+		// print_r($clones);
+		// echo "<br><br>";
+		//echo htmlentities(print_r($replacements,true));
+
+		$newWords = array();
+		foreach($words as $w){
+			foreach($clones as $cc){
+				$c = $cc['type'].(string)$cc['compteur'];
+
+				//echo "w: ".$w." - c: ".$c."<br>";
+				if($pos = stripos($w, $c)){ 
+
+					$compteur = substr($c, -1);
+					$name = substr($c, 0, strlen($c)-1);
+
+					$index = '<<'.$cc['brut'].'>>';
+					$repl = $replacements[$index];
+
+					$w = substr_replace($w, $repl, $pos, strlen($w));
+				}
+
+			}
+			$newWords[] = $w;
+		}
+		return $newWords;
+	}
+
 	$verbose = true;
 	$download_zip = false; // does the client download the zip (dataP) ?
 	$suppress_files = true; //  does the server suppress the files after the download ,	
@@ -62,7 +95,8 @@
 				$existing_traces[] = $new_trace;
 
 				// ********************* Récupération des nombres du problème *********************
-
+				
+				// Code surement améliorable, exploite pas pbm_elements
 				$replacements = $t['replacements'];
 				assert($replacements != null); // TODO : gérer par try catch...
 				$readable_replacements = unserialize(base64_decode($replacements)); // echo "<br><br>".print_r(htmlentities(print_r($readable_replacements,true)),1)."<br><br>";
@@ -72,13 +106,19 @@
 				// Organization of numbers in the class answer : $numbers["Cp1_v1"]=array("5"=>"P1", "12"=>"T1", "3"=>"d");
 
 				$numbers_problem = array();
-
 				for($i=0; $i<count($matches[1]); $i++) {
 					//$numbers_problem[$matches[2][$i]] = "n".(string)$matches[1][$i]; // NOPE ON NE VEUT PAS $matches[2] 
 					$n = $readable_replacements['<<Nombre('.(string)$matches[1][$i].')='.(string)$matches[2][$i].">>"];
 					$numbers_problem[$n] = "n".(string)$matches[1][$i];
 				}
 				
+				$reqClone = $bdd->query('SELECT * FROM pbm_elements WHERE idTemplate='.$t['idTemplate']);
+				$clones = array();
+				while($clone = $reqClone->fetch()){
+					//$clones[] = $clone['type'].(string)$clone['compteur'];
+					$clones[] = $clone;
+				}
+
 
 				// ********************* Instanciation de la classe Answer et export *********************
 
@@ -130,66 +170,52 @@
 							$toCompare = preg_replace("#[a-zA-Z]+([0-9]+)#", "n$1", str_replace(' ', '', $expAns['variable']));
 							$log .= "to_comp : ".$toCompare."<br>";
 
-							if($formule_reponse == $toCompare){
-								$log.= "Réponse attendue détectée : ".$formule_reponse."<br>";
-								$log.= "Propriétés de cette réponse : ".(string)$expAns['properties']."<br>";
-								$log.= "Bonne réponse : ".(string)$expAns['goodAnswer']."<br>";
-								$log.= "Calcul intemédiaire : ".(string)$expAns['intermComput']."<br>";
+							//On utilise un tableau pour gérer les cas de dissociation de plusieurs réponses équivalentes (N1+N2|N2+N1)
+							$tabToCompare = array();
 
-								$propertiesAnswer = explode("|||",$expAns['properties']);
-								$goodAnswer = $expAns['goodAnswer'];
-								//$foundFormulasWordsArrays[$expAns['id']] = explode(",", $expAns['keywords']);
-								$foundFormulasWordsArrays[] = array("id"=> $expAns['id'], "words"=> explode(",", $expAns['keywords']));
-								$formula_found = true;
+							if(strpos($toCompare, "|")){
+								$tabToCompare = explode("|", $toCompare);
+							}
+							else{
+								$tabToCompare[] = $toCompare;
 							}
 							
-							// Surement il faudra un peu améliorer le prétraitement, explode ça a l'air de laisser des caractères qui devraient pas être pris en compte
-							//$wordsArrays[$expAns['id']] = explode(",", $expAns['keywords']); //ça parait mieux pour récupérer l'id de la réponse par PickBest
-							$wordsArrays[] = array("id" => $expAns['id'], "words" => explode(",", $expAns['keywords'])); //ça parait mieux pour récupérer l'id de la réponse par PickBest
-							//$wordsArrays[] = explode(",", $expAns['keywords']); //sans la clé dans l'array
-						}
+							foreach($tabToCompare as $formToCompare){
+								if($formule_reponse == $formToCompare){
+									$log.= "Réponse attendue détectée : ".$formule_reponse."<br>";
+									$log.= "Propriétés de cette réponse : ".(string)$expAns['properties']."<br>";
+									$log.= "Bonne réponse : ".(string)$expAns['goodAnswer']."<br>";
+									$log.= "Calcul intemédiaire : ".(string)$expAns['intermComput']."<br>";
 
+									$propertiesAnswer = explode("|||",$expAns['properties']);
+									$goodAnswer = $expAns['goodAnswer'];
+
+									$key_words = replace_clones(explode(",", $expAns['keywords']), $readable_replacements, $clones);
+									$foundFormulasWordsArrays[] = array("id"=> $expAns['id'], "words"=> $key_words);
+									$formula_found = true;
+									break;
+								}
+							}
+
+							if(!($formula_found)){
+								// Surement il faudra un peu améliorer le prétraitement, explode ça a l'air de laisser des caractères qui devraient pas être pris en compte
+								$key_words = replace_clones(explode(",", $expAns['keywords']), $readable_replacements, $clones);
+								$wordsArrays[] = array("id" => $expAns['id'], "words" => $key_words);
+							}
+						}
+						
 						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
 						// 2) On cherche les mots clés des expected answers
 						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
 
-						/*
-							// Policy "on observe toutes les formules à la recherche des mots clés"
-							if($verbose){
-								$logPickBest = "<br>Log PickBest :-<br>";
-							}
-							else{
-								$logPickBest = null;
-							}
-							$a = PickBest($t['zonetext'], $wordsArrays, $logPickBest);
-
-
-							// Policy "on n'étudie que les formules qui correspondent à une formule de calcul"
-							if($verbose){
-								$logPickBestF .= "<br>Log PickBest pour les foundFormulas :-<br>";
-							}
-							else{
-								$logPickBestF = null;
-							}
-							$b = PickBest($t['zonetext'], $foundFormulasWordsArrays, $logPickBestF);
-						*/
-
-
-						// Politique actuelle : si on a trouvé au moins une formule, on regarde les mots clés de cha
-						if($verbose){
-							$logPickBest = "<br>Log PickBest :-<br>";
-						}
-						else{
-							$logPickBest = null;
-						}
-
-						$logPickBest  = null; //A VIRER PLUS TARD..
+						// Policy : si on a trouvé au moins une formule, on regarde les mots clés de ces formules trouvées
+						$logPickBest = ($verbose)? "<br>Log PickBest :-<br>": null;	
 
 						if($formula_found){
 							$interpretation = PickBest($t['zonetext'], $foundFormulasWordsArrays, $logPickBest);
 							//peut être faudra différencier entre "1" et plus ?
 						}
-						else{
+						else{ // si on a pas trouvé de formule, on reprend toutes les interprétations possibles
 							$interpretation = PickBest($t['zonetext'], $wordsArrays, $logPickBest);
 						}
 
@@ -205,12 +231,12 @@
 
 
 					}
-					else{
+					else{ // Il y a 0 ou plus qu'une question => le diagnostic n'est pas actuellement géré
 						$log.= "Il y a 0 ou plus qu'une question dans ce template -> cela n'est pas géré pour le moment...<br>";
 					}
 				}
 				
-				// Récupération des données pour l'export pour STAR
+			// Récupération des données pour l'export pour STAR
 				$idPbm = $t['pbm'];
 				$idAnswerSubject = $count_answers; // Pas sûr...
 				$idSession = $t['eleve']; // Plus ou moins comme "idSubject... au final"
@@ -220,9 +246,10 @@
 				$t_AnswersSession .= (string)$idAnswerSubject.";".(string)$idSession.";".(string)$idPbm.";".(string)$idAnswer."\n";
 
 				// Pour les properties, il y a plusieurs lignes par sujet
-				//$tabPropertiesAnswer = explode("|||", $t['properties']);
-				foreach($propertiesAnswer as $propertyAnswer){
-					$t_PropertiesAnswers .= (string)$propertyAnswer.";".(string)$idAnswer."\n";	
+				if($expectedAnswer_analysis){
+					foreach($propertiesAnswer as $propertyAnswer){
+						$t_PropertiesAnswers .= (string)$propertyAnswer.";".(string)$idAnswer."\n";	
+					}
 				}
 
 				$tabPropertiesProblem = explode("|||", $t['properties']);
