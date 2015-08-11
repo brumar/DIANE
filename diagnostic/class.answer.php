@@ -417,7 +417,8 @@ class	Answer
 		//if no answer explitely given ones take the last formula as referent
 		if(count($this->simpl_fors_obj)==0){ // if there is no "last formula => end
 				
-			$this->ininterpretable=True;//TODO : global status of the answer as an enum, it would allow more  precise information such as "no formula detected"
+			$this->ininterpretable=True;
+			$this->voidAnswer=True;
 			$this->logger->info("No formula Found");
 			return ;
 		}
@@ -430,6 +431,10 @@ class	Answer
 		}
 		
 		//TODO :
+	}
+
+	public function noFormula(){
+		return $this->voidAnswer;
 	}
 	
 	public function dropLeastProbableMentalCalculations($listOfMentalCalculations,$simpl_form,$next_form){
@@ -489,13 +494,13 @@ class	Answer
 	}
 	
 	public function findFinalAnswer(){
-		if(preg_match(RegexPatterns::EndresultAfterFormulas,$this->str, $match)==1){
+		if(preg_match(RegexPatterns::EndresultAfterFormulas,$this->str, $match)==1 && isset($match[1])){ //Rajouter un "&& isset($match[1])"
 			$this->finalAnswer=$match[1];
-			$this->logger->info("final answer  found :");
+			$this->logger->info("final answer found :");
 			$this->logger->info($this->finalAnswer);
 		}
 		else{
-		$this->logger->info("final answer not found");
+			$this->logger->info("final answer not found");
 		}	
 	}
 	

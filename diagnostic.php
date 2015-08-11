@@ -7,60 +7,51 @@
 
 
 	function replace_clones($words, $replacements, $clones){
-		// Remplace les clones dans les mots clés recherchés
-
-		// print_r($words);
-		// echo "<br><br>";
-		// print_r($clones);
-		// echo "<br><br>";
-		//echo htmlentities(print_r($replacements,true));
+		// Remplace les noms des clones par leur valeur (utilisé sur les mots clés recherchés)
+		// $words : la liste de mots clés de cette réponse attendue
+		// $replacements : les replacements tels que stockés dans la table pbm mis 
+		// $clones : la liste des clones
 
 		$newWords = array();
 		foreach($words as $w){
 			foreach($clones as $cc){
 				$c = $cc['type'].(string)$cc['compteur'];
 
-				//echo "w: ".$w." - c: ".$c."<br>";
 				if($pos = stripos($w, $c)){ 
-
 					$compteur = substr($c, -1);
 					$name = substr($c, 0, strlen($c)-1);
-
 					$index = '<<'.$cc['brut'].'>>';
 					$repl = $replacements[$index];
-
 					$w = substr_replace($w, $repl, $pos, strlen($w));
 				}
-
 			}
 			$newWords[] = $w;
 		}
 		return $newWords;
 	}
 
-	$verbose = true;
-	$download_zip = false; // does the client download the zip (dataP) ?
+	$verbose = true; // if true, print feedback
+	$download_zip = true; // does the client download the zip (dataP) ?
 	$suppress_files = true; //  does the server suppress the files after the download ,	
 	$expectedAnswer_analysis = true;
 	$log = "";
+
+	$pbm_included = array();
 
 	if(isset($_POST['serieToDiagnose'])){
 		
 
 		$idSerie = $_POST['serieToDiagnose'];
 
-		// Version sans jointure
-		// $req = $bdd->prepare('SELECT * FROM trace WHERE serie = ?');
-		// $req->execute(array($idSerie));
-		// $req = $bdd->prepare($sql);
-		// $req->execute(array($idSerie));
 
 		// Attention, s'il n'y a pas de template, cette requête ne renvoie rien
+
 		$sql = 'SELECT * FROM `trace` JOIN `pbm`
 				ON `trace`.`pbm` = `pbm`.`idPbm`
 				JOIN `pbm_template`
 				ON `pbm`.`idTemplate` = `pbm_template`.`id`
 				WHERE `serie` = '.$idSerie;
+
 		$req = $bdd->query($sql);
 
 		$existing_traces = array();
@@ -81,14 +72,16 @@
 		$regexNombreX = '#<<Nombre\(([0-9]+)\)=([0-9]+)>>#';
 
 		while($t = $req->fetch()){
-			// $t contient la jointure complexe entre trace, pbm et pb_template
+			
+			$t_id_trace = $t[0]; // Pour une raison moche sur la jointure...
+			$goodAnswer = null;
 
-			// ATTENTION : il faut prendre en compte uniquement la première fois qu'un élève a rempli la série si jamais il l'a passée plusieurs fois
+			// $t contient la jointure complexe entre trace, pbm et pb_template
+			// Il faut prendre en compte uniquement la première fois qu'un élève a rempli la série si jamais il l'a passée plusieurs fois
 			// => On retient "eleve - ordreSerie", et on vérifie que ce n'est pas inclus
 
 			$new_trace = (string)$t['eleve'].",".(string)$t['ordreSerie'];
-			if(in_array($new_trace, $existing_traces)){
-				//Déjà inclus : on ne fait rien !
+			if(in_array($new_trace, $existing_traces)){ //Déjà inclus : on ne fait rien
 				$log.= "Duplication de la trace ".$new_trace."<br>";
 			}
 			else{
@@ -107,7 +100,6 @@
 
 				$numbers_problem = array();
 				for($i=0; $i<count($matches[1]); $i++) {
-					//$numbers_problem[$matches[2][$i]] = "n".(string)$matches[1][$i]; // NOPE ON NE VEUT PAS $matches[2] 
 					$n = $readable_replacements['<<Nombre('.(string)$matches[1][$i].')='.(string)$matches[2][$i].">>"];
 					$numbers_problem[$n] = "n".(string)$matches[1][$i];
 				}
@@ -115,24 +107,24 @@
 				$reqClone = $bdd->query('SELECT * FROM pbm_elements WHERE idTemplate='.$t['idTemplate']);
 				$clones = array();
 				while($clone = $reqClone->fetch()){
-					//$clones[] = $clone['type'].(string)$clone['compteur'];
 					$clones[] = $clone;
 				}
 
-
 				// ********************* Instanciation de la classe Answer et export *********************
 
-				$answer = new Answer($t['zonetext'], $numbers_problem, $t['id']);
+				$answer = new Answer($t['zonetext'], $numbers_problem, $t_id_trace);
 				$answer->process();
 
-				// On teste si la trace a déjà été analysée
-				if(exists_in_BDD('answer', 'idTrace=?', array($t['id']), $bdd)){
-					$idAnswer = get_value_BDD('id', 'answer', 'idTrace=?', array($t['id']), $bdd);
+				// On teste si la trace a déjà été analysée : si oui, on ne la recréée pas
+				if(exists_in_BDD('answer', 'idTrace=?', array($t_id_trace), $bdd)){
+					$idAnswer = get_value_BDD('id', 'answer', 'idTrace=?', array($t_id_trace), $bdd);
 				}
 				else{
 					$idAnswer = $answer->export($bdd);
 					$answer->exportFormulas($bdd, $idAnswer);
 				}
+
+				$interpretable_answer = get_value_BDD('interpretable', 'answer', 'id=?', array($idAnswer), $bdd);
 
 
 				// ********************* Comparaison avec les réponses attendues *********************
@@ -153,14 +145,13 @@
 					// 1) On compare la version symbolique de la formule avec les expected_answers
 					// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
 
-						// On veut comparer fetch()['variable'] avec $lastFormula['formul']...
 						$formule_reponse = trim($answer->get_finalFormula());
 						$formule_reponse = str_replace(' ', '', $formule_reponse);
 						$log.= "form_rep : ".$formule_reponse."<br>";
 
 						$formula_found = false;
 						$propertiesAnswer = array();
-						$goodAnswer = null;
+						//$goodAnswer = null;
 
 						$allWordsArrays = array(); // Tous les mots clés pour chaque expected answer
 						$foundFormulasWordsArrays = array(); // Les mots clés pour les expected answers dont la formule est détectée
@@ -172,7 +163,6 @@
 
 							//On utilise un tableau pour gérer les cas de dissociation de plusieurs réponses équivalentes (N1+N2|N2+N1)
 							$tabToCompare = array();
-
 							if(strpos($toCompare, "|")){
 								$tabToCompare = explode("|", $toCompare);
 							}
@@ -213,22 +203,19 @@
 
 						if($formula_found){
 							$interpretation = PickBest($t['zonetext'], $foundFormulasWordsArrays, $logPickBest);
-							//peut être faudra différencier entre "1" et plus ?
 						}
-						else{ // si on a pas trouvé de formule, on reprend toutes les interprétations possibles
+						else{ // Si on a pas trouvé de formule, on reprend toutes les interprétations possibles
 							$interpretation = PickBest($t['zonetext'], $wordsArrays, $logPickBest);
 						}
-
-
 
 						$log .= "<br><br>Une interprétation a été choisie :".print_r($interpretation, true);
 						$log .= "<br>IdExpectedAnswer =".(string)$interpretation['id'];
 						$log .= "<br>Note obtenue : ".(string)$interpretation['eval'];
 
 						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
-						// 3) il faudrait vérifier si le résultat final est bon même si la formule est pas trouvée..
+						// 3) il faudrait vérifier si le résultat final est bon même si la formule est pas trouvée ? 
 						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
-
+						// Géré par la classe Answer ?
 
 					}
 					else{ // Il y a 0 ou plus qu'une question => le diagnostic n'est pas actuellement géré
@@ -236,26 +223,42 @@
 					}
 				}
 				
-			// Récupération des données pour l'export pour STAR
+				// Récupération des données pour l'export pour STAR
 				$idPbm = $t['pbm'];
-				$idAnswerSubject = $count_answers; // Pas sûr...
-				$idSession = $t['eleve']; // Plus ou moins comme "idSubject... au final"
+				$idAnswerSubject = $count_answers; 
+				$idSession = $t['eleve']; // Plus ou moins comme idSubject... au final...
 				$subject = $t['eleve'];
 
 				$t_AnswersPbm .= (string)$idAnswer.";".(string)$idPbm."\n"; //$idAnswers avec un "s" dans le fichier...
 				$t_AnswersSession .= (string)$idAnswerSubject.";".(string)$idSession.";".(string)$idPbm.";".(string)$idAnswer."\n";
 
-				// Pour les properties, il y a plusieurs lignes par sujet
+				// Properties Answer
 				if($expectedAnswer_analysis){
+					if(!$interpretable_answer){
+						$t_PropertiesAnswers .= "ininterprétable;".(string)$idAnswer."\n";			
+					}
 					foreach($propertiesAnswer as $propertyAnswer){
 						$t_PropertiesAnswers .= (string)$propertyAnswer.";".(string)$idAnswer."\n";	
 					}
+					if(isset($goodAnswer)){
+						if($goodAnswer){
+							$t_PropertiesAnswers .= "bonne_réponse;".(string)$idAnswer."\n";
+						}
+					}
+					if($answer->noFormula()){
+						$t_PropertiesAnswers .= "pas_de_réponse;".(string)$idAnswer."\n";			
+					}
 				}
 
-				$tabPropertiesProblem = explode("|||", $t['properties']);
-				foreach($tabPropertiesProblem as $propertyProblem){
-					$t_PropertiesProblem .= (string)$propertyProblem.";".(string)$idPbm."\n";	
-				}
+				if(!(in_array($idPbm, $pbm_included))){
+					$pbm_included[] = $idPbm;
+					$tabPropertiesProblem = explode("|||", $t['properties']);
+					foreach($tabPropertiesProblem as $propertyProblem){
+						if($propertyProblem != ""){
+							$t_PropertiesProblem .= (string)$propertyProblem.";".(string)$idPbm."\n";	
+						}
+					}
+				}	
 
 				$t_Sessions .= (string)$idSession.";".(string)$subject."\n";
 
@@ -307,12 +310,20 @@
 				$zip->close();
 		    }
 
+		    // VIRER TOUT CA A LA FIN DES TESTS
+			    header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
+				header('Content-Disposition: attachment; filename='.$zip_name); //Nom du fichier.
+				header('Content-Length: '.filesize($zip_name)); //Taille du fichier.
+				readfile($zip_name); 
+			///
+
+
 		    // On renomme maintenant (si on le fait à la création du zip, le zip ne se forme pas bien :/)
-		    rename($zip_name, $dataP_name); 
-		    header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
-			header('Content-Disposition: attachment; filename='.$dataP_name); //Nom du fichier.
-			header('Content-Length: '.filesize($dataP_name)); //Taille du fichier.
-			readfile($dataP_name); 
+		 //    rename($zip_name, $dataP_name); 
+		 //    header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
+			// header('Content-Disposition: attachment; filename='.$dataP_name); //Nom du fichier.
+			// header('Content-Length: '.filesize($dataP_name)); //Taille du fichier.
+			// readfile($dataP_name); 
 
 			unlink($dataP_name);
 
@@ -325,10 +336,7 @@
 				unlink("myLog.log");
 				rmdir($directory_name);
 			}
-
 		}
-		
-
 	}
 	
 ?>
@@ -346,6 +354,9 @@
 		<?php require_once("headerEnseignant.php"); ?>
 			<div id="form_container">
 			<h1><a>Untitled Form</a></h1>
+				
+				<h2>Choisissez les modalités du diagnostic</h2>
+
 
 				<h2>Choisir une série d'exercices à analyser</h2>
 
@@ -378,7 +389,7 @@
 				<div id="feedback">
 					<p>
 					<?php
-						if($verbose){ // Faudrait clairement faire l'echo autre part
+						if($verbose){
 							echo $log;
 							if(isset($logPickBest)){echo $logPickBest;}
 						}
