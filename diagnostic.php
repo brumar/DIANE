@@ -54,20 +54,29 @@
 	}
 
 	if(isset($_POST['serieToDiagnose'])){
-		$_SESSION['IDserieToDiagnose'] = $_POST['serieToDiagnose'];
-		$reload = true;
+		if(is_numeric($_POST['serieToDiagnose'])){
+			$_SESSION['IDserieToDiagnose'] = $_POST['serieToDiagnose'];
+			$reload = true;
+		}
+	}
+
+	if(isset($_POST['serieToLoad'])){
+		if(is_numeric($_POST['serieToLoad'])){
+			$_SESSION['IDserieToLoad'] = $_POST['serieToLoad'];
+			$reload = true;
+		}
 	}
 
 	if(isset($_POST['save_diag_idAns'])){
 		if(isset($_POST['save_diag_idTra'])){
 			$_SESSION['save_diag_in_progress'] = array(
 				"idAns" => explode(',', $_POST['save_diag_idAns']), 
-				"idTra" => explode(',', $_POST['save_diag_idTra']), 
+				"idTra" => explode(',', $_POST['save_diag_idTra']),
+				"idSerie" => $_POST['save_diag_idSerie']
 				);
 			$reload = true;
 		}
 	}
-
 
 	if(isset($_POST['ending_diag'])){
 		$_SESSION['ending_diag'] = true;
@@ -79,8 +88,6 @@
 		exit();
 	}
 
-
-
 	$verbose = false; // if true, print feedback
 	$download_zip = false; // does the client download the zip (dataP) ?
 	$suppress_files = true; //  does the server suppress the files after the download ,	
@@ -90,11 +97,7 @@
 
 
 	if(isset($_SESSION['save_diag_in_progress'])){ // Clic sur le bouton "sauvegarder progression"
-		//TODO : on check si cette série a été déjà enregistré ... pour suppression
-		// var_dump($_SESSION['save_diag_in_progress']);
-
 		try{
-
 			if(count($_SESSION['save_diag_in_progress']['idTra']) == count($_SESSION['save_diag_in_progress']['idAns'])){
 
 				$compteur = 0;
@@ -111,11 +114,12 @@
 					}
 
 					else{
-						$insert_req = $bdd->prepare('INSERT INTO diagnostic_in_progress(idCreator, idTrace, idSelectedAnswer) VALUES(?, ?, ?)');
+						$insert_req = $bdd->prepare('INSERT INTO diagnostic_in_progress(idCreator, idTrace, idSelectedAnswer, idSerie) VALUES(?, ?, ?, ?)');
 						$insert_req->execute(array(
 							$_SESSION['id'],
 							$_SESSION['save_diag_in_progress']['idTra'][$compteur],
-							$_SESSION['save_diag_in_progress']['idAns'][$compteur]
+							$_SESSION['save_diag_in_progress']['idAns'][$compteur],
+							$_SESSION['save_diag_in_progress']['idSerie']
 						));
 					}
 
@@ -149,7 +153,6 @@
 		unset($_SESSION['save_diag_in_progress']);
 	}
 
-
 	if(isset($_SESSION['download_zip'])){
 		$download_zip = $_SESSION['download_zip'];
 	}
@@ -158,11 +161,35 @@
 	}
 
 
+	if(isset($_SESSION['IDserieToLoad'])){ // Clic sur un bouton de chargement d'un diagnostic en cours
+		$_SESSION['IDserieToDiagnose'] = $_SESSION['IDserieToLoad'];
+		$_SESSION['diag_auto'] = false; // Probablement nécessaire aussi
+		unset($_SESSION['IDserieToLoad']);
 
-	if(isset($_SESSION['IDserieToDiagnose'])){
+		// ON VEUT : $load_diag_progression = array("choices" => $_SESSION['save_diag_in_progress']['idAns'], "traces" => $_SESSION['save_diag_in_progress']['idTra']);
+
+		$req = $bdd->prepare('SELECT * FROM diagnostic_in_progress WHERE idSerie=? AND idCreator=?');
+		$diag_in_progress = $req->execute(array($_SESSION['IDserieToDiagnose'], $_SESSION['id']));
+
+		$diag_in_progress_choices = array();
+		$diag_in_progress_traces = array();
+
+		while($d = $req->fetch()){
+			$diag_in_progress_choices[] = $d['idSelectedAnswer'];
+			$diag_in_progress_traces[] = $d['idTrace'];
+		}
+
+
+		$load_diag_progression = array(
+									"choices" => $diag_in_progress_choices, 
+									"traces" => $diag_in_progress_traces
+									);
+
+	}
+
+	if(isset($_SESSION['IDserieToDiagnose'])){ // Clic sur un nom de série pour la diagnostiquer
 		$idSerie = $_SESSION['IDserieToDiagnose'];
 		unset($_SESSION['IDserieToDiagnose']);
-
 
 		// Attention, s'il n'y a pas de template, cette requête ne renvoie rien
 		$sql = 'SELECT * FROM `trace` JOIN `pbm`
@@ -170,7 +197,6 @@
 				JOIN `pbm_template`
 				ON `pbm`.`idTemplate` = `pbm_template`.`id`
 				WHERE `serie` = '.$idSerie;
-
 
 		$req = $bdd->query($sql);
 
@@ -520,13 +546,11 @@
 			} //fin du while($t = $req->fetch())
 			$req->closeCursor();
 		}
-	} //Surement fin de if(isset($_SESSION['IDserieToDiagnose']))
-
+	} // fin de if(isset($_SESSION['IDserieToDiagnose']))
 
 	$ending_diag_dl_zip = false;
 
-
-	if(isset($_SESSION['ending_diag'])){
+	if(isset($_SESSION['ending_diag'])){ // On a fini le diagnostic
 		unset($_SESSION['ending_diag']);
 		if($download_zip){
 			$t_AnswersPbm = "";
@@ -612,86 +636,86 @@
 
 	if($download_zip and ($diag_auto or $ending_diag_dl_zip)) {
 
-				$directory_name = "diagnostic/diagnostics/".(string)$_SESSION['id']."_".(string)(time());
-				mkdir($directory_name);
+		$directory_name = "diagnostic/diagnostics/".(string)$_SESSION['id']."_".(string)(time());
+		mkdir($directory_name);
 
-				$f_AnswersPbm = fopen($directory_name."/AnswersPbm.csv", "w");
-				$f_AnswersSession = fopen($directory_name."/AnswersSession.csv", "w");
-				$f_PropertiesAnswers = fopen($directory_name."/PropertiesAnswers.csv", "w");
-				$f_PropertiesProblem = fopen($directory_name."/PropertiesProblem.csv", "w");
-				$f_Sessions = fopen($directory_name."/Sessions.csv", "w");
+		$f_AnswersPbm = fopen($directory_name."/AnswersPbm.csv", "w");
+		$f_AnswersSession = fopen($directory_name."/AnswersSession.csv", "w");
+		$f_PropertiesAnswers = fopen($directory_name."/PropertiesAnswers.csv", "w");
+		$f_PropertiesProblem = fopen($directory_name."/PropertiesProblem.csv", "w");
+		$f_Sessions = fopen($directory_name."/Sessions.csv", "w");
 
-				$header_AnswersPbm = "idAnswers;idPbm\n";
-				$header_AnswersSession = "idSession;idPbm;idAnswer\n";
-				$header_PropertiesAnswers = "idPropertiesAnswer;idAnswer\n";
-				$header_PropertiesProblem = "idPropertiesProblem;idProblem\n";
-				$header_Sessions = "sessionID;subject\n";
+		$header_AnswersPbm = "idAnswers;idPbm\n";
+		$header_AnswersSession = "idSession;idPbm;idAnswer\n";
+		$header_PropertiesAnswers = "idPropertiesAnswer;idAnswer\n";
+		$header_PropertiesProblem = "idPropertiesProblem;idProblem\n";
+		$header_Sessions = "sessionID;subject\n";
 
-				// $toWrite_AnswersPbm = $header_AnswersPbm.$t_AnswersPbm;
-				// $toWrite_AnswersSession = $header_AnswersSession.$t_AnswersSession;
-				// $toWrite_PropertiesAnswers = $header_PropertiesAnswers.$t_PropertiesAnswers;
-				// $toWrite_PropertiesProblem = $header_PropertiesProblem.$t_PropertiesProblem;
-				// $toWrite_Sessions = $header_Sessions.$t_Sessions;
+		// $toWrite_AnswersPbm = $header_AnswersPbm.$t_AnswersPbm;
+		// $toWrite_AnswersSession = $header_AnswersSession.$t_AnswersSession;
+		// $toWrite_PropertiesAnswers = $header_PropertiesAnswers.$t_PropertiesAnswers;
+		// $toWrite_PropertiesProblem = $header_PropertiesProblem.$t_PropertiesProblem;
+		// $toWrite_Sessions = $header_Sessions.$t_Sessions;
 
-				$toWrite_AnswersPbm = supprAccents($header_AnswersPbm.$t_AnswersPbm);
-				$toWrite_AnswersSession = supprAccents($header_AnswersSession.$t_AnswersSession);
-				$toWrite_PropertiesAnswers = supprAccents($header_PropertiesAnswers.$t_PropertiesAnswers);
-				$toWrite_PropertiesProblem = supprAccents($header_PropertiesProblem.$t_PropertiesProblem);
-				$toWrite_Sessions = supprAccents($header_Sessions.$t_Sessions);
+		$toWrite_AnswersPbm = supprAccents($header_AnswersPbm.$t_AnswersPbm);
+		$toWrite_AnswersSession = supprAccents($header_AnswersSession.$t_AnswersSession);
+		$toWrite_PropertiesAnswers = supprAccents($header_PropertiesAnswers.$t_PropertiesAnswers);
+		$toWrite_PropertiesProblem = supprAccents($header_PropertiesProblem.$t_PropertiesProblem);
+		$toWrite_Sessions = supprAccents($header_Sessions.$t_Sessions);
 
-				fputs($f_AnswersPbm, $toWrite_AnswersPbm, strlen($toWrite_AnswersPbm));
-				fputs($f_AnswersSession, $toWrite_AnswersSession, strlen($toWrite_AnswersSession));
-				fputs($f_PropertiesAnswers, $toWrite_PropertiesAnswers, strlen($toWrite_PropertiesAnswers));
-				fputs($f_PropertiesProblem, $toWrite_PropertiesProblem, strlen($toWrite_PropertiesProblem));
-				fputs($f_Sessions, $toWrite_Sessions, strlen($toWrite_Sessions));
+		fputs($f_AnswersPbm, $toWrite_AnswersPbm, strlen($toWrite_AnswersPbm));
+		fputs($f_AnswersSession, $toWrite_AnswersSession, strlen($toWrite_AnswersSession));
+		fputs($f_PropertiesAnswers, $toWrite_PropertiesAnswers, strlen($toWrite_PropertiesAnswers));
+		fputs($f_PropertiesProblem, $toWrite_PropertiesProblem, strlen($toWrite_PropertiesProblem));
+		fputs($f_Sessions, $toWrite_Sessions, strlen($toWrite_Sessions));
 
-				fclose($f_AnswersPbm);
-				fclose($f_AnswersSession);
-				fclose($f_PropertiesAnswers);
-				fclose($f_PropertiesProblem);
-				fclose($f_Sessions);
+		fclose($f_AnswersPbm);
+		fclose($f_AnswersSession);
+		fclose($f_PropertiesAnswers);
+		fclose($f_PropertiesProblem);
+		fclose($f_Sessions);
 
-				$zip = new ZipArchive();
-				$serie_name = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($idSerie), $bdd);
-				$zip_name = $serie_name."_".(string)date("d-m-Y").".zip";
-				$dataP_name = $serie_name."_".(string)date("d-m-Y").".dataP";
+		$zip = new ZipArchive();
+		$serie_name = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($idSerie), $bdd);
+		$zip_name = $serie_name."_".(string)date("d-m-Y").".zip";
+		$dataP_name = $serie_name."_".(string)date("d-m-Y").".dataP";
 
-				if($zip->open($zip_name, ZipArchive::CREATE) === true){
-					$zip->addFile($directory_name."/AnswersPbm.csv", "AnswersPbm.csv");
-					$zip->addFile($directory_name."/AnswersSession.csv", "AnswersSession.csv");
-					$zip->addFile($directory_name."/PropertiesAnswers.csv", "PropertiesAnswers.csv");
-					$zip->addFile($directory_name."/PropertiesProblem.csv", "PropertiesProblem.csv");
-					$zip->addFile($directory_name."/Sessions.csv", "Sessions.csv");
-					$zip->close();
-			    }
+		if($zip->open($zip_name, ZipArchive::CREATE) === true){
+			$zip->addFile($directory_name."/AnswersPbm.csv", "AnswersPbm.csv");
+			$zip->addFile($directory_name."/AnswersSession.csv", "AnswersSession.csv");
+			$zip->addFile($directory_name."/PropertiesAnswers.csv", "PropertiesAnswers.csv");
+			$zip->addFile($directory_name."/PropertiesProblem.csv", "PropertiesProblem.csv");
+			$zip->addFile($directory_name."/Sessions.csv", "Sessions.csv");
+			$zip->close();
+	    }
 
-			    /*// VIRER TOUT CA A LA FIN DES TESTS
-				    header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
-					header('Content-Disposition: attachment; filename='.$zip_name); //Nom du fichier.
-					header('Content-Length: '.filesize($zip_name)); //Taille du fichier.
-					readfile($zip_name); 
-				///*/
+	    /*// VIRER TOUT CA A LA FIN DES TESTS
+		    header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
+			header('Content-Disposition: attachment; filename='.$zip_name); //Nom du fichier.
+			header('Content-Length: '.filesize($zip_name)); //Taille du fichier.
+			readfile($zip_name); 
+		///*/
 
 
-			    // On renomme maintenant (si on le fait à la création du zip, le zip ne se forme pas bien :/)
-			    rename($zip_name, $dataP_name); 
-			    header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
-				header('Content-Disposition: attachment; filename='.$dataP_name); //Nom du fichier.
-				header('Content-Length: '.filesize($dataP_name)); //Taille du fichier.
-				readfile($dataP_name); 
+	    // On renomme maintenant (si on le fait à la création du zip, le zip ne se forme pas bien :/)
+	    rename($zip_name, $dataP_name); 
+	    header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
+		header('Content-Disposition: attachment; filename='.$dataP_name); //Nom du fichier.
+		header('Content-Length: '.filesize($dataP_name)); //Taille du fichier.
+		readfile($dataP_name); 
 
-				unlink($dataP_name);
+		unlink($dataP_name);
 
-				if($suppress_files){
-					unlink($directory_name."/AnswersPbm.csv");
-					unlink($directory_name."/AnswersSession.csv");
-					unlink($directory_name."/PropertiesAnswers.csv");
-					unlink($directory_name."/PropertiesProblem.csv");
-					unlink($directory_name."/Sessions.csv");
-					unlink("myLog.log");
-					rmdir($directory_name);
-				}
-			}
+		if($suppress_files){
+			unlink($directory_name."/AnswersPbm.csv");
+			unlink($directory_name."/AnswersSession.csv");
+			unlink($directory_name."/PropertiesAnswers.csv");
+			unlink($directory_name."/PropertiesProblem.csv");
+			unlink($directory_name."/Sessions.csv");
+			unlink("myLog.log");
+			rmdir($directory_name);
+		}
+	}
 	
 ?>
 
@@ -754,7 +778,15 @@
 							$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? ORDER BY ordrePres");
 							$vosSeries->execute(array($_SESSION['id']));
 							while ($enregistrement = $vosSeries->fetch()){
-								echo '<button onclick="check_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].'</button><br>';
+
+								
+								if(exists_in_BDD('diagnostic_in_progress', 'idCreator=? AND idSerie=?', array($_SESSION['id'], $enregistrement['idSerie']), $bdd)){ //exists_in_BDD($table, $where, $array_req, $b)
+									echo '<button onclick="load_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].' - diagnostic en cours</button>';
+								}
+								else{
+									echo '<button onclick="check_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].'</button>';
+								}
+								echo '<br>';
 							} 
 							$vosSeries->closeCursor();
 
@@ -770,6 +802,7 @@
 					</div>
 
 					<input type="hidden" value="" name="serieToDiagnose" id="serieToDiagnoseID">
+					<input type="hidden" value="" name="serieToLoad" id="serieToLoadID">
 				</form>
 
 
@@ -843,6 +876,7 @@
 					<input type="submit" value="Sauvegarder progression" id="button_save_progression">
 					<input type="hidden" value="" name="save_diag_idAns" id="save_diag_idAns">
 					<input type="hidden" value="" name="save_diag_idTra" id="save_diag_idTra">
+					<input type="hidden" value="<?php if(isset($idSerie)){echo($idSerie);}?>" name="save_diag_idSerie" id="save_diag_idSerie">
 					<input type="hidden" value="" name="ending_diag" id="ending_diag">
 				</form>
 
@@ -874,6 +908,13 @@
 			form_diagnostic.submit();
 		}
 
+		function load_diagnostic(idSerie){
+			form_diagnostic = document.getElementById("form_diagnostic");
+			serieToLoad = document.getElementById("serieToLoadID");
+			serieToLoad.value = idSerie;
+			form_diagnostic.submit();
+		}
+
 
 		var visibleExpAns = null;
 		var current_taa = 0;
@@ -885,8 +926,6 @@
 
 		if(isset($load_diag_progression)){ // On vient de sauvegarder, il faut retourner là où en était. => on recréer les variables JS
 
-			// ATTENTION : Imposer les variables sessions pour les cases à cocher ???
-
 			$c = 0;
 			foreach($load_diag_progression["choices"] as $elem){
 				$c++;
@@ -896,12 +935,14 @@
 				echo "traces.push(".$elem.");";
 			}
 
+			echo "current_taa = ".(string)$c.";\n";
+			echo "visibleExpAns = \"taa_".(string)($c+1)."\";\n";
+			//echo "visibleExpAns = \"taa_".(string)($c)."\";\n"; // Problème de +1, nécessaire pour la sauvegarde mais bloque quand on recharge..
 
-			echo "current_taa = ".(string)$c.";";
-			echo "visibleExpAns = 'taa_'+String(current_taa+1);";
-			echo "document.getElementById(visibleExpAns).style.display = 'block';";
-			echo "button_save_progression = document.getElementById(\"button_save_progression\");";
-			echo "button_save_progression.style.display = 'block';";
+			echo "document.getElementById(visibleExpAns).style.display = 'block';\n";
+			echo "button_save_progression = document.getElementById(\"button_save_progression\");\n";
+			echo "button_save_progression.style.display = 'block';\n";
+
 
 		}
 
