@@ -67,6 +67,11 @@
 		}
 	}
 
+	if(isset($_POST['download_step_diagnostic'])){
+		$_SESSION['download_step_diagnostic'] = $_POST['download_step_diagnostic'];
+		$reload = true;
+	}
+
 	if(isset($_POST['save_diag_idAns'])){
 		if(isset($_POST['save_diag_idTra'])){
 			$_SESSION['save_diag_in_progress'] = array(
@@ -83,6 +88,11 @@
 		$reload = true;
 	}
 
+	if(isset($_POST['remove_progress_id'])){
+		$_SESSION['remove_progress_id'] = $_POST['remove_progress_id'];
+		$reload = true;	
+	}
+
 	if($reload){
 		header("Location: diagnostic.php");
 		exit();
@@ -95,6 +105,12 @@
 	$log = "";
 	$pbm_included = array();
 
+
+	if(isset($_SESSION['remove_progress_id'])){
+		$reqD = $bdd->prepare('DELETE FROM diagnostic_in_progress WHERE idSerie=? AND idCreator=?');
+		$reqD->execute(array($_SESSION['remove_progress_id'], $_SESSION['id']));
+		unset($_SESSION['remove_progress_id']);
+	}
 
 	if(isset($_SESSION['save_diag_in_progress'])){ // Clic sur le bouton "sauvegarder progression"
 		try{
@@ -156,15 +172,22 @@
 	if(isset($_SESSION['download_zip'])){
 		$download_zip = $_SESSION['download_zip'];
 	}
+
 	if(isset($_SESSION['diag_auto'])){
 		$diag_auto = $_SESSION['diag_auto'];
 	}
-
 
 	if(isset($_SESSION['IDserieToLoad'])){ // Clic sur un bouton de chargement d'un diagnostic en cours
 		$_SESSION['IDserieToDiagnose'] = $_SESSION['IDserieToLoad'];
 		$_SESSION['diag_auto'] = false; // Probablement nécessaire aussi
 		unset($_SESSION['IDserieToLoad']);
+		
+		// Le diagnostic existe. Est-il fini ?
+			// Compte : pas simple du tout de compter les traces pour pouvoir dire que le diag est vraiment fini ... ?
+			// if(count_BDD('SELECT COUNT(*) FROM diagnostic_in_progress WHERE idCreator=? AND idSerie=?', 
+			// 	array($_SESSION['id'], $enregistrement['idSerie']), $bdd) == ) {
+			// }
+		// On veut comparer avec data_diag_step_by_step...
 
 		// ON VEUT : $load_diag_progression = array("choices" => $_SESSION['save_diag_in_progress']['idAns'], "traces" => $_SESSION['save_diag_in_progress']['idTra']);
 
@@ -438,6 +461,7 @@
 
 					$answer = new Answer($t['zonetext'], $numbers_problem, $t_id_trace);
 					$answer->process();
+					$number_of_anomalies = $answer->anomalyManager->evalAnomalies();
 
 					// On teste si la trace a déjà été analysée : si oui, on ne la recréée pas
 					if(exists_in_BDD('answer', 'idTrace=?', array($t_id_trace), $bdd)){
@@ -524,6 +548,7 @@
 						}
 
 						$newData = array();
+						$newData["number_of_anomalies"] = $number_of_anomalies;
 						$newData["id_trace"] = $t_id_trace;
 						$newData["pbm_enonce"] = $t['enonce'];
 						$newData["reponse_eleve"] = $t['zonetext'];
@@ -549,6 +574,31 @@
 	} // fin de if(isset($_SESSION['IDserieToDiagnose']))
 
 	$ending_diag_dl_zip = false;
+
+	if(isset($load_diag_progression) and isset($data_diag_step_by_step)){
+		// Le diagnostic existe. Est-il fini ?
+
+		if(count_BDD('SELECT COUNT(*) FROM diagnostic_in_progress WHERE idCreator=? AND idSerie=?', array($_SESSION['id'], $idSerie), $bdd) >= count($data_diag_step_by_step)){
+
+			// En théorie, on ne devrait jamais avoir de nombre supérieur dans la bdd au nombre attendu de réponses...
+			assert(count_BDD('SELECT COUNT(*) FROM diagnostic_in_progress WHERE idCreator=? AND idSerie=?', array($_SESSION['id'], $idSerie), $bdd) == count($data_diag_step_by_step));
+
+			// Si on arrive ici, le diagnostic est fini. 
+			// Mais si $_SESSION['ending_diag'] n'est pas définie, cela signifie qu'on vient de cliquer pour charger un diagnostic qui est fini
+			if (!(isset($_SESSION['ending_diag']))){
+				// On est dans le cas où on a cliqué sur un diagnostic fini
+
+				$diagnostic_in_progress_is_over = true;
+			}
+		}
+	}
+
+	if(isset($_SESSION['download_step_diagnostic'])){
+		$idSerie = $_SESSION['download_step_diagnostic'];
+		unset($_SESSION['download_step_diagnostic']);
+		$_SESSION['ending_diag'] = true;
+		$download_zip = true;
+	}
 
 	if(isset($_SESSION['ending_diag'])){ // On a fini le diagnostic
 		unset($_SESSION['ending_diag']);
@@ -621,12 +671,10 @@
 						$t_PropertiesAnswers .= (string)$propertyAnswer.";".(string)$idAnswer."\n";	
 					}
 
-
 					$goodAnswer = $fetch_ans["goodAnswer"];
 					if($goodAnswer){
 						$t_PropertiesAnswers .= "bonne_réponse;".(string)$idAnswer."\n";
 					}
-
 				}
 
 				$ending_diag_dl_zip = true;
@@ -779,9 +827,10 @@
 							$vosSeries->execute(array($_SESSION['id']));
 							while ($enregistrement = $vosSeries->fetch()){
 
-								
-								if(exists_in_BDD('diagnostic_in_progress', 'idCreator=? AND idSerie=?', array($_SESSION['id'], $enregistrement['idSerie']), $bdd)){ //exists_in_BDD($table, $where, $array_req, $b)
+								if(exists_in_BDD('diagnostic_in_progress', 'idCreator=? AND idSerie=?', array($_SESSION['id'], $enregistrement['idSerie']), $bdd)){ 
 									echo '<button onclick="load_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].' - diagnostic en cours</button>';
+									echo "<a id=\"remove_diag_".$enregistrement['idSerie']."\" href=\"\" onclick=\"confirmRemove(".$enregistrement['idSerie'].");return false;\"><img src=\"static/images/delete.png\" alt=\"remettre à zéro\"/></a>";
+
 								}
 								else{
 									echo '<button onclick="check_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].'</button>';
@@ -839,7 +888,8 @@
 											foreach($taa["reponses_attendues"] as $repAt){
 
 												if($taa['reponse_suggeree']==$repAt['id']){
-													echo '<div class="rep_attendue suggested" onclick="choice_expAns('.$repAt['id'].','.$taa['id_trace'].');" id="'.$taa['id_trace']."_".$repAt['id'].'">'.$repAt['variable']."<br>".$repAt['keywords'].'</div>';
+													echo '<div class="rep_attendue suggested" onclick="choice_expAns('.$repAt['id'].','.$taa['id_trace'].');" id="'.$taa['id_trace']."_".$repAt['id'].'">'.$repAt['variable']."<br>".$repAt['keywords']."<br>Nombres d'anomalies :".$taa['number_of_anomalies'].'</div>';
+
 												}
 												else{
 													echo '<div class="rep_attendue" onclick="choice_expAns('.$repAt['id'].','.$taa['id_trace'].');" id="'.$taa['id_trace']."_".$repAt['id'].'">'.$repAt['variable']."<br>".$repAt['keywords'].'</div>';
@@ -847,13 +897,13 @@
 												
 											}
 											if($taa['reponse_suggeree']==-1){
-												echo '<div class="rep_attendue suggested" onclick="choice_expAns(-1,'.$taa['id_trace'].');" id="'.$taa['id_trace'].'_noFormula">Pas de formule<br></div>';
+												echo '<div class="rep_attendue suggested" onclick="choice_expAns(-1,'.$taa['id_trace'].');" id="'.$taa['id_trace'].'_noFormula">Pas de formule<br>'."Nombres d'anomalies :".$taa['number_of_anomalies'].'<br></div>';
 											}
 											else{
 												echo '<div class="rep_attendue" onclick="choice_expAns(-1,'.$taa['id_trace'].');" id="'.$taa['id_trace'].'_noFormula">Pas de formule<br></div>';	
 											}
 											if($taa['reponse_suggeree']==-2){
-												echo '<div class="rep_attendue suggested" onclick="choice_expAns(-2,'.$taa['id_trace'].');" id="'.$taa['id_trace'].'_ininterpretable">ininterprétable<br></div>';
+												echo '<div class="rep_attendue suggested" onclick="choice_expAns(-2,'.$taa['id_trace'].');" id="'.$taa['id_trace'].'_ininterpretable">ininterprétable<br> Nombres d\'anomalies :'.$taa['number_of_anomalies'].'<br></div>';
 											}
 											else{
 												echo '<div class="rep_attendue" onclick="choice_expAns(-2,'.$taa['id_trace'].');" id="'.$taa['id_trace'].'_ininterpretable">ininterprétable<br></div>';
@@ -878,6 +928,14 @@
 					<input type="hidden" value="" name="save_diag_idTra" id="save_diag_idTra">
 					<input type="hidden" value="<?php if(isset($idSerie)){echo($idSerie);}?>" name="save_diag_idSerie" id="save_diag_idSerie">
 					<input type="hidden" value="" name="ending_diag" id="ending_diag">
+				</form>
+
+				<form id="form_remove_progress" method="post" action="diagnostic.php">
+					<input type="hidden" value="" name="remove_progress_id" id="remove_progress_id">
+				</form>
+
+				<form id="form_download_step_diagnostic" method="post" action="diagnostic.php">
+					<input type="hidden" value="" name="download_step_diagnostic" id="download_step_diagnostic">
 				</form>
 
 			</div>
@@ -921,6 +979,7 @@
 		var choices = [];
 		var traces = [];
 
+		var showVisibleExp = true;
 
 		<?php
 
@@ -939,10 +998,18 @@
 			echo "visibleExpAns = \"taa_".(string)($c+1)."\";\n";
 			//echo "visibleExpAns = \"taa_".(string)($c)."\";\n"; // Problème de +1, nécessaire pour la sauvegarde mais bloque quand on recharge..
 
+			if(isset($data_diag_step_by_step)){
+				echo "if($c >= ".count($data_diag_step_by_step)."){";
+				echo "showVisibleExp = false;";
+				echo "}";
+			}
+			
+
+			echo "if(showVisibleExp){";
 			echo "document.getElementById(visibleExpAns).style.display = 'block';\n";
+			echo "}";
 			echo "button_save_progression = document.getElementById(\"button_save_progression\");\n";
 			echo "button_save_progression.style.display = 'block';\n";
-
 
 		}
 
@@ -962,7 +1029,6 @@
 				
 				ending_diag = document.getElementById("ending_diag");
 				ending_diag.value = "true";
-
 				alert("Toutes les réponses ont été catégorisées. Votre diagnostic va être sauvegardé.");
 				document.getElementById("button_save_progression").click(); //Sauvegarde des données
 
@@ -1009,7 +1075,28 @@
 		if(!(isset($load_diag_progression))){
 		echo "display_choose_expAns();";
 		}
+
+
+		if(isset($diagnostic_in_progress_is_over)){
+			echo "end_of_diag(".$idSerie.");";
+		}
 		?>
 
+		function end_of_diag(idSerieDL){
+			if(confirm("Vous avez diagnostiqué cette série jusqu'au bout. Souhaitez vous télécarger le fichier dataP utilisant vos données ?")){
+				download_step_diagnostic = document.getElementById("download_step_diagnostic");
+				download_step_diagnostic.value = idSerieDL;
+				document.forms["form_download_step_diagnostic"].submit();
+			}
+		}
+
+
+		function confirmRemove(idToSuppr){
+			if(confirm("Êtes vous sûr de vouloir supprimer ce diagnostic en cours ?")){
+				var remove_progress_id = document.getElementById("remove_progress_id");
+				remove_progress_id.value = idToSuppr;
+				document.forms["form_remove_progress"].submit();
+			}
+		}
 	</script>
 </html>

@@ -237,6 +237,7 @@ function getCompat($tabwords){//find overlapping words (choc may overlap with ch
 
 function getNote($text,$wordsArray,&$log = null){ //quantify the reliability of $wordsArray being in $text
 	//	var_dump($text,$wordsArray);
+	return 1;
 	$tabWords=findWords($text, $wordsArray);
 	//	var_dump($tabWords);
 	$compatTable=getCompat($tabWords);
