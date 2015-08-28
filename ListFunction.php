@@ -1,5 +1,17 @@
 <?php
 
+// Utiliser dans "assignExercices.php"
+function generer_code(){
+	$LEN_CODE = 3; //$LEN_CODE = 5;
+	$string = "";
+	$chaine = "bcdfghjklmnpqrstvwxy0123456789"; //$chaine = "abcdefghijklmnpqrstuvwxy"; //$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
+	srand((double)microtime()*1000000);
+	for($i=0; $i < $LEN_CODE; $i++) {
+		$string .= $chaine[rand()%strlen($chaine)];
+	}
+	return strtoupper($string);
+}
+
 //--------------------------------------------------------------------------------------------------------------------
 //								  					Gestion des listes
 //--------------------------------------------------------------------------------------------------------------------
@@ -206,6 +218,7 @@ function creerSessionPassation($idEleve, $serie, $b, $type_passation){
 
 	$_SESSION['passation'] = array();
 	$_SESSION['passation']['numSerie'] = $serie;
+	$_SESSION['passation']['type'] = $type_passation;
 
 	if(get_value_BDD('statut', 'serie_eleve', '(idEleve = ? AND idSerie = ?)', array($idEleve, $serie), $b) == "untouched"){
 		update_value_BDD('serie_eleve', 'statut = "opened"', 'idEleve = ? AND idSerie = ?', array($idEleve, $serie), $b);
@@ -239,6 +252,12 @@ function creerSessionPassation($idEleve, $serie, $b, $type_passation){
 
 
 function findComparisonOperator($string){
+	$operators_4char = array("MULT");
+	foreach($operators_4char as $op){
+		if (strpos($string, $op) !== false){
+			return $op;
+		}
+	}
 	$operators_2char = array("<=", ">=", "!=");
 	foreach($operators_2char as $op){
 		if (strpos($string, $op) !== false){
@@ -269,6 +288,9 @@ class Constraint{
 		// Args doit être un array de type array("Nombre1" => "3", "Nombre2" => "12", ...); 
 
 		switch($this->op){
+			case "MULT":
+				return (int)(($this->l->evaluate($args)%$this->r->evaluate($args)) == 0);
+				break;
 			case "=":
 				return (int)($this->l->evaluate($args) == $this->r->evaluate($args));
 				break;
@@ -378,7 +400,7 @@ class Expression{
 	var $contenu;
 
 	function Expression($t, $c){
-		if($t == "variable" || $t == "value"){
+		if($t == "variable" or $t == "value"){
 			$this->type = $t;
 			if(is_numeric($c)){
 				$this->contenu = $c;
@@ -387,7 +409,7 @@ class Expression{
 				$this->contenu = null;
 			}
 		}
-		elseif($t == "addition"){
+		elseif($t == "addition" or $t == "multiplication"){
 			$this->type = $t;
 			$this->contenu = $c;
 		}
@@ -423,6 +445,35 @@ class Expression{
 			}
 			return $sum;
 		}
+		elseif($this->type == "multiplication"){
+			for($i=0; $i<count($this->contenu["types"]); $i++){
+				if($i == 0){
+					if ($this->contenu["types"][$i] == "mult_value"){
+						$mult = $this->contenu["contenus"][$i];
+					}
+					elseif ($this->contenu["types"][$i] == "mult_variable"){
+						$index = "Nombre".$this->contenu["contenus"][$i];
+						$mult = $args[$index];
+					}
+					else{
+						return null;
+					}
+				}
+				else{
+					if ($this->contenu["types"][$i] == "mult_value"){
+						$mult = $mult * $this->contenu["contenus"][$i];
+					}
+					elseif ($this->contenu["types"][$i] == "mult_variable"){
+						$index = "Nombre".$this->contenu["contenus"][$i];
+						$mult = $mult * $args[$index];
+					}
+					else{
+						return null;
+					}
+				}
+			}
+			return $mult;
+		}
 	}
 
 	function eprint(){ // affiche l'expression.
@@ -454,6 +505,28 @@ class Expression{
 			}
 			return $concat;
 		}
+		elseif($this->type == "multiplication"){
+			$concat = "";
+			$first_iteration = true;
+			for($i = 0; $i<count($this->contenu["types"]); $i++){
+				if($first_iteration){
+					$first_iteration = false;
+				}
+				else{
+					$concat = $concat."*";
+				}
+				if ($this->contenu["types"][$i] == "mult_value"){
+					$concat = $concat.(string)$this->contenu["contenus"][$i];
+				}
+				elseif ($this->contenu["types"][$i] == "mult_variable"){
+					$concat = $concat."Nombre".$this->contenu["contenus"][$i] ;
+				}
+				else{
+					return null;
+				}
+			}
+			return $concat;
+		}
 	}
 
 	function isType($type){
@@ -466,11 +539,15 @@ class Expression{
 }
 
 function evalExpression($string){
+
+	// Symboles qui devraient être traitées dans l'idéal... : (, ), -, *, /
+
 	// Créer une instance de la classe Expression à partir d'une chaine de caractères
 	
 	// Tout d'abord, on refuse l'expression si elle contient un caractère interdit
 
-	$forbiddenChars = array("/", "-", "*", "=", "<", ">", ">=", "<=", "!=");
+	//$forbiddenChars = array("/", "-", "*", "=", "<", ">", ">=", "<=", "!="); // Si on vire l'astérisque après, remet en cause la définition de l'addition après...
+	$forbiddenChars = array("/", "-", "=", "<", ">", ">=", "<=", "!=");
 	foreach($forbiddenChars as $ch){
 		if (strpos($string, $ch) !== false){
 			return null;
@@ -482,9 +559,39 @@ function evalExpression($string){
 		- un nombre => type "value"
 		- une expression avec un ou plusieurs "+" => type "addition" */
 
-	if(strpos($string, "+") !== false){ // Addition
+	$regex_variable =  '#^n(ombre)?[1-9]$#i'; // Pour l'instant, on accepte uniquement Nombre1, nombre1, NOMBRE1, n1, N1...
+
+	if(strpos($string, "*") !== false){
+		$tmp = explode("*", $string);
+		$typeTab = array();
+		$contentTab = array();
+		foreach($tmp as $elem){
+			if(!($elem)) {
+				return null;
+			}
+			elseif(is_numeric($elem)){
+				$curType = "mult_value";
+				$curContent = (int)$elem;
+			}
+			else{
+				if(preg_match($regex_variable, $elem)){
+					$curType = "mult_variable";
+					$curContent = (int)mb_substr($elem, -1); //On récupère le chiffre, qui est le dernier caractère
+				}
+				else{
+					return null;
+				}
+			}
+			$typeTab[] = $curType;
+			$contentTab[] = $curContent;
+		}
+		$totalContent = array("types" => $typeTab, "contenus" => $contentTab);
+
+		$expr = new Expression("multiplication", $totalContent);
+	}
+	elseif(strpos($string, "+") !== false){  // Fin de l'ex version qui marchait
+	//if(strpos($string, "+") !== false){
 		// Dans ce cas, je veux que expression renvoie : type = "addition", contenu = array(types, contenus)
-		$regex_variable =  '#^n(ombre)?[1-9]$#i';
 		$tmp = explode("+", $string);
 		$typeTab = array();
 		$contentTab = array();
@@ -515,7 +622,6 @@ function evalExpression($string){
 		$expr = new Expression('value', (int)$string);	
 	}
 	else{ //Variable au format "NombreX"
-		$regex_variable =  '#^n(ombre)?[1-9]$#i'; // Pour l'instant, on accepte uniquement Nombre1, nombre1, NOMBRE1, n1, N1...
 		if(preg_match($regex_variable, $string)){
 			$var_number = mb_substr($string, -1); //On récupère le chiffre, qui est le dernier caractère
 			$expr = new Expression('variable', (int)$var_number);
@@ -683,7 +789,7 @@ function generateNumbersWithConstraints($numConstraints, $n){
 	}
 
 	$trial_n = 1;
-	$MAX_TRIAL = 5000;
+	$MAX_TRIAL = 10000;
 	while($trial_n <= $MAX_TRIAL){
 		$ret = $fixed_ret;
 		foreach($n as $numb){
