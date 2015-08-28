@@ -245,8 +245,7 @@
 			            <td align="center"><input name="effacer" type="button" class="bouton" id="effacer2"
 				  	onClick="document.info.zonetexte.value='';document.info.zonetexte.focus();" value="Effacer toute la feuille" style="width:150">            </td>
 			            <td align="center"><input name="retour" type="button" class="bouton" onClick="inserer('\n');document.info.zonetexte.focus();" value="Passer &agrave; la ligne" style="width:115"></td>
-			            <td align="center"><input name="annuler" type="button" class="bouton" id="annuler" 
-				  		onClick="if (feuille.isContentEditable==true) annulerAction();" value="Annuler"></td>
+			            <!-- <td align="center"><input name="annuler" type="button" class="bouton" id="annuler" onClick="if (feuille.isContentEditable==true) annulerAction();" value="Annuler"></td> -->
 			          </tr>
 			          <tr align="center">
 			            <td colspan="3" valign="middle"><textarea name="zonetexte" cols="45" rows="24" class="champText" id="feuille"

@@ -14,7 +14,7 @@
 		$nomEleve = trim(ucfirst($enregistrement['prenom'])).$space.trim(ucfirst($enregistrement['nom']));
 		$buttonText = $nomEleve.", ". strtoupper($enregistrement['classe']).", ".$enregistrement['ecole'];
 		//echo '<input name="buttonPupil[]" type="button" value ="'.$buttonText.'" onclick=selectPupil('.$enregistrement['numEleve'].','.(string)$nomEleve.')";>';
-		echo "<input name=\"buttonPupil[]\" type=\"button\" value =\"".$buttonText."\" onclick=\"selectPupil(".$enregistrement['numEleve'].",&quot;".$enregistrement['prenom']."&quot;);\"/><br/>";
+		echo "<input name=\"buttonPupil[]\" type=\"button\" value =\"".$buttonText."\" onclick=\"selectPupil(".$enregistrement['numEleve'].",&quot;".ucfirst($enregistrement['prenom'])."&quot;);\"/><br/>";
 		echo '</p>';
 	}
 
@@ -22,18 +22,19 @@
 	if(isset($_SESSION['choosePupil'])){ //Feedback from code_selection.php
 		if($_SESSION['choosePupil']['choice']){
 			$choosePupil = True;
-			$idSerie = $_SESSION['choosePupil']['idSerie'];
-			$_SESSION['chosenSerie'] = $idSerie;
+			$selectedCode = $_SESSION['choosePupil']['selectedCode'];
+			$_SESSION['chosenSerie'] = $_SESSION['choosePupil']['idSerie'];
 		}
 		else{
-			$feedback_choosePupil = "Aucune série n'a été trouvée avec ce code."; 
+			$feedback_choosePupil = "Aucune série n'a été trouvée avec ce code. Tu as peut-être mal écrit le code."; 
 			//echo "Aucune série n'a été trouvée avec ce code."; //TODO: régler ça mieux
 		}
 		unset($_SESSION['choosePupil']);
 	}
 
+	$wrongBirthday = false;
 	if(isset($_SESSION['wrongBirthday'])){ // Feedback from verifBirthday.php
-		echo "La date d'anniversaire choisie n'est pas la bonne.";
+		$wrongBirthday = true;
 		unset($_SESSION['wrongBirthday']);
 	}
 
@@ -115,108 +116,111 @@
 	<body>
 		<?php require_once("headerEleve.php"); ?>
 
+		<div id="form_container">
 
-		<?php
-		if(isset($feedback_choosePupil)){
-			echo '<p>';
-			echo $feedback_choosePupil;
-			echo '</p>';
-		}
-
-		if(!($choosePupil)){
-			echo '<p>';
-			echo '	Bonjour et bienvenu sur DIANE ! Si ton enseignant t\'as donné un code avec des lettres et des chiffres, il faut l\'écrire ici :';
-			echo '</p>';
-			echo '<form name="form1" id="formCodeSelection" method="post" action="code_selection.php" autocomplete="off">';
-			echo '	 <p><input type="text" size="5" name="code"></p>';
-			echo '	 <input type="submit" name="Submit" value="Aller">';
-			echo '</form>';
-		}
-		else{ //(=> $choosePupil == True)
-
-			$req = $bdd->prepare("SELECT idEleve FROM serie_eleve WHERE idSerie = ?");
-			$req->execute(array($idSerie));
-
-			// TODO: IL faut un rowcount, et faire quelque chose si c'est trop élevé...
-
-			$nb_eleves = $req->rowCount();
-
-			if($nb_eleves == 0){
-				echo '<p>Cette série d\'exercices existe, mais aucun élève ne doit la faire.</p>';
-				echo '<input type= "button" value="Revenir" onclick="getBackToEleve()"/>';
+			<?php
+			if(isset($feedback_choosePupil)){
+				echo '<p id="feedback_mauvais_code">';
+				echo $feedback_choosePupil;
+				echo '</p>';
 			}
 
-			else{ 
-				echo '<p>Choisis ton nom dans la liste :</p>';
-				echo '<ul id="list_pupils">';
+			if($wrongBirthday){
+				echo '<p id="feedback_mauvais_anniversaire">';
+				echo "La date d'anniversaire choisie n'est pas la bonne.";
+				echo '</p>';
 			}
 
-			while ($enregistrement = $req->fetch()){
-				$current_pupil = $enregistrement['idEleve'];
-				$req2 = $bdd->prepare("SELECT * FROM eleve WHERE numEleve = ?");
-				$req2->execute(array($current_pupil));
-				displayPupil($req2->fetch());
-				$req2->closeCursor();
+			if(!($choosePupil)){// NON faudrait différencier false par défaut et foirage de choix
+				if(!(isset($feedback_choosePupil)) and !($wrongBirthday)){
+					echo '<p>Bienvenu sur DIANE ! </p>';
+				}
+				echo '<p>Si ton enseignant t\'as donné un code avec des lettres et des chiffres, il faut l\'écrire ici :</p>';
+				echo '<form name="form1" id="formCodeSelection" method="post" action="code_selection.php" autocomplete="off">';
+				echo '	 <p><input type="text" size="5" name="code"></p>';
+				echo '	 <input type="submit" name="Submit" value="Aller">';
+				echo '</form>';
 			}
-			$req->closeCursor();
+			else{ //(=> $choosePupil == True)
 
-			echo '</ul>';
-		}
-		?>
+				$req = $bdd->prepare("SELECT idEleve FROM serie_eleve WHERE code = ?");
+				$req->execute(array($selectedCode));
 
-		<form name="form_birthday" id="form_birthday_eleve" method="post" action="verifBirthday.php">
-			<p>Bonjour <span id="nomEleveFormBirthday"></span>, choisis maintenant le jour et le mois de ta naissance pour te connecter.</p>
-			
-			<label for="day_birthday">Jour</label>
-			<select name = "day_birthday">
-				<?php
-				for($i=1; $i<32;$i++){
-					echo '<option value="'.$i.'">'.$i.'</option>';
+				$nb_eleves = $req->rowCount();
+
+				if($nb_eleves == 0){
+					echo '<p>Ce code n\'est pas valide.</p>';
+					echo '<input type= "button" value="Revenir" onclick="getBackToEleve()"/>';
 				}
-				?>
-			</select>
-			<br/>
-			<label for="month_birthday">Mois</label>
-			<select name = "month_birthday">
-				<?php
-				for($i=1; $i<13;$i++){
-					echo '<option value="'.$i.'">'.$noms_mois[$i-1].'</option>';
+
+				else{ 
+					echo '<p>Choisis ton nom dans la liste :</p>';
+					echo '<ul id="list_pupils">';
+					while ($enregistrement = $req->fetch()){
+						$current_pupil = $enregistrement['idEleve'];
+						$req2 = $bdd->prepare("SELECT * FROM eleve WHERE numEleve = ?");
+						$req2->execute(array($current_pupil));
+						displayPupil($req2->fetch());
+						$req2->closeCursor();
+					}
+					$req->closeCursor();
+
+					echo '</ul>';
 				}
-				?>
-			</select>
-			<br/>
-			<input type="hidden" name="idPupilHidden" id="idPupilHidden">
-			<input type="submit" value="Continuer">
-		</form>
+			}
+			?>
 
-
-		
-
-		<form name="form2" method="post" id="formNomPrenom" action="eleve.php">
-			<p>
-				Sinon, si ton maître ou ta maîtresse t'as inscrit(e) sur DIANE, tu peux te connecter avec ton nom et ton prénom.
-				<?php if($inconnu){
-					echo "<br/><span class=\"error\">Je ne te trouve pas.</span>";
-				}
-			?></p>
-			<table border="0" align="center" cellspacing="0">
-				<!--DWLayoutTable-->
-				<tr>
-					<td >Prénom &nbsp; &nbsp;</td>
-					<td><input type="text" size="40" name="prenom" <?php if($inconnu){echo 'value = '.$_POST['prenom'];}?>>
-					</td>
-				</tr>
-				<tr>
-					<td>Nom &nbsp; &nbsp;</td>
-		  			<td><input type="text" size="40" name="nom" <?php if($inconnu){echo 'value = '.$_POST['nom'];}?>>
-		  			</td>
-				</tr>
+			<form name="form_birthday" id="form_birthday_eleve" method="post" action="verifBirthday.php">
+				<p>Bonjour <span id="nomEleveFormBirthday"></span>, choisis maintenant le jour et le mois de ta naissance pour te connecter.</p>
 				
-			</table>
-			<p>
-				<input type="submit" name="Submit" value="Continuer">
-			</p>
-		</form>
+				<label for="day_birthday">Jour</label>
+				<select name = "day_birthday">
+					<?php
+					for($i=1; $i<32;$i++){
+						echo '<option value="'.$i.'">'.$i.'</option>';
+					}
+					?>
+				</select>
+				<br/>
+				<label for="month_birthday">Mois</label>
+				<select name = "month_birthday">
+					<?php
+					for($i=1; $i<13;$i++){
+						echo '<option value="'.$i.'">'.$noms_mois[$i-1].'</option>';
+					}
+					?>
+				</select>
+				<br/>
+				<input type="hidden" name="idPupilHidden" id="idPupilHidden">
+				<input type="submit" value="Continuer">
+			</form>
+		</div>
+
+			<!-- 
+			<form name="form2" method="post" id="formNomPrenom" action="eleve.php">
+				<p>
+					Sinon, si ton maître ou ta maîtresse t'as inscrit(e) sur DIANE, tu peux te connecter avec ton nom et ton prénom.
+					<?//php if($inconnu){
+						//echo "<br/><span class=\"error\">Je ne te trouve pas.</span>";
+					//}
+				?></p>
+				<table border="0" align="center" cellspacing="0">
+					<tr>
+						<td >Prénom &nbsp; &nbsp;</td>
+						<td><input type="text" size="40" name="prenom" <?php //if($inconnu){echo 'value = '.$_POST['prenom'];}?>>
+						</td>
+					</tr>
+					<tr>
+						<td>Nom &nbsp; &nbsp;</td>
+			  			<td><input type="text" size="40" name="nom" <?php //if($inconnu){echo 'value = '.$_POST['nom'];}?>>
+			  			</td>
+					</tr>
+					
+				</table>
+				<p>
+					<input type="submit" name="Submit" value="Continuer">
+				</p>
+			</form> -->
 
 		<script type="text/javascript">
 			getBackToEleve = function(){

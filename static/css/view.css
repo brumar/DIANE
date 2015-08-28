@@ -944,6 +944,14 @@ font-weight: bold;
 
 /* eleve.php */
 
+#feedback_mauvais_code{
+	font-weight: bold;
+}
+
+#feedback_mauvais_anniversaire{
+	font-weight: bold;
+}
+
 #form_birthday_eleve{
 	display:none;
 }
