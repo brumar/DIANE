@@ -21,16 +21,21 @@
 		<h1><a>Untitled Form</a></h1>				
 					<div class="form_description" style="display:inline-block">
 			<form id="form_470585" class="appnitro" name="mainform" method="post" action="">
-		<h3>Créer un problème le plus simplement possible</h3>
+		<h3>Créer un problème en rédaction libre</h3>
 			<ul>		<li id="li_4" >
-		<label class="description" for="element_4">Ecriture d'un énoncé</label>	
+
+			<?php
+			if($_SESSION['accountType'] == 'chercheur'){
+				echo '<label class="description" for="element_4">Ecriture d\'un énoncé</label>	';
+			}?>
+		
 		<div>	<!-- <input id="property" type="button" name="prop" value="OK" onClick="parent.location='creation_template.php'"/> -->
 		</div>
 		<a  href="ecriture_enonce.php"><img src="static/images/pbm.png" heigth=40px width=52px style="cursor:hand;"></a>
 		<p class="guidelines" id="guide"><small>Choisissez cette option pour construire rapidement un nouveau problème</small></p>
 		</li>	</ul>	
 		
-		<h3>Créer un problème avec des propriétés avancées</h3>
+		<h3>Créer un problème conforme à un canevas existant</h3>
 
 
 		<?php
@@ -53,12 +58,16 @@
 		}
 		?>
 
+
 		<li id="li_7" >
-			<label class="description" for="element_7">Utiliser un template pour générer un problème </label>
-			<div><!-- <input id="pt" type="button" name="prop" value="OK" onClick="parent.location='choix_template.php'"/>-->
-			</div> 
+
+			<?php
+			if($_SESSION['accountType'] == 'chercheur'){
+				echo '<label class="description" for="element_7">Utiliser un canevas pour générer un problème </label>';
+			}?>
+			
 			<a  href="choix_template.php"><img src="static/images/template_instanciate.png" heigth=80px width=50px style="cursor:hand;"></a>
-			<p class="guidelines" id="guide_6"><small>Générer un problème à partir d'un modèle (ou template). Permet un diagnostic des réponses de l'élève. </small></p> 
+			<p class="guidelines" id="guide_6"><small>Générer un problème à partir d'un canevas (ou template). Permet un diagnostic des réponses de l'élève. </small></p> 
 		</li>		</ul>
 		</form>	
 	

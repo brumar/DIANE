@@ -22,26 +22,27 @@
 					<div class="form_description">
 						<h3>Interface Enseignant</h3>
 					</div>			
-
-					<h3>Gérer vos classes</h3>
-					<a href="gestion_classe.php">Accéder à la gestion de vos classes</a>
-
-						
+		
 					<form id="form_470585" class="appnitro"  method="post" action="">
 
 			
 						<ul>
+							<li>
+								<h3>Vos classes</h3>
+								<a href="gestion_classe.php">Accéder à la gestion de vos classes</a>				
+							</li>
 							<li id="li_1">
 								<h3>Problèmes</h3>
-								<a href="gerer_exercices.php"><?php if($_SESSION['accountType'] == 'chercheur'){echo "Gérer";}else{echo "Voir";} ?> les exercices</a><br>
-								<a href="creation_exercice.php">Créer un nouvel exercice</a><br>
+								<li><a href="creation_exercice.php">Créer un nouvel exercice</a><br></li>
+								<li><a href="gerer_exercices.php"><?php if($_SESSION['accountType'] == 'chercheur'){echo "Gérer";}else{echo "Visualiser";} ?> les exercices</a><br></li>
+
 							</li>
 							<li id="li_2" >
 							
 								<h3>Séries d'exercices</h3>
 								<ul>
-								<li><a href="gerer_series.php">Gérer les séries d'exercices</a></li>
 								<li><a href="creer_serie.php">Créer une série d'exercices</a></li>
+								<li><a href="gerer_series.php"><?php if($_SESSION['accountType'] == 'chercheur'){echo "Gérer";}else{echo "Visualiser";} ?> les séries d'exercices</a></li>
 								</ul>
 							</li>
 						</ul>
