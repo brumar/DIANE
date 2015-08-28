@@ -87,8 +87,8 @@
 
 								if($req){
 									
-									$prenomEleve = get_value_BDD('prenom', 'eleve', 'numEleve=?', array($numEleve), $bdd);
-									$nomEleve = get_value_BDD('nom', 'eleve', 'numEleve=?', array($numEleve), $bdd);
+									$prenomEleve = ucfirst(get_value_BDD('prenom', 'eleve', 'numEleve=?', array($numEleve), $bdd));
+									$nomEleve = strtoupper(get_value_BDD('nom', 'eleve', 'numEleve=?', array($numEleve), $bdd));
 									$nomSerie = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($numSerie), $bdd);
 
 									echo "<h2> Réponses de ".$prenomEleve." ".$nomEleve." pour la série ".$nomSerie."</h2>";
@@ -141,8 +141,8 @@
 									$numEleve = $eleve['idEleve'];
 									$state = get_value_BDD('statut', 'serie_eleve', 'idSerie=? AND idEleve=?', array($numSerie, $eleve['idEleve']), $bdd);
 
-									$prenomEleve = get_value_BDD('prenom', 'eleve', 'numEleve=?', array($numEleve), $bdd);
-									$nomEleve = get_value_BDD('nom', 'eleve', 'numEleve=?', array($numEleve), $bdd);
+									$prenomEleve = ucfirst(get_value_BDD('prenom', 'eleve', 'numEleve=?', array($numEleve), $bdd));
+									$nomEleve = strtoupper(get_value_BDD('nom', 'eleve', 'numEleve=?', array($numEleve), $bdd));
 									$complete_name = $prenomEleve." ".$nomEleve;
 
 									if($state == "untouched"){
@@ -181,7 +181,6 @@
 											}
 										}
 									}
-
 								}
 
 								break;
@@ -191,8 +190,19 @@
 						}
 					?>	
 
+					<form>
+					  <input id="impression" name="impression" type="button" onclick="imprimer_page()" value="Imprimer cette page" />
+					</form>
 			</div>
+			
 
 		<img id="bottom" src="static/images/bottom.png" alt="">
 	</body>
+
+	<script type="text/javascript">
+	function imprimer_page(){
+	  window.print();
+	}
+	</script>
+
 </html>
