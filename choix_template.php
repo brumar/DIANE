@@ -26,10 +26,10 @@
 						// $exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');
 
 						if($_SESSION['accountType'] == "enseignant"){
-							$exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 ORDER BY id');	
+							$exoProperties = $bdd->query('SELECT id, name FROM properties WHERE tri_prof = 1 AND type = "problem" ORDER BY id');	
 						}
 						elseif($_SESSION['accountType'] == "chercheur"){
-							$exoProperties = $bdd->query('SELECT id, name FROM properties ORDER BY id');
+							$exoProperties = $bdd->query('SELECT id, name FROM properties WHERE type = "problem" ORDER BY id');
 						}
 						
 						foreach($exoProperties->fetchall() as $property){
@@ -65,7 +65,7 @@
 			*/
 
 
-			$result = $bdd->query("SELECT * FROM pbm_template order by id desc");
+			$result = $bdd->query("SELECT * FROM pbm_template WHERE visible=1 order by id desc");
 				
 			if ($result) { // Si il y'a des résultats
 			// while ($rs = mysql_fetch_array($query)) {

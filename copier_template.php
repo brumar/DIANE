@@ -30,9 +30,7 @@
 				$nb=6;
 				if(empty($page)) $page = 1;
 				if(empty($total)){ // nombre total de résultats
-					//$sql1 = "SELECT * FROM pbm_globalcontent";
-					//$total=mysql_num_rows(mysql_query($sql1));
-					$res = $bdd->query("SELECT * FROM pbm_template");
+					$res = $bdd->query("SELECT * FROM pbm_template WHERE visible=1");
 					$total = $res->rowCount();
 					$res->closeCursor();
 					//$total = @mysql_result($p,"0","qte");
@@ -40,7 +38,7 @@
 
 				// on determine debut du limit
 				$debut = ($page - 1) * $nb;
-				$result = $bdd->query("SELECT * FROM pbm_template order by id desc LIMIT $debut,$nb");
+				$result = $bdd->query("SELECT * FROM pbm_template WHERE visible=1 order by id desc LIMIT $debut,$nb");
 
 				if($result){ // Si il y'a des résultats
 					$t=0;
@@ -48,8 +46,16 @@
 					{
 						$text1 =  $enregistrement["Text_html"];
 						$id= $enregistrement["id"];
-						?>
+
+						$template_description = $enregistrement["public_notes"];
+						?>						
+
 						<li id="li_<?php echo($t);$t++;?>">
+						<div>
+							<span class="template_description">
+							<?php echo $template_description;?>
+							</span>
+						</div>
 						<div style="width:350px;display:inline-block;margin:0 0 5px 40px;padding:10px;border:1px solid black"> 
 						<?php echo( $text1); ?>
 						</div>

@@ -47,7 +47,7 @@
 		$limText=110;
 		$nomSerie = $enregistrement['nomSerie'];
 		$id= $enregistrement['idSerie'];
-		$code = $enregistrement['code'];
+		//$code = $enregistrement['code'];
 		$commentaire = $enregistrement['commentaire'];
 
 
@@ -58,9 +58,6 @@
 					echo "<em>".$nomSerie."</em><br><br>".$commentaire;
 				echo"</span>";
 				echo "</span>";
-				echo "<span class=\"serie_code\">";
-					echo $code;
-				echo"</span>";
 				echo"<span class=\"serie_see\">";
 					echo"<a id=\"serie_see".$id."\" href=\"\" onclick=\"visualizeSerie(".$id.");return false;\"><img src=\"static/images/loupe.gif\" alt=\"voir cette série\"/></a>";
 				echo"</span>";
@@ -143,8 +140,14 @@
 				
 				// Séries crées par l'id en session
 
-				//$vosSeries = $bdd->query("SELECT * FROM serie WHERE idCreator = ".$_SESSION['id']."ORDER BY ordrePres"); //try - catch ?
-				$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? ORDER BY ordrePres");
+				if($_SESSION['accountType'] == 'chercheur'){
+					$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? AND visibilite IN ('searchersOnly', 'all', 'private') ORDER BY ordrePres");
+				}
+				elseif($_SESSION['accountType'] == 'enseignant'){
+					$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? AND visibilite IN ('all', 'private') ORDER BY ordrePres");
+				}
+
+
 				$vosSeries->execute(array($_SESSION['id']));
 				$vosSeriesFlag = False; //flag, vaut vrai quand l'account connecté a créé des séries
 				if($vosSeries->rowCount()!=0){
@@ -165,11 +168,23 @@
 				
 				if($vosSeriesFlag){
 					echo"<h3>Autres séries d'exercices</h3>";
-					$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? ORDER BY ordrePres");
+					//$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? ORDER BY ordrePres");
+					if($_SESSION['accountType'] == 'chercheur'){
+						$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? AND visibilite IN ('searchersOnly', 'all') ORDER BY ordrePres");
+					}
+					elseif($_SESSION['accountType'] == 'enseignant'){
+						$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? AND visibilite = 'all' ORDER BY ordrePres");
+					}
 					$autresSeries->execute(array($_SESSION['id']));
 				}
 				else{
-					$autresSeries = $bdd->query('SELECT * FROM serie ORDER BY ordrePres'); //try - catch ?
+					//$autresSeries = $bdd->query('SELECT * FROM serie ORDER BY ordrePres'); //try - catch ?
+					if($_SESSION['accountType'] == 'chercheur'){
+						$autresSeries = $bdd->query("SELECT * FROM serie WHERE visibilite IN ('searchersOnly', 'all') ORDER BY ordrePres");
+					}
+					elseif($_SESSION['accountType'] == 'enseignant'){
+						$autresSeries = $bdd->query("SELECT * FROM serie WHERE visibilite = 'all' ORDER BY ordrePres");
+					}
 				}
 				if ($autresSeries->rowCount()!=0) 
 				{ // Si il y'a des résultats

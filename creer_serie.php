@@ -35,6 +35,23 @@
 						</div><p class="guidelines" id="guide_998"><small>Vous pouvez décrire ici les caractéristiques de cette série d'exercices.</small></p> 
 					</li>
 
+					<?php
+						if($_SESSION['accountType'] == 'chercheur'){
+							?>
+							<li id="li_997">
+								<label class="description">Par qui cette série sera-t-elle visible ? </label>
+								<div>
+									<select name="visibiliteSerie">
+										<option value="all" selected>Par tous</option>
+										<option value="searchersOnly">Par les chercheurs uniquement (pas les enseignants)</option>
+										<option value="private">Uniquement par vous-même</option>
+									</select>
+								</div><p class="guidelines" id="guide_997"><small>Sélectionnez qui pourra voir et utiliser la série.</small></p> 
+							</li>
+
+							<?php
+						}
+					?>
 				</ul>		
 		
 
@@ -89,7 +106,7 @@
 
 				// Exercices crées par l'id en session
 
-				$vosExercices = $bdd->prepare("SELECT * FROM pbm WHERE idCreator = ? ORDER BY idPbm DESC");
+				$vosExercices = $bdd->prepare("SELECT * FROM pbm WHERE idCreator = ? AND visible = 1 ORDER BY idPbm DESC");
 				$vosExercices->execute(array($_SESSION['id']));
 				$vosExos = False; //flag, vaut vrai quand l'account connecté a créé des séries
 				if($vosExercices->rowCount()!=0){
@@ -105,11 +122,11 @@
 				
 				if($vosExos){
 					echo"<h3>Autres exercices</h3>";
-					$autresExos = $bdd->prepare("SELECT * FROM pbm WHERE idCreator <> ? ORDER BY idPbm DESC");
+					$autresExos = $bdd->prepare("SELECT * FROM pbm WHERE idCreator <> ? AND visible = 1 ORDER BY idPbm DESC");
 					$autresExos->execute(array($_SESSION['id']));
 				}
 				else{
-					$autresExos = $bdd->query('SELECT * FROM pbm ORDER BY idPbm DESC'); //try - catch ?
+					$autresExos = $bdd->query('SELECT * FROM pbm WHERE visible = 1 ORDER BY idPbm DESC'); //try - catch ?
 				}
 				if ($autresExos->rowCount()!=0) 
 				{ // Si il y'a des résultats

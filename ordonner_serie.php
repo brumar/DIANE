@@ -3,16 +3,6 @@
 	require_once("conn_pdo.php");
 	require_once("ListFunction.php");
 	
-	function generer_code(){
-		$LEN_CODE = 3; //$LEN_CODE = 5;
-		$string = "";
-		$chaine = "bcdfghjklmnpqrstvwxy0123456789"; //$chaine = "abcdefghijklmnpqrstuvwxy"; //$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
-		srand((double)microtime()*1000000);
-		for($i=0; $i < $LEN_CODE; $i++) {
-			$string .= $chaine[rand()%strlen($chaine)];
-		}
-		return strtoupper($string);
-	}
 
 	$tab_id = [];
 	$nameAlreadyTaken = false;
@@ -34,6 +24,13 @@
 		$thisComS = $_POST['commentaireSerie'];
 	}
 
+	if(isset($_POST['visibiliteSerie'])){
+		$visib = $_POST['visibiliteSerie'];
+	}
+	else{
+		$visib = "private"; // Toujours le cas pour les séries créées par les profs
+	}
+
 	if(isset($_POST['check_pb'])){
 		foreach($_POST['check_pb'] as $checked_id)
 		{
@@ -52,34 +49,32 @@
 	if(isset($_POST['ordersForm'])){ // On enregistre dans la base de données et on redirige
 		$keep_going = true;
 		$inc = 0;
-		while($keep_going){
-			$gen_code = generer_code();
-			if(!(exists_in_BDD('serie', 'code = ?', array($gen_code), $bdd))) {
-				$keep_going = false;
-			}
-			else{
-				$inc++;
-				if($inc>=1000){
-					die("Problème lors de la génération du code de la série.");
-				}
-			}
-		}
+		// while($keep_going){
+		// 	$gen_code = generer_code();
+		// 	if(!(exists_in_BDD('serie', 'code = ?', array($gen_code), $bdd))) {
+		// 		$keep_going = false;
+		// 	}
+		// 	else{
+		// 		$inc++;
+		// 		if($inc>=1000){
+		// 			die("Problème lors de la génération du code de la série.");
+		// 		}
+		// 	}
+		// }
 
 
 		$maxReq = $bdd->query("SELECT MAX(ordrePres) FROM serie");
 		$maxOrdrePres = $maxReq->fetchColumn(); 
 		$ordrePres = $maxOrdrePres + 1;
 
-		$visib = "searchersOnly";
 
 		//Mise à jour de la table "serie"
-		$req = $bdd->prepare("INSERT INTO serie VALUES(:idSerie, :nomSerie, :commentaire, :ordrePres, :code, :idCreator, :visibilite)");
+		$req = $bdd->prepare("INSERT INTO serie VALUES(:idSerie, :nomSerie, :commentaire, :ordrePres, :idCreator, :visibilite)");
 		$req->execute(array(
 			'idSerie' => '',
 			'nomSerie' => $_POST['thisNomSerie'],
 			'commentaire' => $_POST['thisCommentaireSerie'],
 			'ordrePres' => $ordrePres,
-			'code' => $gen_code,
 			'idCreator' => $_SESSION['id'],
 			'visibilite' => $visib));
 
@@ -179,7 +174,8 @@
 
 			<div id="ordonner_serie_panel2">
 				<form action="ordonner_serie.php" method="post" class="appnitro" onsubmit="return false">
-					<p>Votre nouvelle série a bien été créée. Les élèves pourront y accéder en utilisant le code suivant : <em><?php if(isset($gen_code)){echo $gen_code;}?></em>. Vous pouvez retrouver ce code ainsi que les codes des autres séries sur la <a href="gerer_series.php">page de gestion des séries d'exercices</a>.</p>
+					<p>Votre nouvelle série a bien été créée. <!-- Les élèves pourront y accéder en utilisant le code suivant : <em><?php //if(isset($gen_code)){echo $gen_code;}?></em>. 
+					Vous pouvez retrouver ce code ainsi que les codes des autres séries sur la <a href="gerer_series.php">page de gestion des séries d'exercices</a>.</p> -->
 					<p>Cliquez <a href="profil_enseignant.php">ici pour revenir sur votre profil</a>, ou bien <a href="creer_serie.php">ici créer une nouvelle série d'exercices</a>.</p>
 				</form>
 			</div>
