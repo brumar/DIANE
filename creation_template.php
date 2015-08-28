@@ -178,7 +178,7 @@
 			</div>
 			
 			<div style="width:150px;height:100px;padding:5px;margin:5px;display:inline-block;">
-				<?php if (isset($text)) echo("<img src=static/images/legend.png>");?>
+				<?php //if (isset($text)) echo("<img src=static/images/legend.png>");?>
 			</div><br>
 
 					<input type="hidden" name="buttonPressed" id="buttonPressedId">

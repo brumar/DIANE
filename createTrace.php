@@ -36,8 +36,26 @@
 					update_value_BDD('serie_eleve', 'statut = "finishedMultipleTimes"', 'idEleve = ? AND idSerie = ?', array($_SESSION['numEleve'], $_SESSION['passation']['numSerie']), $bdd);
 				}
 			}
-			unset($_SESSION['passation']);
-			header("Location: profil_eleve.php"); // TODO : mieux rediriger quand la session est finie
+
+			if(isset($_SESSION['passation']['type'])){
+				if($_SESSION['passation']['type'] == "CODE"){
+					unset($_SESSION['passation']);
+					// TODO : rajouter un message de feedback à la fin
+					header("Location: fin_session.php");
+				}
+				elseif($_SESSION['passation']['type'] == "NOM"){
+					unset($_SESSION['passation']);
+					header("Location: profil_eleve.php");
+				}
+				else{
+					unset($_SESSION['passation']);
+					header("Location: fin_session.php");
+				}
+			}
+			else{
+				unset($_SESSION['passation']);
+				header("Location: fin_session.php");
+			}
 		}
 		else{
 			header("Location: interface.php");
