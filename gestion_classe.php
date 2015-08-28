@@ -35,6 +35,7 @@
 		echo "<td>";
 		if($devoirsEleve !=null){
 			$first_line =true;
+			$serie_student_code = array();
 			foreach($devoirsEleve as $serieAFaire){
 				if($first_line){
 					$first_line=false;
@@ -43,11 +44,13 @@
 					echo"<br/>";
 				}
 				$serie_name = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($serieAFaire['idSerie']), $b);
+				$serie_student_code[] = get_value_BDD('code', 'serie_eleve', 'idSerie=? AND idEleve=?', array($serieAFaire['idSerie'], $enregistrement['numEleve']), $b);
+
 				$serie_statut="";
 				$clickable = false;
 				switch((string)$serieAFaire['statut']){ //'untouched','opened','finishedOnce','finishedMultipleTimes'
 					case "untouched":
-						$serie_statut = "Pas touché";
+						$serie_statut = "Non traité";
 						$clickable = false;
 						break;
 					case "opened":
@@ -55,15 +58,15 @@
 						$clickable = false;
 						break;
 					case "finishedOnce":
-						$serie_statut = "Fini une fois";
+						$serie_statut = "Résolu une fois";
 						$clickable = true;
 						break;
 					case "finishedMultipleTimes":
-						$serie_statut = "Fini plus d'une fois";
+						$serie_statut = "Résolu plus d'une fois";
 						$clickable = true;
 						break;
 					default:
-						$serie_statut = "Pas déterminé";
+						$serie_statut = "Indéterminé";
 						$clickable = false;
 						break;
 				}
@@ -76,55 +79,25 @@
 					echo "</a>";
 				}
 			}
-			
+			echo "</td>";
+			echo "<td>";
+			foreach($serie_student_code as $code){
+				echo $code;
+				echo "</br>";
+			}
+			echo "</td>";
+				
+
 		}
 		else{
 			echo "Aucun devoirs";
+			echo "</td>";
 		}
-		echo "</td>";
+		
 		echo "</tr>";
 	}
 
 	function displayClasse($enregistrement, $b){
-		// $limText=110;
-		// $text1 = $enregistrement['nomSerie'];
-		// $id= $enregistrement['idSerie'];
-		// $code = $enregistrement['code'];
-
-		// if (strlen($text1) > $limText) 
-		// {
-		// 	$text1=substr($text1, 0, $limText).'[...]';
-		// }
-
-		// //echo "<li id=\"li_".$count."\">";
-		// echo "<li>";
-		// 	echo "<div class=\"serie_s\">";
-		// 		echo "<span class=\"serie_text\">";
-		// 			echo $text1;
-		// 		echo"</span>";
-		// 		echo "</span>";
-		// 		echo "<span class=\"serie_code\">";
-		// 			echo $code;
-		// 		echo"</span>";
-		// 		echo"<span class=\"serie_see\">";
-		// 			echo"<a id=\"serie_see".$id."\" href=\"\" onclick=\"visualizeSerie(".$id.");return false;\"><img src=\"static/images/loupe.gif\" alt=\"voir cette série\"/></a>";
-		// 		echo"</span>";
-
-		// 		//if(isset($_SESSION['accountType'])){
-		// 			//if($_SESSION['accountType']=='chercheur'){
-		// 		if($rights & SERIE_RIGHTS_SUPPR){
-		// 			echo "<span class=\"serie_delete\">";
-		// 			echo "<a id=\"serie_delete".$id."\" href=\"\" onclick=\"confirmSuppr(".$id.");return false;\"><img src=\"static/images/delete.png\" alt=\"supprimer cette série\"/></a>";
-		// 			echo "</span>";
-		// 		}
-		// 		if($rights & SERIE_RIGHTS_PROMOTE){
-		// 			echo "<span class=\"serie_promote\">";
-		// 			echo "<a id=\"serie_promote".$id."\" href=\"s_pro".$id.".php\"><img src=\"static/images/star.png\" alt=\"promouvoir cette série\"/></a>";
-		// 			echo "</span>";
-		// 		}
-
-		// 	echo"</div>";
-		// echo"</li>";
 
 		$idClass = $enregistrement['idClasse'];
 
@@ -134,55 +107,70 @@
 		// echo '</span>';
 		// echo '</div>';
 		
-		echo '<div class="classe">';
-		echo '<a class="Class_see" id="Class_see"'.$idClass.'href="" onclick="visualizeClass(&quot;'.$idClass.'&quot;);return false;">'.$enregistrement['nom'].'</a>';
-		echo '</div>';
+		$derouler = false;
 
 		if(isset($_SESSION['classToSee'])){
 			if($idClass == $_SESSION['classToSee']){
+				$derouler = true;
+			}
+		}
+		
+		if($_SESSION['accountType'] == 'enseignant'){
+			$derouler = true;
+		}
 
-				echo "<div class= display_classe>";
-				echo "<table>";
-				echo "<tr><th colspan = \"2\">Eleve</th><th>Devoirs</th></tr>";
+		echo '<div class="classe">';
+		if($derouler){
+			echo '<span id="Class_see"'.$idClass.'>'.$enregistrement['nom'].'</span>';
+		}
+		else{
+			echo '<a class="Class_see" id="Class_see"'.$idClass.'href="" onclick="visualizeClass(&quot;'.$idClass.'&quot;);return false;">'.$enregistrement['nom'].'</a>';
+		}
+		echo '</div>';
 
-				$req = $b->query('SELECT idEleve from classe_eleve WHERE idClasse = '.$idClass);
-				while ($fetchEleve = $req->fetch()){
 
-					$devoirs = $b->prepare("SELECT idSerie, statut FROM serie_eleve WHERE idEleve =?");
-					$devoirs->execute(array($fetchEleve['idEleve']));
-					// Faut récupérer Nom_serie.
+		if($derouler){
+			echo "<div class= display_classe>";
+			echo "<table>";
+			echo "<tr><th colspan = \"2\">Eleve</th><th>Devoirs</th><th>Code d'accès</th></tr>";
 
-					$eleve = $b->prepare("SELECT * FROM eleve WHERE numEleve = ?");
-					$eleve->execute(array($fetchEleve['idEleve']));
+			$req = $b->query('SELECT idEleve from classe_eleve WHERE idClasse = '.$idClass);
+			while ($fetchEleve = $req->fetch()){
 
-					displayEleve($eleve->fetch(), $devoirs->fetchAll(), $b);
-					$devoirs->closeCursor();
-					$eleve->closeCursor();
-				}
-				$req->closeCursor();
-				echo "</table>";
-				echo "Voir les résultats de toute la classe pour la série :";
+				$devoirs = $b->prepare("SELECT idSerie, statut FROM serie_eleve WHERE idEleve =?");
+				$devoirs->execute(array($fetchEleve['idEleve']));
+				// Faut récupérer Nom_serie.
 
-				//On récupère toutes les séries utilisées pour cette classe
-				$class_series = array();
-				$eleves2 = $b->query('SELECT idEleve FROM classe_eleve WHERE idClasse = '.$idClass);
-				while($eleve = $eleves2->fetch()){
-					$series3 = $b->query('SELECT idSerie FROM serie_eleve WHERE idEleve ='.$eleve['idEleve']);
-					while($ser = $series3->fetch()){
-						if(!(in_array($ser['idSerie'], $class_series))){
-							$class_series[] = $ser['idSerie'];
-						}
+				$eleve = $b->prepare("SELECT * FROM eleve WHERE numEleve = ?");
+				$eleve->execute(array($fetchEleve['idEleve']));
+
+				displayEleve($eleve->fetch(), $devoirs->fetchAll(), $b);
+				$devoirs->closeCursor();
+				$eleve->closeCursor();
+			}
+			$req->closeCursor();
+			echo "</table>";
+			echo "Voir les résultats de toute la classe pour la série :";
+
+			//On récupère toutes les séries utilisées pour cette classe
+			$class_series = array();
+			$eleves2 = $b->query('SELECT idEleve FROM classe_eleve WHERE idClasse = '.$idClass);
+			while($eleve = $eleves2->fetch()){
+				$series3 = $b->query('SELECT idSerie FROM serie_eleve WHERE idEleve ='.$eleve['idEleve']);
+				while($ser = $series3->fetch()){
+					if(!(in_array($ser['idSerie'], $class_series))){
+						$class_series[] = $ser['idSerie'];
 					}
 				}
-
-				foreach($class_series as $serieForClass){
-					//get_value_BDD($key, $table, $where, $array_req, $b)
-					$nameSerie = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($serieForClass), $b);
-					echo "<button onclick=\"clickSerieClasse(".(string)$serieForClass.",".(string)$idClass.");return false;\">".$nameSerie."</button>";
-				}
-				echo "</div>";
 			}
-		}		
+
+			foreach($class_series as $serieForClass){
+				//get_value_BDD($key, $table, $where, $array_req, $b)
+				$nameSerie = get_value_BDD('nomSerie', 'serie', 'idSerie=?', array($serieForClass), $b);
+				echo "<button onclick=\"clickSerieClasse(".(string)$serieForClass.",".(string)$idClass.");return false;\">".$nameSerie."</button>";
+			}
+			echo "</div>";
+		}	
 	}
 ?>
 
@@ -237,10 +225,10 @@
 					$n_classes = $vosClasses->rowCount();
 					if($n_classes > 0){
 						if($n_classes == 1){
-							echo"<h3>Votre classe</h3>";
+							echo"<h3>Données relatives à votre classe</h3>";
 						}
 						else{
-							echo"<h3>Vos classes</h3>";
+							echo"<h3>Données relatives à vos classes</h3>";
 						}
 
 						echo '<form action="gestion_classe.php" method="post" class="appnitro" id="action_form">';
@@ -283,6 +271,7 @@
 									echo '	<label class="description" for="element_993">Choix de la classe</label>';
 									echo '	<div>';
 									echo '		<select id="f2_classe" name="classe">';
+									echo '			<option value="-1">...</option>';
 									while ($enregistrement = $vosClasses->fetch()){
 										echo '			<option value="'.$enregistrement['idClasse'].'">'.$enregistrement['nom'].'</option>';
 									}
@@ -299,15 +288,27 @@
 
 									<div>
 										<select id="f2_serie" name="serie">
+										<option value="-1">...</option>
 										<?php
-											$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? ORDER BY ordrePres");
+
+											if($_SESSION['accountType'] == 'chercheur'){
+												$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? AND visibilite IN ('searchersOnly', 'all', 'private') ORDER BY ordrePres");
+											}
+											elseif($_SESSION['accountType'] == 'enseignant'){
+												$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? AND visibilite IN ('all', 'private') ORDER BY ordrePres");
+											}
 											$vosSeries->execute(array($_SESSION['id']));
 											while ($enregistrement = $vosSeries->fetch()){
 												echo '<option value="'.$enregistrement['idSerie'].'">'.$enregistrement['nomSerie'].'</option>';
 											} 
 											$vosSeries->closeCursor();
 
-											$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? ORDER BY ordrePres");
+											if($_SESSION['accountType'] == 'chercheur'){
+												$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? AND visibilite IN ('searchersOnly', 'all') ORDER BY ordrePres");
+											}
+											elseif($_SESSION['accountType'] == 'enseignant'){
+												$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? AND visibilite = 'all' ORDER BY ordrePres");
+											}
 											$autresSeries->execute(array($_SESSION['id']));
 
 											while ($enregistrement = $autresSeries->fetch()){
@@ -332,12 +333,12 @@
 
 
 
-				<h3>Création d'une classe</h3>
+				<h3>Ajout d'une classe</h3>
 
 				<p>
-					En créant une classe, vous créez les profils des élèves, qui pourront accéder à DIANE et aux séries d'exercices que vous leur demanderez de faire. <br/>
-					Attention, les élèves n'ont pas de mot de passe. Pour rentrer sur le site, les élèves ont besoin d'indiquer leur jour et mois de naissance, faites donc bien attention à bien rentrer ces dates de naissance. Par ailleurs, puisqu'ils n'ont pas de mot de passe individuel, gardez à l'esprit qu'il y a toujours un risque qu'un élève se fasse passer pour un autre élève.<br/>
-					Si vous avez une classe multiniveau, merci de créer une classe différente pour chaque niveau.
+					Lorsque vous ajoutez une classe, vous saisissez la liste des élèves qui pourront accéder à DIANE et aux séries d'exercices que vous leur proposerez. <br/>
+					Veuillez noter que les élèves accèdent à DIANE sans mot de passe. Ils auront parfois besoin d'indiquer leur jour et mois de naissance, il est donc souhaitable que toutes les dates de naissance soient bien indiquées. <br/>
+					Si votre classe est une classe multiniveau, il est nécessaire de distinguer chaque niveau comme s'il s'agissait de deux classes différentes.
 				</p>
 
 				<input type="button" value = "Ajouter une classe" onclick="showFormClass();"> 
