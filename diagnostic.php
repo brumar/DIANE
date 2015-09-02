@@ -845,7 +845,16 @@
 							$autresSeries->execute(array($_SESSION['id']));
 
 							while ($enregistrement = $autresSeries->fetch()){
-								echo '<button onclick="check_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].'</button><br>';
+
+								if(exists_in_BDD('diagnostic_in_progress', 'idCreator=? AND idSerie=?', array($_SESSION['id'], $enregistrement['idSerie']), $bdd)){ 
+									echo '<button onclick="load_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].' - diagnostic en cours</button>';
+									echo "<a id=\"remove_diag_".$enregistrement['idSerie']."\" href=\"\" onclick=\"confirmRemove(".$enregistrement['idSerie'].");return false;\"><img src=\"static/images/delete.png\" alt=\"remettre à zéro\"/></a>";
+								}
+								else{
+									echo '<button onclick="check_diagnostic('.$enregistrement['idSerie'].')">'.$enregistrement['nomSerie'].'</button><br>';
+								}
+								echo '<br>';
+
 							}
 							$autresSeries->closeCursor();
 						?>
