@@ -171,6 +171,7 @@
 
 	if(isset($_SESSION['download_zip'])){
 		$download_zip = $_SESSION['download_zip'];
+		unset($_SESSION['download_zip']);
 	}
 
 	if(isset($_SESSION['diag_auto'])){
@@ -298,7 +299,7 @@
 
 					if($n_question == 1){
 						$idQuestion = get_value_BDD('id', 'pbm_questions', 'idTemplate=?', array($t['idTemplate']), $bdd);
-						$expectedAnswers = $bdd->query('SELECT * FROM pbm_expectedAnswers WHERE idQuestion ='.$idQuestion);
+						$expectedAnswers = $bdd->query('SELECT * FROM pbm_expectedanswers WHERE idQuestion ='.$idQuestion);
 
 						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
 						// 1) On compare la version symbolique de la formule avec les expected_answers
@@ -481,7 +482,7 @@
 
 					if($n_question == 1){
 						$idQuestion = get_value_BDD('id', 'pbm_questions', 'idTemplate=?', array($t['idTemplate']), $bdd);
-						$expectedAnswers = $bdd->query('SELECT * FROM pbm_expectedAnswers WHERE idQuestion ='.$idQuestion);
+						$expectedAnswers = $bdd->query('SELECT * FROM pbm_expectedanswers WHERE idQuestion ='.$idQuestion);
 
 						// *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** 
 						// 1) On compare la version symbolique de la formule avec les expected_answers
@@ -574,6 +575,7 @@
 	} // fin de if(isset($_SESSION['IDserieToDiagnose']))
 
 	$ending_diag_dl_zip = false;
+	$diagnostic_in_progress_is_over = false;
 
 	if(isset($load_diag_progression) and isset($data_diag_step_by_step)){
 		// Le diagnostic existe. Est-il fini ?
@@ -823,7 +825,7 @@
 
 					<div>
 						<?php
-							$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? ORDER BY ordrePres");
+							$vosSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator = ? AND visibilite<>'None' ORDER BY ordrePres");
 							$vosSeries->execute(array($_SESSION['id']));
 							while ($enregistrement = $vosSeries->fetch()){
 
@@ -839,7 +841,7 @@
 							} 
 							$vosSeries->closeCursor();
 
-							$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? ORDER BY ordrePres");
+							$autresSeries = $bdd->prepare("SELECT * FROM serie WHERE idCreator <> ? AND visibilite IN('all', 'searchersOnly') ORDER BY ordrePres");
 							$autresSeries->execute(array($_SESSION['id']));
 
 							while ($enregistrement = $autresSeries->fetch()){
@@ -1025,7 +1027,7 @@
 			choices.push(idExpAns);
 			traces.push(idTrace);
 			current_taa+=1;
-			if(current_taa >= <?php if(isset($data_diag_step_by_step)){echo count($data_diag_step_by_step);}else{echo "0";}?> ){
+			if(current_taa >= <?php if(isset($data_diag_step_by_step)){echo count($data_diag_step_by_step);}else{echo "-1";}?> ){
 				
 				ending_diag = document.getElementById("ending_diag");
 				ending_diag.value = "true";
@@ -1076,8 +1078,7 @@
 		echo "display_choose_expAns();";
 		}
 
-
-		if(isset($diagnostic_in_progress_is_over)){
+		if($diagnostic_in_progress_is_over){
 			echo "end_of_diag(".$idSerie.");";
 		}
 		?>
