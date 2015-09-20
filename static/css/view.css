@@ -1,3 +1,5 @@
+
+
 body
 {
 	background:#CDDCEC;
@@ -862,4 +864,150 @@ border-bottom: 1px solid #999;
 background: #dedede;
 font-weight: bold;
 }
+
+
+/* 
+	Ajouts
+*/
+
+/*	gerer_series.php*/
+
+
+/*
+.serie_select, .seriee_see, .serie_delete, .serie_promote{
+	display:inline;
+}*/
+.serie_s{
+	width:900px;
+}
+.serie_text{
+	width:300px;
+	margin:0 0 5px 40px;
+	padding:10px;
+	border:1px solid black;
+}
+.serie_code{
+	width:50px;
+	margin:0 0 5px 0px;
+	padding:10px;
+	border:1px solid black;
+	border-left: none
+}
+
+.problem_s{
+	width:900px;
+}
+.problem_text{
+	width:300px;
+	margin:0 0 5px 40px;
+	padding:10px;
+	border:1px solid black;
+}
+
+/*  gestion_classe.php */
+
+#formulaire_creation_classe{
+	display:none;
+}
+
+#formulaire_ajout_eleve{
+	display:none;
+}
+
+.add_student_span{
+	display:inline;
+}
+.label_add_student_form{
+	display: inline-block;
+}
+
+.classe{
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+.Class_see{
+	background-color:#CCC;
+}
+.Class_see:hover{
+	cursor: pointer;
+	background-color:#EEE;
+}
+
+.remarq_partic{
+	display:none;
+}
+
+.display_classe{
+	background-color:#EEE;
+	margin:20px;
+}
+
+/* eleve.php */
+
+#feedback_mauvais_code{
+	font-weight: bold;
+}
+
+#feedback_mauvais_anniversaire{
+	font-weight: bold;
+}
+
+#form_birthday_eleve{
+	display:none;
+}
+
+#formCodeSelection{
+	text-align: center;
+}
+
+/* profil_eleve.php */
+
+
+.serie_to_do{
+
+}
+
+.serie_done{
+	background-color: green;
+}
+
+
+/* parametres.php */
+.inputformEmail{
+	width: 250px;
+}
+
+
+
+/* ProblemTextCreation.php */
+.validation_enonce{
+	margin:auto;
+}
+
+
+
+/*analyse.php*/
+.solved_pbm{
+	display:inline-block;
+	margin:10px;
+}
+.solved_pbm_enonce{
+	width:450px;
+}
+.solved_pbm_reponse{
+
+}
+
+
+table{
+	border-collapse: collapse;
+	border: solid black 1px;
+}
+
+td, th, tr{
+	border: solid black 1px;
+}
+
+
+
 

@@ -1,33 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Creation de problème</title>
-<link rel="stylesheet" type="text/css" href="static/css/view.css" media="all">
-</head>
-<body>
 <?php
-	//note : prend en entrée $id, ressort $infos et $infoshtml	
-	require_once("conn.php");
-	//mysql_query("SET NAMES UTF8");
-	$infos=array();
-	$result = mysql_query("SELECT * FROM pbm_globalcontent WHERE id=$id");
-	while (($result) &&($row = mysql_fetch_array($result)))
+
+
+if(isset($_SESSION['infos'])){
+		unset($_SESSION['infos']);
+	}
+	$_SESSION['infos'] = array();
+
+	//note : prend en entrée $id, ressort $_SESSION['infos']
+	$req = $bdd->prepare("SELECT * FROM pbm_template WHERE id=?");
+	$result = $req->execute(array($id));
+
+	
+	while (($result) &&($row = $req->fetch()))
 	{
-		$infos["constraints"]=$row['constraints'];
-		$infos["public"]=$row['public_notes'];
-		$infos["compteurs"]=$row['compteurs'];
-		$infos["html"]=$row['Text_html'];
-		$infos["texteBrut"]=$row['Text_brut'];
-		$infos["properties"]=explode('|||',$row['properties']);
-		$infos["private"]=$row['private_notes'];
+		$_SESSION['infos']['constraints']=$row['constraints'];
+		$_SESSION['infos']['public']=$row['public_notes'];
+		$_SESSION['infos']['compteurs']=unserialize($row['compteurs']);
+		$_SESSION['infos']['html']=$row['Text_html'];
+		$_SESSION['infos']['texteBrut']=$row['Text_brut'];
+		$_SESSION['infos']['properties']=explode('|||',$row['properties']);
+		$_SESSION['infos']['private']=$row['private_notes'];
 	
 	}
-	//diane_these.pbm_elements (id, id_pbm, type, expression, compteur, brut)
+	$req->closeCursor();
+
 	$clones=array();
-	$result = mysql_query("SELECT * FROM pbm_elements WHERE id_pbm=$id");
+	$req = $bdd->prepare("SELECT * FROM pbm_elements WHERE idTemplate=?");
+	$result = $req->execute(array($id));
+
 	$c=0;
-	while(($result) &&($row = mysql_fetch_array($result)))
+	while(($result) &&($row = $req->fetch()))
 	{
 		//echo("T");
 		$clone=array();
@@ -39,15 +41,18 @@
 		
 		$c++;
 	}
-	$infos['clones']=$clones;
-	
+	$_SESSION['infos']['clones']=$clones;
+	$req->closeCursor();
 	
 	//$sql = "INSERT INTO diane_these.pbm_questions (id, id_pbm, Number, type, expression, compteur, brut) VALUES (NULL, $index,'$i' ,'$type', '$expression', '$compteur', '$brut');";
+	//$result = mysql_query("SELECT * FROM pbm_questions WHERE id_pbm=$id");
 	$questions=array();
-	$result = mysql_query("SELECT * FROM pbm_questions WHERE id_pbm=$id");
+	$req = $bdd->prepare("SELECT * FROM pbm_questions WHERE idTemplate=?");
+	$result = $req->execute(array($id));
+
 	$idQuestions=array();
 	$c=0;
-	while(($result) &&($row = mysql_fetch_array($result)))
+	while(($result) &&($row = $req->fetch()))
 	{
 		//echo("T");
 		$question=array();
@@ -59,16 +64,22 @@
 		$questions[$c]=$question;
 		$c++;
 	}
-	$infos['questions']=$questions;
+	$_SESSION['infos']['questions']=$questions;
+	$req->closeCursor();
+
 	//$c correpond maintenant aux nombres de questions dans le problème, ce qui est utile pour la suite
 	
 	//$sql = "INSERT INTO diane_these.pbm_expectedanswers (id, idQuestion, Number, variable, keywords, comments, properties) VALUES (NULL, $idQuestion,$number ,'$variable', '$keywords', '$comments', '$properties');";
 	$Qinfo=array();
 	foreach($idQuestions as $i=>$idquestion) {
 		//echo($idquestion);
-		$result = mysql_query("SELECT * FROM pbm_expectedanswers WHERE idQuestion=$idquestion");
+		//$result = mysql_query("SELECT * FROM pbm_expectedanswers WHERE idQuestion=$idquestion");
+
+		$req = $bdd->prepare("SELECT * FROM pbm_expectedanswers WHERE idQuestion=?");
+		$result = $req->execute(array($idquestion));
+
 		$t=0;
-		while(($result) && ($row = mysql_fetch_array($result)))
+		while(($result) && ($row = $req->fetch()))
 		{
 			//echo("IN");
 			$Qinfo['description'][$i][$t]['variable']=$row['variable'];
@@ -78,10 +89,8 @@
 			$t++ ;
 		}
 	}
-	$infos['Qinfos']=$Qinfo;
-	
-	$infosHtmlProtected=htmlspecialchars(base64_encode(serialize($infos)));
+	$_SESSION['infos']['Qinfos']=$Qinfo;
+	$req->closeCursor();
 
-	?>
-	</body>
-	</html>
+
+?>

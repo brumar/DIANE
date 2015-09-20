@@ -1,276 +1,365 @@
-<?php 
-session_start();
-$num = 3;//$_GET['num'];
-$type ='comparaison';//$_GET['type'];
-$questi =1;//$_GET['questi'];
-session_register('questi');
-if (($_SESSION["terminer"])||($num=='')||($num==0))
-{
-	$terminer=false;
-    session_register("terminer");
-	?>	
-	<script type='text/javascript'>
-	//alert("La série d'exercice est terminée");
-	window.close();
-	</script>";
-	<?php 
-}
-	?> 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<title>Interface</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<SCRIPT LANGUAGE=Javascript SRC="static/js/interface.js"> </SCRIPT>
-</head>
-<body onload="masquer()">
-<h3 align="center"><font color="#0000CC"><?php print(strtoupper($_SESSION['prenom'])."   ".strtoupper($_SESSION['nom']));?></font></h3>
-<?php 
-if ($type=="complement")
-print("<form action=\"diag_e.php\" name=\"info\" method=\"post\">");
-else if ($type=="comparaison")
-print("<form action=\"diag_a.php\" name=\"info\" method=\"post\">");
-?>
-  
-<table align="center">
-  <tr> 
-    <td width="405" height="637" rowspan="2" valign="top"> <table border="0" cellspacing="5">
-        <tr> 
-          <td width="434" height="45" valign="top"> <table width="100%" border="2" cellpadding="5" cellspacing="0" bordercolor="#000000">
-              <tr> 
-                <td> 
-                  <?php 
-			require_once("conn.php");
-			
-			$Requete_SQL2 = "SELECT * FROM $type where numero=$num";
-			$result = mysql_query($Requete_SQL2) or die("Erreur de S&eacute;lection dans la base : ". $Requete_SQL2 .'<br />'. mysql_error());
-			$nombreExemple = 1;
-			//while ($enregistrement = mysql_fetch_array($result))
-			//while ($enregistrement = mysql_fetch_object($result))
-			while ($enregistrement = mysql_fetch_assoc($result))
-				{
-				  $text1 =  $enregistrement["enonce1"];
-				  $text1 = str_replace("'","\'",$text1);
-				  $text2 =  $enregistrement["question1"];
-				  $text2 = str_replace("'","\'",$text2);
-				  $text3 =  $enregistrement["enonce2"];
-				  $text3 = str_replace("'","\'",$text3);
-				  $text4 =  $enregistrement["question2"];
-				  $text4 = str_replace("'","\'",$text4);
-				  
-				}
-			for($piece = strtok($text1, " "), $i=0 ; $piece != "" ; $piece = strtok(" "))
-				{
-				  $piece1 = $piece;
-				  $piece = str_replace("\\","",$piece);
-				  print("<a href=\"javascript:;\" onClick=\"document.info.T1.value='".$piece1."'\" style=\"text-decoration: none;\">".$piece."</a>"." ");
-				   if (($piece == ".") || (($piece == ",") && ($i>9)))
-				  {
-					  $i=0;
-					  print ("<br>");
-				  }
-				  /*else if ($i==10)
-				  	  {
-						  $i=0;
-						  print ("<br>");
-					  }*/
-				  $i++;
-				}
- 				print("<Br>");
-if ($questi=="1")
- 		 {
-		 for($piece = strtok($text2, " "); $piece != "" ; $piece = strtok(" "))
-				 {
-				  $piece1 = $piece;
-				  $piece = str_replace("\\","",$piece);
-				  print("<a href=\"javascript:;\" onClick=\"document.info.T1.value='".$piece1."'\" style=\"text-decoration: none;\">".$piece."</a>"." ");
-				}
-  				print("<Br><Br>");
-		}
-  		for($piece = strtok($text3, " "), $i=0 ; $piece != "" ; $piece = strtok(" "))
-			   {
-				  $piece1 = $piece;
-				  $piece = str_replace("\\","",$piece);
-				  print("<a href=\"javascript:;\" onClick=\"document.info.T1.value='".$piece1."'\" style=\"text-decoration: none;\">".$piece."</a>"." ");
-				  if (($piece == ".") || (($piece == ",") && ($i>9)))
-				  {
-					  $i=0;
-					  print ("<br>");
-				  }
-				  /*else if ($i==10)
-				  	  {
-						  $i=0;
-						  print ("<br>");
-					  }*/
-				  		
-				  $i++;
-			   }
-  			   print("<Br>");
-				
-		for($piece = strtok($text4, " "); $piece != "" ; $piece = strtok(" "))
-			  {
-				  $piece1 = $piece;
-				  $piece = str_replace("\\","",$piece);
-				  print("<a href=\"javascript:;\" onClick=\"document.info.T1.value='".$piece1."'\" style=\"text-decoration: none;\">".$piece."</a>"." ");
-			  }
-  			  print("<Br>");
-  			  mysql_close($BD_link);
-		?>
-                </td>
-              </tr>
-            </table></td>
-        </tr>
-        <tr> 
-          <td height="39"> <div align="center">
-		      <input type="button" value="Effacer" name="efface5" style="font-size: 8pt" onclick="document.info.T1.value='';document.info.T1.focus();">
-              <input type="text" name="T1" size="24" rows="1" cols="20" onFocus="monTour(5)" onSelect="this.value=''">
-              <input name="button2" type="button" style="font-size: 8pt" 
-			  				onClick="document.info.zonetexte.focus();storeCaret (this.form.zonetexte);insertAtCaret(this.form.zonetexte,this.form.T1.value+' ');" value="Ecrire dans la feuille">
-            </div></td>
-        </tr>
-        <tr> 
-          <td height="28"> <input type="radio" value="1" name="R1" checked  onclick="masquer();">
-            Une opération 
-            <input type="radio" value="2" name="R1"  onclick="masquer();">
-            Deux opérations </td>
-        </tr>
-        <tr> 
-          <td align="center"> 
-		    <input type="button" value="  1  " name="un" onclick="afficher(1); "> 
-            <input type="button" value="  2  " name="deux" onclick="afficher(2);"> 
-            <input type="button" value="  3  " name="trois" onclick="afficher(3);"> 
-            <input type="button" value="  4  " name="quatre" onclick="afficher(4);"> 
-            <input type="button" value="  5  " name="cinq" onclick="afficher(5);"> 
-            <input type="button" value="  6  " name="six" onclick="afficher(6);"> 
-            <input type="button" value="  7  " name="sept" onclick="afficher(7);"> 
-            <input type="button" value="  8  " name="huit" onclick="afficher(8);"> 
-            <input type="button" value="  9  " name="neuf" onclick="afficher(9);"> 
-            <input type="button" value="  0  " name="zero" onclick="afficher(0);"> 
-            <input type="button" value="  ,  " name="zero" onclick="afficher(',');"> 
-          </td>
-        </tr>
-        <tr> 
-          <td align="center"> <div id="groupe1"> 
-              <input type="button" value=" + " name="plus" onclick="operat('+'); document.info.T1.value ='+'; document.info.operande2.focus();  ">
-              <input type="button" value=" - " name="moin" onclick="operat('-'); document.info.T1.value ='-'; document.info.operande2.focus();">
-              <input type="button" value=" x " name="mult" onclick="operat('x'); document.info.T1.value ='x'; document.info.operande2.focus();">
-              <input type="button" value=" : " name="div"  onclick="operat(':'); document.info.T1.value =':'; document.info.operande2.focus();">
-			  <input type="button" value=" = " name="egale"  onclick="resultat2(); document.info.T1.value ='=';">
-              
-            </div></td>
-        </tr>
-        <tr> 
-          <td valign="top"> <table width="75%" border="0" cellspacing="0">
-              <!--DWLayoutTable-->
-              <tr> 
-                <td width="92">&nbsp;</td>
-                <td width="26">&nbsp;</td>
-                <td width="32">&nbsp;</td>
-                <td width="77"> <span id="zoneText"> 
-                  <input name="operande3" type="text" onfocus="monTour(3); count(event,3);" onselect="this.value=''" onkeypress="return checkIt(event)" onkeyup="count(event,3)" size="12" maxlength="10">
-                  </span> </td>
-                <td width="28">&nbsp;</td>
-                <td width="59"> <div id="efface"> 
-                    <input type="button" value="Effacer" name="efface1" style="font-size: 8pt" onclick="document.info.operande3.value='';document.info.operande3.focus();">
-                  </div></td>
-              </tr>
-              <tr> 
-                <td align="right"> <div id="groupe2"> 
-                    <input type="button" value=" + " name="plus" onclick="document.info.operation1.value=' + '; document.info.operande1.focus();">
-                    <input type="button" value=" - " name="moin" onclick="document.info.operation1.value=' - '; document.info.operande1.focus();">
-                  </div></td>
-                <td>&nbsp;</td>
-                <td align="right"> <span id="bouton"> 
-                  <input type="button" name="operation1" onclick="document.info.operande1.focus()" size="1" value="   ">
-                  </span> </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td> <input name="operande1" type="text" onfocus="monTour(1); count(event,1);" onselect="this.value=''" onkeypress="return checkIt(event)" onkeyup="count(event,1)" size="12" maxlength="10"> 
-                </td>
-                <td>&nbsp;</td>
-                <td> <input type="button" value="Effacer" name="efface2" style="font-size: 8pt" onclick="document.info.operande1.value='';document.info.operande1.focus();"> 
-                </td>
-              </tr>
-              <tr> 
-                <td align="right"> <div id="groupe3"> 
-                    <input type="button" value=" + " name="plus" onclick="document.info.operation.value=' + '; document.info.operande2.focus();">
-                    <input type="button" value=" - " name="moin" onclick="document.info.operation.value=' - '; document.info.operande2.focus();">
-                  </div></td>
-                <td>&nbsp;</td>
-                <td align="right"> 
-				<input type="button" name="operation" size="1" value="   " onClick="document.info.operande2.focus()" >
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td> <input name="operande2" type="text" onfocus="monTour(2); count(event,2);" onselect="this.value=''" onkeypress="return checkIt(event)" onkeyup="count(event,2)" size="12" maxlength="10"> 
-                </td>
-                <td>&nbsp;</td>
-                <td> <input type="button" value="Effacer" name="efface3" style="font-size: 8pt" onclick="document.info.operande2.value='';document.info.operande2.focus();"> 
-                </td>
-              </tr>
-              <tr> 
-                <td><div align="right"> 
-                    <input name="effacetout" type="button" id="effacetout3" style="font-size: 8pt" 
-					onClick="document.info.resultat1.value=''; document.info.operande1.value='';
-							 document.info.operande2.value=''; document.info.operande3.value='';
-							 document.info.operation1.value='   '; document.info.operation.value='   ';
-							 document.info.operande1.focus();" value="Effacer l'op&eacute;ration">
-                  </div></td>
-                <td>&nbsp;</td>
-                <td colspan="2"><hr align="left" color="#000000"> </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr> 
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td align="right"> <input type="button" name="egale1" size="1" value=" = " onclick="resultat();count(event,4);"> 
-                </td>
-                <td> <input name="resultat1" type="text" onfocus="monTour(4); count(event,4);" onselect="this.value=''" onkeypress="return checkIt(event)" onkeyup="count(event,4)" size="12" maxlength="10"> 
-                </td>
-                <td>&nbsp;</td>
-                <td> <input type="button" value="Effacer" name="efface4" style="font-size: 8pt" onclick="document.info.resultat1.value='';document.info.resultat1.focus();"> 
-                </td>
-              </tr>
-            </table></td>
-        </tr>
-        <tr> 
-          <td height="30" align="center"> <input type="button" name="B2" value="Ecrire le calcul dans la feuille" onClick="document.info.zonetexte.focus();afficheCal();"></td>
-        </tr>
-      </table></td>
-    <td width="56" rowspan="2" valign="top"></td>
-    <td width="335" height="537" valign="top"> <h4 align="left">Ecris tes calculs 
-        et ta r&eacute;ponse dans cette feuille</h4>
-      <input name="retour" type="button" value="Passer &agrave; la ligne" onClick="insertAtCaret(this.form.zonetexte,'\n');document.info.zonetexte.focus();"> 
-      <input name="effacer" type="button" id="effacer2" value="Effacer la feuille" onClick="document.info.zonetexte.value=''">
-      <textarea name="zonetexte" cols="50" rows="28" wrap="hard" tabindex="1"
-             onSelect="storeCaret(this);"
-             onChange="storeCaret(this);"
-             onClick="storeCaret(this);"
-             onMouseOver="this.focus();storeCaret(this);"
-             onKeyUp="storeCaret(this);"></textarea> </td>
-  </tr>
-  <tr>
-    <td align="center" valign="top">
-<input name="button" type="button" value="                 Exercice termin&eacute                " onClick="verifForm(); ">
-    </td>
-  </tr>
-</table>
-<input name="oper1" type="hidden">
-<input name="oper2" type="hidden">
-</form>
-<div align="center"><a href="javascript:;" onClick="window.close();">Abandonner</a></div> 
+<?php
+	require_once("verifSessionEleve.php");
+	require_once("conn_pdo.php");
+	require_once("ListFunction.php");
 
-</body>
+	if($_POST){
+		if (isset($_POST['serie'])){ //On vient d'arriver sur la page depuis profil_eleve => Initialisation de la série d'exercices dans des variables $_SESSION
+			// On créé les variables de session $_SESSION['passation']
+			creerSessionPassation($_SESSION['numEleve'], $_POST['serie'], $bdd, "NOM"); 
+		}
+	}
+	
+	// On vérifie que les variables de session existent, sinon on redirige
+	if(isset($_SESSION['passation'])){
+		$problems = $_SESSION['passation']['allProblems'];
+		$numSerie = $_SESSION['passation']['numSerie'];
+		$nbExo = $_SESSION['passation']['nbExo']; //! à ne pas confondre avec numExo (id de l'exo). nbExo est le numéro dans l'ordre
+
+		// On récupère l'exercice à utiliser maintenant
+		$req = $bdd->prepare('SELECT * FROM pbm WHERE idPbm=?');
+
+		if($req->execute(array($problems[$nbExo-1]))) { //On récupère l'id du problème et l'énoncé
+			$enregistrement = $req->fetch();
+			$numExo = $enregistrement['idPbm'];
+			$enonce = $enregistrement['enonce'];
+			//$type Problem ???
+		}
+		else{
+			die("Erreur de Sélection du problème dans la base");
+		}
+		$req->closeCursor();
+
+		// Variable pour savoir si presence audio ou pas
+		$dirname = './audio/pbm_instancied/exo'.$numExo.'/';
+		$audio=is_dir($dirname);
+	}
+	else{ //Pas de $_SESSION['passation']
+		header("Location: profil_eleve.php");
+		exit();
+	}
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DIANE</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script language="JavaScript" src="static/js/interface.js"></script>
+		<link rel="stylesheet" type="text/css" href="static/css/interface.css">
+	</head>
+	<body>
+	
+		<form action="createTrace.php" name="info" method="post" onsubmit="return verifForm()" autocomplete="off">
+			<table width="67%" align="center">
+			<tr><td colspan="2"><table width="100%"  border="0">
+			  <tr>
+			    <td width="25%">
+				<?php 
+				/*if(isset($_GET["lienRetour"])) 
+				{
+				
+				$varLien="interface.php?precedent=oui&numSerie=".$numSerie."&nbExo=".$nbExo."&numExo=".$numExo;
+				echo("<input name=\"ExercicePrecedent\" type=\"button\" class=\"bouton\" value=\"Exercice pr&eacute;c&eacute;dent\" onClick=\"window.open('$varLien','Interface');\">");
+				}*/
+				?>
+			    </td>
+			    <td width="52%" align="center"><?php print(ucfirst($_SESSION['prenom'])."   ".strtoupper($_SESSION['nom']));?></td>
+			    <td width="23%">&nbsp;</td>
+			  </tr>
+			</table></td></tr>
+			      <tr>
+			        <td width="41%" rowspan="3" valign="top"> 
+				  <table width="440" border="0" cellspacing="2">
+			        <tr>
+				        <td width="434" colspan="2" align="center">
+						    
+						    <table width="97%" border="0" cellpadding="0" cellspacing="0">
+						    	<tr>
+						    		<td height="24" valign="top" class="aide">&nbsp;&nbsp; Exercice N°<?php echo ($nbExo); ?></td>
+					        	</tr>
+								  
+						    	<tr>
+							  	    <td>
+										<table width="100%" border="2" align="center" cellpadding="2" cellspacing="0">
+						                  <tr>
+						                    <td>
+											<?php
+												$i=1;
+												$id=0;
+												$PUNCT_CHARS = "\n.?!;,\t\r\0\x0B";
+
+												foreach(explode("\n", $enonce) as $line){
+													foreach(explode(" ", $line) as $piece){
+														$id++;
+														$punctuation = strpbrk($piece, $PUNCT_CHARS);
+														if($punctuation){ // Il y a un ou plusieurs signes de ponctuation
+															$piece = trim($piece, $PUNCT_CHARS);
+															if($a= strpos($piece, "\n")){
+																print($a);
+															}
+															$punct = mb_substr($punctuation, 0, 1, 'utf-8');
+														}
+														else{
+															$punct="";
+														}
+
+														print("<a href=\"javascript:;\" id=\"".$id."\" onClick=\"insererSas('".$piece." "."','".$i."');\" class=\"enonce\">".$piece."</a>".$punct." ");
+														$i++;
+													}
+													echo("<br/>");
+												}
+
+
+											?>          
+											</td>
+						                  </tr>
+						                </table>
+									</td>
+						     	</tr>
+
+				             	<tr>
+				                	<td height="27" valign="middle" class="aide">Pour &eacute;crire, tu peux cliquer sur les mots de l'&eacute;nonc&eacute;</td>
+				            	</tr>
+				          	</table>	      
+				        </td>
+			        </tr>
+			        <tr>
+			          <td width="434"   align="center">             
+			            <table width="100%"  border="0">
+			              <tr>
+			                <td align="center"><input name="T1" type="text" size="65" style="font-size:10pt;"  <?php if (isset($precedent)) echo('value="'.$sas.'"'); else echo('value=""');?> class="champText" id="sas"
+						  onFocus="monTour(5);colorFocus('sas');" 
+						  onBlur="colorBlur('sas');"></td>
+			              </tr>
+			          </table>          </td>
+			        </tr>   
+				     <tr>
+				       <td height="45" colspan="2" align="center">
+				       <table width="100%"  border="0">
+			             <tr>
+			               <td width="28%" align="left"><input name="efface5" type="button" class="bouton"  onClick="document.info.T1.value='';document.info.T1.focus();" value="Effacer tout" style="width:110"></td>
+			               <td width="24%" align="center"><input type="button" class="bouton" name="annuler2" value="Annuler" onClick="annulerSas();" style="width:70">                </td>
+			               <td width="48%" align="right"><input name="button2" type="button" class="bouton"  onClick="inserer(document.info.T1.value);" 
+					   value="Ecrire dans la feuille" style="width:200"
+					   ></td>
+			             </tr>
+			           </table></td> 
+			        </tr>
+			       
+			        <tr>
+			          <td colspan="2" align="center"> 
+					  <table width="151" height="153" align="<?php echo (($audio ? 'left' : 'center')); ?>">
+			  <tr valign="middle">
+			  <td colspan="4" align="center">
+			  <span class="aide">Tu peux &eacute;crire tes calculs ici </span>
+			  </td>
+			  </tr>
+			  <tr valign="middle">
+			  <td colspan="4" align="center"><input name="egale2" type="button" class="Boutegal" onClick="if (tester == 5) {calculSas();} else {resultat();}" value=" = "></td>
+			  </tr>
+			<tr>
+			  <td width="35" align="center" valign="middle"><input name="un" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('1');} else {afficher(1);}" value="1"></td>
+			  <td width="27" align="center" valign="middle"><input name="deux" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('2');} else {afficher(2);}" value="2"></td>
+			  <td width="27" align="center" valign="middle"><input name="trois" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('3');} else {afficher(3);}" value="3"></td>
+			<td width="35" align="center" valign="middle">			
+			  <input name="plus" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas(' + ');} else if (tester == 1){afficher(' + ');};" value=" + "></td>
+			</tr>
+			<tr>
+			  <td align="center" valign="middle"><input name="quatre" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('4');} else {afficher(4);}" value="4"></td>
+			  <td align="center" valign="middle"><input name="cinq" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('5');} else {afficher(5);}" value="5"></td>
+			  <td align="center" valign="middle"><input name="six" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('6');} else {afficher(6);}" value="6"></td>
+			  <td align="center" valign="middle"><input name="moin" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas(' - ');} else if (tester == 1){afficher(' - ');};" value=" - "></td>
+			</tr>
+			<tr>
+			  <td align="center" valign="middle"><input name="sept" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('7');} else {afficher(7);}" value="7"></td>
+			  <td align="center" valign="middle"><input name="huit" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('8');} else {afficher(8);}" value="8"></td>
+			  <td align="center" valign="middle"><input name="neuf" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('9');} else {afficher(9);}" value="9"></td>
+			  <td align="center" valign="middle"><input name="div" type="button" class="Boutcal"  id="div" onClick="if (tester == 5) {insererSas(' : ');} else if (tester == 1){afficher(' : ');};" value=" : "></td>
+			</tr>
+			<tr>
+			  <td align="center" valign="middle"><input name="zero" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas('0');} else {afficher(0);}" value="0"></td>
+			  <td align="center" valign="middle"><input name="paro" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas(' ( ');} else if (tester == 1){afficher(' ( ');};" value=" ( "></td>
+			  <td align="center" valign="middle"><input name="parf" type="button" class="Boutcal" onClick="if (tester == 5) {insererSas(' ) ');} else if (tester == 1){afficher(' ) ');};" value=" ) "></td>
+			  <td align="center" valign="middle"><input name="mult" type="button" class="Boutcal" id="mult" onClick="if (tester == 5) {insererSas(' x ');} else if (tester == 1){afficher(' x ');};" value=" x "></td>
+			</tr>
+			</table>
+
+			<?php
+
+				if($audio){
+				$dir = opendir($dirname); 
+
+				while($file = readdir($dir)) {
+					if($file != '.' && $file != '..' && !is_dir($dirname.$file))
+					{
+						if(!preg_match("/QI/", $file))//cette condition permet d'enlever la question intermédiaire si elle n'est pas demandée //MMM ça risque de ne plus marcher j'ai de toute façon viré $questi
+							{
+							//echo '<a href="'.$dirname.$file.'">'.$file.'</a>';
+							$filelist[] = $dirname.$file;
+							}
+					}
+				}
+				closedir($dir);
+				sort($filelist);
+
+				foreach ($filelist as $key=>$value) {
+					$p1='<object data="dewplayer.swf" width="1" height="1" name="dewplayer" id="dewplayer'.$key.'"type="application/x-shockwave-flash">
+					<param name="movie" value="dewplayer.swf" />
+					<param name="flashvars" value="mp3=';
+					$p2='&javascript=on" />
+					<param name="wmode" value="transparent" />
+					</object>';  
+					echo ("$p1$value$p2");
+				}
+				echo('<table width="255" height="153" align="left">
+				  <tr valign="middle">
+					<td colspan="4" align="center"><span class="aide">Tu peux &eacutecouter les phrases en cliquant sur les images </span></td>
+				  </tr>
+				  <tr>
+				  <div id="lecteurs">');
+				foreach ($filelist as $key=>$value) {
+					$p1='<tr><td align="right" valign="bottom"><p>partie '.($key+1).'<p></td>
+						<td align="left" valign="top"><p><img style="cursor:pointer" id="player'.$key.'" src="static/images/play.png" />';
+					$p2='</td></tr>';  
+					   echo ("$p1$p2");
+				}
+				echo('</div>
+				  </tr>
+				  </table></div>');
+				  }
+			?>
+
+
+			</td>
+
+
+
+			        </tr>
+			        </table></td>
+			        <td width="59%" align="center" valign="top"><table width="100%"  border="0">
+			          <tr>
+			            <td height="22" colspan="3" class="aide">&Eacute;cris tes calculs et ta r&eacute;ponse dans cette feuille</td>
+			          </tr>
+			          <tr>
+			            <td align="center"><input name="effacer" type="button" class="bouton" id="effacer2"
+				  	onClick="document.info.zonetexte.value='';document.info.zonetexte.focus();" value="Effacer toute la feuille" style="width:150">            </td>
+			            <td align="center"><input name="retour" type="button" class="bouton" onClick="inserer('\n');document.info.zonetexte.focus();" value="Passer &agrave; la ligne" style="width:115"></td>
+			            <!-- <td align="center"><input name="annuler" type="button" class="bouton" id="annuler" onClick="if (feuille.isContentEditable==true) annulerAction();" value="Annuler"></td> -->
+			          </tr>
+			          <tr align="center">
+			            <td colspan="3" valign="middle"><textarea name="zonetexte" cols="45" rows="24" class="champText" id="feuille"
+						 onFocus="colorFocus('feuille');" 
+						 onBlur="colorBlur('feuille');"><?php if(isset($precedent)) echo($zoneTexte);?></textarea></td>
+			          </tr>
+			        </table></td>
+			      </tr>
+			  <tr>
+			    <td align="center">
+				  <p>
+					<input name="button" type="submit" class="bouton" 
+					style="width:240;" value="Exercice termin&eacute;">
+				  </p>
+				</td>
+			  </tr>
+			  <tr>
+			    <td align="center" class="aide"><?php 
+			$reste = $_SESSION['passation']['totalExo']-$nbExo;
+			if($reste > 1){
+			 echo ("Il te reste ".$reste." exercices.");
+			}
+			else if($reste == 1){
+			 echo ("Il te reste ".$reste." exercice.");
+			}
+			else if($reste == 0){
+			 echo ("C'est le dernier exercice."); 
+			}
+			?>  
+			  <tr align="center">
+			    <td height="21" colspan="2" valign="top"><a href="javascript:;" onClick="abandonner();">Quitter </a></td>
+			</table>
+			<input  name="Trace" type="hidden" id="formulaire">
+			<input name="oper1" type="hidden">
+			<input name="oper2" type="hidden">
+
+			<script>
+			//On supprime l'effet du retour arrière
+			function suppressBackspace(evt) {
+			    evt = evt || window.event;
+			    var target = evt.target || evt.srcElement;
+
+			    if (evt.keyCode == 8 && !/input|textarea/i.test(target.nodeName)) {
+			        return false;
+			    }
+			}
+
+			document.onkeydown = suppressBackspace;
+			document.onkeypress = suppressBackspace;
+
+			/*******PARTIE PERMETTANT L ENREGISTREMENT DES ACTIONS********        DEBUT*/
+				
+				var formulaire = document.getElementById('formulaire');
+				var lecteurs = document.getElementsByTagName('img');
+				var inputs = document.getElementsByTagName('input');
+				
+				//on fait une liste des mots du texte
+				var k=0;
+				var TabWords = new Array();
+				while(k<<?php echo($id); ?>){
+				if(document.getElementById(k)!=null){
+				TabWords.push(document.getElementById(k));}
+				k++;
+			}
+
+
+			for (var i = 0, c = lecteurs.length ; i < c ; i++) {
+			//on ajoute à toutes les images une fonction qui mémorise le temps des clics dessus
+			   addEvent(lecteurs[i], 'click', function(e) {
+			   
+			   time=((new Date).getTime()-date_init);
+			   var target = (e.srcElement || e.target);
+				
+				//target.dewplay();
+				var id=target.id;
+				
+				var string='***'+time+'//'+id;
+				trace_utilisateur+=string;
+				document.getElementById('formulaire').value=trace_utilisateur;
+				var playerid="dew"+id;
+				document.getElementById(playerid).dewplay();
+			    });
+			}
+
+			for (var i = 0, c = inputs.length ; i < c ; i++) {//on ajoute à tous les boutons une fonction qui mémorise le temps des clics dessus
+			   //objects
+			   
+				addEvent(inputs[i], 'click', function(e) {
+			    time=((new Date).getTime()-date_init);
+				var target = e.srcElement || e.target;
+				var string='***'+time+'//'+target.name;//cette fois ci on prend le name
+				trace_utilisateur+=string;
+				formulaire.value=trace_utilisateur;
+			    });
+			}
+
+			for (var i = 0, c = TabWords.length ; i < c ; i++) {//on ajoute à tous les mots une fonction qui mémorise le temps des clics dessus
+			   //objects
+			   addEvent(TabWords[i], 'click', function(e) {
+			   time=((new Date).getTime()-date_init);
+			   var target = e.srcElement || e.target;
+				var string='***'+time+'//'+target.id;//cette fois ci on prend l id
+				trace_utilisateur+=string;
+				formulaire.value=trace_utilisateur;
+			    });
+			}
+			
+			window.onload = function WindowLoad() {
+				 trace_utilisateur='';
+				 tester = 5;
+				 date_init=(new Date).getTime();
+			}
+			</script>
+
+		</form>
+	</body>
 </html>

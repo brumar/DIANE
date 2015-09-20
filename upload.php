@@ -40,7 +40,7 @@ if((isset($_GET['delete']))){
 <u><b>DELETED</b></u><br>
 <?php
     // apres 2 sec, redirection 
-    header('Refresh: 5; url=ProblemCreation.php'); 
+    header('Refresh: 5; url=creation_template.php'); 
     ob_flush();	  
     } 
 
@@ -129,7 +129,7 @@ ini_set("memory_limit", -1 );
 	
 		<h1><a>Untitled Form</a></h1>
 		<h2>Ajoutez des fichiers audio</h2>
-		<form method="post" name="realform" action="ProblemCreation.php">
+		<form method="post" name="realform" action="creation_template.php">
 		<input type="hidden" name="infos" value="<?php if(isset($SerializedHtmlprotectedInfo)){echo($SerializedHtmlprotectedInfo);}?>"/>
 		</form>
 		<form method="POST" class="appnitro" action="upload.php" enctype="multipart/form-data">

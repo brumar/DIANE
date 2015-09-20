@@ -1,0 +1,18 @@
+h3 {
+	text-align: center;
+}
+
+p {
+	text-align: center;
+}
+
+form table{
+	margin: auto;
+	border: none;
+	text-align: center;
+}
+
+td:first-of-type{
+	text-align: right;
+}
+

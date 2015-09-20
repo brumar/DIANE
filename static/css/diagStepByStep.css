@@ -1,0 +1,17 @@
+
+.rep_attendue:hover{
+	background-color:#DDD;
+}
+
+.taa{
+	display:none;
+}
+
+
+.suggested{
+	border: 1px solid black;
+}
+
+#button_save_progression{
+	display:none;
+}

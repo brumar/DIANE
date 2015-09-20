@@ -1,3 +1,7 @@
+<?php
+	require_once("verifSessionProf.php");
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,6 +11,7 @@
 </head>
 
 <body id="main_body" >
+<?php include("headerEnseignant.php"); ?>
 <img id="top" src="static/images/top.png" alt="">
 	<div id="form_container">
 	<h1><a>Untitled Form</a></h1>
@@ -21,14 +26,14 @@ $values=$_POST["element_998"];
 if(isset($_POST["identifiant"])){
 	
 	$id=$_POST["identifiant"];
-	 require_once("conn.php");
+	 require_once("conn_pdo.php");
     
- 	$sql1 = "SELECT * FROM lists WHERE type='insertions' and id=\"$id\"";
+ 	$sql1 = "SELECT * FROM lists WHERE type='insertions' and id=".$id;
  
 
-  $result = mysql_query($sql1); //or die ("RequÃªte incorrecte");
+  $result = $bdd->query($sql1); //or die ("Requête incorrecte");
   $t=0;
-  while ($enregistrement = mysql_fetch_assoc($result))
+  while ($enregistrement = $result->fetch())
 		{
 			$t++;
 		  $values =  $enregistrement["values"];
@@ -60,9 +65,8 @@ if(isset($_POST["identifiant"])){
 </form>
   <p>
    <?php 
-  mysql_close(); // Ferme la connexion
- ?>
-<?php }}
+  $result->closeCursor();
+  }}
 ?>
 </div>
   
